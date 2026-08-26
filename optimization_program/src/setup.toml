@@ -12,5 +12,5 @@ game_name = "angry_mantis"
 path_to_games = "../games/"
 run_1000_batch = false
 bet_type = "feast"
-threads_for_fence_construction = 8
-threads_for_show_construction = 8
+threads_for_fence_construction = 20
+threads_for_show_construction = 20
