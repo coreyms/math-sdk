@@ -40,6 +40,29 @@ class GameCalculations(Executables):
             reelstrip_id = get_random_outcome(conditions["reel_weights"][self.gametype])
         self.force_board_from_reelstrips(reelstrip_id, {})
         self.get_special_symbols_on_board()
+        if self.gametype == self.config.freegame_type:
+            self.enforce_freegame_scatter_budget(reelstrip_id)
+
+    def enforce_freegame_scatter_budget(self, reelstrip_id: str, scatter_key: str = "scatter") -> None:
+        """Every scatter that LANDS in a free game must pay exactly +1 spin (Corey 2026-08-29).
+        The reel filter above already blanks scatters once the retrigger cap is fully banked;
+        this covers the partial case: with N retrigger spins of cap remaining, a board may show
+        at most N scatters. A session can therefore never deliver more scatters than it can
+        honour (max_retrigger_spins total) and the player never sees a scatter worth nothing.
+        Excess scatters are replaced the same way the reel filter substitutes: a pool symbol
+        drawn from that reel's strip composition, never an eaten symbol."""
+        budget = self.config.max_retrigger_spins - self.retrigger_spins_awarded
+        scatters = list(self.special_syms_on_board.get(scatter_key, []))
+        if len(scatters) <= budget:
+            return
+        for pos in scatters[budget:]:
+            strip = self.config.reels[reelstrip_id][pos["reel"]]
+            pool = [s for s in strip if s in self.config.eat_order and s not in self.eaten_symbols]
+            if not pool:
+                pool = [s for s in self.config.eat_order if s not in self.eaten_symbols]
+            self.board[pos["reel"]][pos["row"]] = self.create_symbol(random.choice(pool))
+        self.get_special_symbols_on_board()
+        self.recompute_anticipation()
 
     def recompute_anticipation(self) -> None:
         """Recalculate reel anticipation after the board has been edited (Ante lock)."""
