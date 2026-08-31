@@ -1,7 +1,7 @@
 num_show_pigs = 5000
 num_pigs_per_fence = 10000
 min_mean_to_median = 1.5
-max_mean_to_median = 3
+max_mean_to_median = 2.2
 pmb_rtp = 1.0
 simulation_trials = 5000
 test_spins = [ 5, 10, 20,]

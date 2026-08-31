@@ -34,7 +34,7 @@ class GameState(GameStateOverride):
         self.check_pool_exhausted()
         while self.fs < self.tot_fs and not self.max_win_cinematic and not self.wincap_triggered:
             self.update_freespin()
-            self.draw_board(emit_event=True)
+            self.draw_freegame_board()  # scatter-budget capped reveal (never more than spins remaining)
 
             self.evaluate_ways_board()
             self.leaf_strikes()

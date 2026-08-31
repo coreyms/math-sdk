@@ -124,9 +124,12 @@ class OptimizationSetup:
             },
             "feast": {
                 "conditions": _buy_mode_conditions(FEAST_COST, wincap_hr=FEAST_MAXWIN_HR),
-                "scaling": _buy_scaling(tail_scale=0.15),  # keep non-cap 5k+ wins rare (tail-probability class)
+                # tail_scale 0.15 -> 0.05 and m2m cap 3 -> 2.2 (2026-08-30): an unseeded optimizer
+                # roll landed feast prob10k at 0.0058 vs the 0.005 2-star limit (baseline 0.0044);
+                # squeezing the non-cap 5k+ tail keeps the tail-probability class clear
+                "scaling": _buy_scaling(tail_scale=0.05),  # keep non-cap 5k+ wins rare (tail-probability class)
                 # Feast has a 300x floor and a 1920x mean: a low mean/median ratio keeps mass in the body
-                "parameters": _params([5, 10, 20], [0.6, 0.2, 0.2], m2m=(1.5, 3)),
+                "parameters": _params([5, 10, 20], [0.6, 0.2, 0.2], m2m=(1.5, 2.2)),
                 "distribution_bias": ConstructFenceBias(
                     applied_criteria=["freegame"], bias_ranges=[(600, 4000)], bias_weights=[0.7]
                 ).return_dict(),

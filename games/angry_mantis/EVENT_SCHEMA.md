@@ -28,7 +28,7 @@ Board rows are **padded**: visible rows are 1–4, row 0 is the hidden top symbo
 | `strike` | `striker` (`marty`/`marky`), `trigger` (`auto`/`glowingLeaf`), `strikeIndex`, `position?` (the GL cell) | opening bite(s) and every Glowing Leaf |
 | `eat` | `striker`, `symbolEaten` (`L4`…`H1` or `null` when the pool is already empty), `strikeIndex`, `remainingPool[]` | directly after each `strike` |
 | `removeSymbolFromPool` | `symbol`, `remainingPool[]` | after a non-null `eat` |
-| `retriggerSpins` | `added`, `newTotalFs`, `cappedFrom`, `positions[]` | scatters in free spins (+1 each, max +3/session; no event when the cap is already reached) |
+| `retriggerSpins` | `added`, `newTotalFs`, `cappedFrom`, `positions[]` | scatters in free spins (+1 each; boards are drawn so no more than 3 scatters ever land per session, so `added` equals the scatter count of the preceding `reveal` and `cappedFrom == added`. Exception: a spin that triggers the max-win cinematic emits NO retriggerSpins event even if scatters landed — the session ends at the 20,000x cap) |
 | `maxWinCinematic` | `payout` (= 2,000,000) | all 8 symbols eaten; followed by `wincap`, `setTotalWin`, `bonusEnd`, `freeSpinEnd`, `finalWin` |
 | `bonusEnd` | `mode`, `totalSessionWin`, `spinsPlayed`, `symbolsEaten`, `eatenList[]` | before `freeSpinEnd` |
 
