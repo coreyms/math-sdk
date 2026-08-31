@@ -37,7 +37,7 @@ Board rows are **padded**: visible rows are 1–4, row 0 is the hidden top symbo
 [anteLock] reveal [winInfo setWin] setTotalWin
   [freeSpinTrigger bonusStart (strike eat removeSymbolFromPool)×1|2
     { updateFreeSpin reveal [winInfo setWin] setTotalWin (strike eat [removeSymbolFromPool])* [maxWinCinematic wincap setTotalWin] [retriggerSpins] }*
-    (wincap variant without exhaustion: a ways-win wincap emits `wincap` between winInfo and setTotalWin with no setWin for that spin; strikes/eats may still follow; no maxWinCinematic and no retriggerSpins are emitted on that spin)
+    (wincap variant without exhaustion: a ways-win wincap emits `wincap` between winInfo and setTotalWin with no setWin for that spin; strikes/eats may still follow, and if those strikes THEN exhaust the pool a `maxWinCinematic` follows with NO second wincap after it (~0.06% of books); no retriggerSpins is ever emitted on a wincap spin)
    bonusEnd freeSpinEnd]
 finalWin
 ```

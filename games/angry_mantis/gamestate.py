@@ -7,7 +7,7 @@ class GameState(GameStateOverride):
     """Handle basegame and freegame logic."""
 
     def run_spin(self, sim: int, simulation_seed=None) -> None:
-        self.reset_seed(sim)
+        self.reset_seed(sim, simulation_seed)  # honour per-criteria seeds if distributions ever use them
         self.repeat = True
         while self.repeat:
             self.reset_book()
@@ -32,6 +32,10 @@ class GameState(GameStateOverride):
         self.reset_fs_spin()
         self.auto_strikes()
         self.check_pool_exhausted()
+        # unreachable today (pool of 8 vs <=2 opening bites) - but if tuning ever lets the
+        # openers exhaust the pool, the top-up would bypass the loop's update_gametype_wins
+        # and corrupt the base/free split; fail loud instead (code-review 2026-08-31)
+        assert not self.max_win_cinematic, 'opening auto-strikes exhausted the pool: bank the win before the spin loop'
         while self.fs < self.tot_fs and not self.max_win_cinematic and not self.wincap_triggered:
             self.update_freespin()
             self.draw_freegame_board()  # scatter-budget capped reveal (retrigger headroom, NOT spins remaining)

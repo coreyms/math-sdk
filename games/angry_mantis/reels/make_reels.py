@@ -61,6 +61,9 @@ def build_reel(counts: dict, reel: int, rng: random.Random) -> list:
     for sym in spaced:
         n = _count(counts[sym], reel)
         gap = len(strip) // n
+        # scatters must never share a 4-row window (force_special_board and the free-game
+        # budget both rely on <=1 scatter per reel window); loud guard vs silent overlap
+        assert gap > ROWS + 1, f"scatter spacing too dense: gap {gap} <= ROWS+1 (reduce count or lengthen strip)"
         # insert evenly, with jitter, keeping >= ROWS spacing
         out, idx = [], 0
         for k in range(n):

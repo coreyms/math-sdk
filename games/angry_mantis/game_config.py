@@ -34,6 +34,12 @@ class GameConfig(Config):
         return cls._instance
 
     def __init__(self):
+        # singleton: a second GameConfig() in the same process must NOT re-run __init__ —
+        # it would rebuild reels/bet_modes and orphan state held by a live GameState
+        # (code-review 2026-08-31)
+        if getattr(self, "_initialized", False):
+            return
+        self._initialized = True
         super().__init__()
         self.game_id = "angry_mantis"
         self.provider_number = 0

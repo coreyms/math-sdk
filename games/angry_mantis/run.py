@@ -36,8 +36,10 @@ if __name__ == "__main__":
 
     config = GameConfig()
     gamestate = GameState(config)
-    if not args.no_opt or not args.no_analysis:
-        OptimizationSetup(config)
+    # ALWAYS construct: generate_configs reads config.opt_params, and without this the
+    # default {None: None} writes an empty math_config.json skeleton (books-only runs
+    # were clobbering it; code-review 2026-08-31)
+    OptimizationSetup(config)
 
     if not args.no_sims:
         create_books(gamestate, config, num_sim_args, batching_size, args.threads, not args.uncompressed, False)
@@ -49,7 +51,9 @@ if __name__ == "__main__":
         generate_configs(gamestate)
 
     if not args.no_analysis:
-        create_stat_sheet(gamestate, custom_keys=[{"symbol": "scatter"}, {"bonusMode": "feast"}])
+        # NOTE: no {"bonusMode": "feast"} custom key — return_valid_ids partial-matches the
+        # per-strike records too, double-counting feast books 3-9x in the stat sheet
+        create_stat_sheet(gamestate, custom_keys=[{"symbol": "scatter"}])
 
     if not args.no_checks:
         execute_all_tests(config)
