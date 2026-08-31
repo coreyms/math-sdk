@@ -27,3 +27,5 @@ __pycache__
 
 **/site/*
 
+games/*/library-backup*/
+games/*/library-pre-*/
