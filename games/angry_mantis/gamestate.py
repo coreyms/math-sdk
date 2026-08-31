@@ -34,12 +34,15 @@ class GameState(GameStateOverride):
         self.check_pool_exhausted()
         while self.fs < self.tot_fs and not self.max_win_cinematic and not self.wincap_triggered:
             self.update_freespin()
-            self.draw_freegame_board()  # scatter-budget capped reveal (never more than spins remaining)
+            self.draw_freegame_board()  # scatter-budget capped reveal (retrigger headroom, NOT spins remaining)
 
             self.evaluate_ways_board()
             self.leaf_strikes()
 
-            if not self.max_win_cinematic and self.check_fs_condition():
+            # no retrigger award on a session-terminating spin: neither pool exhaustion
+            # (max_win_cinematic) nor a ways-win wincap without exhaustion — promised spins
+            # that can never play must not be emitted (code-review 2026-08-31)
+            if not self.max_win_cinematic and not self.wincap_triggered and self.check_fs_condition():
                 self.update_fs_retrigger_amt()
 
             self.win_manager.update_gametype_wins(self.gametype)

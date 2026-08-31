@@ -28,7 +28,7 @@ Board rows are **padded**: visible rows are 1–4, row 0 is the hidden top symbo
 | `strike` | `striker` (`marty`/`marky`), `trigger` (`auto`/`glowingLeaf`), `strikeIndex`, `position?` (the GL cell) | opening bite(s) and every Glowing Leaf |
 | `eat` | `striker`, `symbolEaten` (`L4`…`H1` or `null` when the pool is already empty), `strikeIndex`, `remainingPool[]` | directly after each `strike` |
 | `removeSymbolFromPool` | `symbol`, `remainingPool[]` | after a non-null `eat` |
-| `retriggerSpins` | `added`, `newTotalFs`, `cappedFrom`, `positions[]` | scatters in free spins (+1 each; boards are drawn so no more than 3 scatters ever land per session, so `added` equals the scatter count of the preceding `reveal` and `cappedFrom == added`. Exception: a spin that triggers the max-win cinematic emits NO retriggerSpins event even if scatters landed — the session ends at the 20,000x cap) |
+| `retriggerSpins` | `added`, `newTotalFs`, `cappedFrom`, `positions[]` | scatters in free spins (+1 each; boards are drawn so no more than 3 VISIBLE-ROW scatters ever land per session, so `added` equals the visible-row (rows 1-4) scatter count of the preceding `reveal` and `cappedFrom == added`; the serialized reveal's padding rows 0/5 can carry additional scatter-flagged cells that do not count. Exception: a session-terminating spin — max-win cinematic (pool exhaustion) OR a ways-win wincap without exhaustion — emits NO retriggerSpins event even if scatters landed; the session ends at the 20,000x cap and promised spins that can never play are never emitted) |
 | `maxWinCinematic` | `payout` (= 2,000,000) | all 8 symbols eaten; followed by `wincap`, `setTotalWin`, `bonusEnd`, `freeSpinEnd`, `finalWin` |
 | `bonusEnd` | `mode`, `totalSessionWin`, `spinsPlayed`, `symbolsEaten`, `eatenList[]` | before `freeSpinEnd` |
 
@@ -37,6 +37,7 @@ Board rows are **padded**: visible rows are 1–4, row 0 is the hidden top symbo
 [anteLock] reveal [winInfo setWin] setTotalWin
   [freeSpinTrigger bonusStart (strike eat removeSymbolFromPool)×1|2
     { updateFreeSpin reveal [winInfo setWin] setTotalWin (strike eat [removeSymbolFromPool])* [maxWinCinematic wincap setTotalWin] [retriggerSpins] }*
+    (wincap variant without exhaustion: a ways-win wincap emits `wincap` between winInfo and setTotalWin with no setWin for that spin; strikes/eats may still follow; no maxWinCinematic and no retriggerSpins are emitted on that spin)
    bonusEnd freeSpinEnd]
 finalWin
 ```

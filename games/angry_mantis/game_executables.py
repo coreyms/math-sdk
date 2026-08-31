@@ -105,6 +105,9 @@ class GameExecutables(GameCalculations):
         """+1 spin per scatter, capped at config.max_retrigger_spins per session."""
         wanted = self.config.freespin_triggers[self.gametype][self.count_special_symbols(scatter_key)]
         remaining = self.config.max_retrigger_spins - self.retrigger_spins_awarded
+        # draw_freegame_board guarantees boards never exceed the budget; fail LOUD if any code
+        # path ever bypasses it (a silent clamp here would recreate the unpaid-scatter confusion)
+        assert wanted <= remaining, f"scatter budget bypassed: wanted {wanted} > remaining {remaining}"
         added = max(0, min(wanted, remaining))
         if added == 0:
             return
