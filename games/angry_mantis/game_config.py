@@ -76,6 +76,10 @@ class GameConfig(Config):
             self.basegame_type: {3: 8, 4: 10, 5: 10},
             self.freegame_type: {n: min(n, 3) for n in range(1, 21)},
         }
+        # DELIBERATE (Corey 2026-08-31): 3, not the SDK-conventional min-1 — anticipation only
+        # plays once the trigger is guaranteed (4th/5th scatter upgrade tease). Corey dislikes
+        # games that run the two-down sweat constantly and never deliver; do NOT 'fix' to 2
+        # unless the anticipation animation itself gets much faster/better (his art task).
         self.anticipation_triggers = {self.basegame_type: 3, self.freegame_type: 1}
         self.eat_order = EAT_ORDER
         self.base_spin_win_cap = BASE_SPIN_WIN_CAP
