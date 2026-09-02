@@ -22,6 +22,16 @@ class GameStateOverride(GameExecutables):
             self.draw_board(emit_event=False)
         reveal_event(self)
 
+    def check_repeat(self) -> None:
+        """A distribution may carry a `win_range` (lo, hi) condition: the book is accepted only when
+        its final win lands inside it. Used to farm sessions for bands the natural strips never
+        reach (the bonus buy's 40-100x of price; 2026-09-02)."""
+        super().check_repeat()
+        if not self.repeat:
+            win_range = self.get_current_distribution_conditions().get("win_range")
+            if win_range is not None and not (win_range[0] <= self.final_win < win_range[1]):
+                self.repeat = True
+
     def reset_book(self):
         super().reset_book()
         self.bonus_mode = "free"

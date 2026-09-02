@@ -10,7 +10,7 @@ from src.config.distributions import Distribution
 from src.config.betmode import BetMode
 
 # ---- Tunables that Corey may want to revisit (see compliance review doc) ----
-FEAST_COST = 2000.0  # 1000x would lift the 2* bet-template max bet from ~$50 to ~$100
+FEAST_COST = 1000.0  # 2000x -> 1000x (Corey 2026-09-02): cap = 20x the price at 1 in 100, floor 0.3x, 2* bet template ~$100
 BONUS_COST = 100.0
 SUPER_COST = 300.0
 ANTE_COST = 2.0
@@ -95,6 +95,7 @@ class GameConfig(Config):
             "FR_SUPER": "FR_SUPER.csv",
             "FR_FEAST": "FR_FEAST.csv",
             "FRWCAP": "FRWCAP.csv",
+            "FRBIG": "FRBIG.csv",
         }
         self.reels = {}
         for r, f in reels.items():
@@ -166,9 +167,29 @@ class GameConfig(Config):
                 ),
             ]
 
-        def buy_distributions(scatters: int, wincap_quota: float):
+        def buy_distributions(scatters: int, wincap_quota: float, big_slices=(), big_reels=None):
+            """big_slices: [(quota, (lo, hi)), ...] — slices of sessions drawn on `big_reels` (default the
+            FRBIG strip) and accepted only when the final win lands in [lo, hi)
+            (GameStateOverride.check_repeat): raw material for the intermediate bands the natural
+            strip never reaches (bonus 40-100x of price; feast 5-10x; 2026-09-02)."""
             rw = {self.basegame_type: {"BR0": 1}, self.freegame_type: {"FR0": 1}}
-            return [
+            fw_big = big_reels or {"free": {"FRBIG": 1}, "super": {"FRBIG": 1}, "feast": {"FRBIG": 1}}
+            big = [
+                Distribution(
+                    criteria=f"freegame_big{k + 1 if k else ''}",
+                    quota=quota,
+                    conditions={
+                        "reel_weights": rw,
+                        "free_reel_weights": fw_big,
+                        "force_freegame": True,
+                        "scatter_triggers": {scatters: 1},
+                        "win_range": win_range,
+                    },
+                )
+                for k, (quota, win_range) in enumerate(big_slices)
+            ]
+            big_quota = sum(q for q, _ in big_slices)
+            return big + [
                 Distribution(
                     criteria="wincap",
                     quota=wincap_quota,
@@ -183,7 +204,7 @@ class GameConfig(Config):
                 ),
                 Distribution(
                     criteria="freegame",
-                    quota=1 - wincap_quota,
+                    quota=1 - wincap_quota - big_quota,
                     conditions={
                         "reel_weights": rw,
                         "free_reel_weights": free_reels,
@@ -207,7 +228,12 @@ class GameConfig(Config):
             BetMode(
                 name="bonus", cost=BONUS_COST, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=False, is_buybonus=True,
-                distributions=buy_distributions(3, 0.005),
+                # 2% of bonus sessions farmed on FRBIG into 2,000-20,000x (20-200x of price) so the LUT
+                # shaping (tools/shape_lut.py) has material for the 5x+ bands (2026-09-02)
+                # 10% farmed on FRBIG into 2,000-20,000x base (20-200x of price): the wide window accepts 1 in
+                # ~18 draws and carries the 5,000-10,000x sessions (~0.7% of accepts) that a narrow window
+                # would need thousands of draws each to find (measured 2026-09-02)
+                distributions=buy_distributions(3, 0.005, big_slices=[(0.10, (2000.0, 20000.0))]),
             ),
             BetMode(
                 name="super", cost=SUPER_COST, rtp=self.rtp, max_win=self.wincap,
@@ -217,6 +243,8 @@ class GameConfig(Config):
             BetMode(
                 name="feast", cost=FEAST_COST, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=False, is_buybonus=True,
-                distributions=buy_distributions(5, 0.08),
+                # wincap 8% -> 2% (the table weights the cap at 1%); 1% farmed into 5,000-10,000x base
+                # (5-10x of the 1000x price) on the feast's own strip — ~1 accept per 4,000 draws, so 1% only
+                distributions=buy_distributions(5, 0.02, big_slices=[(0.01, (5000.0, 10000.0))], big_reels={"free": {"FR_FEAST": 1}, "super": {"FR_FEAST": 1}, "feast": {"FR_FEAST": 1}}),
             ),
         ]

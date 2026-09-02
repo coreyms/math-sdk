@@ -22,7 +22,7 @@ FEATURE_AV_WIN = {"freegame": 100.0, "supergame": 300.0, "feastgame": 2000.0}
 WINCAP_RTP_SPIN = 0.003  # base/ante share of RTP paid through 20,000x rounds
 WINCAP_RTP_BONUS = 0.003
 WINCAP_RTP_SUPER = 0.005
-FEAST_MAXWIN_HR = 50  # 1 in N Feast sessions pays the 20,000x max win. Tail-probability limit P(>=10k) scaled x0.2 at
+FEAST_MAXWIN_HR = 150  # 1 in N Feast sessions pays the 20,000x max win (1/50 -> 1/150 with the 1000x price, Corey 2026-09-02). Tail-probability limit P(>=10k) scaled x0.2 at
 # 2000x cost must stay <= 0.005 (2*) / 0.010 (3*): 1/50 -> 0.004 leaves room for a few non-cap 10k+ wins.
 BASE_HIT_RATE = 3.2  # 1 in N base spins is a paying spin (rule: >= 1 in 50)
 WINCAP = 20000.0
@@ -47,14 +47,27 @@ def _spin_mode_conditions(cost: float, rates: dict):
     return conds
 
 
-def _buy_mode_conditions(cost: float, wincap_rtp: float = None, wincap_hr: float = None):
+def _buy_mode_conditions(cost: float, wincap_rtp: float = None, wincap_hr: float = None, big_rtp: float = 0.0):
+    """big_rtp: RTP share of the 'freegame_big' farmed sessions (bonus only). NOTE: since 2026-09-02 the
+    buy-mode lookup tables are shaped directly by tools/shape_lut.py to Corey's locked band targets;
+    these conditions only have to describe the simulation criteria so run.py's setup validates."""
     if wincap_hr is not None:
         wincap_rtp = round(WINCAP / wincap_hr / cost, 5)
     wincap = ConstructConditions(rtp=wincap_rtp, av_win=WINCAP, search_conditions=WINCAP).return_dict()
-    return {
+    conds = {
         "wincap": wincap,
-        "freegame": ConstructConditions(rtp=round(TARGET_RTP - wincap["rtp"], 5), hr="x").return_dict(),
+        "freegame": ConstructConditions(rtp=round(TARGET_RTP - wincap["rtp"] - big_rtp, 5), hr="x").return_dict(),
     }
+    if big_rtp:
+        # split evenly across however many farmed slices the mode declares (run.py validates names)
+        n = big_slices_for(cost)
+        for k in range(n):
+            conds[f"freegame_big{k + 1 if k else ''}"] = ConstructConditions(rtp=round(big_rtp / n, 5), hr="x").return_dict()
+    return conds
+
+
+def big_slices_for(cost: float) -> int:
+    return {BONUS_COST: 1, FEAST_COST: 1}.get(cost, 0)
 
 
 def _spin_scaling():
@@ -113,7 +126,7 @@ class OptimizationSetup:
                 "distribution_bias": spin_bias,
             },
             "bonus": {
-                "conditions": _buy_mode_conditions(BONUS_COST, wincap_rtp=WINCAP_RTP_BONUS),
+                "conditions": _buy_mode_conditions(BONUS_COST, wincap_rtp=WINCAP_RTP_BONUS, big_rtp=0.1),
                 "scaling": _buy_scaling(),
                 "parameters": _params([10, 20, 50], [0.6, 0.2, 0.2]),
             },
@@ -123,7 +136,7 @@ class OptimizationSetup:
                 "parameters": _params([10, 20, 50], [0.6, 0.2, 0.2]),
             },
             "feast": {
-                "conditions": _buy_mode_conditions(FEAST_COST, wincap_hr=FEAST_MAXWIN_HR),
+                "conditions": _buy_mode_conditions(FEAST_COST, wincap_hr=FEAST_MAXWIN_HR, big_rtp=0.05),
                 # tail_scale 0.15 -> 0.05 and m2m cap 3 -> 2.2 (2026-08-30): an unseeded optimizer
                 # roll landed feast prob10k at 0.0058 vs the 0.005 2-star limit (baseline 0.0044);
                 # squeezing the non-cap 5k+ tail keeps the tail-probability class clear

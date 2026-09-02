@@ -30,6 +30,12 @@ FREE = {
 }
 SUPER = dict(FREE, GL=[0, 1, 1, 1, 1])
 FEAST = dict(FREE, GL=[0, 1, 1, 1, 0], W=[0, 7, 7, 7, 7])
+# "Big session" strip for the bonus buy (2026-09-02): the normal free strip almost never eats
+# enough to reach 4,000x, and the wincap strip always exhausts the pool, so the 40-100x-of-price
+# band was structurally empty (zero books in 200k). Two leaves + twelve wilds per reel lands
+# ~0.6% of sessions in 4,000-10,000x and ~3% in 2,000-4,000x without forcing the cap; the sim
+# farms those with an acceptance window (game_config buy_distributions big_range).
+BIG = dict(FREE, GL=[2, 2, 2, 2, 2], W=[0, 12, 12, 12, 12])
 # Wincap-forcing strip: GL-dense so the pool is exhausted within a session.
 WCAP = {
     "L4": 4, "L3": 4, "L2": 4, "L1": 4, "M3": 4, "M2": 4, "M1": 4, "H1": 4,
@@ -100,6 +106,7 @@ def main():
     write_csv("FR_SUPER", SUPER, 4)
     write_csv("FR_FEAST", FEAST, 5)
     write_csv("FRWCAP", WCAP, 6)
+    write_csv("FRBIG", BIG, 7)
 
 
 if __name__ == "__main__":
