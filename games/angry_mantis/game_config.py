@@ -42,6 +42,10 @@ class GameConfig(Config):
         self._initialized = True
         super().__init__()
         self.game_id = "angry_mantis"
+        # the SDK defaults these to sample_provider / sample_lines and writes them into
+        # library/configs/config_fe_angry_mantis.json (Stake review 2026-09-02)
+        self.provider_name = "polymath_games"
+        self.game_name = "angry_mantis"
         self.provider_number = 0
         self.working_name = "Angry Mantis"
         self.wincap = 20000.0
