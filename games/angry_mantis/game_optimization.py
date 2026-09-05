@@ -2,8 +2,10 @@
 
 All the headline tunables live at the top of this file. RTP shares are in *cost units*
 (i.e. fraction of the mode cost returned), hit-rates (hr) are 1-in-N rounds.
-The natural trigger rates below are what a 96% RTP can afford with features valued
-at ~100x / ~300x / ~2000x; the May design's 1/75, 1/250, 1/1500 are not reachable.
+
+NOTE (2026-09-05): every lookup table is now shaped directly by tools/shape_lut.py (parent
+repo) — the numbers here are the same targets, kept so math_config.json documents them and
+run.py's setup validates the criteria names. The Rust optimiser is not run.
 """
 
 from optimization_program.optimization_config import (
@@ -13,22 +15,27 @@ from optimization_program.optimization_config import (
     ConstructFenceBias,
     verify_optimization_input,
 )
-from game_config import TARGET_RTP, FEAST_COST, BONUS_COST, SUPER_COST, ANTE_COST
+from game_config import TARGET_RTP, MYSTERY_COST, BONUS_COST, SUPER_COST, ANTE_COST
 
 # ---- Natural feature rates (1 in N spins) and average feature payouts (x bet) ----
-BASE_RATES = {"freegame": 300, "supergame": 2500, "feastgame": 30000}
-ANTE_RATES = {"freegame": 120, "supergame": 800, "feastgame": 20000}
-FEATURE_AV_WIN = {"freegame": 100.0, "supergame": 300.0, "feastgame": 2000.0}
-WINCAP_RTP_SPIN = 0.003  # base/ante share of RTP paid through 20,000x rounds
+# 2026-09-05 reshape (target feel = Mutiny): bonuses land often and pay little, the natural
+# Super is where the game is generous (fatter than the 300x buy), Feast is the rare epic.
+BASE_RATES = {"freegame": 120, "supergame": 1000, "feastgame": 20000}
+ANTE_RATES = {"freegame": 30, "supergame": 300, "feastgame": 5000}
+FEATURE_AV_WIN = {"freegame": 35.0, "supergame": 400.0, "feastgame": 2000.0}  # base, x bet
+ANTE_FEATURE_AV_WIN = {"freegame": 30.0, "supergame": 350.0, "feastgame": 2000.0}  # ante, x bet
+MYSTERY_SPLIT = {"0": 0.5, "supergame": 0.4, "feastgame": 0.1}
+MYSTERY_AV_WIN = {"supergame": 360.0, "feastgame": 1440.0}  # x bet; 0.4*360 + 0.1*1440 = 288 = 96% of 300
+WINCAP_RTP_SPIN = 0.003  # base/ante share of RTP paid through forced 20,000x rounds (super/feast reach it on their own too)
 WINCAP_RTP_BONUS = 0.003
 WINCAP_RTP_SUPER = 0.005
-FEAST_MAXWIN_HR = 150  # 1 in N Feast sessions pays the 20,000x max win (1/50 -> 1/150 with the 1000x price, Corey 2026-09-02). Tail-probability limit P(>=10k) scaled x0.2 at
-# 2000x cost must stay <= 0.005 (2*) / 0.010 (3*): 1/50 -> 0.004 leaves room for a few non-cap 10k+ wins.
+FEAST_MAXWIN_HR = 150  # 1 in N Feast sessions pays the 20,000x max win
 BASE_HIT_RATE = 3.2  # 1 in N base spins is a paying spin (rule: >= 1 in 50)
+ANTE_HIT_RATE = 4.0
 WINCAP = 20000.0
 
 
-def _spin_mode_conditions(cost: float, rates: dict):
+def _spin_mode_conditions(cost: float, rates: dict, av_win: dict, hit_rate: float):
     conds = {
         # wincap fences: av_win in bet units, rtp in cost units, hr derived (= av_win / rtp / cost)
         "wincap": ConstructConditions(rtp=WINCAP_RTP_SPIN, av_win=WINCAP, search_conditions=WINCAP).return_dict(),
@@ -36,14 +43,24 @@ def _spin_mode_conditions(cost: float, rates: dict):
     }
     used = WINCAP_RTP_SPIN
     for name, kind in (("freegame", 3), ("supergame", 4), ("feastgame", 5)):
-        rtp = round(FEATURE_AV_WIN[name] / cost / rates[name], 5)
+        rtp = round(av_win[name] / cost / rates[name], 5)
         used += rtp
         conds[name] = ConstructConditions(
             rtp=rtp, hr=rates[name], search_conditions={"symbol": "scatter", "kind": str(kind)}
         ).return_dict()
     base_rtp = round(TARGET_RTP - used, 5)
     assert base_rtp > 0.05, f"feature budget leaves no base-game RTP ({base_rtp})"
-    conds["basegame"] = ConstructConditions(hr=BASE_HIT_RATE, rtp=base_rtp).return_dict()
+    conds["basegame"] = ConstructConditions(hr=hit_rate, rtp=base_rtp).return_dict()
+    return conds
+
+
+def _mystery_conditions():
+    conds = {"0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict()}
+    for name, kind in (("supergame", 4), ("feastgame", 5)):
+        rtp = round(MYSTERY_SPLIT[name] * MYSTERY_AV_WIN[name] / MYSTERY_COST, 5)
+        conds[name] = ConstructConditions(
+            rtp=rtp, hr=round(1 / MYSTERY_SPLIT[name], 5), search_conditions={"symbol": "scatter", "kind": str(kind)}
+        ).return_dict()
     return conds
 
 
@@ -67,7 +84,7 @@ def _buy_mode_conditions(cost: float, wincap_rtp: float = None, wincap_hr: float
 
 
 def big_slices_for(cost: float) -> int:
-    return {BONUS_COST: 1, FEAST_COST: 1}.get(cost, 0)
+    return {BONUS_COST: 1}.get(cost, 0)
 
 
 def _spin_scaling():
@@ -114,13 +131,13 @@ class OptimizationSetup:
         ).return_dict()
         self.game_config.opt_params = {
             "base": {
-                "conditions": _spin_mode_conditions(1.0, BASE_RATES),
+                "conditions": _spin_mode_conditions(1.0, BASE_RATES, FEATURE_AV_WIN, BASE_HIT_RATE),
                 "scaling": _spin_scaling(),
                 "parameters": _params([50, 100, 200], [0.3, 0.4, 0.3]),
                 "distribution_bias": spin_bias,
             },
             "ante": {
-                "conditions": _spin_mode_conditions(ANTE_COST, ANTE_RATES),
+                "conditions": _spin_mode_conditions(ANTE_COST, ANTE_RATES, ANTE_FEATURE_AV_WIN, ANTE_HIT_RATE),
                 "scaling": _spin_scaling(),
                 "parameters": _params([50, 100, 200], [0.3, 0.4, 0.3]),
                 "distribution_bias": spin_bias,
@@ -135,17 +152,10 @@ class OptimizationSetup:
                 "scaling": _buy_scaling(),
                 "parameters": _params([10, 20, 50], [0.6, 0.2, 0.2]),
             },
-            "feast": {
-                "conditions": _buy_mode_conditions(FEAST_COST, wincap_hr=FEAST_MAXWIN_HR, big_rtp=0.05),
-                # tail_scale 0.15 -> 0.05 and m2m cap 3 -> 2.2 (2026-08-30): an unseeded optimizer
-                # roll landed feast prob10k at 0.0058 vs the 0.005 2-star limit (baseline 0.0044);
-                # squeezing the non-cap 5k+ tail keeps the tail-probability class clear
+            "mystery": {
+                "conditions": _mystery_conditions(),
                 "scaling": _buy_scaling(tail_scale=0.05),
-                # Feast has a 300x floor and a 1920x mean: a low mean/median ratio keeps mass in the body
-                "parameters": _params([5, 10, 20], [0.6, 0.2, 0.2], m2m=(1.5, 2.2)),
-                "distribution_bias": ConstructFenceBias(
-                    applied_criteria=["freegame"], bias_ranges=[(600, 4000)], bias_weights=[0.7]
-                ).return_dict(),
+                "parameters": _params([5, 10, 20], [0.6, 0.2, 0.2], m2m=(1.5, 4)),
             },
         }
         verify_optimization_input(self.game_config, self.game_config.opt_params)

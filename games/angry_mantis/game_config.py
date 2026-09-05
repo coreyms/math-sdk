@@ -1,7 +1,12 @@
 """Angry Mantis - 5x4, 1024-ways slot with Mantis Strike free-spin features.
 
-Bet modes: base (1x), ante (2x, scatter locked on reel 1), bonus (100x, Marty),
-super (300x, Marky), feast (FEAST_COST, both mantises).
+Bet modes: base (1x), ante (3x, scatter locked on reel 1), bonus (100x, Marty),
+super (300x, Marky), mystery (300x: 50% nothing / 40% Super / 10% Feast).
+
+2026-09-05 reshape (Corey's go, target feel = Mutiny): starved base game, features carry the
+RTP, ante at 3x with ~4x the natural trigger rates, the 1000x Feast buy replaced by the
+mystery buy. Spin-mode and mystery lookup tables are shaped directly by tools/shape_lut.py
+(parent repo); the Rust optimiser is no longer used for any mode.
 """
 
 import os
@@ -10,16 +15,16 @@ from src.config.distributions import Distribution
 from src.config.betmode import BetMode
 
 # ---- Tunables that Corey may want to revisit (see compliance review doc) ----
-FEAST_COST = 1000.0  # 2000x -> 1000x (Corey 2026-09-02): cap = 20x the price at 1 in 100, floor 0.3x, 2* bet template ~$100
+MYSTERY_COST = 300.0  # replaces the 1000x Feast buy (2026-09-05): 50% nothing / 40% Super / 10% Feast
 BONUS_COST = 100.0
 SUPER_COST = 300.0
-ANTE_COST = 2.0
+ANTE_COST = 3.0  # 2x -> 3x (2026-09-05)
 TARGET_RTP = 0.96
 
 # Symbols eaten in ascending 5-of-a-kind payout order
 EAT_ORDER = ["L4", "L3", "L2", "L1", "M3", "M2", "M1", "H1"]
 BASE_SPIN_WIN_CAP = 250.0  # base spins paying more than this are re-drawn
-FEAST_MIN_WIN = 300.0  # Feast sessions paying less than this are re-drawn
+FEAST_MIN_WIN = 400.0  # Feast sessions paying less than this are re-drawn (>= the 300x mystery price: a mystery Feast is always a profit)
 MAX_RETRIGGER_SPINS = 3  # +1 spin per scatter in free games, capped per session
 
 
@@ -218,6 +223,40 @@ class GameConfig(Config):
                 ),
             ]
 
+        def mystery_distributions():
+            """Mystery buy: a plain zero-win board, a 4-scatter Super or a 5-scatter Feast. The 50/40/10
+            split is set exactly by tools/shape_lut.py; the quotas here only decide how much simulated
+            material each slice gets (feast books are the scarce ones)."""
+            rw = {self.basegame_type: {"BR0": 1}, self.freegame_type: {"FR0": 1}}
+            return [
+                Distribution(
+                    criteria="0",
+                    quota=0.4,
+                    win_criteria=0.0,
+                    conditions={"reel_weights": rw, "free_reel_weights": free_reels},
+                ),
+                Distribution(
+                    criteria="supergame",
+                    quota=0.4,
+                    conditions={
+                        "reel_weights": rw,
+                        "free_reel_weights": free_reels,
+                        "force_freegame": True,
+                        "scatter_triggers": {4: 1},
+                    },
+                ),
+                Distribution(
+                    criteria="feastgame",
+                    quota=0.2,
+                    conditions={
+                        "reel_weights": rw,
+                        "free_reel_weights": free_reels,
+                        "force_freegame": True,
+                        "scatter_triggers": {5: 1},
+                    },
+                ),
+            ]
+
         self.bet_modes = [
             BetMode(
                 name="base", cost=1.0, rtp=self.rtp, max_win=self.wincap,
@@ -245,10 +284,8 @@ class GameConfig(Config):
                 distributions=buy_distributions(4, 0.01),
             ),
             BetMode(
-                name="feast", cost=FEAST_COST, rtp=self.rtp, max_win=self.wincap,
+                name="mystery", cost=MYSTERY_COST, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=False, is_buybonus=True,
-                # wincap 8% -> 2% (the table weights the cap at 1%); 1% farmed into 5,000-10,000x base
-                # (5-10x of the 1000x price) on the feast's own strip — ~1 accept per 4,000 draws, so 1% only
-                distributions=buy_distributions(5, 0.02, big_slices=[(0.01, (5000.0, 10000.0))], big_reels={"free": {"FR_FEAST": 1}, "super": {"FR_FEAST": 1}, "feast": {"FR_FEAST": 1}}),
+                distributions=mystery_distributions(),
             ),
         ]

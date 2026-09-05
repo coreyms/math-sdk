@@ -13,8 +13,8 @@ from utils.rgs_verification import execute_all_tests
 from src.state.run_sims import create_books
 from src.write_data.write_configs import generate_configs
 
-ALL_MODES = ["base", "ante", "bonus", "super", "feast"]
-DEFAULT_SIMS = {"base": int(5e5), "ante": int(5e5), "bonus": int(2e5), "super": int(2e5), "feast": int(1e5)}
+ALL_MODES = ["base", "ante", "bonus", "super", "mystery"]
+DEFAULT_SIMS = {"base": int(5e5), "ante": int(5e5), "bonus": int(2e5), "super": int(2e5), "mystery": int(2e5)}
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
