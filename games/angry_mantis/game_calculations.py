@@ -56,8 +56,56 @@ class GameCalculations(Executables):
                 anticipation[reel] = i + 1
         self.anticipation = anticipation
 
+    # ---- Mystery buy boards (Corey 2026-09-05) ----
+    # Reels 1 and 2 ALWAYS show a scatter, so the round is read off reels 3-5 alone: two blanks
+    # there = the empty tray (a 3-scatter regular bonus is never in the mystery deck), one blank
+    # = a Super is certain, three scatters = the Feast. Anticipation follows what is still open:
+    # reels 3 and 4 always tease (nothing/super, then super/feast, is undecided until they land);
+    # reel 5 teases only when reels 3 AND 4 both carried a scatter, because that is the only
+    # state where reel 5 still decides anything (feast or not). Once two blanks have landed, or
+    # one blank plus a scatter, the outcome is known and reel 5 just drops.
+    MYSTERY_LOCKED_REELS = (0, 1)
+
+    def _scatter_reels(self, trigger_symbol: str = "scatter") -> set:
+        return {pos["reel"] for pos in self.special_syms_on_board[trigger_symbol]}
+
+    def draw_mystery_board(self, emit_event: bool, trigger_symbol: str) -> None:
+        conditions = self.get_current_distribution_conditions()
+        locked = set(self.MYSTERY_LOCKED_REELS)
+        if conditions["force_freegame"]:
+            num_scatters = get_random_outcome(conditions["scatter_triggers"])  # 4 (super) or 5 (feast)
+            self.force_special_board(trigger_symbol, num_scatters)
+            while not locked <= self._scatter_reels(trigger_symbol):
+                self.force_special_board(trigger_symbol, num_scatters)
+        else:
+            # the empty tray: a natural board with no scatter on reels 3-5, then one scatter
+            # placed on each of reels 1 and 2 (any row) — exactly two, never three
+            self.create_board_reelstrips()
+            while any(r not in locked for r in self._scatter_reels(trigger_symbol)):
+                self.create_board_reelstrips()
+            sym = self.config.special_symbols[trigger_symbol][0]
+            for reel in locked:
+                if reel not in self._scatter_reels(trigger_symbol):
+                    self.board[reel][random.randrange(self.config.num_rows[reel])] = self.create_symbol(sym)
+                    self.get_special_symbols_on_board()
+        self.get_special_symbols_on_board()
+        on = self._scatter_reels(trigger_symbol)
+        anticipation = [0] * self.config.num_reels
+        anticipation[2] = 1
+        anticipation[3] = 2
+        anticipation[4] = 3 if (2 in on and 3 in on) else 0
+        self.anticipation = anticipation
+        if emit_event:
+            from src.events.events import reveal_event
+
+            reveal_event(self)
+
     def draw_board(self, emit_event: bool = True, trigger_symbol: str = "scatter") -> None:
-        """Ante mode: reel 1 never carries a reel-strip scatter; one is locked on the bottom row instead."""
+        """Ante mode: reel 1 never carries a reel-strip scatter; one is locked on the bottom row instead.
+        Mystery mode: see draw_mystery_board."""
+        if self.gametype == self.config.basegame_type and self.in_mode("mystery"):
+            self.draw_mystery_board(emit_event, trigger_symbol)
+            return
         if self.gametype == self.config.freegame_type or not self.in_mode("ante"):
             super().draw_board(emit_event=emit_event, trigger_symbol=trigger_symbol)
             return

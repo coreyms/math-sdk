@@ -44,3 +44,7 @@ Notes
     now shaped by tools/shape_lut.py: spin modes and mystery by criteria group (SPIN_TARGETS: exact natural rates
     base 1/120, 1/1,000, 1/20,000 with feature means 34x/360x/2,000x; ante 1/30, 1/300, 1/5,000 with 32x/370x/2,000x;
     hit 1 in 4 base, 1 in 5 ante; base std ~43.5), bonus/super by price band as before. The Rust optimiser is not used.
+  - Mystery boards (Corey 2026-09-05, game_calculations.draw_mystery_board): reels 1-2 ALWAYS carry a scatter; the empty
+    tray is exactly those two (never a 3-scatter board), Super = reels 1-2 + two of 3-5, Feast = all five. Anticipation is
+    hand-set: reels 3 and 4 always tease, reel 5 only when reels 3 AND 4 both landed scatters (the feast sweat); once the
+    outcome is decided (two blanks, or one blank + one scatter) reel 5 just drops.

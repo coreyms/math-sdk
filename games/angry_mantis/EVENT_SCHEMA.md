@@ -42,3 +42,7 @@ Board rows are **padded**: visible rows are 1–4, row 0 is the hidden top symbo
 finalWin
 ```
 Frontend-only: `createBonusSnapshot {bookEvents[]}` is synthesised when resuming an interrupted bonus.
+
+
+## Mystery mode (300x buy)
+Every mystery book opens with a base-game `reveal` whose board carries scatters on reels 1 and 2. Empty tray (50%): exactly those two scatters, `anticipation` `[0,0,1,2,0]`, then `setTotalWin 0` / `finalWin 0` (no bonus events; the frontend shows the tray and sends no end-round). Super (40%): four scatters (reels 1-2 + two of 3-5), `anticipation` `[0,0,1,2,3]` only when reels 3 and 4 both carry one; then the normal `freeSpinTrigger` / `bonusStart mode=super` flow. Feast (10%): five scatters, `anticipation` `[0,0,1,2,3]`, `bonusStart mode=feast`, session win never below 400x.
