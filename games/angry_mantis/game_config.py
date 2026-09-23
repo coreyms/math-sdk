@@ -223,21 +223,53 @@ class GameConfig(Config):
                 ),
             ]
 
+        # Farmed windows for the 3-star tail pass (2026-09-05): sessions accepted only when the
+        # session total lands in the ways-geometry gap (7,000-10,500x base) or the high band
+        # (14,000-18,000x). AM_GAP_Q / AM_HIGH_Q are the per-window quotas (fraction of the mode's
+        # books); 0 disables. Drawn on the FRBIG strip like the existing freegame_big slice.
+        GAP_Q = float(os.environ.get("AM_GAP_Q", "0"))
+        HIGH_Q = float(os.environ.get("AM_HIGH_Q", "0"))
+        GAP_WIN = (7000.0, 10500.0)
+        HIGH_WIN = (14000.0, 18000.0)
+        farm_slices = ([(GAP_Q, GAP_WIN)] if GAP_Q else []) + ([(HIGH_Q, HIGH_WIN)] if HIGH_Q else [])
+
         def mystery_distributions():
             """Mystery buy: a plain zero-win board, a 4-scatter Super or a 5-scatter Feast. The 50/40/10
             split is set exactly by tools/shape_lut.py; the quotas here only decide how much simulated
             material each slice gets (feast books are the scarce ones)."""
             rw = {self.basegame_type: {"BR0": 1}, self.freegame_type: {"FR0": 1}}
-            return [
+            fw_big = {"free": {"FRBIG": 1}, "super": {"FRBIG": 1}, "feast": {"FRBIG": 1}}
+            farm_defs = [
+                (crit, sc, tag, q, win)
+                for crit, sc in (("supergame", 4), ("feastgame", 5))
+                for tag, (q, win) in (("gap", (GAP_Q, GAP_WIN)), ("high", (HIGH_Q, HIGH_WIN)))
+                if q
+            ]
+            farmed_q = sum(q for _, _, _, q, _ in farm_defs)
+            farmed = [
+                Distribution(
+                    criteria=f"{crit}_{tag}",
+                    quota=q,
+                    conditions={
+                        "reel_weights": rw,
+                        "free_reel_weights": fw_big,
+                        "force_freegame": True,
+                        "scatter_triggers": {sc: 1},
+                        "win_range": win,
+                    },
+                )
+                for crit, sc, tag, q, win in farm_defs
+            ]
+            return farmed + [
                 Distribution(
                     criteria="0",
-                    quota=0.4,
+                    quota=0.4 - farmed_q / 2,
                     win_criteria=0.0,
                     conditions={"reel_weights": rw, "free_reel_weights": free_reels},
                 ),
                 Distribution(
                     criteria="supergame",
-                    quota=0.4,
+                    quota=0.4 - farmed_q / 2,
                     conditions={
                         "reel_weights": rw,
                         "free_reel_weights": free_reels,
@@ -276,12 +308,12 @@ class GameConfig(Config):
                 # 10% farmed on FRBIG into 2,000-20,000x base (20-200x of price): the wide window accepts 1 in
                 # ~18 draws and carries the 5,000-10,000x sessions (~0.7% of accepts) that a narrow window
                 # would need thousands of draws each to find (measured 2026-09-02)
-                distributions=buy_distributions(3, 0.005, big_slices=[(0.10, (2000.0, 20000.0))]),
+                distributions=buy_distributions(3, 0.005, big_slices=[(0.10, (2000.0, 20000.0))] + farm_slices),
             ),
             BetMode(
                 name="super", cost=SUPER_COST, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=False, is_buybonus=True,
-                distributions=buy_distributions(4, 0.01),
+                distributions=buy_distributions(4, 0.01, big_slices=farm_slices),
             ),
             BetMode(
                 name="mystery", cost=MYSTERY_COST, rtp=self.rtp, max_win=self.wincap,

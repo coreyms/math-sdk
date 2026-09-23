@@ -31,6 +31,13 @@ class GameStateOverride(GameExecutables):
             win_range = self.get_current_distribution_conditions().get("win_range")
             if win_range is not None and not (win_range[0] <= self.final_win < win_range[1]):
                 self.repeat = True
+                # yield readout for the farmed windows (3-star pass): one line per 500 rejections
+                # per criteria, so draws-per-accept can be read off the sim log
+                key = getattr(self, "criteria", "?")
+                counts = self.__dict__.setdefault("_farm_rejects", {})
+                counts[key] = counts.get(key, 0) + 1
+                if counts[key] % 500 == 0:
+                    print(f"farm {key}: {counts[key]} rejected draws so far (window {win_range})", flush=True)
 
     def reset_book(self):
         super().reset_book()

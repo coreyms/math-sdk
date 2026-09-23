@@ -2,14 +2,14 @@ Angry Mantis (Polymath Games) - 5x4, 1,024 ways, Mantis Strike free spins. Max w
 Modes: base 1x, ante 3x, bonus 100x, super 300x, mystery 300x (50% nothing / 40% Super / 10% Feast).
 
 Files
-  game_config.py       symbols, paytable, bet modes, distributions (FEAST_COST etc. at the top)
+  game_config.py       symbols, paytable, bet modes, distributions (MYSTERY/BONUS/SUPER/ANTE_COST at the top)
   game_calculations.py eaten-symbol reel substitution, Ante reel-1 scatter lock
   game_executables.py  strikes / eating / retrigger cap / max-win cinematic
   game_events.py       Angry Mantis book events (see EVENT_SCHEMA.md)
   gamestate.py         base + free game flow
   game_optimization.py the targets as constants (documentation + math_config.json); the optimiser itself is NOT run any more
   reels/make_reels.py  deterministic reel generator (edit counts, re-run, re-sim)
-  run.py               sims -> optimiser -> stats -> RGS format checks
+  run.py               sims -> stats -> RGS format checks (the Rust optimiser only with --opt; never the shipped flow)
   check_stats.py       operator-risk stats per mode, normalised the way the docs describe
   analyze_raw.py       raw (pre-optimisation) payout distribution per criteria (needs --uncompressed books)
   show_book.py         dump the event stream of a book
@@ -17,9 +17,10 @@ Files
 
 Commands (from math-sdk/)
   env/bin/python games/angry_mantis/reels/make_reels.py
-  env/bin/python games/angry_mantis/run.py --no-opt --no-analysis --no-checks   # sims only (~10 min); then:
+  env/bin/python games/angry_mantis/run.py --no-analysis --no-checks             # sims only (~10 min); then:
   env/bin/python ../tools/shape_lut.py                                  # every lookup table, exact targets
-  env/bin/python games/angry_mantis/run.py --no-sims --no-opt          # stat sheet + RGS format checks
+  env/bin/python games/angry_mantis/run.py --no-sims                   # stat sheet + RGS format checks
+  env/bin/python ../tools/measure_fences.py --write                     # library/configs/math_config.json fences from the shipped tables
   env/bin/python ../tools/verify_math.py                                # independent book/table walk
   env/bin/python games/angry_mantis/check_stats.py
 
@@ -48,3 +49,21 @@ Notes
     tray is exactly those two (never a 3-scatter board), Super = reels 1-2 + two of 3-5, Feast = all five. Anticipation is
     hand-set: reels 3 and 4 always tease, reel 5 only when reels 3 AND 4 both landed scatters (the feast sweat); once the
     outcome is decided (two blanks, or one blank + one scatter) reel 5 just drops.
+  - PUBLISH LIMIT (Stake, math-verification): no mode may exceed 10,000,000 EVENTS (utils/rgs_verification.py sums
+    len(book["events"]) per mode, not books). 2026-09-05 counts: base 9.46M, ante 9.93M, mystery 9.88M, bonus 12.88M (FAILS),
+    super 15.39M (FAILS). Super averages ~77 events/book, bonus ~64: keep super <= 125k books and bonus <= 150k, or trim the
+    per-spin event stream (removeSymbolFromPool duplicates eat; setWin is derivable from winInfo) before re-simulating.
+    After ANY re-sim: tools/shape_lut.py, run.py --no-sims (stats + checks), tools/verify_math.py, check_stats.py, measure_fences.
+  - 2026-09-05/06 3-STAR PASS (Corey's go; plan docs/superpowers/plans/2026-09-05-angry-mantis-math-3star.md): super, bonus and
+    mystery RE-SIMULATED at 125k / 150k / 195k books (mystery cut from 200k by tools/subset_books.py) so every mode is under
+    the 10,000,000-events publish limit (super 9.63M, bonus 9.68M, mystery ~9.71M; base 9.46M, ante 9.93M untouched).
+    Farmed windows via AM_GAP_Q / AM_HIGH_Q (game_config.py): sessions accepted only in 7,000-10,500x or 14,000-18,000x,
+    drawn on FRBIG (criteria freegame_big2/3, supergame_gap/high, feastgame_gap/high; game_optimization.py mirrors them so
+    run.py's setup validates; GameStateOverride.check_repeat prints a rejection count every 500 draws). Yield: the gap window
+    lands almost entirely at 10,240x + change (the 1,024-ways full board) — 8,000-10,000x stays nearly empty by geometry
+    (super 4 books, bonus 0, mystery 10). Table changes (tools/shape_lut.py): MYSTERY_SUPER_BANDS (Mystery's Super slice,
+    cap 1 in 2,500 -> Mystery cap 1 in 1,513, absolute CVaR 18,947); ante dribble 0.13 / basewin 0.0831 -> ante pays on
+    1 in 4 spins like base; tail bands split at the 10,000x line in bonus/super/mystery. base/ante books untouched, tables
+    re-shaped. verify_math: 0 mismatches on all 1.6M books. Backups: library-pre-3star-20260905/ (full) and
+    library-pre-subset-20260905/ (mystery 200k). Frontend: mathVersion 2026.09.06, Mystery overall cap copy 1 in 1,510.
+

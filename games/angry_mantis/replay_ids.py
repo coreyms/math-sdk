@@ -5,7 +5,9 @@ from io import TextIOWrapper
 LIB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "library", "publish_files")
 LIMIT = 60000
 
-for mode in ["base", "ante", "bonus", "super", "feast"]:
+MODES = [m["name"] for m in json.load(open(os.path.join(LIB, "index.json")))["modes"]]  # the published modes, never a hand list
+
+for mode in MODES:
     found = {}
     with open(os.path.join(LIB, f"books_{mode}.jsonl.zst"), "rb") as f, zst.ZstdDecompressor().stream_reader(f) as r:
         for n, line in enumerate(TextIOWrapper(r, encoding="utf-8")):

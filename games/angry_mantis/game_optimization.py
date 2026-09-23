@@ -1,3 +1,4 @@
+import os
 """Optimization targets for Angry Mantis.
 
 All the headline tunables live at the top of this file. RTP shares are in *cost units*
@@ -22,26 +23,34 @@ from game_config import TARGET_RTP, MYSTERY_COST, BONUS_COST, SUPER_COST, ANTE_C
 # Super is where the game is generous (fatter than the 300x buy), Feast is the rare epic.
 BASE_RATES = {"freegame": 120, "supergame": 1000, "feastgame": 20000}
 ANTE_RATES = {"freegame": 30, "supergame": 300, "feastgame": 5000}
-FEATURE_AV_WIN = {"freegame": 35.0, "supergame": 400.0, "feastgame": 2000.0}  # base, x bet
-ANTE_FEATURE_AV_WIN = {"freegame": 30.0, "supergame": 350.0, "feastgame": 2000.0}  # ante, x bet
+# The numbers below MUST match what tools/shape_lut.py actually wrote into the published tables
+# (SPIN_TARGETS / TARGETS): math_config.json is generated from them and is a submitted artifact.
+# tools/measure_fences.py re-measures the shipped tables and rewrites the config; run it after any
+# reshape and keep these in step (review finding 2026-09-05: they had drifted 25%).
+FEATURE_AV_WIN = {"freegame": 34.0, "supergame": 360.0, "feastgame": 2000.0}  # base, x bet
+ANTE_FEATURE_AV_WIN = {"freegame": 32.0, "supergame": 370.0, "feastgame": 2000.0}  # ante, x bet
 MYSTERY_SPLIT = {"0": 0.5, "supergame": 0.4, "feastgame": 0.1}
 MYSTERY_AV_WIN = {"supergame": 360.0, "feastgame": 1440.0}  # x bet; 0.4*360 + 0.1*1440 = 288 = 96% of 300
-WINCAP_RTP_SPIN = 0.003  # base/ante share of RTP paid through forced 20,000x rounds (super/feast reach it on their own too)
-WINCAP_RTP_BONUS = 0.003
-WINCAP_RTP_SUPER = 0.005
+# forced 20,000x rounds: 1 in 4M base rounds and 1 in 2M ante rounds (shape_lut 'forced cap'),
+# expressed as RTP in cost units — base 20000/4e6 = 0.005, ante 20000/2e6/3 = 0.00333
+WINCAP_RTP_SPIN = {"base": 0.005, "ante": 0.00333}
+WINCAP_RTP_BONUS = 0.01109  # measured from the shipped bonus table (cap 1 in 18,036 buys)
+WINCAP_RTP_SUPER = 0.00292  # measured from the shipped super table (cap 1 in 22,864 buys)
 FEAST_MAXWIN_HR = 150  # 1 in N Feast sessions pays the 20,000x max win
-BASE_HIT_RATE = 3.2  # 1 in N base spins is a paying spin (rule: >= 1 in 50)
-ANTE_HIT_RATE = 4.0
+# SDK fence semantics: hr = 1 in N rounds CARRYING the criteria, zero-paying basegame rounds
+# included (the paying-spin rate players feel is 1 in 4 base / 1 in 5 ante)
+BASE_HIT_RATE = 1.9433
+ANTE_HIT_RATE = 1.9674
 WINCAP = 20000.0
 
 
-def _spin_mode_conditions(cost: float, rates: dict, av_win: dict, hit_rate: float):
+def _spin_mode_conditions(mode: str, cost: float, rates: dict, av_win: dict, hit_rate: float):
     conds = {
         # wincap fences: av_win in bet units, rtp in cost units, hr derived (= av_win / rtp / cost)
-        "wincap": ConstructConditions(rtp=WINCAP_RTP_SPIN, av_win=WINCAP, search_conditions=WINCAP).return_dict(),
+        "wincap": ConstructConditions(rtp=WINCAP_RTP_SPIN[mode], av_win=WINCAP, search_conditions=WINCAP).return_dict(),
         "0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict(),
     }
-    used = WINCAP_RTP_SPIN
+    used = WINCAP_RTP_SPIN[mode]
     for name, kind in (("freegame", 3), ("supergame", 4), ("feastgame", 5)):
         rtp = round(av_win[name] / cost / rates[name], 5)
         used += rtp
@@ -61,6 +70,12 @@ def _mystery_conditions():
         conds[name] = ConstructConditions(
             rtp=rtp, hr=round(1 / MYSTERY_SPLIT[name], 5), search_conditions={"symbol": "scatter", "kind": str(kind)}
         ).return_dict()
+        # farmed windows of the 3-star pass (game_config.py mystery_distributions): token shares,
+        # carved out of the criteria's own share so the mode still sums to TARGET_RTP
+        for tag, env in (("gap", "AM_GAP_Q"), ("high", "AM_HIGH_Q")):
+            if float(os.environ.get(env, "0")):
+                conds[f"{name}_{tag}"] = ConstructConditions(rtp=0.001, hr="x").return_dict()
+                conds[name]["rtp"] = round(conds[name]["rtp"] - 0.001, 5)
     return conds
 
 
@@ -75,16 +90,27 @@ def _buy_mode_conditions(cost: float, wincap_rtp: float = None, wincap_hr: float
         "wincap": wincap,
         "freegame": ConstructConditions(rtp=round(TARGET_RTP - wincap["rtp"] - big_rtp, 5), hr="x").return_dict(),
     }
-    if big_rtp:
-        # split evenly across however many farmed slices the mode declares (run.py validates names)
-        n = big_slices_for(cost)
+    # one entry per farmed slice the mode declares (run.py validates the names against the
+    # distributions); the farmed windows of the 3-star pass (AM_GAP_Q / AM_HIGH_Q, game_config.py)
+    # carry a token RTP share here — the shaper sets the real weights
+    n = big_slices_for(cost)
+    if n:
+        share = big_rtp if big_rtp else 0.002 * n
+        conds["freegame"]["rtp"] = round(TARGET_RTP - wincap["rtp"] - share, 5)
+        shares = [round(share / n, 5)] * (n - 1)
+        shares.append(round(share - sum(shares), 5))  # last slice takes the rounding so the mode sums exactly
         for k in range(n):
-            conds[f"freegame_big{k + 1 if k else ''}"] = ConstructConditions(rtp=round(big_rtp / n, 5), hr="x").return_dict()
+            conds[f"freegame_big{k + 1 if k else ''}"] = ConstructConditions(rtp=shares[k], hr="x").return_dict()
     return conds
 
 
+def farm_windows() -> int:
+    """How many farmed windows game_config.py declares from the environment (0, 1 or 2)."""
+    return sum(1 for k in ("AM_GAP_Q", "AM_HIGH_Q") if float(os.environ.get(k, "0")))
+
+
 def big_slices_for(cost: float) -> int:
-    return {BONUS_COST: 1}.get(cost, 0)
+    return {BONUS_COST: 1}.get(cost, 0) + farm_windows()
 
 
 def _spin_scaling():
@@ -131,13 +157,13 @@ class OptimizationSetup:
         ).return_dict()
         self.game_config.opt_params = {
             "base": {
-                "conditions": _spin_mode_conditions(1.0, BASE_RATES, FEATURE_AV_WIN, BASE_HIT_RATE),
+                "conditions": _spin_mode_conditions("base", 1.0, BASE_RATES, FEATURE_AV_WIN, BASE_HIT_RATE),
                 "scaling": _spin_scaling(),
                 "parameters": _params([50, 100, 200], [0.3, 0.4, 0.3]),
                 "distribution_bias": spin_bias,
             },
             "ante": {
-                "conditions": _spin_mode_conditions(ANTE_COST, ANTE_RATES, ANTE_FEATURE_AV_WIN, ANTE_HIT_RATE),
+                "conditions": _spin_mode_conditions("ante", ANTE_COST, ANTE_RATES, ANTE_FEATURE_AV_WIN, ANTE_HIT_RATE),
                 "scaling": _spin_scaling(),
                 "parameters": _params([50, 100, 200], [0.3, 0.4, 0.3]),
                 "distribution_bias": spin_bias,

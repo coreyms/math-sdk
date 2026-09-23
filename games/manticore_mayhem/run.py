@@ -1,20 +1,25 @@
-"""Generate books, optimise weights, build stats and run RGS format checks for Angry Mantis.
+"""Generate books, configs, stats and RGS format checks for Manticore Mayhem.
 
-Usage: env/bin/python games/angry_mantis/run.py [--sims N] [--modes base,ante,...] [--opt] [--no-analysis] [--no-checks] [--threads T]
+Usage (from math-sdk/):
+  env/bin/python games/manticore_mayhem/run.py [--sims N] [--modes base,ante,...]
+                                               [--threads T] [--no-sims]
+                                               [--no-analysis] [--no-checks] [--uncompressed]
+
+The Rust optimiser is NOT part of the flow (house convention, see game_optimization.py); it
+only runs when asked for with --opt, so a routine re-run can never overwrite shaped weights.
 """
 
 import argparse
-from gamestate import GameState
+
 from game_config import GameConfig
 from game_optimization import OptimizationSetup
-from optimization_program.run_script import OptimizationExecution
-from utils.game_analytics.run_analysis import create_stat_sheet
-from utils.rgs_verification import execute_all_tests
+from gamestate import GameState
 from src.state.run_sims import create_books
 from src.write_data.write_configs import generate_configs
+from utils.rgs_verification import execute_all_tests
 
-ALL_MODES = ["base", "ante", "bonus", "super", "mystery"]
-DEFAULT_SIMS = {"base": int(5e5), "ante": int(5e5), "bonus": int(2e5), "super": int(2e5), "mystery": int(2e5)}
+ALL_MODES = ["base", "ante", "super_ante", "bonus", "super", "epic", "mystery"]
+DEFAULT_SIMS = {m: int(2e4) for m in ALL_MODES}
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
@@ -24,10 +29,7 @@ if __name__ == "__main__":
     ap.add_argument("--rust-threads", type=int, default=20)
     ap.add_argument("--batch", type=int, default=50000)
     ap.add_argument("--no-sims", action="store_true")
-    # the Rust optimiser is never used for this game (tools/shape_lut.py shapes the tables): it
-    # only runs when asked for explicitly, so a routine re-run can never overwrite shaped weights
     ap.add_argument("--opt", action="store_true", help="run the Rust optimiser (NOT the normal flow)")
-    ap.add_argument("--no-opt", action="store_true", help="kept for old command lines; the default")
     ap.add_argument("--no-analysis", action="store_true")
     ap.add_argument("--no-checks", action="store_true")
     ap.add_argument("--uncompressed", action="store_true")
@@ -39,9 +41,9 @@ if __name__ == "__main__":
 
     config = GameConfig()
     gamestate = GameState(config)
-    # ALWAYS construct: generate_configs reads config.opt_params, and without this the
-    # default {None: None} writes an empty math_config.json skeleton (books-only runs
-    # were clobbering it; code-review 2026-08-31)
+    # ALWAYS construct: generate_configs reads config.opt_params, and without this the default
+    # {None: None} writes an empty math_config.json skeleton (Angry Mantis code-review
+    # 2026-08-31 - books-only runs were clobbering it).
     OptimizationSetup(config)
 
     if not args.no_sims:
@@ -50,12 +52,14 @@ if __name__ == "__main__":
     generate_configs(gamestate)
 
     if args.opt:
+        from optimization_program.run_script import OptimizationExecution
+
         OptimizationExecution().run_all_modes(config, target_modes, args.rust_threads)
         generate_configs(gamestate)
 
     if not args.no_analysis:
-        # NOTE: no {"bonusMode": "feast"} custom key — return_valid_ids partial-matches the
-        # per-strike records too, double-counting feast books 3-9x in the stat sheet
+        from utils.game_analytics.run_analysis import create_stat_sheet
+
         create_stat_sheet(gamestate, custom_keys=[{"symbol": "scatter"}])
 
     if not args.no_checks:
