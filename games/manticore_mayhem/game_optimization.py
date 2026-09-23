@@ -7,7 +7,7 @@ SINGLE SOURCE OF TRUTH for what the shaped tables must deliver:
   * `TARGETS` below is read by the shaper to build the published lookup tables,
   * the same numbers are converted into `opt_params` so run.py's OptimizationSetup validates
     that the criteria names here and in game_config.py have not drifted apart and that the
-    per-criteria RTP still sums to 96%,
+    per-criteria RTP still sums to TARGET_RTP (96.7% since 2026-09-23),
   * and library/configs/math_config.json - a submitted artifact - documents the intent.
 
 Tuned 2026-09-20 (tuning pass; see readme.txt for the iteration log). Every probability is per
@@ -15,8 +15,8 @@ ROUND of that mode; every `mean` is in multiples of the BASE bet (not of the mod
 
 Design arithmetic worth keeping, because it is what forces the numbers:
 
-  * A base spin cannot carry much. At 96% RTP with any-feature around 1 in 240, the features
-    take 0.51 of the 0.96 and the base spins are left with 0.45x per spin. That budget is the
+  * A base spin cannot carry much. At 96.7% RTP with any-feature around 1 in 240, the features
+    take about 0.51 of the 0.967 and the base spins are left with roughly 0.46x per spin. That budget is the
     whole reason the 5x+ band is about 2.2% of spins and not the 8-12% the tuning brief asked
     for: 10% of spins at a mean of 8x would be 0.80 RTP on its own, i.e. the entire game.
     Read as a share of WINNING spins (hit rate 1 in 3.55) the delivered numbers are 7.9% of
@@ -46,14 +46,20 @@ from game_config import (
 )
 
 # ---- Shaped feature means, x base bet ---------------------------------------------------
-# A bought feature returns 0.96 x its own price, and a feature won naturally in a spin mode is
+# A bought feature returns TARGET_RTP x its own price, and a feature won naturally in a spin mode is
 # the SAME feature, so it carries the same mean wherever it is triggered from.
-BONUS_MEAN = BONUS_COST * TARGET_RTP  # 96x
-SUPER_MEAN = SUPER_COST * TARGET_RTP  # 240x
-EPIC_MEAN = 800.0  # above 0.96 x 500 = 480: the bought Epic's own mean is pulled down by its
+BONUS_MEAN = BONUS_COST * TARGET_RTP  # 96.7x
+SUPER_MEAN = SUPER_COST * TARGET_RTP  # 241.75x
+# RULE PASS 2 (2026-09-23): the Mystery `nothing` slice is a real spin, so it carries a mean of
+# its own. MEASURED off the raw deck (see readme.txt's rule-pass-2 log); it is stated as a
+# constant rather than a residual because the Epic slice is already the residual, and the two
+# cannot both float. Re-measure and update it if the base-game levers ever move again.
+MYSTERY_NOTHING_MEAN = 0.20  # measured: 0.203x over 20,000 raw `mystery_nothing` rounds
+
+EPIC_MEAN = 800.0  # above 0.967 x 500 = 483.5: the bought Epic's own mean is pulled down by its
 # 200x floor sitting right under it, while a NATURALLY won Epic is a pure upside event.
 # The Mystery Epic's mean is NOT a free constant: it is whatever the 50/40/10 split leaves
-# after the Mystery Super takes its 240x, i.e. 1,440x. It is derived in TARGETS as a residual
+# after the Mystery Super takes its 241.75x and the nothing slice its 0.20x, i.e. 1,449.5x. It is derived in TARGETS as a residual
 # so the split and the mean can never drift apart.
 
 # ---- Base-game payout groups, shared shape across the three spin modes -------------------
@@ -127,11 +133,13 @@ TARGETS = {
     "mystery": {
         "cost": MYSTERY_COST,
         # Corey's split, 50 / 40 / 10 (see MYSTERY_SPLIT in game_config.py). The Epic slice
-        # carries the residual mean, which resolves to 1,440x over its own 500x floor.
+        # carries the residual mean; with the rule-pass-2 `nothing` slice now paying its own
+        # small mean and the 96.7% target, that residual resolves to 1,449.5x over its 500x
+        # floor.
         "criteria": {
             "supergame": (0.40, SUPER_MEAN),
             "epicgame": (0.10, "residual"),
-            "0": ("residual", 0.0),
+            "mystery_nothing": ("residual", MYSTERY_NOTHING_MEAN),
         },
     },
 }
@@ -162,10 +170,22 @@ def mode_rtp_split(mode: str) -> dict:
     return out
 
 
+# Measured share of `mystery_nothing` rounds that pay anything at all (20,000 raw rounds,
+# 2026-09-23). Only used to report Mystery's hit rate honestly - the slice is a real spin, so
+# unlike the `0` criteria it is not uniformly a loss.
+MYSTERY_NOTHING_HIT = 0.1933
+
+
 def hit_rate(mode: str) -> float:
-    """1 in N rounds of `mode` pay something."""
+    """1 in N rounds of `mode` pay something. Every criteria except `0` is a paying round by
+    construction (game_override.check_repeat re-draws a zero one); `mystery_nothing` is the
+    exception - it is a real spin that pays only MYSTERY_NOTHING_HIT of the time."""
     split = mode_rtp_split(mode)
-    paying = sum(p for k, (p, _, _) in split.items() if k != "0")
+    paying = 0.0
+    for criteria, (p, _, _) in split.items():
+        if criteria == "0":
+            continue
+        paying += p * (MYSTERY_NOTHING_HIT if criteria == "mystery_nothing" else 1.0)
     return 1 / paying
 
 
@@ -194,7 +214,7 @@ def _conditions(mode: str) -> dict:
             ).return_dict()
         else:
             conds[criteria] = ConstructConditions(rtp=round(rtp, 9), hr=round(1 / p, 5)).return_dict()
-    # rounding the per-criteria shares must not move the mode off 96%
+    # rounding the per-criteria shares must not move the mode off TARGET_RTP
     drift = TARGET_RTP - sum(c["rtp"] for c in conds.values())
     biggest = max((k for k in conds if k != "0"), key=lambda k: conds[k]["rtp"])
     conds[biggest]["rtp"] = round(conds[biggest]["rtp"] + drift, 9)

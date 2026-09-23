@@ -5,9 +5,12 @@ The tile grid is a plain [reel][row] array of ints held on the gamestate, exactl
 belong to CELLS, symbols fall through them (spec B), and Symbol.__slots__ has no room anyway.
 """
 
+import random
+
 from src.calculations.cluster import Cluster
+from src.calculations.statistics import get_random_outcome
 from src.executables.executables import Executables
-from game_events import cell
+from game_events import cell, reveal_event, sting_event
 
 
 class GameCalculations(Executables):
@@ -150,12 +153,130 @@ class GameCalculations(Executables):
     # ---------------------------------------------------------------------------------
     def draw_board(self, emit_event: bool = True, trigger_symbol: str = "scatter") -> None:
         """SDK board draw (including the forced-scatter path for the feature criteria), but
-        emitting the compact reveal from game_events instead of the SDK's dict-per-cell one."""
+        emitting the compact reveal from game_events instead of the SDK's dict-per-cell one.
+
+        The base-game path in gamestate.run_spin draws with emit_event=False and calls
+        emit_reveal() itself, because a scatter-sting reveal has to show a DIFFERENT board
+        from the one the round is evaluated on (rule pass 2, 2026-09-23)."""
         super().draw_board(emit_event=False, trigger_symbol=trigger_symbol)
         if emit_event:
-            from game_events import reveal_event
-
             reveal_event(self)
+
+    def draw_mystery_board(self) -> None:
+        """The Mystery spin-in (rule pass 2, 2026-09-23).
+
+        A real base-strip board whose reveal ALWAYS carries exactly 3 scatters, one in each of
+        columns 0,1,2 at a random row, and NONE in columns 3..7. Columns 0-2 are stopped on a
+        scatter stop offset by a random row (the strips space scatters at least 11 apart, so an
+        8-row window can never show two); columns 3-7 re-roll until their window is clean.
+        The anticipation array is forced to MYSTERY_ANTICIPATION - columns 3..7 tease, which is
+        exactly where the scatter stings can land.
+        """
+        self.refresh_special_syms()
+        self.reelstrip_id = get_random_outcome(
+            self.get_current_distribution_conditions()["reel_weights"][self.gametype]
+        )
+        self.reelstrip = self.config.reels[self.reelstrip_id]
+        scatter = self.config.special_symbols["scatter"][0]
+        positions = []
+        for reel in range(self.config.num_reels):
+            strip = self.reelstrip[reel]
+            length = len(strip)
+            rows = self.config.num_rows[reel]
+            if reel in self.config.mystery_scatter_reels:
+                stops = [i for i, name in enumerate(strip) if name == scatter]
+                assert stops, f"strip {self.reelstrip_id} reel {reel} has no scatter"
+                positions.append((random.choice(stops) - random.randrange(rows)) % length)
+            else:
+                while True:
+                    pos = random.randrange(length)
+                    if not any(strip[(pos + row) % length] == scatter for row in range(rows)):
+                        positions.append(pos)
+                        break
+        self.board = [
+            [
+                self.create_symbol(self.reelstrip[reel][(positions[reel] + row) % len(self.reelstrip[reel])])
+                for row in range(self.config.num_rows[reel])
+            ]
+            for reel in range(self.config.num_reels)
+        ]
+        self.reel_positions = positions
+        self.padding_position = [0] * self.config.num_reels
+        self.anticipation = list(self.config.mystery_anticipation)
+        self.get_special_symbols_on_board()
+        assert self.count_special_symbols("scatter") == 3, "Mystery spin-in must reveal 3 scatters"
+
+    # ---------------------------------------------------------------------------------
+    # Reveal, placeholders and scatter stings (rule pass 2, 2026-09-23)
+    # ---------------------------------------------------------------------------------
+    def placeholder_symbol(self, board, reel: int, row: int) -> str:
+        """A paying symbol (L1..H1, never W or S) that differs from all four orthogonal
+        neighbours of (reel,row) on `board`, so the cell it covers is isolated and CANNOT join
+        any cluster. That is what makes a scatter sting provably free: the cluster set of the
+        displayed board is identical to the cluster set of the real board."""
+        neighbours = set()
+        for d_reel, d_row in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+            r, w = reel + d_reel, row + d_row
+            if 0 <= r < self.config.num_reels and 0 <= w < self.config.num_rows[r]:
+                neighbours.add(board[r][w].name)
+        options = [name for name in self.config.paying_symbols if name not in neighbours]
+        assert options, "no placeholder symbol differs from all four neighbours"
+        return random.choice(options)
+
+    def anticipation_from_board(self, board) -> list:
+        """The SDK's anticipation rule (src/calculations/board.py) re-applied to an arbitrary
+        board, so a scatter-sting reveal teases off the VISIBLE scatters, not the real ones."""
+        trigger = self.config.anticipation_triggers[self.gametype]
+        anticipation = [0] * self.config.num_reels
+        seen, first_scatter_reel = 0, -1
+        for reel in range(self.config.num_reels):
+            for row in range(self.config.num_rows[reel]):
+                if board[reel][row].check_attribute("scatter"):
+                    seen += 1
+                    if seen >= trigger and first_scatter_reel == -1:
+                        first_scatter_reel = reel + 1
+        if first_scatter_reel > -1 and first_scatter_reel != self.config.num_reels:
+            count = 1
+            for reel in range(first_scatter_reel, self.config.num_reels):
+                anticipation[reel] = count
+                count += 1
+        return anticipation
+
+    def emit_reveal(self, sting_cells=None, anticipation=None) -> None:
+        """Emit the reveal, optionally as a SCATTER-STING reveal.
+
+        `sting_cells` are (reel,row) cells the player first sees as a PLACEHOLDER and that a
+        `sting` event of kind `scatter` then turns into S. self.board keeps the REAL symbols
+        throughout (only the displayed copy carries placeholders) in the natural-trigger case;
+        in the Mystery case the cells are not scatters yet and become them here. Either way the
+        board the round is evaluated on after this call is the post-sting board.
+        """
+        if not sting_cells:
+            if anticipation is not None:
+                self.anticipation = list(anticipation)
+            reveal_event(self)
+            return
+
+        display = [list(column) for column in self.board]
+        for reel, row in sting_cells:
+            display[reel][row] = self.create_symbol(self.placeholder_symbol(display, reel, row))
+
+        real_board, real_anticipation = self.board, self.anticipation
+        self.board = display
+        self.anticipation = (
+            list(anticipation) if anticipation is not None else self.anticipation_from_board(display)
+        )
+        reveal_event(self)
+        self.board = real_board
+        self.anticipation = list(anticipation) if anticipation is not None else real_anticipation
+
+        scatter = self.config.special_symbols["scatter"][0]
+        for reel, row in sting_cells:
+            if self.board[reel][row].name != scatter:
+                self.board[reel][row] = self.create_symbol(scatter)
+            self.record({"sting": "scatter", "gametype": self.gametype})
+            sting_event(self, "scatter", cell(reel, row), [cell(reel, row)], scatter)
+        self.get_special_symbols_on_board()
 
     def scatter_cells(self) -> list:
         """Flat indices of the scatters currently on the board."""

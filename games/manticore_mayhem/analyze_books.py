@@ -46,7 +46,10 @@ def analyse(mode, cost, path, wincap):
     band_count = [0] * len(BAND_NAMES)
     feature = {"bonus": 0, "super": 0, "epic": 0}
     spins = 0
-    swipes = stings = super_stings = roars = 0
+    swipes = roars = 0
+    sting_kinds = {"normal": 0, "big": 0, "super": 0, "scatter": 0}
+    sting_spins = 0
+    spin_stings = 0
     tile_sum_total = 0
     tile_sum_count = 0
     cap_units = int(round(wincap * 100))
@@ -77,11 +80,14 @@ def analyse(mode, cost, path, wincap):
             etype = event["type"]
             if etype == "reveal":
                 spins += 1
+                if spin_stings:
+                    sting_spins += 1
+                spin_stings = 0
             elif etype == "swipe":
                 swipes += 1
             elif etype == "sting":
-                super_stings += 1 if event["super"] else 0
-                stings += 0 if event["super"] else 1
+                sting_kinds[event["kind"]] = sting_kinds.get(event["kind"], 0) + 1
+                spin_stings += 1
             elif etype == "roar":
                 roars += 1
             elif etype == "bonusStart":
@@ -90,6 +96,9 @@ def analyse(mode, cost, path, wincap):
                 for win in event["wins"]:
                     tile_sum_total += win["m"]
                     tile_sum_count += 1
+        if spin_stings:
+            sting_spins += 1
+        spin_stings = 0
 
     mean = sum(payouts) / n
     var = sum((p - mean) ** 2 for p in payouts) / n
@@ -107,9 +116,12 @@ def analyse(mode, cost, path, wincap):
     print(f"  features: bonus {feature['bonus'] / n * 100:.2f}%  super {feature['super'] / n * 100:.2f}%"
           f"  epic {feature['epic'] / n * 100:.2f}%  of books")
     print(f"  per spin ({spins:,} spins): swipe {swipes / max(spins, 1) * 100:.1f}%"
-          f"  sting {stings / max(spins, 1) * 100:.1f}%"
-          f"  superSting {super_stings / max(spins, 1) * 100:.1f}%"
+          f"  any sting {sting_spins / max(spins, 1) * 100:.1f}%"
           f"  roar {roars / max(spins, 1) * 100:.1f}%")
+    print(f"  sting events per spin: normal {sting_kinds['normal'] / max(spins, 1) * 100:.1f}%"
+          f"  big {sting_kinds['big'] / max(spins, 1) * 100:.2f}%"
+          f"  super {sting_kinds['super'] / max(spins, 1) * 100:.2f}%"
+          f"  scatter {sting_kinds['scatter'] / max(spins, 1) * 100:.2f}%")
     print(f"  average tile sum on a paying cluster: {tile_sum_total / max(tile_sum_count, 1):.2f}"
           f"  ({tile_sum_count:,} paying clusters)")
     eb = events / n

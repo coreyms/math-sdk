@@ -6,6 +6,8 @@ plays what it is told (spec C). Every chance is a constant at the top of game_co
 
 import random
 
+from src.calculations.cluster import Cluster
+
 from game_calculations import GameCalculations
 from game_events import (
     bonus_end_event,
@@ -49,16 +51,21 @@ class GameExecutables(GameCalculations):
             if self.evaluate_wincap():
                 break
 
-    def play_spin(self) -> None:
+    def play_spin(self, allow_wild_sting: bool = True) -> None:
         """One reveal played to exhaustion: pre-evaluation features, cascades, then swipes.
 
         Order matters and is part of the contract: ROAR clears the lows and refills, THEN the
         STING drops its wilds onto whatever is on the board (a sting before a roar would
         mostly be swept away by the refill, which is not what the tail feature is for).
+
+        `allow_wild_sting` is False on the two reveals that already carry a scatter sting - a
+        natural trigger played as a scatter-sting book, and the Mystery spin-in. A wild sting
+        and a scatter sting never share a reveal (rule pass 2, 2026-09-23).
         """
         ctx = self.context
         self.maybe_roar(ctx)
-        self.maybe_sting(ctx)
+        if allow_wild_sting:
+            self.maybe_sting(ctx)
 
         swipes = 0
         while True:
@@ -108,20 +115,44 @@ class GameExecutables(GameCalculations):
         swipe_event(self, removed, tile_changes)
 
     def maybe_sting(self, ctx: str) -> None:
-        """Wilds injected before evaluation. Super Sting and Sting are mutually exclusive:
-        one uniform draw picks between them, so the two chances add rather than compound."""
-        super_chance = self.config.super_sting_chance.get(ctx, 0.0)
-        sting_chance = self.config.sting_chance.get(ctx, 0.0)
-        roll = random.random()
-        if roll < super_chance:
-            low, high = self.config.super_sting_wilds
-            is_super = True
-        elif roll < super_chance + sting_chance:
-            low, high = self.config.sting_wilds
-            is_super = False
-        else:
+        """The sting system (rule pass 2, Corey 2026-09-23).
+
+        One roll decides whether the spin fires a sting sequence at all. A second roll picks
+        the finisher (big / super / none) - the two finisher chances are absolute shares of the
+        sequence, so they ADD rather than compound. Then the number of NORMAL stings comes off
+        the per-context count table (1..5 with no finisher, 0..4 with one), and every sting is
+        placed and written to the book in order. The finisher is ALWAYS last, and the whole
+        sequence is capped at STING_MAX_PER_SPIN.
+        """
+        if random.random() >= self.config.sting_chance.get(ctx, 0.0):
             return
 
+        roll = random.random()
+        p_big = self.config.sting_big_chance.get(ctx, 0.0)
+        p_super = self.config.sting_super_chance.get(ctx, 0.0)
+        if roll < p_big:
+            finisher = "big"
+        elif roll < p_big + p_super:
+            finisher = "super"
+        else:
+            finisher = None
+
+        table = (
+            self.config.sting_normal_counts_before_finisher[ctx]
+            if finisher
+            else self.config.sting_normal_counts[ctx]
+        )
+        counts = list(table)
+        normals = random.choices(counts, weights=[table[c] for c in counts])[0]
+        normals = min(normals, self.config.sting_max_per_spin - (1 if finisher else 0))
+
+        for _ in range(normals):
+            self.place_normal_sting()
+        if finisher:
+            self.place_finisher_sting(finisher)
+
+    def place_normal_sting(self) -> None:
+        """One cell, any non-wild non-scatter cell, no win requirement."""
         wild = self.config.special_symbols["wild"][0]
         candidates = [
             (reel, row)
@@ -129,15 +160,72 @@ class GameExecutables(GameCalculations):
             for row in range(self.config.num_rows[reel])
             if not self.board[reel][row].check_attribute("wild", "scatter")
         ]
-        count = min(random.randint(low, high), len(candidates))
-        if count <= 0:
+        if not candidates:
             return
-        chosen = random.sample(candidates, count)
-        for reel, row in chosen:
-            self.board[reel][row] = self.create_symbol(wild)
+        reel, row = random.choice(candidates)
+        self.board[reel][row] = self.create_symbol(wild)
         self.get_special_symbols_on_board()
-        self.record({"sting": "super" if is_super else "normal", "gametype": self.gametype})
-        sting_event(self, sorted(cell(reel, row) for reel, row in chosen), is_super)
+        self.record({"sting": "normal", "gametype": self.gametype})
+        sting_event(self, "normal", cell(reel, row), [cell(reel, row)], wild)
+
+    def sting_shape_cells(self, kind: str, reel: int, row: int) -> list:
+        """The shape's cells as (reel,row), centre first then ascending cell index."""
+        offsets = (
+            self.config.sting_big_offsets if kind == "big" else self.config.sting_super_offsets
+        )
+        cells = [(reel + d_reel, row + d_row) for d_reel, d_row in offsets if (d_reel, d_row) != (0, 0)]
+        return [(reel, row)] + sorted(cells, key=lambda rc: cell(rc[0], rc[1]))
+
+    def sting_shape_wins(self, shape) -> bool:
+        """Would turning `shape` wild complete a paying cluster that TOUCHES the shape?
+
+        Evaluated on a throwaway copy of the board so nothing is mutated until a centre is
+        accepted. A pure-wild group can never pay (W is not in the paytable), so this really
+        does mean "the shape finishes a 5+ cluster of a paying symbol".
+        """
+        wild_symbol = self.create_symbol(self.config.special_symbols["wild"][0])
+        trial = [list(column) for column in self.board]
+        shape_set = set(shape)
+        for reel, row in shape:
+            trial[reel][row] = wild_symbol
+        clusters = Cluster.get_clusters(trial, "wild")
+        for symbol, found in clusters.items():
+            for positions in found:
+                if (len(positions), symbol) not in self.config.paytable:
+                    continue
+                if any((reel, row) in shape_set for reel, row in positions):
+                    return True
+        return False
+
+    def place_finisher_sting(self, kind: str) -> None:
+        """A big (plus of 5) or super (3x3 of 9) sting, always the LAST sting of the spin.
+
+        The centre never sits where the shape would fall off the board (both shapes need one
+        cell of margin, i.e. reels 1-6 x rows 1-6 on an 8x8 board) and the shape never covers a
+        scatter. It MUST produce a win: the legal centres are walked in random order and the
+        first one whose shape completes a paying cluster is taken. STING_FINISHER_MAX_TRIES is
+        36, every legal centre, so if none works the finisher is skipped entirely and the spin
+        keeps the normal stings it already played.
+        """
+        wild = self.config.special_symbols["wild"][0]
+        centres = [(reel, row) for reel in range(1, self.config.num_reels - 1) for row in range(1, 7)]
+        random.shuffle(centres)
+        tried = 0
+        for reel, row in centres:
+            shape = self.sting_shape_cells(kind, reel, row)
+            if any(self.board[r][w].check_attribute("scatter") for r, w in shape):
+                continue
+            tried += 1
+            if tried > self.config.sting_finisher_max_tries:
+                return
+            if not self.sting_shape_wins(shape):
+                continue
+            for r, w in shape:
+                self.board[r][w] = self.create_symbol(wild)
+            self.get_special_symbols_on_board()
+            self.record({"sting": kind, "gametype": self.gametype})
+            sting_event(self, kind, cell(reel, row), [cell(r, w) for r, w in shape], wild)
+            return
 
     def maybe_roar(self, ctx: str) -> None:
         """Every low leaves the board and the board refills. The multipliers under them are

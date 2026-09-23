@@ -17,7 +17,7 @@ What it does
   * each group (a set of criteria x a set of payout bands) gets exactly its target probability
   * inside a group, weight is proportional to payout^t with t solved by bisection so the group
     lands on its target mean; one group per mode carries the residual mean so the mode's RTP is
-    exactly 0.9600000
+    exactly TARGET_RTP (0.9670000 since Corey's 2026-09-23 call)
   * the Epic floor (200x, 500x through Mystery) is a property of the BOOKS, not of the weights:
     the engine re-draws under it, so no epic-group band starts below the floor.
 
@@ -62,7 +62,7 @@ BONUS_BANDS = [((0, 10), 0.09), ((10, 25), 0.19), ((25, 50), 0.24), ((50, 100), 
 SUPER_BANDS = [((0, 25), 0.09), ((25, 60), 0.18), ((60, 120), 0.22), ((120, 250), 0.24),
                ((250, 500), 0.15), ((500, 1000), 0.075), ((1000, 2500), 0.028),
                ((2500, 6000), 0.006), ((6000, WINCAP), 0.0009)]
-# An Epic BOUGHT for 500x: floor 200x, mean 0.96 x 500 = 477x. Most rounds return about half
+# An Epic BOUGHT for 500x: floor 200x, mean 0.967 x 500 = 481x. Most rounds return about half
 # the price, exactly as spec C describes; the mean is carried by the tail and the cap.
 EPIC_BUY_BANDS = [((200, 300), 0.52), ((300, 400), 0.20), ((400, 600), 0.14), ((600, 1000), 0.08),
                   ((1000, 2000), 0.04), ((2000, 5000), 0.016), ((5000, WINCAP), 0.0036)]
@@ -73,8 +73,16 @@ EPIC_NAT_BANDS = [((200, 300), 0.38), ((300, 500), 0.22), ((500, 800), 0.15), ((
 # Mystery's slices carry their own cap share (Mystery has no forced-wincap criteria: its max
 # wins have to come out of the Super and Epic books themselves).
 MYSTERY_SUPER_BANDS = SUPER_BANDS + [(CAP, 0.00008)]
+# RULE PASS 2 (2026-09-23): the Mystery `nothing` slice is a real base-strip spin, so it has a
+# payout distribution instead of being a single zero. Shares measured off the raw deck; the
+# (0,0) band MUST come first, because in_band((0,0.5), 0) would otherwise swallow the zeros.
+# Measured over 20,000 raw `mystery_nothing` rounds (2026-09-23): 80.7% pay nothing, mean
+# 0.203x the base bet, biggest seen 51.8x.
+MYSTERY_NOTHING_BANDS = [((0, 0), 0.8071), ((0, 0.5), 0.0958), ((0.5, 1), 0.0538),
+                         ((1, 2), 0.0179), ((2, 5), 0.0193), ((5, 20), 0.0061),
+                         ((20, WINCAP), 0.0002)]
 # Corey's 50/40/10 split (2026-09-20) makes the Mystery Epic the mode's whole upside: with the
-# Mystery Super on a bought Super's 240x mean, a 10% Epic slice has to average 1,440x over its
+# Mystery Super on a bought Super's 241.75x mean, a 10% Epic slice has to average 1,449.5x over its
 # 500x floor. So this table is deliberately tail-weighted - roughly half the slice is still a
 # 500-1,000x round, but a third of it is 1,500x or better and 1 in ~1,250 of them caps.
 MYSTERY_EPIC_BANDS = [((500, 700), 0.30), ((700, 1000), 0.24), ((1000, 1500), 0.19),
@@ -143,7 +151,8 @@ def groups_for(mode):
     if mode == "mystery":
         t = TARGETS["mystery"]["criteria"]
         return [
-            {"name": "nothing", "criteria": {"0"}, "bands": ZERO, "p": "residual"},
+            {"name": "nothing", "criteria": {"mystery_nothing"}, "bands": MYSTERY_NOTHING_BANDS,
+             "p": "residual", "mean": t["mystery_nothing"][1]},
             {"name": "super", "criteria": {"supergame"}, "bands": MYSTERY_SUPER_BANDS,
              "p": t["supergame"][0], "mean": t["supergame"][1]},
             {"name": "epic", "criteria": {"epicgame"}, "bands": MYSTERY_EPIC_BANDS,
@@ -343,4 +352,4 @@ if __name__ == "__main__":
     modes = [a for a in sys.argv[1:] if not a.startswith("--")] or list(TARGETS)
     rtps = {m: shape(m, dry_run="--dry-run" in sys.argv) for m in modes}
     spread = max(rtps.values()) - min(rtps.values())
-    print(f"\ncross-mode RTP spread {spread:.2e} (spec B limit 0.005)")
+    print(f"\ncross-mode RTP spread {spread:.2e} (limit 0.005); target {TARGET_RTP:.7f}")

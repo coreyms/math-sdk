@@ -131,14 +131,23 @@ def swipe_event(gamestate, removed: list, tile_changes: list) -> None:
     )
 
 
-def sting_event(gamestate, cells: list, is_super: bool) -> None:
-    """Tail injects wilds before evaluation. No refill: the wilds REPLACE what was there."""
+def sting_event(gamestate, kind: str, center: int, cells: list, symbol: str) -> None:
+    """One sting (rule pass 2, 2026-09-23). No refill: the new symbol REPLACES what was there.
+
+    `kind` is `normal` (1 cell), `big` (a plus of 5), `super` (a 3x3 block of 9) or `scatter`
+    (1 cell, the natural-trigger and Mystery tease). `cells` is EVERY cell the shape covers,
+    centre first then ascending cell index, and `symbol` is what all of them become - the
+    client applies exactly that and never re-derives the shape. The old boolean `super` field
+    is gone; the rig animation is picked from `kind`.
+    """
     gamestate.book.add_event(
         {
             "index": len(gamestate.book.events),
             "type": STING,
-            "cells": cells,
-            "super": bool(is_super),
+            "kind": kind,
+            "center": int(center),
+            "cells": list(cells),
+            "symbol": symbol,
         }
     )
 
@@ -185,8 +194,9 @@ def bonus_end_event(gamestate) -> None:
 
 
 def mystery_event(gamestate, outcome: str) -> None:
-    """Mystery buy result. `nothing` books carry no board at all - the outcome is instant and
-    honest, not a decoy round (spec C)."""
+    """Mystery buy result, always the FIRST event of the book. Rule pass 2 (2026-09-23): every
+    outcome including `nothing` is a real spin, so a `mystery` event is always followed by a
+    `reveal`; the outcome only decides how many scatter stings land on it."""
     gamestate.book.add_event(
         {
             "index": len(gamestate.book.events),

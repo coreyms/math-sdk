@@ -7,7 +7,8 @@ Modes: base 1x, ante 3x, super_ante 10x, bonus 100x buy, super 250x buy, epic 50
 mystery 250x buy. Every headline tunable lives at the top of this file so the math phase
 is "edit constants, re-run reels, re-sim" and never "hunt through the executables".
 
-TUNED 2026-09-20. Every mode ships at 0.9600000 from the shaped lookup tables
+TUNED 2026-09-20, re-tuned 2026-09-23 (rule pass 2). Every mode ships at 0.9670000 from the
+shaped lookup tables
 (tools/shape_lut.py against the targets in game_optimization.py). The tuning log - which lever
 moved what, and by how much - is at the bottom of readme.txt.
 """
@@ -21,7 +22,16 @@ from src.config.distributions import Distribution
 # --------------------------------------------------------------------------------------
 # Headline tunables (spec block B / C)
 # --------------------------------------------------------------------------------------
-TARGET_RTP = 0.96  # spec B: 96.00% every mode, spread within 0.5%
+# RTP. Stake's band is 90.0% to 96.7%; COREY SET THIS TO THE CEILING on 2026-09-23 ("I care
+# more about building a base of fans than about profit"), so every mode ships at 96.70%, not
+# the 96.00% the spec drafted. Cross-mode spread still has to stay inside 0.005 (it lands
+# around 1e-6, because the shaper solves each mode to the target exactly).
+# 0.96699, not 0.967 exactly: utils/rgs_verification.verify_mode_volatility rejects a mode
+# whose shipped RTP is STRICTLY GREATER than 0.967, and the shaper's final integer weight
+# rounding moves a table by a few parts per million either way. A 1e-5 headroom is inside that
+# rounding noise (every mode ships at 0.96699x, i.e. 96.699%, which displays as 96.70%) and
+# guarantees the ceiling is never crossed.
+TARGET_RTP = 0.96699
 WINCAP = 10000.0  # spec B: max win 10,000x base bet (Corey 2026-09-20)
 
 ANTE_COST = 3.0
@@ -46,14 +56,17 @@ TILE_CAP_HIGH = 128  # super and epic only (spec B, revised down from 256x)
 # bet mode; the feature contexts are the bonus TYPE, not the mode that bought it, so a
 # Super won naturally off 5 scatters in the base game still gets the 128x ladder.
 TILE_CAP = {"base": TILE_CAP_STANDARD, "bonus": TILE_CAP_STANDARD, "super": TILE_CAP_HIGH, "epic": TILE_CAP_HIGH}
-# TILE SEEDING / GROWTH THRESHOLD (tuning pass 2026-09-20). A cold cell lights up only when the
-# cluster that cleared it was at least TILE_SEED_MIN_CLUSTER cells; a cell that is already alight
-# doubles only on a cluster of at least TILE_GROW_MIN_CLUSTER. MIN_CLUSTER in both dicts means
-# "no threshold" (the original behaviour: every removal seeds and doubles). This is the lever that
-# actually decides how fast a persistent feature climbs the ladder - the first sim had the average
-# paying cluster in an Epic sitting on 96 of the 128 cap by the back half of the session.
-TILE_SEED_MIN_CLUSTER = {"base": 5, "bonus": 5, "super": 7, "epic": 9}
-TILE_GROW_MIN_CLUSTER = {"base": 5, "bonus": 5, "super": 6, "epic": 8}
+# TILE SEEDING / GROWTH THRESHOLD. A cold cell lights up only when the cluster that cleared it
+# was at least TILE_SEED_MIN_CLUSTER cells; a cell that is already alight doubles only on a
+# cluster of at least TILE_GROW_MIN_CLUSTER.
+#
+# RULE PASS 2 (Corey, 2026-09-23): THE THRESHOLD IS OFF EVERYWHERE. Both dicts are MIN_CLUSTER
+# (5) in every context, which is the minimum paying cluster, so EVERY winning cluster seeds and
+# doubles the tiles under it in every mode and game type. The constants are kept so the lever
+# still exists - raise a value and that context needs a bigger cluster again - but nothing in
+# the shipped build gates on them. (They were {5,5,7,9} / {5,5,6,8} in the 2026-09-20 pass.)
+TILE_SEED_MIN_CLUSTER = {"base": MIN_CLUSTER, "bonus": MIN_CLUSTER, "super": MIN_CLUSTER, "epic": MIN_CLUSTER}
+TILE_GROW_MIN_CLUSTER = {"base": MIN_CLUSTER, "bonus": MIN_CLUSTER, "super": MIN_CLUSTER, "epic": MIN_CLUSTER}
 
 # --- Character features (spec C; all decided here, the frontend only plays them) --------
 # Every chance is per SPIN, keyed by context ("base" = any base-game spin, else bonus type).
@@ -73,14 +86,92 @@ SWIPE_MAX_PER_SPIN = 2  # bounds both the tail and the events-per-book budget
 #   bonus/super/epic (tiles PERSIST for the whole round): FALSE. Seeding 24 cells on every
 #     swipe of every spin of a persistent session is a ladder cannon - measured 2026-09-20 it
 #     took the Epic mean from 2.2x its price to 6.3x and capped 1 round in 10.
-SWIPE_SEEDS_EMPTY_TILES = {"base": True, "bonus": False, "super": False, "epic": False}
+# RULE PASS 2 (Corey, 2026-09-23): TRUE EVERYWHERE. The swipe seeds cold cells to 2x and
+# doubles lit ones in every context, the persistent features included. The 2026-09-20 reading
+# (True in the base game only, because seeding 24 cells on every swipe of a persistent session
+# was a ladder cannon) is superseded: the ladder is deliberately much richer now and the shaper
+# takes the extra RTP back out of the published tables.
+SWIPE_SEEDS_EMPTY_TILES = {"base": True, "bonus": True, "super": True, "epic": True}
 
-# STING: wilds injected on random non-wild non-scatter cells BEFORE evaluation.
-STING_CHANCE = {"base": 0.12, "bonus": 0.20, "super": 0.18, "epic": 0.20}
-STING_WILDS = (3, 5)  # inclusive range
-# SUPER STING: bigger pattern, Super rare / Epic common (spec C).
-SUPER_STING_CHANCE = {"base": 0.0, "bonus": 0.0, "super": 0.04, "epic": 0.20}
-SUPER_STING_WILDS = (6, 10)
+# --- STING SYSTEM (rule pass 2, Corey 2026-09-23) --------------------------------------
+# REPLACES the old Sting (3-5 random wilds) / Super Sting (6-10 random wilds) entirely.
+#
+# A spin fires 0 to 5 stings, one after another, BEFORE the board is evaluated (after a roar
+# if both fire). Each sting is its own `sting` book event and they play in the written order.
+#
+#   kind      cells turned wild                              placement constraint
+#   normal    1 cell                                         any non-wild, non-scatter cell
+#   big       a plus of 5 (centre + 4 orthogonal neighbours)  centre off the edge; MUST WIN
+#   super     a 3x3 block of 9 around the centre              centre 1 in from every edge; MUST WIN
+#
+# At most ONE big or super per spin and it is always the LAST sting, so the only legal
+# sequences are: normal x1..5, or normal x0..4 then one big, or normal x0..4 then one super.
+# A sting never lands on a scatter; shapes may overlap earlier stings or existing wilds.
+# Where each kind can fire: base/ante/super_ante normal only, bonus normal+big,
+# super/epic normal+big+super (super most common in the Epic).
+STING_MAX_PER_SPIN = 5
+# P(the spin fires a sting sequence at all), per context.
+STING_CHANCE = {"base": 0.12, "bonus": 0.20, "super": 0.22, "epic": 0.40}
+# Given a sequence fires, P(it ends on a big / super finisher). One uniform roll picks between
+# them, so the two shares ADD rather than compound and must sum to <= 1. These are sized to
+# keep the per-spin rates in the same neighbourhood as the 2026-09-20 build:
+#   bonus big 0.20 x 0.25 = 0.050    super big 0.22 x 0.20 = 0.044
+#   super super 0.22 x 0.18 = 0.040 (was SUPER_STING_CHANCE 0.04)
+#   epic  big 0.40 x 0.15 = 0.060    epic super 0.40 x 0.50 = 0.200 (was 0.20)
+STING_BIG_CHANCE = {"base": 0.0, "bonus": 0.25, "super": 0.20, "epic": 0.15}
+STING_SUPER_CHANCE = {"base": 0.0, "bonus": 0.0, "super": 0.18, "epic": 0.50}
+# How many NORMAL stings the sequence carries. Two tables: 1..5 when no finisher fires (a
+# sequence is never empty), 0..4 when one does (the finisher takes the fifth slot).
+STING_NORMAL_COUNTS = {
+    "base": {1: 30, 2: 28, 3: 22, 4: 13, 5: 7},
+    "bonus": {1: 26, 2: 27, 3: 23, 4: 15, 5: 9},
+    "super": {1: 22, 2: 26, 3: 25, 4: 17, 5: 10},
+    "epic": {1: 20, 2: 24, 3: 26, 4: 18, 5: 12},
+}
+STING_NORMAL_COUNTS_BEFORE_FINISHER = {
+    "base": {0: 30, 1: 28, 2: 22, 3: 13, 4: 7},
+    "bonus": {0: 30, 1: 28, 2: 22, 3: 13, 4: 7},
+    "super": {0: 28, 1: 28, 2: 23, 3: 14, 4: 7},
+    "epic": {0: 26, 1: 27, 2: 24, 3: 15, 4: 8},
+}
+# The shapes, as (d_reel, d_row) offsets from the centre. Centre first, the rest in ascending
+# cell index, which is the order the `cells` array of the event is written in.
+STING_BIG_OFFSETS = ((0, 0), (-1, 0), (0, -1), (0, 1), (1, 0))
+STING_SUPER_OFFSETS = tuple((dr, dw) for dr in (-1, 0, 1) for dw in (-1, 0, 1))
+# A big or super MUST produce a win: the engine walks the legal centres in random order and
+# takes the first whose shape completes a paying cluster (5+) touching the shape. 36 is every
+# legal centre on an 8x8 board (reels 1-6 x rows 1-6), so "bounded" here means "tries them
+# all"; if none works the finisher is skipped entirely and the spin keeps its normals.
+STING_FINISHER_MAX_TRIES = 36
+
+# --- SCATTER STING (rule pass 2, Corey 2026-09-23) --------------------------------------
+# Presentation of a NATURAL feature entry in base / ante / super_ante, never on a bought
+# bonus / super / epic (the player already knows) and never on a trigger that completes
+# during a cascade. The payout of the round is identical by construction:
+#   * the reveal board is the REAL trigger board with `m` of its scatters replaced by a
+#     PLACEHOLDER - a paying symbol (L1..H1, never W or S) that differs from all four
+#     orthogonal neighbours, so it cannot join any cluster;
+#   * then `m` `sting` events of kind `scatter` put the real scatters back, one cell each;
+#   * evaluation happens after the stings, on the REAL board.
+# Clusters before and after the sting are therefore identical: nothing is shown and not paid.
+SCATTER_STING_SHARE = 0.15  # of natural triggers, decided per book with its own RNG draw
+SCATTER_STING_MODES = ("base", "ante", "super_ante")
+# How many scatters are stung in. Clamped to [trigger_count - 3, trigger_count] so the visible
+# board holds 0..3 scatters. Weighted towards 1, the classic "one more scatter" tease. The
+# table runs to 6 (the biggest trigger) so that even a 6-scatter board can be stung all the
+# way down to an empty-looking reveal; the clamp is what keeps the visible count in 0..3.
+SCATTER_STING_COUNT_WEIGHTS = {1: 50, 2: 30, 3: 15, 4: 5, 5: 3, 6: 2}
+# Wild stings (normal / big / super) never fire on a spin whose reveal carries a scatter sting.
+
+# --- MYSTERY SPIN-IN (rule pass 2, Corey 2026-09-23) ------------------------------------
+# A Mystery round is now a REAL base-strip spin. Its reveal always carries exactly 3 scatters,
+# one in each of columns 0,1,2 (rows random) and none in columns 3..7, with a forced
+# anticipation array. `nothing` plays the board out and pays what it pays; `super` and `epic`
+# add 2 and 3 scatter stings in distinct columns of 3..7.
+MYSTERY_SCATTER_REELS = (0, 1, 2)
+MYSTERY_STING_REELS = (3, 4, 5, 6, 7)
+MYSTERY_ANTICIPATION = (0, 0, 0, 1, 1, 1, 1, 1)
+MYSTERY_STING_COUNT = {"nothing": 0, "super": 2, "epic": 3}
 
 # ROAR: removes every low (L1..L4) before evaluation and refills; multipliers under them are
 # untouched. Super and Epic only (spec C). Sized last, as the tail.
@@ -94,19 +185,25 @@ MYSTERY_EPIC_MIN_WIN = 500.0  # spec C: a Mystery Epic always pays >= 2x the 250
 # Mystery split. Spec C left it OPEN with a 30/50/20 worked example; the tuning pass proposed
 # 35/50/15; COREY SETTLED IT AT 50 / 40 / 10 (2026-09-20, his original design - a 15% Epic
 # share is too generous for a mode whose Epic is meant to pay big).
-# Arithmetic: the two paying slices carry the whole 240x (0.96 x 250x) between them, so
-#     0.40 x SuperMean + 0.10 x EpicMean = 240.
-# With the Mystery Super on a bought Super's own 240x mean that is 0.40 x 240 = 96, leaving
-# 144 for the Epic slice: a Mystery Epic mean of 1,440x over its 500x floor. MEASURED: the
+# Arithmetic: the paying slices carry the whole 241.75x (0.967 x 250x) between them, so
+#     0.50 x NothingMean + 0.40 x SuperMean + 0.10 x EpicMean = 241.75.
+# With the Mystery Super on a bought Super's own 241.75x mean that is 0.40 x 241.75 = 96.70,
+# and the nothing slice adds 0.50 x 0.20 = 0.10, leaving 144.95 for the Epic slice: a Mystery
+# Epic mean of 1,449.5x over its 500x floor. MEASURED: the
 # engine's raw Mystery-Epic rounds already average 2,257x above that floor, so 1,440x is
 # reached by shaping DOWN, with room to spare - the Mystery Super does NOT need to be richer
 # than a bought one. (Reported to Corey: both means are 240x and 1,440x.)
-MYSTERY_SPLIT = {"0": 0.50, "supergame": 0.40, "epicgame": 0.10}
-# How much simulated MATERIAL each Mystery slice gets, which is NOT the shipped split. A
-# `nothing` book is three events with no board, so every one of them is byte-identical and
-# 50,000 of them would be 50,000 copies of the same round; the Epic slice, which now has to
-# reach a 1,440x mean out of its own tail, is where the deck needs depth instead.
-MYSTERY_MATERIAL_QUOTA = {"0": 0.20, "supergame": 0.50, "epicgame": 0.30}
+MYSTERY_SPLIT = {"mystery_nothing": 0.50, "supergame": 0.40, "epicgame": 0.10}
+# RULE PASS 2 (Corey, 2026-09-23): the `nothing` slice is now a REAL spin that pays its own
+# cluster wins, so it is no longer a zero-win criteria. Its measured mean is below; the Epic
+# slice still carries the residual, so the split and the means cannot drift apart.
+#     0.50 x MYSTERY_NOTHING_MEAN + 0.40 x 241.75 + 0.10 x EpicMean = 241.75 = 0.967 x 250.
+# How much simulated MATERIAL each Mystery slice gets, which is NOT the shipped split.
+# RULE PASS 2: a `nothing` book is now a real base-strip spin with a board, cascades and a
+# payout of its own, so the slice needs real depth (the 2026-09-20 quota of 0.20 was sized for
+# byte-identical three-event books). The Epic slice still needs its own tail, so the quota is
+# split 0.30 / 0.40 / 0.30 rather than following the shipped 50 / 40 / 10 probabilities.
+MYSTERY_MATERIAL_QUOTA = {"mystery_nothing": 0.30, "supergame": 0.40, "epicgame": 0.30}
 
 
 class GameConfig(Config):
@@ -178,6 +275,9 @@ class GameConfig(Config):
         self.paytable = self.convert_range_table(pay_group)
         assert min(k[0] for k in self.paytable) == MIN_CLUSTER
 
+        # The eight PAYING symbols, in ladder order. The scatter-sting placeholder is drawn
+        # from this list (never W, never S), so a placeholder always looks like a real symbol.
+        self.paying_symbols = tuple(bands.keys())
         self.special_symbols = {"wild": ["W"], "scatter": ["S"]}
         self.low_symbols = list(LOW_SYMBOLS)
 
@@ -204,9 +304,23 @@ class GameConfig(Config):
         self.swipe_max_per_spin = SWIPE_MAX_PER_SPIN
         self.swipe_seeds_empty_tiles = dict(SWIPE_SEEDS_EMPTY_TILES)
         self.sting_chance = dict(STING_CHANCE)
-        self.sting_wilds = tuple(STING_WILDS)
-        self.super_sting_chance = dict(SUPER_STING_CHANCE)
-        self.super_sting_wilds = tuple(SUPER_STING_WILDS)
+        self.sting_big_chance = dict(STING_BIG_CHANCE)
+        self.sting_super_chance = dict(STING_SUPER_CHANCE)
+        self.sting_max_per_spin = STING_MAX_PER_SPIN
+        self.sting_normal_counts = {k: dict(v) for k, v in STING_NORMAL_COUNTS.items()}
+        self.sting_normal_counts_before_finisher = {
+            k: dict(v) for k, v in STING_NORMAL_COUNTS_BEFORE_FINISHER.items()
+        }
+        self.sting_big_offsets = tuple(STING_BIG_OFFSETS)
+        self.sting_super_offsets = tuple(STING_SUPER_OFFSETS)
+        self.sting_finisher_max_tries = STING_FINISHER_MAX_TRIES
+        self.scatter_sting_share = SCATTER_STING_SHARE
+        self.scatter_sting_modes = tuple(SCATTER_STING_MODES)
+        self.scatter_sting_count_weights = dict(SCATTER_STING_COUNT_WEIGHTS)
+        self.mystery_scatter_reels = tuple(MYSTERY_SCATTER_REELS)
+        self.mystery_sting_reels = tuple(MYSTERY_STING_REELS)
+        self.mystery_anticipation = tuple(MYSTERY_ANTICIPATION)
+        self.mystery_sting_count = dict(MYSTERY_STING_COUNT)
         self.roar_chance = dict(ROAR_CHANCE)
         self.epic_min_win = EPIC_MIN_WIN
         self.mystery_epic_min_win = MYSTERY_EPIC_MIN_WIN
@@ -389,11 +503,18 @@ class GameConfig(Config):
 
     def _mystery_distributions(self):
         """Mystery buy: nothing / Super / Epic, NEVER a regular Bonus (spec C: a low bonus is
-        worse than nothing, the player watches a failed spin). The nothing outcome writes no
-        board at all - it is instant and honest, not a decoy round."""
+        worse than nothing, the player watches a failed spin).
+
+        RULE PASS 2 (Corey, 2026-09-23): every Mystery outcome is now a REAL spin. The reveal
+        always shows 3 scatters in columns 0,1,2; `nothing` simply plays that board out (its
+        cluster wins count), `super` stings 2 more scatters into columns 3..7 and `epic` 3."""
         return [
+            # RULE PASS 2: the `nothing` slice plays a real board, so it has NO win_criteria -
+            # it keeps whatever its clusters pay, zero included. Its criteria is named
+            # `mystery_nothing` rather than `0` precisely because it is no longer a zero-win
+            # bucket; game_override.check_repeat lists it as a criteria that may pay nothing.
             Distribution(
-                criteria="0", quota=MYSTERY_MATERIAL_QUOTA["0"], win_criteria=0.0,
+                criteria="mystery_nothing", quota=MYSTERY_MATERIAL_QUOTA["mystery_nothing"],
                 conditions={"reel_weights": self._reel_weights("BR")},
             ),
             Distribution(
