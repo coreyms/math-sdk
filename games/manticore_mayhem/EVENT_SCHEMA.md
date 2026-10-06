@@ -53,10 +53,10 @@ blow through that with the SDK's default one-event-per-action stream, so:
 Playback order is fixed: **show the wins -> remove `removed` -> set `tiles` -> drop `fill`.**
 The client never has to reconstruct an intermediate board.
 
-### `swipe` - the paw clears the middle band
+### `swipe` - the paw clears a three-row band
 | field | |
 |---|---|
-| `rows` | always `[3,4,5]` (config `SWIPE_ROWS`) |
+| `rows` | the ACTUAL band of this swipe: 3 contiguous rows `[s, s+1, s+2]` with `s` drawn uniformly from 0..5 per swipe, in every mode (config `SWIPE_BAND_ROWS` / `SWIPE_BAND_STARTS`, 2026-10-06; was always `[3,4,5]`) |
 | `removed[]` | the cleared cells in those rows - **up to 24, fewer when a scatter is in the band**. Scatters survive the paw: they are not cleared and not listed |
 | `tiles[]` | tiles stepped up in those rows. Rule pass 2 (2026-09-23): the swipe SEEDS cold cells to 2x as well as doubling lit ones, in EVERY context including the persistent features (`SWIPE_SEEDS_EMPTY_TILES` is True everywhere), so this is normally the whole band minus any capped cells |
 | `fill[8][]` | refill, top-down |

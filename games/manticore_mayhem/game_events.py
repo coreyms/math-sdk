@@ -117,13 +117,16 @@ def cascade_event(gamestate, wins: list, removed: list, tile_changes: list) -> N
     )
 
 
-def swipe_event(gamestate, removed: list, tile_changes: list) -> None:
-    """The paw clears rows 3-5, doubles the tiles there, board refills (spec C)."""
+def swipe_event(gamestate, rows, removed: list, tile_changes: list) -> None:
+    """The paw clears a three-row band, doubles the tiles there, board refills (spec C).
+
+    `rows` is the ACTUAL band of this swipe (2026-10-06: any of the six contiguous three-row
+    bands, drawn per swipe), never a config constant."""
     gamestate.book.add_event(
         {
             "index": len(gamestate.book.events),
             "type": SWIPE,
-            "rows": list(gamestate.config.swipe_rows),
+            "rows": [int(r) for r in rows],
             "removed": removed,
             "tiles": tile_changes,
             "fill": _fill(gamestate.new_symbols_from_tumble),

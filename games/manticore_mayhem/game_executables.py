@@ -89,11 +89,19 @@ class GameExecutables(GameCalculations):
     # ---------------------------------------------------------------------------------
     # Character features
     # ---------------------------------------------------------------------------------
-    def do_swipe(self) -> None:
-        """The paw clears the three middle rows, doubling their tiles first (spec C).
+    def pick_swipe_rows(self) -> tuple:
+        """The band this swipe clears: SWIPE_BAND_ROWS contiguous rows whose top row is drawn
+        uniformly from SWIPE_BAND_STARTS (Corey, 2026-10-06; was the fixed rows 3,4,5). Drawn
+        with the module RNG like every other feature roll, so a seeded sim stays reproducible."""
+        start = random.choice(self.config.swipe_band_starts)
+        return tuple(range(start, start + self.config.swipe_band_rows))
 
-        Rows 3-5 of 0..7 are the spec's starting point: clearing a middle band means the
-        refill reaches every column and the rows above drop, so the whole board churns.
+    def do_swipe(self, rows=None) -> None:
+        """The paw clears a three-row band, doubling its tiles first (spec C).
+
+        The band is any of the six contiguous three-row bands of the 8-row board, picked per
+        swipe by pick_swipe_rows (Corey, 2026-10-06). `rows` is only for tests that need a
+        known band; the engine never passes it.
 
         SCATTERS SURVIVE THE SWIPE (bug fix, tuning pass 2026-09-20). A swipe fires after the
         cascades of the SAME spin, so on a triggering spin it used to blow the scatters off the
@@ -101,10 +109,11 @@ class GameExecutables(GameCalculations):
         spin could have its fourth scatter swiped away in front of the player. The paw now
         clears everything in the band except a scatter, which stays where it is.
         """
+        rows = tuple(rows) if rows is not None else self.pick_swipe_rows()
         positions = [
             (reel, row)
             for reel in range(self.config.num_reels)
-            for row in self.config.swipe_rows
+            for row in rows
             if not self.board[reel][row].check_attribute("scatter")
         ]
         tile_changes = self.double_tiles(
@@ -112,7 +121,7 @@ class GameExecutables(GameCalculations):
         )
         removed = sorted(cell(reel, row) for reel, row in positions)
         self.remove_and_refill(positions)
-        swipe_event(self, removed, tile_changes)
+        swipe_event(self, rows, removed, tile_changes)
 
     def maybe_sting(self, ctx: str) -> None:
         """The sting system (rule pass 2, Corey 2026-09-23).

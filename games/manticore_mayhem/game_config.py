@@ -7,7 +7,8 @@ Modes: base 1x, ante 3x, super_ante 10x, bonus 100x buy, super 250x buy, epic 50
 mystery 250x buy. Every headline tunable lives at the top of this file so the math phase
 is "edit constants, re-run reels, re-sim" and never "hunt through the executables".
 
-TUNED 2026-09-20, re-tuned 2026-09-23 (rule pass 2). Every mode ships at 0.9670000 from the
+TUNED 2026-09-20, re-tuned 2026-09-23 (rule pass 2), swipe band randomised 2026-10-06 (any of
+the six three-row bands instead of the fixed rows 3,4,5). Every mode ships at 0.9670000 from the
 shaped lookup tables
 (tools/shape_lut.py against the targets in game_optimization.py). The tuning log - which lever
 moved what, and by how much - is at the bottom of readme.txt.
@@ -72,9 +73,15 @@ TILE_GROW_MIN_CLUSTER = {"base": MIN_CLUSTER, "bonus": MIN_CLUSTER, "super": MIN
 # Every chance is per SPIN, keyed by context ("base" = any base-game spin, else bonus type).
 # Tuned 2026-09-20; readme.txt records the sweep each number came out of.
 
-# SWIPE: fires when a spin has no more clusters. Clears rows 3,4,5 (of 0..7), doubles the
-# tiles in those rows, refills, and tumbling continues. Spec's first guess: 1 in 8 base.
-SWIPE_ROWS = (3, 4, 5)
+# SWIPE: fires when a spin has no more clusters. Clears a contiguous band of SWIPE_BAND_ROWS
+# rows, doubles the tiles in those rows, refills, and tumbling continues. Spec's first guess:
+# 1 in 8 base.
+# SWIPE ROWS (Corey, 2026-10-06): the band is no longer the fixed rows 3,4,5. Each swipe draws
+# its top row uniformly from SWIPE_BAND_STARTS (0..5), so the paw clears one of six bands:
+# 0-2, 1-3, 2-4, 3-5, 4-6 or 5-7. Same in every context. The draw is made in do_swipe with the
+# engine's RNG, and the `swipe` event carries the ACTUAL rows of that swipe.
+SWIPE_BAND_ROWS = 3
+SWIPE_BAND_STARTS = tuple(range(0, NUM_ROWS - SWIPE_BAND_ROWS + 1))  # (0, 1, 2, 3, 4, 5)
 SWIPE_CHANCE = {"base": 0.25, "bonus": 0.32, "super": 0.30, "epic": 0.35}
 SWIPE_MAX_PER_SPIN = 2  # bounds both the tail and the events-per-book budget
 # DECISION (Claude 2026-09-20, spec is silent), REVISED IN THE TUNING PASS: whether a swipe
@@ -299,7 +306,9 @@ class GameConfig(Config):
         self.tile_seed = TILE_SEED
         self.tile_seed_min_cluster = dict(TILE_SEED_MIN_CLUSTER)
         self.tile_grow_min_cluster = dict(TILE_GROW_MIN_CLUSTER)
-        self.swipe_rows = tuple(SWIPE_ROWS)
+        self.swipe_band_rows = SWIPE_BAND_ROWS
+        self.swipe_band_starts = tuple(SWIPE_BAND_STARTS)
+        assert all(0 <= s and s + SWIPE_BAND_ROWS <= NUM_ROWS for s in SWIPE_BAND_STARTS)
         self.swipe_chance = dict(SWIPE_CHANCE)
         self.swipe_max_per_spin = SWIPE_MAX_PER_SPIN
         self.swipe_seeds_empty_tiles = dict(SWIPE_SEEDS_EMPTY_TILES)

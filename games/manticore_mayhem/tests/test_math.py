@@ -212,7 +212,10 @@ def _():
 # --------------------------------------------------------------------------------------
 # Character features (spec C)
 # --------------------------------------------------------------------------------------
-@check("swipe: clears rows 3-5 and doubles only those tiles")
+SWIPE_TEST_ROWS = (3, 4, 5)  # a known band for the tests that need one
+
+
+@check("swipe: clears the band it was given and doubles only those tiles")
 def _():
     gs = new_state()
     gs.criteria = "basegame"
@@ -225,10 +228,10 @@ def _():
     gs.tile_grid[0][0] = 8
     marker = "H1"
     for reel in range(8):
-        for row in gs.config.swipe_rows:
+        for row in SWIPE_TEST_ROWS:
             gs.board[reel][row] = gs.create_symbol(marker)
 
-    gs.do_swipe()
+    gs.do_swipe(SWIPE_TEST_ROWS)
 
     assert gs.tile_grid[0][4] == 16, "tile inside the swipe band did not double"
     assert gs.tile_grid[0][0] == 8, "tile outside the swipe band changed"
@@ -241,6 +244,46 @@ def _():
         assert len(gs.board[reel]) == 8
 
 
+@check("swipe: the band is 3 contiguous rows, its start uniform over 0..5, in every context")
+def _():
+    """2026-10-06: the paw clears any of the six three-row bands, not the fixed rows 3,4,5."""
+    gs = new_state()
+    assert gs.config.swipe_band_rows == 3
+    assert gs.config.swipe_band_starts == (0, 1, 2, 3, 4, 5)
+    for context in ("base", "bonus", "super", "epic"):
+        counts = {s: 0 for s in gs.config.swipe_band_starts}
+        for _ in range(6000):
+            rows = gs.pick_swipe_rows()
+            assert len(rows) == 3 and rows[0] + 1 == rows[1] == rows[2] - 1, rows
+            assert 0 <= rows[0] and rows[-1] <= 7, rows
+            counts[rows[0]] += 1
+        for start, n in counts.items():
+            assert 800 <= n <= 1200, (context, start, n)
+    # the event carries the ACTUAL rows of the swipe, whatever band fired
+    gs.criteria = "basegame"
+    set_board(gs, ["M1 M2 M3 H1 M1 M2 M3 H1"] * 8)
+    gs.reelstrip = gs.config.reels["BR"]
+    gs.reelstrip_id = "BR"
+    gs.reel_positions = [0] * 8
+    seen = set()
+    for _ in range(200):
+        gs.reset_tiles()
+        scatter_rows_before = [
+            row for reel in range(8) for row in range(8) if gs.board[reel][row].check_attribute("scatter")
+        ]
+        gs.do_swipe()
+        event = gs.book.events[-1]
+        rows = event["rows"]
+        assert rows == list(range(rows[0], rows[0] + 3)) and rows[0] in range(6), rows
+        assert all(c % 8 in rows for c in event["removed"]), (rows, event["removed"])
+        # the refill comes off the real BR strip, so a scatter may sit in the band by the
+        # time the next swipe fires and the paw skips it: 24 minus the surviving scatters
+        survivors = sum(1 for row in scatter_rows_before if row in rows)
+        assert len(event["removed"]) == 24 - survivors, (rows, event["removed"])
+        seen.add(rows[0])
+    assert seen == {0, 1, 2, 3, 4, 5}, seen
+
+
 @check("swipe: scatters survive the paw (a buy must not be downgraded)")
 def _():
     gs = new_state()
@@ -250,14 +293,14 @@ def _():
     gs.reelstrip_id = "BR"
     gs.reel_positions = [0] * 8
     for reel in range(8):
-        for row in gs.config.swipe_rows:
+        for row in SWIPE_TEST_ROWS:
             gs.board[reel][row] = gs.create_symbol("H1")
     # six scatters inside the swipe band: this is a triggering board, the paw must not eat it
     for reel in range(6):
         gs.board[reel][4] = gs.create_symbol("S")
     gs.get_special_symbols_on_board()
 
-    gs.do_swipe()
+    gs.do_swipe(SWIPE_TEST_ROWS)
     gs.get_special_symbols_on_board()
 
     assert gs.count_special_symbols("scatter") == 6, "the swipe destroyed scatters"
@@ -271,7 +314,7 @@ def _():
     gs = new_state()
     seeds = gs.config.swipe_seeds_empty_tiles
     assert all(seeds[k] for k in ("base", "bonus", "super", "epic")), seeds
-    band = [(reel, row) for reel in range(8) for row in gs.config.swipe_rows]
+    band = [(reel, row) for reel in range(8) for row in SWIPE_TEST_ROWS]
     for context in ("base", "bonus", "super", "epic"):
         gs.reset_tiles()
         changes = gs.double_tiles(band, seed_empty=gs.config.swipe_seeds_empty_tiles[context])
@@ -280,7 +323,7 @@ def _():
 
 @check("swipe: seeding inside a live feature session lights the whole band")
 def _():
-    """The engine path, not just the helper: a swipe on a cold EPIC board must light rows 3-5."""
+    """The engine path, not just the helper: a swipe on a cold EPIC board must light its band."""
     gs = new_state()
     gs.criteria = "epicgame"
     gs.gametype = gs.config.freegame_type
@@ -297,8 +340,9 @@ def _():
     assert event["type"] == "swipe"
     assert len(event["tiles"]) == 24, f"a cold Epic swipe lit {len(event['tiles'])} cells, expected 24"
     for reel in range(8):
-        for row in gs.config.swipe_rows:
-            assert gs.tile_grid[reel][row] == 2, (reel, row, gs.tile_grid[reel][row])
+        for row in range(8):
+            want = 2 if row in event["rows"] else 0
+            assert gs.tile_grid[reel][row] == want, (reel, row, gs.tile_grid[reel][row])
     gs.gametype = gs.config.basegame_type
 
 

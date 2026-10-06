@@ -117,9 +117,10 @@ Mystery          nothing / Super / Epic, never a regular Bonus. RULE PASS 2 (Cor
                  feature, and the Mystery Epic floor (500x) applies to the ROUND total. Wild
                  stings never fire on the spin-in, and no cascade of the spin-in may add a
                  scatter to a fourth column - the scatter count IS the outcome.
-Swipe            When a spin runs out of clusters, with a per-context chance the paw clears
-                 rows 3,4,5, steps up the tiles in those rows, the board refills and cascading
-                 resumes. At most twice per spin. SCATTERS SURVIVE THE PAW (they are skipped,
+Swipe            When a spin runs out of clusters, with a per-context chance the paw clears a
+                 band of 3 contiguous rows whose top row is drawn uniformly from 0..5 (any of
+                 the six bands 0-2 .. 5-7; was the fixed rows 3,4,5 until 2026-10-06), steps up
+                 the tiles in those rows, the board refills and cascading resumes. At most twice per spin. SCATTERS SURVIVE THE PAW (they are skipped,
                  not cleared) - otherwise a swipe on the triggering spin could take the fourth
                  scatter off the board, and a bought Epic could resolve to a Bonus. RULE PASS 2
                  (Corey, 2026-09-23): the swipe SEEDS cold cells to 2x as well as doubling lit

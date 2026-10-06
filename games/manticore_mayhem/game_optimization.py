@@ -86,13 +86,18 @@ TARGETS = {
     },
     "ante": {
         "cost": ANTE_COST,
+        # Ante between-feature wins (Corey 2026-10-05): a decent spin win every 40 spins or so
+        # between the 1-in-60 Bonuses, so the mode is not a pure feature hunt. Mid and big wins
+        # are set in multiples of the 3x PRICE (3x and 12x), not the base bet, and are funded
+        # by a 9% trim on the natural Bonus mean and 5% on the natural Super; trigger rates and
+        # the spec-C 5.00x Bonus-or-Super ratio to base are untouched.
         "criteria": {
             "wincap": (1 / 1_000_000, WINCAP),
             "epicgame": (1 / 2_400, EPIC_MEAN),
-            "supergame": (1 / 400, SUPER_MEAN),
-            "freegame": (1 / 60, BONUS_MEAN),
-            "basegame_high": (0.0018, HIGH_MEAN),
-            "basegame_mid": (0.0160, MID_MEAN),
+            "supergame": (1 / 400, 230.0),  # was SUPER_MEAN 241.75x
+            "freegame": (1 / 60, 88.0),  # was BONUS_MEAN 96.7x
+            "basegame_high": (1 / 300, 36.0),  # was 0.0018 at 30x: 12x the price
+            "basegame_mid": (1 / 40, 9.0),  # was 0.0160 at 7.5x: 3x the price
             "basegame": (0.2200, "residual"),
             "0": ("residual", 0.0),
         },
