@@ -8,7 +8,9 @@ mystery 250x buy. Every headline tunable lives at the top of this file so the ma
 is "edit constants, re-run reels, re-sim" and never "hunt through the executables".
 
 TUNED 2026-09-20, re-tuned 2026-09-23 (rule pass 2), swipe band randomised 2026-10-06 (any of
-the six three-row bands instead of the fixed rows 3,4,5). Every mode ships at 0.9670000 from the
+the six three-row bands instead of the fixed rows 3,4,5), scatter counts ruled 2026-10-13 (rule
+pass 3: 7 scatters never trigger, 8 only as the first board of an Epic that ends at 2,500x or
+more). Every mode ships at 0.9670000 from the
 shaped lookup tables
 (tools/shape_lut.py against the targets in game_optimization.py). The tuning log - which lever
 moved what, and by how much - is at the bottom of readme.txt.
@@ -34,6 +36,11 @@ from src.config.distributions import Distribution
 # guarantees the ceiling is never crossed.
 TARGET_RTP = 0.96699
 WINCAP = 10000.0  # spec B: max win 10,000x base bet (Corey 2026-09-20)
+# The date of the rule set the books are simulated under. The game shows it in Game Info as
+# `mathVersion` (web-sdk apps/manticore_mayhem/src/game/config.ts), which has to be set to the
+# SAME string when a new set of books is handed over. Bumped from 2026.10.06 for rule pass 3.
+# It is a label only: nothing in the engine, the shaper or the published configs reads it.
+MATH_VERSION = "2026.10.13"
 
 ANTE_COST = 3.0
 SUPER_ANTE_COST = 10.0
@@ -165,8 +172,11 @@ SCATTER_STING_SHARE = 0.15  # of natural triggers, decided per book with its own
 SCATTER_STING_MODES = ("base", "ante", "super_ante")
 # How many scatters are stung in. Clamped to [trigger_count - 3, trigger_count] so the visible
 # board holds 0..3 scatters. Weighted towards 1, the classic "one more scatter" tease. The
-# table runs to 6 (the biggest trigger) so that even a 6-scatter board can be stung all the
-# way down to an empty-looking reveal; the clamp is what keeps the visible count in 0..3.
+# table runs to 6 (the biggest ordinary trigger) so that even a 6-scatter board can be stung all
+# the way down to an empty-looking reveal; the clamp is what keeps the visible count in 0..3.
+# RULE PASS 3 (2026-10-13): an 8-scatter first board is stung like any other natural Epic and
+# needs no entry of its own. The clamp leaves it the picks 5 and 6 (weights 3 : 2), so 5 or 6
+# scatters are stung in and 3 or 2 stay visible. The table deliberately still stops at 6.
 SCATTER_STING_COUNT_WEIGHTS = {1: 50, 2: 30, 3: 15, 4: 5, 5: 3, 6: 2}
 # Wild stings (normal / big / super) never fire on a spin whose reveal carries a scatter sting.
 
@@ -189,6 +199,65 @@ LOW_SYMBOLS = ("L1", "L2", "L3", "L4")
 FS_SPINS = {"bonus": 8, "super": 10, "epic": 12}  # no retriggers
 EPIC_MIN_WIN = 200.0  # spec C: Epic floor is about 40% of its 500x price
 MYSTERY_EPIC_MIN_WIN = 500.0  # spec C: a Mystery Epic always pays >= 2x the 250x price
+
+# --- SCATTER COUNTS: 7 NEVER, 8 ONLY AS AN EPIC'S FIRST BOARD (rule pass 3, Corey 2026-10-13) ---
+# THE OWNER'S DECISION, 2026-10-13: "take 7 out of the game completely" and let 8 scatters be
+# an Epic that always lands in the upper win bands, with the max win as its best outcome and
+# not its only one. It is NEVER named, announced or promised anywhere: it counts as an Epic,
+# plays the ordinary Epic (12 spins, 128x ladder, the same plaque) and no minimum is stated
+# for it. That an 8-scatter Epic always ends high is a property of WHICH BOOKS carry that
+# board, exactly as the 200x Epic floor is a property of the books and not of the weights.
+#
+# Before this pass 7 and 8 scatters meant nothing, or slightly less than nothing. They only
+# ever existed as a first board forced to 4, 5 or 6 plus one or two scatters dropped in by a
+# cascade of the trigger spin, and in the Epic buy those rounds averaged 455x and 423x
+# against the mode's 483x (7 showed on 1 buy in 62, 8 on 1 in 2,917).
+#
+# The rule, in every mode that is re-simulated (base, ante, super_ante, bonus, super, epic):
+#   * A round that would trigger on 7 scatters is RE-DRAWN. Every criteria, `wincap` included.
+#   * A round that would trigger on 8 is re-drawn too, UNLESS its FIRST board was forced to 8.
+#     Six on the first board and two more by cascade is a stray 8 and does not exist.
+#   * A share of the `epicgame` books of base / ante / super_ante and of the Epic buy is forced
+#     to an 8-scatter first board (one scatter in every column), and such a round is re-drawn
+#     until its ROUND TOTAL is at least EPIC8_MIN_WIN. A round that reached the 10,000x cap
+#     always passes. The stated 200x Epic floor (on the free spins alone) stays in force for
+#     the same round, beside the new one.
+#   * The Bonus buy and the Super buy never show 8: their first board is the 4 or 5 that was
+#     bought. Cascades can still lift them to 5 or 6 as before, never to 7.
+#   * The Mystery buy is untouched: its count is 3 plus 0, 2 or 3 stings by its own stated rule
+#     and no cascade of its spin-in may add a scatter, so it could never show 7 or 8 anyway.
+#
+# WHY NO PAYOUT DISTRIBUTION MOVES. This is the Epic floor machinery and nothing else: no new
+# criteria, no edit to TARGETS (game_optimization.py), to the band tables or to the shaper.
+# The shaper still gives the Epic group exactly its target probability, mean and band shares,
+# so RTP, hit rate, feature rates and the max win rate of every mode are what they were. The
+# only thing that changes is which board is shown on part of the Epic's upper-band rounds.
+# For the same reason the shipped FREQUENCY of 8 is not a target: it falls out of the book
+# counts and is measured after shaping (tools/scatter_scan.py), then accepted or tuned with
+# the two share constants below and one more run.
+MAX_TRIGGER_SCATTERS = 6  # the biggest trigger a cascade may complete; 6 or more is an Epic
+FULL_BOARD_SCATTERS = NUM_REELS  # 8: one scatter in every column, the only count above 6
+EPIC8_MIN_WIN = 2500.0  # x base bet, on the ROUND TOTAL of an 8-scatter Epic. NOT a stated floor
+# Share of `epicgame` DRAWS forced to an 8-scatter first board (the other draws force 6). The
+# owner's sizing: 8 on about 1 in 10 of the Epic's 2,500x-and-over rounds in the spin modes,
+# and half that share on the Epic buy (about 1 buy in 1,000). The count is drawn again on
+# every re-draw of a book, so the share of ACCEPTED books that open on 8 is a little under
+# the number here: an 8 draw is kept 85% to 88% of the time (the rest end under 2,500x), a 6
+# draw 92% to 98%. MEASURED 2026-10-13 on samples: 8.8% / 9.0% / 9.5% of the accepted Epic
+# books of base / ante / super_ante and 4.5% of the Epic buy's, which the shaper's band
+# arithmetic turns into 8 on about 10% of the Epic's 2,500x-and-over rounds in the spin modes
+# (1 spin in about 1,640,000 / 335,000 / 38,000) and about 1 Epic buy in 1,100. Those are
+# estimates until a shaped deck is scanned; see "Rule pass 3" in readme.txt.
+# Keep both at 0.20 or under: at 0.50 a 6-scatter first board would quietly say "this Epic is
+# less likely to go high", which is a spoiler.
+EPIC8_SHARE_SPIN = 0.10  # base, ante, super_ante
+EPIC8_SHARE_EPIC_BUY = 0.05  # the 500x Epic buy
+EPIC8_SHARE = {
+    "base": EPIC8_SHARE_SPIN,
+    "ante": EPIC8_SHARE_SPIN,
+    "super_ante": EPIC8_SHARE_SPIN,
+    "epic": EPIC8_SHARE_EPIC_BUY,
+}
 # Mystery split. Spec C left it OPEN with a 30/50/20 worked example; the tuning pass proposed
 # 35/50/15; COREY SETTLED IT AT 50 / 40 / 10 (2026-09-20, his original design - a 15% Epic
 # share is too generous for a mode whose Epic is meant to pay big).
@@ -333,6 +402,14 @@ class GameConfig(Config):
         self.roar_chance = dict(ROAR_CHANCE)
         self.epic_min_win = EPIC_MIN_WIN
         self.mystery_epic_min_win = MYSTERY_EPIC_MIN_WIN
+        # Rule pass 3 (2026-10-13): 7 never triggers, 8 only as a forced first board.
+        self.max_trigger_scatters = MAX_TRIGGER_SCATTERS
+        self.full_board_scatters = FULL_BOARD_SCATTERS
+        self.epic8_min_win = EPIC8_MIN_WIN
+        self.epic8_share = dict(EPIC8_SHARE)
+        assert MAX_TRIGGER_SCATTERS < FULL_BOARD_SCATTERS == NUM_REELS
+        assert all(0.0 <= share < 1.0 for share in EPIC8_SHARE.values()), EPIC8_SHARE
+        assert EPIC_MIN_WIN <= EPIC8_MIN_WIN <= WINCAP
         # maximum_board_mult is the SDK's name for the ladder ceiling; kept so any shared
         # helper that reads it sees the most permissive cap.
         self.maximum_board_mult = TILE_CAP_HIGH
@@ -347,19 +424,37 @@ class GameConfig(Config):
         for name in ("FR", "WCAP"):
             flat = {s for reel in self.reels[name] for s in reel}
             assert "S" not in flat, f"feature strip {name} carries a scatter (spec C: never)"
+        # Rule pass 3 (2026-10-13): a forced 8-scatter first board needs a scatter stop on
+        # EVERY reel of every base strip (the SDK's force_special_board would spin forever on
+        # a strip with a scatter-free reel). BR carries exactly one per reel, BA two, SA three.
+        for name in ("BR", "BA", "SA"):
+            for reel_index, reel in enumerate(self.reels[name]):
+                assert "S" in reel, f"base strip {name} reel {reel_index} has no scatter: 8 cannot be forced"
 
         # ---- Bet modes -------------------------------------------------------------------
+        # RULE PASS 3 (2026-10-13), the `epic` quotas of the three spin modes. A share of the
+        # `epicgame` books now opens on 8 scatters and sits in the upper bands only, so the
+        # quota is raised to keep at least as many ORDINARY (6-scatter) Epic books in the deck
+        # as before: ante 0.012 -> 0.014 and super_ante 0.03 -> 0.034 (that is 1 / (1 - 0.10)
+        # and a little over). Base goes 0.006 -> 0.012 while the mode is being re-simulated
+        # anyway, because it was thin: 600 Epic books, only 15 of them in the 200x to 500x
+        # bands that carry 60% of the natural Epic's probability. Quotas are material, not
+        # rates (readme decision 12): the Epic still ships at 1 in 12,000 / 2,400 / 262.
         self.bet_modes = [
             BetMode(
                 name="base", cost=1.0, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=True, is_buybonus=False,
-                distributions=self._spin_distributions("BR", epic=0.006, super_=0.012, bonus=0.03, zero=0.35),
+                distributions=self._spin_distributions(
+                    "BR", epic=0.012, super_=0.012, bonus=0.03, zero=0.35, epic8_share=EPIC8_SHARE["base"]
+                ),
             ),
             BetMode(
                 name="ante", cost=ANTE_COST, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=True, is_buybonus=False,
                 # spec C: Bonus or Super about 5x as likely as base.
-                distributions=self._spin_distributions("BA", epic=0.012, super_=0.03, bonus=0.10, zero=0.30),
+                distributions=self._spin_distributions(
+                    "BA", epic=0.014, super_=0.03, bonus=0.10, zero=0.30, epic8_share=EPIC8_SHARE["ante"]
+                ),
             ),
             BetMode(
                 name="super_ante", cost=SUPER_ANTE_COST, rtp=self.rtp, max_win=self.wincap,
@@ -367,7 +462,9 @@ class GameConfig(Config):
                 # spec C: never a regular Bonus. 4 scatters upgrade to a Super, so the
                 # "supergame" criteria forces 4 OR 5 scatters; Super and Epic land at about
                 # the rate Ante gets Bonus and Super.
-                distributions=self._spin_distributions("SA", epic=0.03, super_=0.10, bonus=None, zero=0.30),
+                distributions=self._spin_distributions(
+                    "SA", epic=0.034, super_=0.10, bonus=None, zero=0.30, epic8_share=EPIC8_SHARE["super_ante"]
+                ),
             ),
             BetMode(
                 name="bonus", cost=BONUS_COST, rtp=self.rtp, max_win=self.wincap,
@@ -382,7 +479,11 @@ class GameConfig(Config):
             BetMode(
                 name="epic", cost=EPIC_COST, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=False, is_buybonus=True,
-                distributions=self._buy_distributions("epicgame", {6: 1}, wincap_quota=0.01),
+                # Rule pass 3: the only buy that may open on 8 (6 or more IS an Epic, so 8 is
+                # still "its" scatters). Quotas unchanged; its `wincap` board stays 6.
+                distributions=self._buy_distributions(
+                    "epicgame", {6: 1}, wincap_quota=0.01, epic8_share=EPIC8_SHARE["epic"]
+                ),
             ),
             BetMode(
                 name="mystery", cost=MYSTERY_COST, rtp=self.rtp, max_win=self.wincap,
@@ -398,11 +499,29 @@ class GameConfig(Config):
         free = {"FR": 1, "WCAP": 6} if wincap else {"FR": 1}
         return {self.basegame_type: {base_reel: 1}, self.freegame_type: free}
 
-    def _spin_distributions(self, base_reel: str, epic: float, super_: float, bonus, zero: float):
+    @staticmethod
+    def _epic_scatter_triggers(epic8_share: float) -> dict:
+        """First-board scatter count of an `epicgame` draw (rule pass 3, 2026-10-13).
+
+        6 as it always was, or 8 on `epic8_share` of the draws. The SDK's draw_board rolls this
+        table once per DRAW (src/calculations/board.py), with one random number whatever the
+        table holds, so a share of 0 is byte for byte the old {6: 1}. Never 7: nothing forces
+        it and gamestate.run_spin re-draws any round that reaches it by cascade."""
+        if not epic8_share:
+            return {MAX_TRIGGER_SCATTERS: 1}
+        return {MAX_TRIGGER_SCATTERS: 1 - epic8_share, FULL_BOARD_SCATTERS: epic8_share}
+
+    def _spin_distributions(
+        self, base_reel: str, epic: float, super_: float, bonus, zero: float, epic8_share: float = 0.0
+    ):
         """Criteria for a spin (non-buy) mode. Names are mirrored in game_optimization.py.
 
         `bonus=None` is the super_ante case: the regular Bonus is simply not in the deck, so
         there is no criteria that can force a 4-scatter regular bonus (spec C).
+
+        `epic8_share` (rule pass 3, 2026-10-13) is the share of `epicgame` draws whose first
+        board is forced to 8 scatters instead of 6. It applies to `epicgame` ONLY: the `wincap`
+        criteria keeps its 6-scatter board, and `supergame` / `freegame` keep 5 and 4.
 
         HOUSE NOTE: quotas decide how much simulated MATERIAL each criteria gets, not the rate
         a player feels. The shipped rates come from the shaped lookup table (tools/shape_lut.py),
@@ -436,7 +555,8 @@ class GameConfig(Config):
                 criteria="epicgame", quota=epic,
                 conditions={
                     "reel_weights": self._reel_weights(base_reel),
-                    "scatter_triggers": {6: 1},
+                    # rule pass 3: 6, or 8 on a share of the draws (re-drawn under 2,500x)
+                    "scatter_triggers": self._epic_scatter_triggers(epic8_share),
                     "force_freegame": True,
                 },
             ),
@@ -488,8 +608,19 @@ class GameConfig(Config):
         )
         return dists
 
-    def _buy_distributions(self, criteria: str, scatter_triggers: dict, wincap_quota: float):
-        """A bought feature is the natural scatter board: 4 / 5 / 6 scatters (spec C)."""
+    def _buy_distributions(
+        self, criteria: str, scatter_triggers: dict, wincap_quota: float, epic8_share: float = 0.0
+    ):
+        """A bought feature is the natural scatter board: 4 / 5 / 6 scatters (spec C).
+
+        RULE PASS 3 (2026-10-13): `epic8_share` is passed by the Epic buy only. It puts 8
+        scatters on that share of the `epicgame` draws (6 or more is an Epic, so the board is
+        still what was bought) and leaves the mode's `wincap` board at 6. The Bonus and Super
+        buys never pass it: their first board is the 4 or 5 that was bought, in every book."""
+        feature_triggers = scatter_triggers
+        if epic8_share:
+            assert scatter_triggers == {MAX_TRIGGER_SCATTERS: 1}, "only the Epic buy may open on 8"
+            feature_triggers = self._epic_scatter_triggers(epic8_share)
         return [
             Distribution(
                 criteria="wincap", quota=wincap_quota, win_criteria=self.wincap,
@@ -504,7 +635,7 @@ class GameConfig(Config):
                 criteria=criteria, quota=round(1.0 - wincap_quota, 6),
                 conditions={
                     "reel_weights": self._reel_weights("BR"),
-                    "scatter_triggers": scatter_triggers,
+                    "scatter_triggers": feature_triggers,
                     "force_freegame": True,
                 },
             ),

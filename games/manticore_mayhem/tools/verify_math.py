@@ -10,6 +10,9 @@ Nothing in the parent repo is modified.
 
   env/bin/python games/manticore_mayhem/tools/verify_math.py [modes...]
 
+MANTICORE_LIB=<a library folder> checks another library instead of games/manticore_mayhem/library
+(a candidate set made with run.py --out, the rollback copy), as tools/shape_lut.py does.
+
 Per mode: RTP straight off the shipped lookup table, non-zero hit rate, cap frequency, the
 per-price band table for the buy modes, the cost-scaled tail probabilities, and a full walk of
 every book proving its payoutMultiplier matches its lookup-table row, its finalWin, and its last
@@ -25,7 +28,8 @@ import zstandard
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.dirname(HERE)
-PUB = os.path.join(GAME, "library", "publish_files")
+LIB = os.environ.get("MANTICORE_LIB") or os.path.join(GAME, "library")
+PUB = os.path.join(LIB, "publish_files")
 CAP = 1_000_000  # 10,000x in payout units (hundredths of the base bet)
 
 ALL_MODES = ["base", "ante", "super_ante", "bonus", "super", "epic", "mystery"]
@@ -41,6 +45,7 @@ def lut(mode):
 
 
 def main(modes):
+    print(f"library {os.path.abspath(LIB)}")
     index = json.load(open(os.path.join(PUB, "index.json")))
     cost = {m["name"]: m["cost"] for m in index["modes"]}
     rtps, failures = {}, 0

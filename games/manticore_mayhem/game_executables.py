@@ -269,6 +269,10 @@ class GameExecutables(GameCalculations):
 
     def run_freespin_from_base(self, scatter_key: str = "scatter") -> None:
         count = self.count_special_symbols(scatter_key)
+        # Rule pass 3 (2026-10-13): the count the feature is triggered on, kept for the two
+        # checks gamestate.run_spin makes once the feature has been played (7 never, 8 only
+        # off a forced 8-scatter first board, and the 2,500x re-draw of that board).
+        self.trigger_scatters = count
         self.record({"kind": count, "symbol": scatter_key, "gametype": self.gametype})
         self.start_bonus(self.bonus_type_from_scatters(count), self.scatter_cells())
         self.run_freespin()

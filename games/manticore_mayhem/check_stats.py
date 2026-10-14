@@ -6,6 +6,9 @@ by the mode cost), which flags every buy mode; Stake's docs define them normalis
 multiplier, which is what this prints.
 
   env/bin/python games/manticore_mayhem/check_stats.py
+
+MANTICORE_LIB=<a library folder> reads the tables of another library instead of
+games/manticore_mayhem/library (a candidate set made with run.py --out, the rollback copy).
 """
 
 import os
@@ -23,6 +26,10 @@ from utils.analysis.distribution_functions import (  # noqa: E402
 from utils.rgs_verification import verify_lookup_format  # noqa: E402
 
 cfg = GameConfig()
+PUBLISH = (
+    os.path.join(os.environ["MANTICORE_LIB"], "publish_files") if os.environ.get("MANTICORE_LIB") else cfg.publish_path
+)
+print(f"library {os.path.dirname(os.path.abspath(PUBLISH))}")
 header = (
     f"{'mode':11s} {'cost':>6s} {'rtp':>7s} {'std':>7s} {'hit':>8s} {'maxHR':>10s} "
     f"{'p5k*':>7s} {'p10k*':>7s} {'etl40':>6s} {'etl10k':>6s} {'cvar/c':>8s} {'cvarAbs':>9s}"
@@ -30,7 +37,7 @@ header = (
 print(header)
 for bm in cfg.bet_modes:
     name, cost = bm.get_name(), bm.get_cost()
-    lut = os.path.join(cfg.publish_path, f"lookUpTable_{name}_0.csv")
+    lut = os.path.join(PUBLISH, f"lookUpTable_{name}_0.csv")
     if not os.path.exists(lut):
         print(f"{name:11s} (no published lookup table yet)")
         continue

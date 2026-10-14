@@ -29,3 +29,4 @@ __pycache__
 
 games/*/library-backup*/
 games/*/library-pre-*/
+games/*/library-*-replaced/

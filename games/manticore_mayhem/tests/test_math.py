@@ -879,6 +879,340 @@ def _():
         assert count == 1, f"column {reel} holds {count} scatters"
 
 
+# --------------------------------------------------------------------------------------
+# Scatter counts (rule pass 3, Corey 2026-10-13): 7 never triggers, 8 only as the forced
+# first board of an Epic that ends at 2,500x or more. The bigger samples, the book-for-book
+# comparison with the previous set and the measured re-draw rates are in
+# tests/test_scatter8_samples.py; these are the cheap ones.
+# --------------------------------------------------------------------------------------
+def first_board(events):
+    """(scatters visible on the first reveal, scatter stings directly after it). Their sum is
+    what the first board really held; a Mystery book's reveal is its second event."""
+    start = 1 if events[0]["type"] == "mystery" else 0
+    reveal = events[start]
+    assert reveal["type"] == "reveal", reveal["type"]
+    visible = sum(column.count("S") for column in reveal["board"])
+    stung = 0
+    for event in events[start + 1:]:
+        if event["type"] != "sting" or event["kind"] != "scatter":
+            break
+        stung += 1
+    return visible, stung
+
+
+def book_facts(gs):
+    """What the scatter rule is about, read off the book the state just produced."""
+    events = gs.book.events
+    visible, stung = first_board(events)
+    bonus = next((e for e in events if e["type"] == "bonusStart"), None)
+    end = next((e for e in events if e["type"] == "bonusEnd"), None)
+    return {
+        "first": visible + stung, "visible": visible, "stung": stung,
+        "trigger": len(bonus["scatters"]) if bonus else None,
+        "bonus": bonus, "end": end,
+        "capped": any(e["type"] == "wincap" for e in events),
+        "free_spin_scatters": sum(
+            column.count("S") for e in events
+            if e["type"] == "reveal" and e["gameType"] != "basegame" for column in e["board"]
+        ),
+    }
+
+
+@check("scatter 8: only `epicgame` of base / ante / super_ante / epic can force 8, at the owner's shares")
+def _():
+    from game_config import (
+        EPIC8_MIN_WIN, EPIC8_SHARE, EPIC8_SHARE_EPIC_BUY, EPIC8_SHARE_SPIN, FULL_BOARD_SCATTERS,
+        MATH_VERSION, MAX_TRIGGER_SCATTERS,
+    )
+    from game_optimization import OptimizationSetup, TARGETS, mode_rtp_split
+
+    # the owner's numbers of 2026-10-13: change them here and in the readme together
+    assert EPIC8_MIN_WIN == 2500.0 and EPIC8_SHARE_SPIN == 0.10 and EPIC8_SHARE_EPIC_BUY == 0.05
+    assert EPIC8_SHARE == {"base": 0.10, "ante": 0.10, "super_ante": 0.10, "epic": 0.05}, EPIC8_SHARE
+    assert (MAX_TRIGGER_SCATTERS, FULL_BOARD_SCATTERS) == (6, 8)
+    assert MATH_VERSION == "2026.10.13", MATH_VERSION
+
+    cfg = GameConfig()
+    forced = {}
+    for bm in cfg.bet_modes:
+        mode = bm.get_name()
+        quota = 0.0
+        for d in bm.get_distributions():
+            quota += d.get_quota()
+            triggers = d._conditions.get("scatter_triggers")
+            forced[(mode, d.get_criteria())] = triggers
+            if triggers is None:
+                continue
+            assert 7 not in triggers, f"{mode}/{d.get_criteria()} forces 7 scatters"
+            if d.get_criteria() == "epicgame" and mode in EPIC8_SHARE:
+                share = EPIC8_SHARE[mode]
+                assert set(triggers) == {6, 8}, (mode, triggers)
+                assert abs(triggers[8] - share) < 1e-12 and abs(triggers[6] - (1 - share)) < 1e-12, triggers
+            else:
+                assert 8 not in triggers, f"{mode}/{d.get_criteria()} forces 8 scatters"
+        assert abs(quota - 1.0) < 1e-9, f"{mode}: quotas sum to {quota}"
+    # the first boards this pass must NOT move: what was bought, the max win route, Mystery
+    assert forced[("bonus", "freegame")] == {4: 1} and forced[("bonus", "wincap")] == {4: 1}
+    assert forced[("super", "supergame")] == {5: 1} and forced[("super", "wincap")] == {5: 1}
+    assert forced[("epic", "wincap")] == {6: 1}
+    assert forced[("mystery", "epicgame")] == {6: 1} and forced[("mystery", "supergame")] == {5: 1}
+    for mode in ("base", "ante", "super_ante"):
+        assert forced[(mode, "wincap")] == {6: 1}, forced[(mode, "wincap")]
+    assert forced[("super_ante", "supergame")] == {4: 3, 5: 1}
+    assert forced[("base", "supergame")] == {5: 1} and forced[("base", "freegame")] == {4: 1}
+    # TARGETS is untouched by this pass: the criteria names still match the distributions and
+    # every mode's split still sums to TARGET_RTP (both assert inside)
+    OptimizationSetup(cfg)
+    for mode in TARGETS:
+        mode_rtp_split(mode)
+    assert abs(sum(v[2] for v in mode_rtp_split("epic").values()) - cfg.rtp) < 1e-9
+
+
+@check("scatter 8: a forced 8 board is one scatter in every column and teases columns 3..7")
+def _():
+    cfg = GameConfig()
+    gs = GameState(cfg)
+    for mode in ("base", "ante", "super_ante", "epic"):
+        gs.betmode, gs.criteria = mode, "epicgame"
+        for trial in range(40):
+            random.seed(trial)
+            gs.reset_book()
+            gs.force_special_board("scatter", 8)
+            columns = [sum(1 for sym in column if sym.name == "S") for column in gs.board]
+            assert columns == [1] * 8, f"{mode}: forced 8 board holds {columns}"
+            assert gs.count_special_symbols("scatter") == 8
+            # the SDK's array and the game's own re-implementation of the rule agree
+            assert gs.anticipation == [0, 0, 0, 1, 2, 3, 4, 5], gs.anticipation
+            assert gs.anticipation_from_board(gs.board) == [0, 0, 0, 1, 2, 3, 4, 5]
+            assert gs.bonus_type_from_scatters(8) == "epic"
+
+
+@check("scatter 8: 7 is never allowed, 8 only off an 8-scatter first board, one reason per re-draw")
+def _():
+    gs = new_state()
+    gs.betmode, gs.criteria = "epic", "epicgame"
+    gs.reset_redraw_counts()
+    table = {
+        (4, 4): True, (4, 5): True, (4, 6): True, (5, 5): True, (5, 6): True, (6, 6): True,
+        (4, 7): False, (5, 7): False, (6, 7): False,  # 7 never, whatever the first board
+        (5, 8): False, (6, 8): False,  # a stray 8: cascades filled the board
+        (8, 8): True,  # the forced first board
+    }
+    for (first, trigger), want in table.items():
+        gs.reset_book()
+        assert (gs.reveal_scatters, gs.trigger_scatters) == (0, 0), "reset_book left a count behind"
+        gs.reveal_scatters, gs.trigger_scatters = first, trigger
+        assert gs.trigger_count_allowed() is want, (first, trigger)
+        if not want:
+            gs.reject_trigger_count()
+            assert gs.repeat is True
+    assert gs.redraw_summary()["epicgame"]["reasons"] == {"scatter7": 3, "stray8": 2}, gs.redraw_summary()
+    gs.reset_redraw_counts()
+    gs.reset_book()
+
+
+@check("scatter 8: an 8 board under 2,500x is re-drawn, the 200x Epic floor still holds, the cap passes")
+def _():
+    gs = new_state()
+    gs.betmode, gs.criteria = "epic", "epicgame"
+
+    def floor(trigger, total, free, capped=False, bonus="epic"):
+        gs.reset_book()
+        gs.reset_redraw_counts()
+        gs.bonus_type = bonus
+        gs.reveal_scatters = gs.trigger_scatters = trigger
+        gs.wincap_triggered = capped
+        gs.win_manager.running_bet_win = total
+        gs.win_manager.freegame_wins = free
+        gs.enforce_feature_floor()
+        return gs.repeat, gs.redraw_summary().get("epicgame", {}).get("reasons", {})
+
+    assert floor(8, 2499.9, 2499.9) == (True, {"epic8_floor": 1})
+    assert floor(8, 2500.0, 2500.0) == (False, {})
+    assert floor(8, 9999.9, 9999.9) == (False, {})
+    # the stated 200x floor is on the free spins alone and is checked for the same round
+    assert floor(8, 2600.0, 150.0) == (True, {"epic_floor": 1})
+    assert floor(8, 2600.0, 200.0) == (False, {})
+    # a round that reached the cap passes everything, as before
+    assert floor(8, 300.0, 300.0, capped=True) == (False, {})
+    # an ordinary 6-scatter Epic only ever knows the 200x floor
+    assert floor(6, 250.0, 250.0) == (False, {})
+    assert floor(6, 199.9, 199.9) == (True, {"epic_floor": 1})
+    # and a Bonus or a Super has no floor at all
+    assert floor(5, 10.0, 10.0, bonus="super") == (False, {})
+    assert floor(4, 0.2, 0.2, bonus="bonus") == (False, {})
+    gs.reset_redraw_counts()
+    gs.reset_book()
+
+
+@check("scatter 8: no sampled round triggers on 7, and 8 opens only an Epic that ends at 2,500x or more")
+def _():
+    # the owner's numbers, not whatever the config object happens to hold: a floor that was
+    # quietly switched off must fail here, book by book
+    from game_config import EPIC8_MIN_WIN, EPIC_MIN_WIN
+
+    cfg = GameConfig()
+    gs = GameState(cfg)
+    gs.reset_redraw_counts()
+    forced_first = {"freegame": (4,), "wincap": (6,), "epicgame": (6, 8)}
+    seen = {}
+    eights = 0
+    rejected = {}
+    for mode, criteria, books in (
+        ("base", "epicgame", 40), ("ante", "epicgame", 40), ("super_ante", "epicgame", 60),
+        ("epic", "epicgame", 150), ("epic", "wincap", 8), ("base", "wincap", 6),
+        ("bonus", "freegame", 60), ("super", "supergame", 60),
+        ("base", "supergame", 30), ("ante", "freegame", 30), ("super_ante", "supergame", 40),
+    ):
+        gs.betmode, gs.criteria = mode, criteria
+        for sim in range(books):
+            gs.run_spin(sim, sim)
+            f = book_facts(gs)
+            where = f"{mode}/{criteria} book {sim}"
+            seen[f["trigger"]] = seen.get(f["trigger"], 0) + 1
+            assert f["trigger"] in (4, 5, 6, 8), f"{where} triggered on {f['trigger']}"
+            assert f["first"] <= f["trigger"], where
+            assert len({c // 8 for c in f["bonus"]["scatters"]}) == f["trigger"], f"{where}: two scatters in a column"
+            assert f["free_spin_scatters"] == 0, f"{where}: a scatter on a free-spin board"
+            assert gs.final_win <= cfg.wincap, where
+            # the first board is what the criteria forces: never more than was bought
+            if mode == "bonus":
+                assert f["first"] == 4, f"{where}: a Bonus buy opened on {f['first']}"
+            elif mode == "super":
+                assert f["first"] == 5, f"{where}: a Super buy opened on {f['first']}"
+            elif criteria == "supergame":
+                assert f["first"] in ((4, 5) if mode == "super_ante" else (5,)), where
+            else:
+                assert f["first"] in forced_first[criteria], f"{where}: first board {f['first']}"
+            if f["first"] == 8 or f["trigger"] == 8:
+                eights += 1
+                assert f["first"] == 8 and f["trigger"] == 8, f"{where}: first {f['first']}, trigger {f['trigger']}"
+                assert criteria == "epicgame", where
+                bonus = f["bonus"]
+                assert (bonus["bonus"], bonus["totalFs"], bonus["tileCap"]) == ("epic", 12, 128), bonus
+                assert gs.final_win >= EPIC8_MIN_WIN, f"{where}: an 8 board paid {gs.final_win}x"
+                assert f["capped"] or f["end"]["totalSessionWin"] >= EPIC_MIN_WIN * 100, where
+            if f["bonus"]["bonus"] == "epic" and not f["capped"]:
+                assert f["end"]["totalSessionWin"] >= EPIC_MIN_WIN * 100, f"{where}: Epic under 200x"
+        for name, n in gs.redraw_summary()[criteria]["reasons"].items():
+            rejected[name] = rejected.get(name, 0) + n
+        stats = gs.redraw_summary()[criteria]
+        assert stats["books"] == books and stats["draws"] >= books, stats
+        gs.reset_redraw_counts()
+    assert 7 not in seen and eights > 0, (seen, eights)
+    # the sample must really have exercised the two re-draws, or it proves nothing
+    assert rejected.get("scatter7", 0) > 0 and rejected.get("epic8_floor", 0) > 0, rejected
+
+
+@check("scatter 8: a scatter sting on an 8 board stings 5 or 6 in, leaves 3 or 2 visible, teases off those")
+def _():
+    cfg = GameConfig()
+    gs = GameState(cfg)
+    share = cfg.scatter_sting_share
+    stung = {5: 0, 6: 0}
+    conditions = saved = None
+    try:
+        cfg.scatter_sting_share = 1.0
+        for mode in ("base", "ante", "super_ante"):
+            gs.betmode, gs.criteria = mode, "epicgame"
+            for trial in range(60):
+                random.seed(trial)
+                gs.reset_book()
+                gs.force_special_board("scatter", 8)
+                real = [[sym.name for sym in column] for column in gs.board]
+                cells = gs.plan_scatter_sting()
+                assert len(cells) in (5, 6) and len(set(cells)) == len(cells), cells
+                stung[len(cells)] += 1
+                gs.emit_reveal(cells)
+                reveal, stings = gs.book.events[0], gs.book.events[1:]
+                visible = sum(column.count("S") for column in reveal["board"])
+                assert visible == 8 - len(cells) and visible in (2, 3), visible
+                assert len(stings) == len(cells), stings
+                assert all((e["type"], e["kind"], e["symbol"]) == ("sting", "scatter", "S") for e in stings)
+                assert {e["center"] for e in stings} == {cell(reel, row) for reel, row in cells}
+                # the placeholders are paying symbols, and the real board is untouched
+                for reel, row in cells:
+                    assert reveal["board"][reel][row] in cfg.paying_symbols, reveal["board"][reel][row]
+                assert [[sym.name for sym in column] for column in gs.board] == real
+                assert gs.count_special_symbols("scatter") == 8
+                # anticipation runs off the VISIBLE board: behind the third scatter, or not at all
+                display = [[gs.create_symbol(name) for name in column] for column in reveal["board"]]
+                tease = reveal.get("anticipation", [0] * 8)
+                assert tease == gs.anticipation_from_board(display), tease
+                if visible == 2:
+                    assert "anticipation" not in reveal, "two visible scatters must not tease"
+        assert stung[5] > 0 and stung[6] > 0, stung
+
+        # never on the bought Epic, even on its 8 board
+        gs.betmode, gs.criteria = "epic", "epicgame"
+        gs.reset_book()
+        gs.force_special_board("scatter", 8)
+        assert gs.plan_scatter_sting() == []
+
+        # and the whole round: every book of a natural mode forced to the 8 board and stung
+        gs.betmode, gs.criteria = "super_ante", "epicgame"
+        conditions = gs.get_current_distribution_conditions()
+        saved = conditions["scatter_triggers"]
+        conditions["scatter_triggers"] = {8: 1}
+        for sim in range(12):
+            gs.run_spin(sim, sim)
+            f = book_facts(gs)
+            assert (f["first"], f["trigger"]) == (8, 8), f
+            assert f["visible"] in (2, 3) and f["stung"] in (5, 6), f
+            assert f["bonus"]["bonus"] == "epic" and gs.final_win >= 2500.0, gs.final_win
+            # a wild sting never shares the reveal with the scatter stings
+            trigger_spin = gs.book.events[1:gs.book.events.index(f["bonus"])]
+            assert not [e for e in trigger_spin if e["type"] == "sting" and e["kind"] != "scatter"]
+    finally:
+        cfg.scatter_sting_share = share
+        if conditions is not None:
+            conditions["scatter_triggers"] = saved
+        gs.reset_redraw_counts()
+
+
+@check("scatter 8: Mystery is untouched - 3 on the reveal plus 0 / 2 / 3 stings, never 7 or 8")
+def _():
+    cfg = GameConfig()
+    gs = GameState(cfg)
+    gs.betmode = "mystery"
+    for criteria, total in (("mystery_nothing", 3), ("supergame", 5), ("epicgame", 6)):
+        for sim in range(20):
+            gs.criteria = criteria
+            gs.run_spin(sim, sim)
+            f = book_facts(gs)
+            assert (f["visible"], f["first"]) == (3, total), f"{criteria} book {sim}: {f['visible']} + {f['stung']}"
+            assert f["trigger"] == (None if total == 3 else total), f"{criteria} book {sim}: trigger {f['trigger']}"
+            # the rule's own bookkeeping never runs for a Mystery round
+            assert (gs.reveal_scatters, gs.trigger_scatters) == (0, 0)
+            assert f["free_spin_scatters"] == 0
+    reasons = {r for s in gs.redraw_summary().values() for r in s["reasons"]}
+    assert reasons <= {"epic_floor"}, f"a Mystery draw was thrown away for {reasons}"
+    gs.reset_redraw_counts()
+
+
+@check("stateless: a book is the same whatever was drawn before it, re-drawn rounds included")
+def _():
+    import json
+
+    cfg = GameConfig()
+    gs = GameState(cfg)
+
+    def book(mode, criteria, sim):
+        gs.betmode, gs.criteria = mode, criteria
+        gs.run_spin(sim, sim)
+        return json.dumps(gs.book.to_json(), sort_keys=True)
+
+    cases = [("epic", "epicgame", s) for s in (0, 14, 21)] + [
+        ("super_ante", "epicgame", 3), ("base", "epicgame", 9), ("bonus", "freegame", 4),
+        ("super", "supergame", 6), ("mystery", "epicgame", 2), ("base", "basegame", 8),
+    ]
+    fresh = {case: book(*case) for case in cases}
+    assert '"scatters": [' in fresh[("epic", "epicgame", 14)]
+    for case in reversed(cases):  # a different order, so every book follows a different one
+        assert book(*case) == fresh[case], f"{case} came out differently the second time"
+    gs.reset_redraw_counts()
+
+
 def main() -> int:
     failures = 0
     for name, fn in RESULTS:

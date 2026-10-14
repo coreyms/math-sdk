@@ -2,6 +2,9 @@
 
   env/bin/python games/manticore_mayhem/analyze_books.py [modes...]
 
+MANTICORE_LIB=<a library folder> reads the books of another library instead of
+games/manticore_mayhem/library (a candidate set made with run.py --out, the rollback copy).
+
 The published lookup tables are all weight-1 until the shaping pass runs, so "raw" here means
 exactly what the simulator produced under the distribution quotas in game_config.py. That is
 the number to tune against; check_stats.py is the operator-risk view of the SHIPPED tables.
@@ -132,10 +135,15 @@ def analyse(mode, cost, path, wincap):
 
 def main(modes):
     cfg = GameConfig()
+    publish = (
+        os.path.join(os.environ["MANTICORE_LIB"], "publish_files")
+        if os.environ.get("MANTICORE_LIB") else cfg.publish_path
+    )
+    print(f"library {os.path.dirname(os.path.abspath(publish))}")
     for bm in cfg.bet_modes:
         if modes and bm.get_name() not in modes:
             continue
-        path = os.path.join(cfg.publish_path, f"books_{bm.get_name()}.jsonl.zst")
+        path = os.path.join(publish, f"books_{bm.get_name()}.jsonl.zst")
         if not os.path.exists(path):
             print(f"\n===== {bm.get_name()}: no books yet =====")
             continue

@@ -1,5 +1,6 @@
 """Overrides of the universal state.py behaviour for Manticore Mayhem."""
 
+import json
 from copy import copy
 
 from game_executables import GameExecutables
@@ -7,6 +8,20 @@ from game_executables import GameExecutables
 # Criteria whose books may legitimately pay nothing. Every other criteria means "this round
 # paid something", which is what makes the hit rate a dial (see check_repeat).
 ZERO_WIN_CRITERIA = ("0", "mystery_nothing")
+
+# RULE PASS 3 (Corey, 2026-10-13): the three new reasons a draw is thrown away, as they appear
+# in the re-draw counters. One draw is counted under ONE reason only, in this order of
+# precedence, so the columns of the summary add up:
+#   scatter7     the round triggered on 7 scatters (never allowed, any mode, any criteria)
+#   stray8       it triggered on 8 without an 8-scatter FIRST board (6 + 2 by cascade, 5 + 3 ..)
+#   epic8_floor  its first board WAS the forced 8 and the round total ended under EPIC8_MIN_WIN
+# The older reasons keep their names: epic_floor (the stated 200x / Mystery 500x) and win_range.
+REDRAW_SCATTER7 = "scatter7"
+REDRAW_STRAY8 = "stray8"
+REDRAW_EPIC8_FLOOR = "epic8_floor"
+# The line each simulation thread prints when it finishes a batch; tools/redraw_summary.py
+# sums them over a run's log.
+REDRAW_LOG_PREFIX = "REDRAWS "
 
 
 class GameStateOverride(GameExecutables):
@@ -24,6 +39,13 @@ class GameStateOverride(GameExecutables):
         # Mystery spin-in only (rule pass 2): while this is set, NO column may take a new
         # scatter off the strip, so the spin-in's scatter count is exactly 3 + the stings.
         self.block_new_scatters = False
+        # Rule pass 3 (2026-10-13): how many scatters the FIRST board of this draw held (the
+        # real board, before any scatter-sting placeholder) and how many the feature was
+        # triggered on. 0 until gamestate.run_spin / run_freespin_from_base set them; the
+        # Mystery buy never sets either. Cleared on every draw, so nothing leaks from a
+        # re-drawn round into the next one and the game stays stateless.
+        self.reveal_scatters = 0
+        self.trigger_scatters = 0
         self.reset_tiles()
 
     def reset_fs_spin(self) -> None:
@@ -135,6 +157,10 @@ class GameStateOverride(GameExecutables):
             pass 2, 2026-09-23).
         """
         super().check_repeat()
+        # check_repeat runs exactly once per draw (gamestate.run_spin), whatever the mode, so
+        # this is where draws and accepted books are counted for the re-draw summary.
+        stats = self._redraw_stats()
+        stats["draws"] += 1
         if self.repeat:
             return
 
@@ -146,11 +172,106 @@ class GameStateOverride(GameExecutables):
         if win_range is not None and not (win_range[0] <= self.final_win < win_range[1]):
             self._count_rejection(f"{self.criteria}:win_range")
             self.repeat = True
+            return
+
+        stats["books"] += 1
+
+    # ---------------------------------------------------------------------------------
+    # Scatter counts (rule pass 3, Corey 2026-10-13)
+    # ---------------------------------------------------------------------------------
+    def trigger_count_allowed(self) -> bool:
+        """May a feature start on the scatter count this round triggered on?
+
+        4, 5 and 6 always (6 or more is an Epic). 7 NEVER. 8 only when the FIRST board of the
+        round already held all 8, which only the forced `epicgame` draw can produce: a first
+        board of 6 that picked up two more by cascade is a stray 8 and is not allowed.
+        `reveal_scatters` is read off the REAL board, so a scatter-sting reveal that shows 2 or
+        3 of them and stings the rest in still counts as a first board of 8."""
+        count = self.trigger_scatters
+        if count <= self.config.max_trigger_scatters:
+            return True
+        full = self.config.full_board_scatters
+        return count == full and self.reveal_scatters == full
+
+    def reject_trigger_count(self) -> None:
+        """Throw this draw away because of the count it triggered on, and say why.
+
+        Called AFTER the feature has been played (see gamestate.run_spin for why that order is
+        the whole point), so all it does is count the reason and ask for a re-draw."""
+        reason = REDRAW_STRAY8 if self.trigger_scatters == self.config.full_board_scatters else REDRAW_SCATTER7
+        self._count_rejection(f"{self.betmode}:{self.criteria}:{reason}")
+        self.repeat = True
+
+    # ---------------------------------------------------------------------------------
+    # Re-draw counters
+    # ---------------------------------------------------------------------------------
+    def _redraw_stats(self) -> dict:
+        """Counters of the criteria being drawn: draws, accepted books, re-draws by reason."""
+        by_criteria = self.__dict__.setdefault("_redraw_counts", {})
+        return by_criteria.setdefault(self.criteria, {"books": 0, "draws": 0, "reasons": {}})
 
     def _count_rejection(self, key: str) -> None:
         """One line per 500 rejections so draws-per-accept can be read off the sim log
-        (house pattern from angry_mantis/game_override.py)."""
+        (house pattern from angry_mantis/game_override.py).
+
+        RULE PASS 3 (2026-10-13): the same call also files the rejection under its REASON (the
+        last part of the key: scatter7, stray8, epic8_floor, epic_floor, win_range) for the
+        criteria being drawn, so the acceptance rate of every rule is visible per criteria at
+        the end of a run instead of only as a running total."""
         counts = self.__dict__.setdefault("_reject_counts", {})
         counts[key] = counts.get(key, 0) + 1
         if counts[key] % 500 == 0:
             print(f"reject {key}: {counts[key]} draws rejected so far", flush=True)
+        reasons = self._redraw_stats()["reasons"]
+        reason = key.rsplit(":", 1)[-1]
+        reasons[reason] = reasons.get(reason, 0) + 1
+
+    def reset_redraw_counts(self) -> None:
+        self._reject_counts = {}
+        self._redraw_counts = {}
+
+    def redraw_summary(self) -> dict:
+        """{criteria: {"books", "draws", "reasons": {reason: n}}} since the last reset. A draw
+        that was thrown away for a reason nobody counts (a `wincap` draw that missed the cap,
+        a `0` draw that paid, a `basegame` draw that paid nothing or triggered a feature) is
+        the difference draws - books - sum(reasons)."""
+        return {
+            criteria: {"books": s["books"], "draws": s["draws"], "reasons": dict(sorted(s["reasons"].items()))}
+            for criteria, s in sorted(self.__dict__.get("_redraw_counts", {}).items())
+        }
+
+    def run_sims(
+        self,
+        betmode_copy_list,
+        betmode,
+        sim_to_criteria,
+        total_threads,
+        total_repeats,
+        num_sims,
+        thread_index,
+        repeat_count,
+        compress=True,
+        write_event_list=True,
+        simulation_seeds=[],
+    ) -> None:
+        """The SDK's per-thread loop, unchanged, plus ONE line at the end: this thread's
+        draws, accepted books and re-draws by reason for the mode it just simulated (rule pass
+        3, 2026-10-13). The line is JSON behind a fixed prefix so tools/redraw_summary.py can
+        add the threads up from the run's log. Counting is three integer additions per draw
+        and consumes no random number, so it cannot move a book."""
+        self.reset_redraw_counts()
+        super().run_sims(
+            betmode_copy_list,
+            betmode,
+            sim_to_criteria,
+            total_threads,
+            total_repeats,
+            num_sims,
+            thread_index,
+            repeat_count,
+            compress,
+            write_event_list,
+            simulation_seeds,
+        )
+        line = {"mode": betmode, "thread": thread_index, "batch": repeat_count, "criteria": self.redraw_summary()}
+        print(REDRAW_LOG_PREFIX + json.dumps(line, sort_keys=True), flush=True)

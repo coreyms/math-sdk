@@ -2,7 +2,7 @@
 
 import random
 
-from game_override import GameStateOverride
+from game_override import GameStateOverride, REDRAW_EPIC8_FLOOR
 from game_events import mystery_event
 
 
@@ -25,6 +25,9 @@ class GameState(GameStateOverride):
                 # The reveal is emitted HERE, not by draw_board: a scatter-sting book shows a
                 # different board from the one it is evaluated on (rule pass 2, 2026-09-23).
                 self.draw_board(emit_event=False)
+                # Rule pass 3 (2026-10-13): what the FIRST board really holds, read before a
+                # scatter sting hides any of it. 8 here can only be the forced `epicgame` draw.
+                self.reveal_scatters = self.count_special_symbols("scatter")
                 sting_cells = self.plan_scatter_sting()
                 self.emit_reveal(sting_cells)
                 self.play_spin(allow_wild_sting=not sting_cells)
@@ -32,7 +35,25 @@ class GameState(GameStateOverride):
 
                 if self.check_fs_condition() and self.check_freespin_entry():
                     self.run_freespin_from_base()
-                    self.enforce_feature_floor()
+                    # RULE PASS 3 (Corey, 2026-10-13): 7 SCATTERS NEVER TRIGGER, AND 8 ONLY WHEN
+                    # THE FIRST BOARD WAS THE FORCED 8. Any other round is thrown away here.
+                    #
+                    # The check is made AFTER the feature has been played, on purpose. A draw
+                    # that is going to be thrown away still consumes exactly the random numbers
+                    # it consumed before this rule existed, and a re-draw continues the same
+                    # stream (reset_seed runs once per book, above the loop). So in a mode
+                    # whose quotas did not change - the Bonus buy and the Super buy - every
+                    # book comes out byte for byte as it was, EXCEPT the ids that used to be
+                    # accepted on a 7. That is what lets the re-simulation be checked book
+                    # against book. The price is playing out a feature that is then discarded:
+                    # about 2% more draws in the Epic buy, far less everywhere else.
+                    #
+                    # A draw is counted under one reason only: the scatter count first, then
+                    # (inside enforce_feature_floor) the 8-scatter floor, then the Epic floor.
+                    if self.trigger_count_allowed():
+                        self.enforce_feature_floor()
+                    else:
+                        self.reject_trigger_count()
 
             self.evaluate_finalwin()
             self.check_repeat()
@@ -66,6 +87,10 @@ class GameState(GameStateOverride):
         evaluated, exactly as it would have been without the feature.
 
         `m` is clamped to [trigger - 3, trigger] so the visible board shows 0..3 scatters.
+
+        Rule pass 3 (2026-10-13): an 8-scatter first board is a natural Epic like any other and
+        is stung like one, with no special case. The count table stops at 6, so the clamp
+        leaves it m = 5 or 6: 5 or 6 scatters are stung in and 3 or 2 stay visible.
         """
         if self.betmode not in self.config.scatter_sting_modes:
             return []
@@ -122,8 +147,28 @@ class GameState(GameStateOverride):
 
           * Epic: at least 200x (about 40% of the 500x price)
           * an Epic reached through Mystery: at least 500x (2x the Mystery price)
+
+        RULE PASS 3 (Corey, 2026-10-13) adds a third re-draw that is NOT a disclosed floor:
+
+          * an Epic whose FIRST board was the forced 8 scatters: at least EPIC8_MIN_WIN
+            (2,500x) on the ROUND TOTAL
+
+        It is the same machinery, so the number is exactly true in every book, but nothing in
+        the rules states it and nothing announces the round: it counts as an Epic. The stated
+        200x floor is still checked for the same round, on its free spins alone, right after.
+        A round that reached the 10,000x cap passes all of them, as before.
         """
         if self.bonus_type != "epic" or self.wincap_triggered:
+            return
+        # Only a round that trigger_count_allowed() let through gets here, so a trigger count
+        # of 8 means the first board was the forced 8 (never a stray one, never Mystery, whose
+        # spin-in does not set trigger_scatters at all).
+        if (
+            self.trigger_scatters == self.config.full_board_scatters
+            and self.win_manager.running_bet_win < self.config.epic8_min_win
+        ):
+            self._count_rejection(f"{self.betmode}:{self.criteria}:{REDRAW_EPIC8_FLOOR}")
+            self.repeat = True
             return
         # The Mystery floor is on the ROUND TOTAL (the spin-in pays too, rule pass 2); the
         # plain Epic floor stays on the feature itself, which is what "an Epic pays at least

@@ -14,6 +14,17 @@ replaced the sting system with normal / big / super stings, added the scatter st
 triggers, and made Mystery a real spin. See "Rule pass 2, 2026-09-23" at the bottom of this
 file for the full log; the two earlier sections are the history.
 
+STATUS 2026-10-13 (rule pass 3): RE-SIMULATED INTO A CANDIDATE FOLDER, NOT PROMOTED. Corey's
+decision of 2026-10-13: 7 scatters never trigger in any mode, and 8 scatters exist only as the
+first board of an Epic that ends at 2,500x or more. The rule is in the code, and base / ante /
+super_ante / bonus / super / epic were re-simulated (100,000 books each) and shaped the same
+day into scatter8-candidate-20261013/games/manticore_mayhem/library, with Mystery's files
+copied in byte for byte (Mystery is exempt). Every math gate passed on that candidate. THE
+PUBLISHED BOOKS IN library/ ARE STILL THE 2026-10-06 SET (2,242 books that trigger on 7 and 51
+on 8) until the owner has seen the numbers and the candidate is promoted. The rollback copy of
+the 2026-10-06 set is library-pre-scatter8-20261013/. See "Rule pass 3, 2026-10-13" at the
+very bottom of this file.
+
 -------------------------------------------------------------------------------------------
 Files
 -------------------------------------------------------------------------------------------
@@ -33,28 +44,55 @@ Files
   tools/verify_math.py  independent check of the shipped tables + a full book walk. Per-game
                         copy for the same reason.
   tools/cap_spin_index.py  where in a feature the 10,000x lands, weighted by shipped weights.
+  tools/scatter_scan.py    (rule pass 3) the scatter-count gate: walks every book, exits 1 on
+                        any trigger on 7, any 8 that is not a forced first board of an Epic at
+                        2,500x or more, any first board that is not what the criteria forces,
+                        two scatters in a column, a scatter on a free-spin board. Prints how
+                        often 8 lands as SHIPPED. --lib DIR scans another library.
+  tools/redraw_summary.py  (rule pass 3) adds up the `REDRAWS` lines of a run's log: draws per
+                        accepted book and re-draws by reason, per mode and criteria.
+  tools/compare_books.py   (rule pass 3) two libraries book against book: proves a
+                        re-simulated Bonus or Super buy is the old set except the ids that
+                        triggered on 7.
   reels/make_reels.py   deterministic reel generator (edit the counts, re-run, re-sim)
-  run.py                sims -> configs -> stats -> RGS format checks
+  run.py                sims -> configs -> stats -> RGS format checks. --out DIR (rule pass 3)
+                        sends a sample, a dry run or a candidate set to
+                        DIR/manticore_mayhem/library instead of the live library the local mock
+                        RGS serves; configs need all seven modes there, and the RGS checks run
+                        against it when DIR is named `games`. The other tools follow with
+                        MANTICORE_LIB=<library folder> (shape_lut, verify_math, cap_spin_index,
+                        check_stats, analyze_books) or --lib (scatter_scan).
   check_stats.py        operator-risk stats per mode, normalised by cost the way the docs define
   analyze_books.py      raw per-mode stats straight off the books: RTP, hit rate, std, band
                         shares of return, feature rates, swipe/sting/roar rates, average tile
                         sum at payout, events/book vs the 10M publish limit
-  tests/test_math.py    29 sanity checks (clusters, tiles, thresholds-off, caps, swipe seeding
-                        in every context, scatter survival, one-scatter-per-column, the sting
-                        system - shapes, must-win, one finisher and it is last, never on a
-                        scatter - the scatter-sting placeholder and its identical cluster set,
-                        the Mystery spin-in, roar, reels, persistence, tile carry into the
-                        feature, 10-cent payout rule)
+  tests/test_math.py    38 sanity checks (clusters, tiles, thresholds-off, caps, swipe seeding
+                        in every context, the roaming swipe band, scatter survival,
+                        one-scatter-per-column, the sting system - shapes, must-win, one
+                        finisher and it is last, never on a scatter - the scatter-sting
+                        placeholder and its identical cluster set, the Mystery spin-in, roar,
+                        reels, persistence, tile carry into the feature, 10-cent payout rule,
+                        and the 8 checks of rule pass 3: which criteria may force 8, the forced
+                        8 board, 7 never / 8 only off a first board of 8, the 2,500x re-draw
+                        beside the 200x floor, a sample of every re-simulated mode, the scatter
+                        sting on an 8 board, Mystery untouched, statelessness). About 40 s.
+  tests/test_scatter8_samples.py  (rule pass 3) the slower half, about 10 minutes, one process,
+                        never writes into library/: the whole pipeline into a temp folder and
+                        the gate over it, every criteria sampled on its own for the re-draw
+                        rates, the 8 board on its own, and the Bonus buy / Super buy / Mystery
+                        regenerated and compared book for book with the rollback copy.
 
 Commands (all from math-sdk/)
   env/bin/python games/manticore_mayhem/reels/make_reels.py
   env/bin/python games/manticore_mayhem/tests/test_math.py
+  env/bin/python games/manticore_mayhem/tests/test_scatter8_samples.py   # after a scatter-rule change
   env/bin/python games/manticore_mayhem/run.py --no-analysis        # 20k books/mode, ~7 min
   env/bin/python games/manticore_mayhem/tools/shape_lut.py          # ALWAYS after a sim
   env/bin/python games/manticore_mayhem/run.py --no-sims --no-analysis   # configs + RGS checks
   env/bin/python games/manticore_mayhem/analyze_books.py
   env/bin/python games/manticore_mayhem/tools/verify_math.py
   env/bin/python games/manticore_mayhem/tools/cap_spin_index.py
+  env/bin/python games/manticore_mayhem/tools/scatter_scan.py
   env/bin/python games/manticore_mayhem/check_stats.py
 
   ORDER MATTERS. run.py only writes publish_files/lookUpTable_<mode>_0.csv when the file does
@@ -93,9 +131,24 @@ Persistence      Tiles clear at the start of every spin in base / ante / super_a
 Wincap           10,000x the base bet, every mode. The moment the round total reaches it the
                  cascade loop and the spin loop unwind.
 Modes            base 1x, ante 3x, super_ante 10x, bonus 100x buy (= natural 4 scatters),
-                 super 250x buy (5 scatters), epic 500x buy (6 scatters), mystery 250x buy.
+                 super 250x buy (5 scatters), epic 500x buy (6 scatters, or 8 on a small share
+                 of its books since rule pass 3), mystery 250x buy.
 Feature entry    4 / 5 / 6 scatters -> Bonus / Super / Epic, EXCEPT in super_ante where the
-                 regular Bonus does not exist and 4 scatters upgrade to a Super.
+                 regular Bonus does not exist and 4 scatters upgrade to a Super. 6 OR MORE is
+                 an Epic.
+Scatter counts   RULE PASS 3 (Corey, 2026-10-13). 7 SCATTERS NEVER TRIGGER A FEATURE, in any
+                 mode or criteria: a round that would is re-drawn. 8 SCATTERS (one in every
+                 column) EXIST ONLY AS THE FIRST BOARD OF AN EPIC: a share of the `epicgame`
+                 books of base / ante / super_ante (EPIC8_SHARE_SPIN, 10% of draws) and of the
+                 Epic buy (EPIC8_SHARE_EPIC_BUY, 5%) is forced to that board, and such a round
+                 is re-drawn until its ROUND TOTAL is at least EPIC8_MIN_WIN (2,500x). A first
+                 board of 6 that picks up two more by cascade is a stray 8 and is re-drawn too.
+                 So a feature starts on 4, 5, 6 or 8 scatters and on nothing else. The 8-scatter
+                 Epic is the ordinary Epic (12 spins, 128x ladder, the same `bonusStart`); it
+                 is NOT named, announced or promised anywhere and no minimum is stated for it.
+                 The Bonus buy and the Super buy always open on the 4 or 5 that was bought
+                 (cascades can still lift them to 5 or 6, as before) and Mystery is untouched,
+                 so none of the three ever shows 8.
 Free spins       8 / 10 / 12. No retriggers. No scatter on the feature strips at all.
 Scatters         AT MOST ONE PER COLUMN, ALWAYS (Corey, 2026-09-23). The reel strips already
                  guarantee it on the reveal (scatters are spaced at least 11 apart, so no
@@ -103,9 +156,14 @@ Scatters         AT MOST ONE PER COLUMN, ALWAYS (Corey, 2026-09-23). The reel st
                  it through the spin as well: while a column holds a scatter, scatter stops on
                  the strip are skipped and the next non-scatter symbol drops in instead. A
                  column with no scatter can still take one, so a cascade can still complete a
-                 trigger.
+                 trigger. (Rule pass 3: it can complete a trigger of 4, 5 or 6. A cascade that
+                 would make it 7, or 8 off a smaller first board, gets the round re-drawn. On a
+                 forced 8 board every column is occupied, so nothing more can drop in.)
 Epic floor       An Epic pays at least 200x; an Epic reached through Mystery at least 500x.
                  Implemented as a re-draw, so it is a real number the rules can disclose.
+                 Rule pass 3: an Epic that opened on 8 scatters is ALSO re-drawn under 2,500x
+                 on the round total. That one is deliberately NOT a disclosed floor. The 200x
+                 floor keeps applying to the same round, on its free spins alone.
 Mystery          nothing / Super / Epic, never a regular Bonus. RULE PASS 2 (Corey,
                  2026-09-23): A MYSTERY ROUND IS A REAL SPIN. Its reveal always carries exactly
                  3 scatters, one in each of columns 0,1,2 (random rows) and none in columns
@@ -154,7 +212,10 @@ Scatter sting    RULE PASS 2 (Corey, 2026-09-23). On about 15% of NATURAL featur
                  four orthogonal neighbours, so it cannot join any cluster: the paying clusters
                  of the visible board and of the real board are IDENTICAL BY CONSTRUCTION and
                  the payout of the round is provably unchanged. It is presentation, not math.
-                 Wild stings never share a reveal with a scatter sting.
+                 Wild stings never share a reveal with a scatter sting. Rule pass 3: an
+                 8-scatter first board is stung like any other natural Epic, with no special
+                 case. The visible-scatter clamp is unchanged, so 5 or 6 of the 8 are stung in
+                 (weights 3 : 2) and 3 or 2 stay visible.
 Roar             Super and Epic only. With a per-context chance every low (L1-L4) is removed
                  before evaluation and the board refills. Tiles underneath are untouched.
 
@@ -203,8 +264,30 @@ Decisions taken here that the spec left open (all reversible, all one constant)
 12. DISTRIBUTION QUOTAS ARE MATERIAL, NOT RATES. They decide how many books of each criteria
     the sim produces. The rates a player feels come from the shaped lookup table (the Angry
     Mantis tools/shape_lut.py flow), which has NOT been run yet.
-13. WINCAP ROUTE IS THE EPIC. Every mode's `wincap` criteria forces 6 scatters and draws the
-    feature on the WCAP strip. The spec calls the Epic "the main route to high wins".
+13. WINCAP ROUTE. CORRECTED 2026-10-13: this item used to read "WINCAP ROUTE IS THE EPIC. Every
+    mode's `wincap` criteria forces 6 scatters and draws the feature on the WCAP strip", and
+    that was wrong twice.
+    (a) WHICH BOARD. The `wincap` criteria forces 6 scatters in base, ante, super_ante and the
+        Epic buy only. The Bonus buy's `wincap` forces 4 and the Super buy's forces 5, the
+        board that was bought (game_config._buy_distributions hands the same count to both of
+        a buy's criteria). Mystery has no `wincap` criteria at all.
+    (b) HOW MUCH OF THE MAX WIN IT CARRIES. Only part. The shaper puts EVERY book that reached
+        10,000x into one cap group, whatever criteria it was drawn under (CAP_CRITERIA in
+        tools/shape_lut.py), and spreads the mode's max win probability evenly over all of
+        them. Since rule pass 2 the raw engine caps on its own so often (63% of raw Epic
+        rounds) that the forced route is a minority everywhere. Share of each mode's max win
+        probability carried by its `wincap` books, measured on the 2026-10-06 set:
+            base 29% (200 of 685 capped books)   ante 15% (200 of 1,326)
+            super_ante 6% (200 of 3,086)         Bonus buy 40% (400 of 1,000)
+            Super buy 7% (600 of 9,110)          Epic buy 2% (1,000 of 63,695)
+            Mystery 0% (no such criteria; 21,905 capped books of its own Super and Epic)
+        So most max wins are ordinary feature rounds that reached the cap by themselves, and a
+        max win round can show 4, 5 or 6 scatters (and 8, from rule pass 3). Nothing ties the
+        max win to one scatter count.
+    What IS true of the criteria in every mode that has it: its free spins draw each spin's
+    strip from FR and WCAP at 1 : 6, it is accepted only when the round ends on exactly the
+    cap, and `force_wincap: True` is a label that nothing in the SDK reads. The spec does call
+    the Epic "the main route to high wins", and that still describes the game.
 14. SUPERSEDED BY RULE PASS 2 (2026-09-23). Mystery awards DO carry a scatter board now: the
     Mystery spin-in is a real spin whose reveal holds 3 scatters in columns 0,1,2 and whose
     scatter stings bring it to 5 (Super) or 6 (Epic), so `bonusStart.scatters` is the real
@@ -238,6 +321,57 @@ Decisions taken here that the spec left open (all reversible, all one constant)
     the disclosed floor ("a Mystery Epic always pays at least 500x") is about what the player
     receives, so it is checked against the round total. The plain Epic floor (200x) still
     measures the feature itself.
+
+    NEW DECISIONS TAKEN IN RULE PASS 3 (Corey, 2026-10-13; all reversible, all one constant):
+21. 7 SCATTERS NEVER TRIGGER, AND 8 SCATTERS ARE AN EPIC THAT ALWAYS ENDS AT 2,500x OR MORE.
+    The owner's decision of 2026-10-13, in three messages: "take 7 out of the game completely
+    and make 8 a Hidden Bonus that wins super big", using the existing bonuses; then NOT a
+    guaranteed max win ("maybe the upper bands"); then "we never have to mention a hidden
+    bonus anywhere, it counts as an Epic". Before it, 7 and 8 were accidents: a first board
+    forced to 4, 5 or 6 plus scatters dropped in by cascades of the trigger spin. The
+    2026-10-06 set holds 2,242 books on 7 and 51 on 8, and they paid no better than a 6 (in
+    the Epic buy they averaged 455x and 423x against the mode's 483x).
+    How it is built, with the Epic floor machinery and nothing else:
+      * a round that triggers on 7, or on 8 without an 8-scatter FIRST board, is re-drawn
+        (GameStateOverride.trigger_count_allowed, called from gamestate.run_spin);
+      * `epicgame` draws of base / ante / super_ante are forced to 8 scatters on
+        EPIC8_SHARE_SPIN (10%) of the draws and those of the Epic buy on EPIC8_SHARE_EPIC_BUY
+        (5%), through the `scatter_triggers` weights the SDK already rolls ({6: 0.9, 8: 0.1});
+      * such a round is re-drawn until its round total reaches EPIC8_MIN_WIN (2,500x), in
+        gamestate.enforce_feature_floor, ahead of the stated 200x check, which stays.
+    What it deliberately is NOT: a new criteria, a new target or a new band table. TARGETS,
+    the band tables and the shaper are untouched, so the Epic group keeps its probability, its
+    mean and its band shares, and no mode's RTP, hit rate, feature rate or max win rate moves.
+    8 means "this Epic is in the upper bands". The reverse does not hold: a 4, 5 or 6 scatter
+    round can still reach any win, the max included (see item 13).
+    Exceptions, by ruling: the Bonus buy and the Super buy never open on 8 (their first board
+    is what was bought) and Mystery never shows 7 or 8 (3 plus 0 / 2 / 3 stings is its stated
+    rule). The scatter sting treats an 8 board like any natural Epic. No rule text mentions
+    any of this and no minimum is stated for it; the only promise that has to stay true for
+    an 8-scatter Epic is the Epic's own 200x, and it is checked for every such round.
+22. THE ROUND IS THROWN AWAY AFTER ITS FEATURE HAS BEEN PLAYED, NOT BEFORE. The count a round
+    triggered on is known before the free spins start, so the cheap thing would be to re-draw
+    there. It is done after instead, because of how the SDK seeds a book: one seed per book
+    id, and a re-draw continues the same random stream. Played out and then discarded, a
+    7-scatter draw consumes exactly the random numbers it consumed before this rule existed,
+    so in a mode whose quotas did not change (the Bonus buy, the Super buy) every book is byte
+    for byte the old one EXCEPT the ids that used to be accepted on a 7. That turns "nothing
+    else moved" from a statistical claim into a book-against-book comparison
+    (tools/compare_books.py). The cost is the wasted feature: about 2% more draws in the Epic
+    buy and far less everywhere else. For the same reason one thrown-away draw is counted
+    under ONE reason (scatter count first, then the 8 floor, then the 200x floor), so the
+    columns of tools/redraw_summary.py add up.
+23. THE 8 SHARE IS A SHARE OF DRAWS, AND THE FREQUENCY OF 8 IS MEASURED, NOT TARGETED. The SDK
+    rolls `scatter_triggers` once per draw, and a book that is re-drawn rolls it again, so
+    EPIC8_SHARE is not the share of BOOKS that open on 8: an 8 draw is kept 85% to 88% of the
+    time and a 6 draw 92% to 98%, which leaves about 8.8% / 9.0% / 9.5% of the accepted Epic
+    books of base / ante / super_ante on 8 and 4.5% of the Epic buy's (samples, 2026-10-13).
+    And because TARGETS is untouched, how often 8 lands as SHIPPED is not a number anyone sets:
+    the shaper gives each band of the Epic group its probability and shares it out among the
+    books in the band, so the frequency of 8 is whatever the deck's 8 books come to, band by
+    band. tools/scatter_scan.py reports it from the shaped table. To move it, change
+    EPIC8_SHARE_SPIN or EPIC8_SHARE_EPIC_BUY and re-simulate; to PIN it, 8 would need a
+    criteria and a TARGETS row of its own (the plan's "definition 2"), which was not chosen.
 
 -------------------------------------------------------------------------------------------
 Open questions for Corey (spec's OPEN queue, still open)
@@ -768,3 +902,225 @@ KNOWN LIMITS AND THINGS TO WATCH
     than of all triggers.
   * Everything the 2026-09-20 pass listed under "Known limits" still stands: the natural Epic's
     800x mean above the bought Epic's 483x, and the cost of farming basegame_high.
+
+-------------------------------------------------------------------------------------------
+Rule pass 3, 2026-10-13 - 7 SCATTERS OUT, 8 SCATTERS = AN EPIC AT 2,500x OR MORE
+(engine, tests and tools; measured on SAMPLES. The shipped numbers follow the re-simulation.)
+-------------------------------------------------------------------------------------------
+Corey's decision of 2026-10-13 (plan and evidence: ~/Desktop/Manticore Mayhem/feedback/
+scatter8_plan_r1/). One rule change, engine-side, touching neither the paytable, the spin
+counts, the tile caps, the feature chances, the reels, TARGETS, the band tables nor the shaper.
+The rule itself is in "Rules as implemented" (Scatter counts) and in decisions 21 to 23 above.
+
+WHERE THE GAME STOOD (the 2026-10-06 set, tools/scatter_scan.py over the rollback copy)
+  books that trigger on 7 / on 8, and how often as shipped (per million rounds of the mode)
+    base         26 /  0     0.58 / 0          bonus buy       5 /  0      0.41 / 0
+    ante         42 /  4     9.4  / 0.48       super buy      93 /  0     18.1  / 0
+    super_ante  225 / 11   205.6  / 0.94       epic buy    1,851 / 36   16,148  / 343
+    mystery       0 /  0                       (7 on 1 Epic buy in 62, 8 on 1 in 2,917)
+  Every one of them is a first board forced to 4, 5 or 6 plus one or two scatters dropped in
+  by cascades of the trigger spin. 2,242 books on 7 and 51 on 8 in all.
+
+EVERY CONSTANT THAT CHANGED
+  game_config.py
+    MATH_VERSION            NEW "2026.10.13" (a label; the game's mathVersion mirrors it)
+    MAX_TRIGGER_SCATTERS    NEW 6
+    FULL_BOARD_SCATTERS     NEW 8 (= NUM_REELS)
+    EPIC8_MIN_WIN           NEW 2500.0, on the ROUND TOTAL of an Epic that opened on 8. Not stated
+    EPIC8_SHARE_SPIN        NEW 0.10, share of `epicgame` DRAWS forced to 8 in base/ante/super_ante
+    EPIC8_SHARE_EPIC_BUY    NEW 0.05, the same for the Epic buy
+    EPIC8_SHARE             NEW the two above as a dict by mode
+    `epicgame` scatter_triggers   {6: 1} -> {6: 0.9, 8: 0.1} in base / ante / super_ante,
+                            {6: 1} -> {6: 0.95, 8: 0.05} in the Epic buy. Mystery's stays {6: 1}.
+    `epicgame` quotas       base 0.006 -> 0.012, ante 0.012 -> 0.014, super_ante 0.03 -> 0.034
+                            (the `basegame` quota gives the difference back). Epic buy unchanged.
+    new assert              every reel of BR / BA / SA carries a scatter (a forced 8 needs it)
+    UNCHANGED               every `wincap` board (6, Bonus buy 4, Super buy 5), `supergame` and
+                            `freegame` boards, the Bonus / Super / Epic buy quotas, all of
+                            Mystery, SCATTER_STING_COUNT_WEIGHTS, EPIC_MIN_WIN 200,
+                            MYSTERY_EPIC_MIN_WIN 500, and everything else in the file
+  game_override.py
+    reveal_scatters, trigger_scatters   NEW per-draw state, cleared by reset_book
+    trigger_count_allowed   NEW 4/5/6 yes, 7 no, 8 only when the first board held 8
+    reject_trigger_count    NEW counts the reason (scatter7 or stray8) and asks for a re-draw
+    re-draw counters        NEW draws, accepted books and re-draws by reason per criteria; each
+                            simulation thread prints them as one `REDRAWS {json}` line (run_sims)
+  gamestate.py
+    run_spin                records the first board's count; after the feature, re-draws a
+                            round whose trigger count is not allowed
+    enforce_feature_floor   NEW first check: an 8 trigger under EPIC8_MIN_WIN is re-drawn
+    plan_scatter_sting      UNCHANGED (docstring only): an 8 board is stung 5 or 6
+  game_executables.py
+    run_freespin_from_base  records the count the feature was triggered on
+  run.py                    NEW --out DIR, prints MATH_VERSION
+  NOT TOUCHED               game_optimization.py (TARGETS), tools/shape_lut.py, game_events.py,
+                            game_calculations.py, reels/, check_stats.py, analyze_books.py,
+                            tools/verify_math.py, tools/cap_spin_index.py
+
+RE-DRAWS PER ACCEPTED BOOK, BY REASON (tests/test_scatter8_samples.py, 2026-10-13, one process;
+a dot is none seen)
+  mode        criteria    books  draws/book  scatter7   stray8  epic8_floor  epic_floor (200x)
+  base        epicgame      800     1.034     0.0100      .       0.0138       0.0100
+  ante        epicgame      800     1.055     0.0312      .       0.0163       0.0075
+  super_ante  epicgame      800     1.096     0.0688    0.0050    0.0138       0.0088
+  epic buy    epicgame    3,000     1.036     0.0190    0.0007    0.0063       0.0097
+  ante        supergame     500     1.002     0.0020      .          .            .
+  super_ante  supergame     600     1.007     0.0067      .          .            .
+  super buy   supergame   1,500     1.001     0.0013      .          .            .
+  ante        freegame      500     1.002     0.0020      .          .            .
+  base supergame (500), base freegame (500), bonus buy freegame (1,500): no re-draw at all.
+  `wincap` (40 to 60 books each): scatter7 0.075 in ante, 0.025 in super_ante, 0.050 in the
+  Epic buy, none in base, bonus or super. The base-game criteria are untouched by the rule:
+  basegame 2.7 to 3.2 draws per book, `0` about 1.6, basegame_mid 50 to 75, basegame_high
+  550 to 1,550 (still the cost of the whole run).
+  The 8 board on its own (every draw forced to 8, 500 accepted books per mode): kept 84.9%
+  (base), 85.8% (ante), 86.2% (super_ante), 87.6% (Epic buy); every miss was the 2,500x
+  re-draw, NONE of 2,323 such draws ended under 200x from its free spins; 69% to 74% of the
+  kept ones reach the cap on their own; lowest kept round 2,507.8x; 13% to 15% of them were
+  played as a scatter sting in the spin modes (5 or 6 stung in, 3 or 2 visible), none in the
+  Epic buy.
+
+WHAT TO EXPECT AS SHIPPED (THE ESTIMATES MADE BEFORE THE RUN; the measured numbers are in
+"CANDIDATE SET" below, and they landed inside the spread stated here)
+  The shaper's own band arithmetic applied to the 2026-10-06 deck plus the measured 8 books:
+                 8 scatters, 1 round in     share of the Epic's       8 books in the deck,
+                 (the plan's figure)        2,500x-and-over rounds    of them under the cap
+    base         1,640,000  (1,500,000)            9.9%                  106,   30
+    ante           335,000    (312,000)           10.1%                  127,   38
+    super_ante      38,300     (37,300)           10.5%                  322,   89
+    epic buy         1,108      (1,011)            5.1%                4,489, 1,253
+  Average of an 8-scatter Epic as shipped about 4,340x (base), 4,170x (ante), 4,260x
+  (super_ante) and 4,640x (Epic buy), which is simply the average of each mode's Epic rounds
+  at 2,500x or more today; about 4% of them a max win in base, 2% in ante and the Epic buy,
+  0.5% in super_ante (the max win rate of each MODE does not move: 8-scatter max wins are a
+  share of the same cap group).
+  HOW SOLID THESE ARE. In the spin modes about 40% of the frequency of 8 rests on the 8 books
+  that land in the 2,500x to 3,000x slice of the Epic's 1,500x to 3,000x band, because that
+  band carries most of the Epic's upper probability, and a full run is expected to hold only
+  about 3 such books in base, 5 in ante and 9 in super_ante. So one run to the next the
+  shipped frequency will move by about a quarter in base and ante, a sixth in super_ante and
+  3% in the Epic buy. That is the price of not pinning it (decision 23).
+
+BOOK FOR BOOK AGAINST THE 2026-10-06 SET (today's code, the 100,000-book deal)
+  bonus buy   the first 400 ids identical; the 5 ids that triggered on 7 (19688, 19791, 40392,
+              67512, 99400) and only those are new books
+  super buy   the first 400 ids identical; the 93 ids that triggered on 7 and only those are new
+  mystery     the first 400 ids identical: today's code deals the published Mystery books
+              exactly, which is why Mystery is not re-simulated
+  epic buy    375 of the first 400 ids identical (94%): its quotas did not move either, so a
+              book whose draws never rolled the 8 board and never ran into a 7 is unchanged
+  base / ante / super_ante: every id is a new book (the `epicgame` quota moved, so the deal of
+  criteria to ids is a different one).
+
+RE-SIMULATION AS DONE (six modes into a candidate folder; Mystery keeps its books and its table)
+  G=games/manticore_mayhem;  R=$G/library-pre-scatter8-20261013
+  C=$G/scatter8-candidate-20261013/games;  L=$C/manticore_mayhem/library
+  cp -a $G/library $R                                        # rollback, 56 files, 1.60 GB
+  env/bin/python $G/tests/test_math.py                                            # 38 checks
+  mkdir -p $L/{publish_files,lookup_tables,forces,configs}   # then Mystery, byte for byte:
+  cp -p $R/publish_files/{books_mystery.jsonl.zst,lookUpTable_mystery_0.csv} $L/publish_files/
+  cp -p $R/lookup_tables/{lookUpTable_mystery.csv,lookUpTableSegmented_mystery.csv} $L/lookup_tables/
+  cp -p $R/forces/{force_record_mystery.json,force.json} $L/forces/
+  cp -p $R/configs/{event_config_mystery.json,books_mystery.verification.json} $L/configs/
+  env/bin/python $G/run.py --sims 100000 --modes base,ante,super_ante,bonus,super,epic \
+      --threads 10 --no-analysis --no-checks --out $C 2>&1 | tee sim.log        # 28 min
+  MANTICORE_LIB=$L env/bin/python $G/tools/shape_lut.py base ante super_ante bonus super epic
+  env/bin/python $G/run.py --no-sims --no-analysis --out $C        # configs + RGS checks on $L
+  MANTICORE_LIB=$L env/bin/python $G/tools/verify_math.py
+  MANTICORE_LIB=$L env/bin/python $G/check_stats.py
+  MANTICORE_LIB=$L env/bin/python $G/tools/cap_spin_index.py
+  MANTICORE_LIB=$L env/bin/python $G/analyze_books.py
+  env/bin/python $G/tools/scatter_scan.py --lib $L
+  env/bin/python $G/tools/redraw_summary.py sim.log
+  env/bin/python $G/tools/compare_books.py --old $R --new $L bonus super
+  The --out folder is named `games` on purpose: the SDK's RGS checks write stats_summary.json
+  to games/<id>/library relative to the current folder, and run.py steps into the parent of
+  --out so that path is the candidate and never the live library. Nothing in library/ was
+  written at any point (every file and folder checked by size and mtime, then by sha256).
+  A rehearsal at 20,000 books went first, into scatter8-dryrun-20261013/games (5 min 18 s).
+  TIME, MEASURED on this machine with 10 processes: 28 min 4 s for the six modes (base 5:18,
+  ante 4:47, super_ante 4:19, bonus 3:50, super 4:01, epic 5:28). The estimate made before the
+  run (about 60 minutes, from the file times of the 2026-10-06 run) was twice too high. All
+  the checks after it took about 3 minutes side by side.
+  TO PROMOTE (on the owner's word, mock stopped first): move library/ aside, put $L in its
+  place, restart the mock (its book cache rebuilds on first play), then verify_math.py and
+  scatter_scan.py with no arguments.
+
+CANDIDATE SET, SIMULATED AND SHAPED 2026-10-13 (100,000 books per mode; NOT PROMOTED, library/
+still serves the 2026-10-06 set). Before = the 2026-10-06 set, after = the candidate.
+  mode        cost   RTP before   RTP after    win 1 in b/a     std b/a      max win 1 in before -> after   ev/book b/a
+  base          1   0.9669926    0.9669893    3.5572/3.5572   22.17/22.21   2,997,647 -> 3,000,696          6.0/6.3
+  ante          3   0.9669894    0.9669889    3.7325/3.7325   15.34/15.35   1,000,196 -> 1,000,336          9.2/9.3
+  super_ante   10   0.9669897    0.9669917    3.3227/3.3227   11.82/11.82     500,068 ->   499,588          9.7/9.9
+  bonus       100   0.9669900    0.9669900    1.0000/1.0000    2.08/2.08       25,000 ->    25,000         33.9/33.9
+  super       250   0.9669899    0.9669901    1.0000/1.0000    1.86/1.86        8,000 ->     8,000         42.5/42.5
+  epic        500   0.9669897    0.9669900    1.0000/1.0000    1.36/1.36        3,000 ->     3,000         50.7/50.8
+  mystery     250   0.9669897    0.9669897    1.6764/1.6764    2.69/2.69        8,870 ->     8,870         35.5/35.5  (same files)
+  Cross-mode RTP spread 2.76e-06 (limit 0.005). No empty band, no unplaced book, 0 rows with
+  weight 0 in any mode. Feature rates by criteria are the targets to the digit: Bonus 1 in 300
+  / 60, Super 1 in 2,000 / 400 / 39, Epic 1 in 12,000 / 2,400 / 262. Epic buy: 5.08M events
+  at 100,000 books (limit 10M); its lowest live payout is 200.4x, as before.
+
+  SCATTER COUNTS (tools/scatter_scan.py, all 700,000 books of the candidate): 0 books trigger on
+  7, 0 stray 8, 0 books break the rule. 8-scatter books and how often they land AS SHIPPED:
+                books (at the cap)   1 round in   per million   share of the Epic's      average   lowest    a max
+                                                                2,500x-and-over rounds                         win
+    base           114  (76)         1,497,383        0.668          11.4%               4,621x   2,554.0x   3.5%
+    ante           129  (85)           336,224        2.974          10.6%               4,691x   2,568.4x   2.0%
+    super_ante     310 (235)            45,903       21.785           9.0%               4,332x   2,513.8x   0.6%
+    epic buy     4,388 (3,135)           1,134      881.880           5.0%               4,666x   2,507.6x   1.9%
+  Before, per million: 7 scatters 0.58 / 9.4 / 205.6 / 16,148 and 8 scatters 0 / 0.48 / 0.94 /
+  343 in the same four modes; Bonus buy 0.41 and Super buy 18.1 on 7. All of that is 0 now.
+  As predicted the spin modes' figure rests on few books: in base 2 books in the 2,500x to
+  3,000x slice carry 26% of it, in super_ante 7 books carry 34%.
+  Every 8-scatter Epic's free spins pay at least 2,507x, far over the stated 200x.
+  Scatter sting on an 8 board: 27 of 114 (base), 30 of 129 (ante), 41 of 310 (super_ante), none
+  in the Epic buy; every scatter-sting reveal of the set shows 0 to 3 scatters.
+  No scatter on any of the 3,098,821 free-spin boards of the six re-simulated modes.
+
+  RE-DRAWS OF THE RUN, BY REASON (tools/redraw_summary.py)
+                draws       scatter7   stray8   epic8_floor   epic_floor (200x)
+    base        1,985,860       38        0          9            15
+    ante        1,678,847       47        4         12            18
+    super_ante  1,363,643      257       12         44            34
+    bonus buy     100,063        5        0          0             1
+    super buy     100,102       94        0          0             7
+    epic buy      103,402    1,829       37        667           869
+  The spin modes' draws are the base-game farming, as before (basegame_high about 700 to
+  1,160 draws per book).
+
+  BOOK FOR BOOK (tools/compare_books.py): the Bonus buy is the 2026-10-06 set except 5 ids
+  (19688, 19791, 40392, 67512, 99400) and the Super buy except 93 ids, exactly the ids that
+  used to trigger on 7. Mystery's books and table have the 2026-10-06 sha256.
+
+  WHAT MOVED AGAINST THE 2026-10-06 SET
+    * Nothing the shaper pins: RTP, hit rate, every criteria's probability and mean, every
+      band of every group, the max win rate.
+    * Operator risk: std +0.2% in base, +0.1% in ante, CVaR per stake +0.1% in the three spin
+      modes, nothing in the buys. Every limit is cleared as before.
+    * Inside the Epic buy's 2,000x to 5,000x band the 8 books take weight from the 2,000x to
+      2,500x slice: P(2,000x to 2,500x) falls 4.8% (0.002434 to 0.002316) and P(2,500x or
+      more) rises 0.7% (0.017501 to 0.017618). The band's total is unchanged.
+    * The three spin modes are new deals (the Epic quota moved, so every id is a new book), so
+      thin slices INSIDE a shaper band differ by a few percent either way (base 800x to 1,000x
+      +12% on 133 books, 1,500x to 2,000x -7%); that is one deck against another, not the rule.
+    * Features AS PLAYED (a Bonus that cascades into a Super counts as a Super): within 0.3%
+      in the spin modes. Bought Bonus that plays an Epic 1 in 35,405 -> 35,904 and bought Super
+      that plays an Epic 1 in 1,086 -> 1,108: the removed 7-scatter rounds were Epics.
+    * Base's Epic quota doubled, so its cap group holds 1,082 books instead of 685 and the
+      `wincap` criteria now carries 18% of base's max win probability instead of 29%. The
+      max win rate itself is pinned. Where the 10,000x lands in a feature did not move (Epic
+      mean free spin 8.86 -> 8.87, Super 8.19, Bonus 6.96 -> 6.95).
+
+KNOWN LIMITS AND THINGS TO WATCH
+  * The frequency of 8 is not pinned (decision 23) and in base it rests on a handful of books.
+    Read it off tools/scatter_scan.py after every shaping pass before anyone quotes it.
+  * library/configs/math_config.json still describes the `epicgame` fence by "scatter kind 6".
+    It is generated from TARGETS, which this pass does not touch, and the optimiser that would
+    read it is not part of the flow, so nothing acts on it. An 8-scatter `epicgame` book is
+    simply not matched by that search line.
+  * A 20,000-book deck is thin for the spin modes' Epic groups (240 to 680 books). The
+    rehearsal printed "ante/epic band (200, 300) is empty" for that reason; the 100,000-book
+    deck has no empty band. Judge the Epic groups on the full deck.
+  * tests/test_scatter8_samples.py compares against library-pre-scatter8-20261013/. Keep that
+    folder until the next set has replaced this one on Stake.

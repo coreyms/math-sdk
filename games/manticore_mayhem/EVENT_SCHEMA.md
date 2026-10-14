@@ -112,6 +112,11 @@ trigger completed by a cascade):
 
 The reveal's `anticipation` is computed as usual but from the VISIBLE (placeholder) board.
 
+Rule pass 3 (2026-10-13): an 8-scatter first board is stung like any other natural Epic. `m`
+is then 5 or 6, so the reveal shows 3 or 2 scatters and a run of 5 or 6 `scatter` stings
+follows (the longest run in the books; it was 6 before as well). Not stung, its reveal carries
+all 8 scatters and `anticipation` `[0,0,0,1,2,3,4,5]`.
+
 **Mystery** uses the same event for its spin-in tease (see `mystery` below).
 
 ### `roar` - the lows are blown off the board
@@ -128,7 +133,7 @@ Super and Epic only. Multiplier tiles under the removed lows are **untouched**.
 | `bonus` | `bonus` / `super` / `epic` |
 | `totalFs` | 8 / 10 / 12 - there are no retriggers |
 | `tileCap` | 64 (Bonus) or 128 (Super, Epic) - the ladder this session runs on |
-| `scatters[]` | triggering scatter cells, as they stand at the moment of the trigger (a cascade can move a scatter down its column). At most one cell per column, always. Rule pass 2: a Mystery award now HAS a scatter board - 5 cells for a Super, 6 for an Epic - so this is never empty |
+| `scatters[]` | triggering scatter cells, as they stand at the moment of the trigger (a cascade can move a scatter down its column). At most one cell per column, always. Rule pass 2: a Mystery award now HAS a scatter board - 5 cells for a Super, 6 for an Epic - so this is never empty. Rule pass 3 (2026-10-13): the list holds 4, 5, 6 or 8 cells and NEVER 7. 8 cells (one in every column) only when the FIRST board of the round already held all 8, only in base / ante / super_ante and the Epic buy, and always with `bonus: "epic"`; the Bonus buy, the Super buy and Mystery never carry 8 |
 
 There is no tile field here: the carried grid is already on the board the player is looking at, and the first freegame `reveal` re-sends it in `tiles`.
 

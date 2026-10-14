@@ -6,6 +6,8 @@ free-spin index the `wincap` event fired on - weighted by the SHIPPED lookup-tab
 the answer is the distribution a player actually faces, not the distribution of the raw deck.
 
   env/bin/python games/manticore_mayhem/tools/cap_spin_index.py [modes...]
+
+MANTICORE_LIB=<a library folder> reads another library instead of games/manticore_mayhem/library.
 """
 import csv
 import io
@@ -18,7 +20,8 @@ import zstandard
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.dirname(HERE)
 sys.path.insert(0, GAME)
-PUB = os.path.join(GAME, "library", "publish_files")
+LIB = os.environ.get("MANTICORE_LIB") or os.path.join(GAME, "library")
+PUB = os.path.join(LIB, "publish_files")
 
 
 def weights(mode):
@@ -31,6 +34,7 @@ def weights(mode):
 
 
 def main(modes):
+    print(f"library {os.path.abspath(LIB)}")
     for mode in modes:
         w = weights(mode)
         hist = {}
