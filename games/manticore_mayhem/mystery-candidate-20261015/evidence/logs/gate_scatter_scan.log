@@ -1,0 +1,99 @@
+scatter scan of /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/mystery-candidate-20261015/games/manticore_mayhem/library
+
+== base: 100,000 books walked, 0 break the rule
+   epicgame     trigger on  6: 1,086  8: 114
+                first board 6: 1,086  8: 114
+   freegame     trigger on  4: 2,891  5: 103  6: 6
+                first board 4: 3,000
+   supergame    trigger on  5: 1,162  6: 38
+                first board 5: 1,200
+   wincap       trigger on  6: 200
+                first board 6: 200
+   7 scatters: 0 books   8 scatters: 114 books (0 of them stray)   natural triggers played as a scatter sting: 806
+   free spins: 48,943 boards, 0 scatters on them or dropped in; scatter-sting reveals show at most 3 scatters (0: 38  1: 84  2: 219  3: 465)
+   8-scatter books: lowest payout 2,554.0x, raw mean 8,551x, 76 at the cap, 27 stung in, lowest free-spin total 2,554.0x
+   as shipped (shaped table): 8 scatters 1 round in 1,497,383 (0.668 per million), on 11.4% of the Epic's 2,500x-and-over rounds, average 4,621x, 3.5% of them a max win
+
+== ante: 100,000 books walked, 0 break the rule
+   epicgame     trigger on  6: 1,271  8: 129
+                first board 6: 1,271  8: 129
+   freegame     trigger on  4: 9,398  5: 534  6: 68
+                first board 4: 10,000
+   supergame    trigger on  5: 2,863  6: 137
+                first board 5: 3,000
+   wincap       trigger on  6: 200
+                first board 6: 200
+   7 scatters: 0 books   8 scatters: 129 books (0 of them stray)   natural triggers played as a scatter sting: 2,207
+   free spins: 125,686 boards, 0 scatters on them or dropped in; scatter-sting reveals show at most 3 scatters (0: 135  1: 283  2: 634  3: 1,155)
+   8-scatter books: lowest payout 2,568.4x, raw mean 8,513x, 85 at the cap, 30 stung in, lowest free-spin total 2,560.4x
+   as shipped (shaped table): 8 scatters 1 round in 336,224 (2.974 per million), on 10.6% of the Epic's 2,500x-and-over rounds, average 4,691x, 2.0% of them a max win
+
+== super_ante: 100,000 books walked, 0 break the rule
+   epicgame     trigger on  6: 3,090  8: 310
+                first board 6: 3,090  8: 310
+   supergame    trigger on  4: 6,724  5: 2,917  6: 359
+                first board 4: 7,619  5: 2,381
+   wincap       trigger on  6: 200
+                first board 6: 200
+   7 scatters: 0 books   8 scatters: 310 books (0 of them stray)   natural triggers played as a scatter sting: 2,048
+   free spins: 133,786 boards, 0 scatters on them or dropped in; scatter-sting reveals show at most 3 scatters (0: 103  1: 261  2: 518  3: 1,166)
+   8-scatter books: lowest payout 2,513.8x, raw mean 8,966x, 235 at the cap, 41 stung in, lowest free-spin total 2,513.8x
+   as shipped (shaped table): 8 scatters 1 round in 45,903 (21.785 per million), on 9.0% of the Epic's 2,500x-and-over rounds, average 4,332x, 0.6% of them a max win
+
+== bonus: 100,000 books walked, 0 break the rule
+   freegame     trigger on  4: 96,010  5: 3,406  6: 184
+                first board 4: 99,600
+   wincap       trigger on  4: 390  5: 8  6: 2
+                first board 4: 400
+   7 scatters: 0 books   8 scatters: 0 books (0 of them stray)   natural triggers played as a scatter sting: 0
+   free spins: 805,255 boards, 0 scatters on them or dropped in
+   as shipped (shaped table): 8 scatters never
+
+== super: 210,000 books walked, 0 break the rule
+   supergame    trigger on  5: 48,388  6: 1,312
+                first board 5: 49,700
+   supergame_low trigger on  5: 159,898  6: 102
+                first board 5: 160,000
+   wincap       trigger on  5: 289  6: 11
+                first board 5: 300
+   7 scatters: 0 books   8 scatters: 0 books (0 of them stray)   natural triggers played as a scatter sting: 0
+   free spins: 2,092,702 boards, 0 scatters on them or dropped in
+   as shipped (shaped table): 8 scatters never
+
+== epic: 136,000 books walked, 0 break the rule
+   epicgame     trigger on  6: 9,311  8: 438
+                first board 6: 9,311  8: 438
+   epicgame_body trigger on  6: 56,000
+                first board 6: 56,000
+   epicgame_mid trigger on  6: 40,000
+                first board 6: 40,000
+   epicgame_upper trigger on  6: 28,835  8: 1,166
+                first board 6: 28,835  8: 1,166
+   wincap       trigger on  6: 250
+                first board 6: 250
+   7 scatters: 0 books   8 scatters: 1,604 books (0 of them stray)   natural triggers played as a scatter sting: 0
+   free spins: 1,611,080 boards, 0 scatters on them or dropped in
+   8-scatter books: lowest payout 2,500.0x, raw mean 6,573x, 310 at the cap, 0 stung in, lowest free-spin total 2,500.0x
+   as shipped (shaped table): 8 scatters 1 round in 1,139 (877.919 per million), on 5.0% of the Epic's 2,500x-and-over rounds, average 4,593x, 1.8% of them a max win
+
+== mystery: 351,000 books walked, 0 break the rule
+   epicgame     trigger on  6: 3,000
+                first board 6: 3,000
+   mystery_epic_body trigger on  6: 18,000
+                first board 6: 18,000
+   mystery_epic_mid trigger on  6: 6,000
+                first board 6: 6,000
+   mystery_epic_upper trigger on  6: 4,000
+                first board 6: 4,000
+   mystery_super_low trigger on  5: 50,000
+                first board 5: 50,000
+   supergame    trigger on  5: 20,000
+                first board 5: 20,000
+   7 scatters: 0 books   8 scatters: 0 books (0 of them stray)   natural triggers played as a scatter sting: 0
+   free spins: 1,063,976 boards, 0 scatters on them or dropped in
+   as shipped (shaped table): 8 scatters never
+
+7 modes, 1,097,000 books: 0 trigger on 7, 2,157 on 8, 0 books break the rule
+SCATTER SCAN PASS
+wrote games/manticore_mayhem/mystery-candidate-20261015/evidence/metrics/scatter_scan.json
+nice -n 10 env/bin/python $G/tools/scatter_scan.py --lib $L --json   148.68s user 0.56s system 99% cpu 2:29.57 total

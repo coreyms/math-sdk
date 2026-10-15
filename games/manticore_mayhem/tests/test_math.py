@@ -918,7 +918,7 @@ def book_facts(gs):
     }
 
 
-@check("scatter 8: only `epicgame` of base / ante / super_ante / epic can force 8, at the owner's shares")
+@check("scatter 8: only `epicgame` (and the Epic buy's upper slice) can force 8, at the owner's shares")
 def _():
     from game_config import (
         EPIC8_MIN_WIN, EPIC8_SHARE, EPIC8_SHARE_EPIC_BUY, EPIC8_SHARE_SPIN, FULL_BOARD_SCATTERS,
@@ -930,7 +930,7 @@ def _():
     assert EPIC8_MIN_WIN == 2500.0 and EPIC8_SHARE_SPIN == 0.10 and EPIC8_SHARE_EPIC_BUY == 0.05
     assert EPIC8_SHARE == {"base": 0.10, "ante": 0.10, "super_ante": 0.10, "epic": 0.05}, EPIC8_SHARE
     assert (MAX_TRIGGER_SCATTERS, FULL_BOARD_SCATTERS) == (6, 8)
-    assert MATH_VERSION == "2026.10.13", MATH_VERSION
+    assert MATH_VERSION == "2026.10.15", MATH_VERSION  # diversity pass; rule pass 3 was 2026.10.13
 
     cfg = GameConfig()
     forced = {}
@@ -944,7 +944,11 @@ def _():
             if triggers is None:
                 continue
             assert 7 not in triggers, f"{mode}/{d.get_criteria()} forces 7 scatters"
-            if d.get_criteria() == "epicgame" and mode in EPIC8_SHARE:
+            # diversity pass (2026-10-15): the Epic buy's `epicgame_upper` material slice is the
+            # same Epic draw farmed for 1,000x-plus, so it opens on 8 at the same share
+            if (d.get_criteria() == "epicgame" and mode in EPIC8_SHARE) or (mode, d.get_criteria()) == (
+                "epic", "epicgame_upper"
+            ):
                 share = EPIC8_SHARE[mode]
                 assert set(triggers) == {6, 8}, (mode, triggers)
                 assert abs(triggers[8] - share) < 1e-12 and abs(triggers[6] - (1 - share)) < 1e-12, triggers
@@ -955,7 +959,14 @@ def _():
     assert forced[("bonus", "freegame")] == {4: 1} and forced[("bonus", "wincap")] == {4: 1}
     assert forced[("super", "supergame")] == {5: 1} and forced[("super", "wincap")] == {5: 1}
     assert forced[("epic", "wincap")] == {6: 1}
+    # the diversity pass's material slices force the buy's own board (5 / 6), never more
+    assert forced[("super", "supergame_low")] == {5: 1}
+    assert forced[("epic", "epicgame_body")] == {6: 1} and forced[("epic", "epicgame_mid")] == {6: 1}
     assert forced[("mystery", "epicgame")] == {6: 1} and forced[("mystery", "supergame")] == {5: 1}
+    # the Mystery diversity pass (2026-10-15): its slices are the Mystery Super / Epic, 5 / 6
+    assert forced[("mystery", "mystery_super_low")] == {5: 1}
+    assert forced[("mystery", "mystery_epic_body")] == {6: 1} and forced[("mystery", "mystery_epic_mid")] == {6: 1}
+    assert forced[("mystery", "mystery_epic_upper")] == {6: 1}
     for mode in ("base", "ante", "super_ante"):
         assert forced[(mode, "wincap")] == {6: 1}, forced[(mode, "wincap")]
     assert forced[("super_ante", "supergame")] == {4: 3, 5: 1}
@@ -1211,6 +1222,118 @@ def _():
     for case in reversed(cases):  # a different order, so every book follows a different one
         assert book(*case) == fresh[case], f"{case} came out differently the second time"
     gs.reset_redraw_counts()
+
+
+@check("diversity: a buy's material slice keeps only rounds inside its range, whole, and drops a lost draw early")
+def _():
+    from game_config import EPIC_BUY_SLICES, SUPER_BUY_SLICES
+
+    cfg = GameConfig()
+    gs = GameState(cfg)
+    # the Bonus buy is dealt exactly as before the pass (no slice, same quotas and boards)
+    bonus = next(bm for bm in cfg.bet_modes if bm.get_name() == "bonus").get_distributions()
+    assert [(d.get_criteria(), d.get_quota()) for d in bonus] == [("wincap", 0.004), ("freegame", 0.996)]
+    assert all("win_range" not in d._conditions and "early_reject" not in d._conditions for d in bonus)
+
+    played = {"spins": 0}
+    real_update = gs.update_freespin
+
+    def counting_update():
+        played["spins"] += 1
+        real_update()
+
+    gs.update_freespin = counting_update
+    try:
+        for mode, slices, spins in (("epic", EPIC_BUY_SLICES, 12), ("super", SUPER_BUY_SLICES, 10)):
+            for criteria, (_, (lo, hi), _) in slices.items():
+                gs.betmode, gs.criteria = mode, criteria
+                gs.reset_redraw_counts()
+                played["spins"] = 0
+                for sim in range(3):
+                    gs.run_spin(sim, 900_000 + sim)
+                    book = gs.book.to_json()
+                    win = book["payoutMultiplier"] / 100
+                    assert lo <= win < hi, f"{mode}/{criteria}: {win}x outside [{lo}, {hi})"
+                    assert book["criteria"] == criteria
+                    events = book["events"]
+                    # whole: every free spin of the feature was played (a Super that cascades
+                    # into an Epic plays the Epic's 12), and the book closes on its final win
+                    start = next(e for e in events if e["type"] == "bonusStart")
+                    reveals = [e for e in events if e["type"] == "reveal" and e["gameType"] == "freegame"]
+                    assert len(reveals) == start["totalFs"] in (spins, 12), (mode, criteria, len(reveals))
+                    assert events[-1]["type"] == "finalWin"
+                stats = gs.redraw_summary()[criteria]
+                assert stats["books"] == 3
+                if stats["draws"] > 30:  # a lost draw stops between spins, so fewer spins are played
+                    assert played["spins"] < stats["draws"] * spins, (mode, criteria, played, stats)
+    finally:
+        gs.update_freespin = real_update
+        gs.reset_redraw_counts()
+
+
+@check("mystery diversity: a Mystery slice plays its outcome whole, inside its range, and drops a lost draw early")
+def _():
+    from game_config import MYSTERY_EPIC_MIN_WIN, MYSTERY_SLICES, MYSTERY_STING_COUNT, MYSTERY_SCATTER_REELS
+
+    cfg = GameConfig()
+    gs = GameState(cfg)
+    dists = next(bm for bm in cfg.bet_modes if bm.get_name() == "mystery").get_distributions()
+    # the three natural criteria are still dealt as they were: no range, no early stop
+    for criteria in ("mystery_nothing", "supergame", "epicgame"):
+        d = next(d for d in dists if d.get_criteria() == criteria)
+        assert "win_range" not in d._conditions and "early_reject" not in d._conditions, criteria
+    assert abs(sum(d.get_quota() for d in dists) - 1.0) < 1e-9
+    assert set(cfg.mystery_outcome) == {d.get_criteria() for d in dists}
+
+    played = {"spins": 0}
+    real_update = gs.update_freespin
+
+    def counting_update():
+        played["spins"] += 1
+        real_update()
+
+    gs.update_freespin = counting_update
+    try:
+        gs.betmode = "mystery"
+        for criteria, (_, (lo, hi), parent) in MYSTERY_SLICES.items():
+            outcome = cfg.mystery_outcome[parent]
+            spins = cfg.fs_spins[outcome]
+            gs.criteria = criteria
+            gs.reset_redraw_counts()
+            played["spins"] = 0
+            for sim in range(3):
+                gs.run_spin(sim, 910_000 + sim)
+                book = gs.book.to_json()
+                win = book["payoutMultiplier"] / 100
+                assert lo <= win < hi, f"mystery/{criteria}: {win}x outside [{lo}, {hi})"
+                assert book["criteria"] == criteria
+                events = book["events"]
+                assert events[0] == {"index": 0, "type": "mystery", "outcome": outcome}, events[0]
+                assert events[1]["type"] == "reveal"
+                shown = [sum(1 for name in column if name == "S") for column in events[1]["board"]]
+                assert shown == [1 if r in MYSTERY_SCATTER_REELS else 0 for r in range(8)], shown
+                stings = 0
+                for event in events[2:]:
+                    if event["type"] != "sting" or event["kind"] != "scatter":
+                        break
+                    stings += 1
+                assert stings == MYSTERY_STING_COUNT[outcome], (criteria, stings)
+                start = next(e for e in events if e["type"] == "bonusStart")
+                assert start["bonus"] == outcome and len(start["scatters"]) == 3 + stings, start
+                # whole: every free spin was played (no slice can hold a capped round), and the
+                # book closes on its final win
+                reveals = [e for e in events if e["type"] == "reveal" and e["gameType"] == "freegame"]
+                assert len(reveals) == start["totalFs"] == spins, (criteria, len(reveals), start["totalFs"])
+                assert events[-1]["type"] == "finalWin"
+                if outcome == "epic":
+                    assert win >= MYSTERY_EPIC_MIN_WIN, (criteria, win)
+            stats = gs.redraw_summary()[criteria]
+            assert stats["books"] == 3
+            if stats["draws"] > 30:  # a lost draw stops between spins, so fewer spins are played
+                assert played["spins"] < stats["draws"] * spins, (criteria, played, stats)
+    finally:
+        gs.update_freespin = real_update
+        gs.reset_redraw_counts()
 
 
 def main() -> int:

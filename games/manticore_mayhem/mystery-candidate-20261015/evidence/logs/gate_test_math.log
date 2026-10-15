@@ -1,0 +1,43 @@
+PASS  cluster: 5 orthogonally connected pay, 4 do not
+PASS  cluster: diagonals do not connect
+PASS  cluster: wild substitutes and can join two clusters at once
+PASS  tiles: 0 -> 2 -> 4 ... and clamp at the mode cap
+PASS  tiles: seeding and growth thresholds gate the ladder by cluster size
+PASS  tiles: a capped cell emits no further tile change
+PASS  pay: paytable x SUM of tiles, x1 when the sum is zero
+PASS  swipe: clears the band it was given and doubles only those tiles
+PASS  swipe: the band is 3 contiguous rows, its start uniform over 0..5, in every context
+PASS  swipe: scatters survive the paw (a buy must not be downgraded)
+PASS  swipe: seeds cold cells in EVERY context (rule pass 2: the lever is on everywhere)
+PASS  swipe: seeding inside a live feature session lights the whole band
+PASS  tiles: the seed/grow threshold is OFF - a 5-cluster seeds and doubles in every context
+PASS  sting: every sting is on a non-scatter cell and turns exactly its cells wild
+PASS  sting: at most one big/super finisher per spin, always last, at most 5 stings total
+PASS  sting: a big/super shape fits the board and PRODUCES a win
+PASS  roar: removes every low and refills, tiles untouched
+PASS  reels: no scatter on any feature strip
+PASS  reels: at most one scatter visible per reel window
+PASS  persistence: base spins start cold, feature spins keep the grid
+PASS  payouts: every book payout is a whole 10-cent increment (RGS rule)
+PASS  persistence: the feature inherits the triggering spin's tiles (Corey 2026-09-23)
+PASS  mystery: the spin-in reveals exactly 3 scatters in columns 0-2 and teases 3..7
+PASS  mystery: nothing 0 / super 2 / epic 3 scatter stings, in distinct columns 3-7
+PASS  mystery: a `nothing` book is a real board that can pay
+PASS  mystery: the spin-in's tiles carry into the feature
+PASS  scatter sting: the placeholder never joins a cluster, and the clusters are identical
+PASS  scatter sting: natural triggers only, real board evaluated, never on a buy
+PASS  scatters: a tumble never drops a second scatter into an occupied column
+PASS  scatters: a tumble into an EMPTY column may still bring one in
+PASS  scatter 8: only `epicgame` (and the Epic buy's upper slice) can force 8, at the owner's shares
+PASS  scatter 8: a forced 8 board is one scatter in every column and teases columns 3..7
+PASS  scatter 8: 7 is never allowed, 8 only off an 8-scatter first board, one reason per re-draw
+PASS  scatter 8: an 8 board under 2,500x is re-drawn, the 200x Epic floor still holds, the cap passes
+PASS  scatter 8: no sampled round triggers on 7, and 8 opens only an Epic that ends at 2,500x or more
+PASS  scatter 8: a scatter sting on an 8 board stings 5 or 6 in, leaves 3 or 2 visible, teases off those
+PASS  scatter 8: Mystery is untouched - 3 on the reveal plus 0 / 2 / 3 stings, never 7 or 8
+PASS  stateless: a book is the same whatever was drawn before it, re-drawn rounds included
+PASS  diversity: a buy's material slice keeps only rounds inside its range, whole, and drops a lost draw early
+PASS  mystery diversity: a Mystery slice plays its outcome whole, inside its range, and drops a lost draw early
+
+40/40 checks passed
+nice -n 10 env/bin/python games/manticore_mayhem/tests/test_math.py  14.31s user 0.04s system 99% cpu 14.371 total

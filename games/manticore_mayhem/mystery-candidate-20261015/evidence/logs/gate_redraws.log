@@ -1,0 +1,10 @@
+re-draws per ACCEPTED book, by reason (0 is printed as a dot)
+mode        criteria          books      draws draws/book    scatter7      stray8 epic8_floor  epic_floor   win_range      other
+mystery     mystery_epic_body   18,000    633,886     35.216           .           .           .      0.9531     33.2628          .
+mystery     mystery_nothing  250,000    250,000      1.000           .           .           .           .           .          .
+mystery     mystery_super_low   50,000    117,446      2.349           .           .           .           .      1.3489      0.000
+mystery     mystery_epic_mid    6,000     79,450     13.242           .           .           .      0.3527     11.8890          .
+mystery     supergame        20,000     20,001      1.000           .           .           .           .           .      0.000
+mystery     mystery_epic_upper    4,000     16,291      4.073           .           .           .      0.1172      2.9555          .
+mystery     epicgame          3,000      3,087      1.029           .           .           .      0.0290           .          .
+mystery     ALL             351,000  1,120,161      3.191

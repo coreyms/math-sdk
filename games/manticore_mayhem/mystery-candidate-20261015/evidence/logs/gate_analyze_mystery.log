@@ -1,0 +1,21 @@
+library /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/mystery-candidate-20261015/games/manticore_mayhem/library
+
+===== mystery  (cost 250x, 351,000 books) =====
+  RTP 1.3863   hit 1 in 2.38   std 5.3 (cost units)
+  max win 10,000.0x   cap hits 3298 (1 in 106)
+  share of RETURN by band:
+                 0    0.00% of return    57.92% of books
+               <1x    0.01% of return    10.14% of books
+              1-5x    0.02% of return     2.52% of books
+             5-20x    0.03% of return     1.14% of books
+           20-100x    0.74% of return     4.28% of books
+          100-500x    9.05% of return    11.92% of books
+         500-2000x   21.37% of return     8.02% of books
+       2000-10000x   41.66% of return     3.12% of books
+               cap   27.11% of return     0.94% of books
+  features: bonus 0.00%  super 19.94%  epic 8.83%  of books
+  per spin (1,414,976 spins): swipe 34.6%  any sting 23.6%  roar 5.9%
+  sting events per spin: normal 36.6%  big 2.70%  super 3.08%  scatter 16.47%
+  average tile sum on a paying cluster: 38.44  (1,895,141 paying clusters)
+  events/book 15.9 (max 87)  ->  100k books 1.59M   200k books 3.18M   limit 10M   max books under the limit: 628,335
+MANTICORE_LIB=$L nice -n 10 env/bin/python $G/analyze_books.py mystery  26.47s user 0.12s system 99% cpu 26.702 total

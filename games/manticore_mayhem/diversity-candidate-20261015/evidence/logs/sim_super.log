@@ -1,0 +1,89 @@
+Manticore Mayhem math version 2026.10.15
+--out: every file of this run goes to /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/diversity-candidate-20261015/games/manticore_mayhem/library; the analysis is off
+
+Creating books...
+
+Creating books for manticore_mayhem in super
+Batch 1 of 4
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+Thread 2 finished with 2.699 RTP. [baseGame: 0.001, freeGame: 2.698]
+Thread 3 finished with 2.792 RTP. [baseGame: 0.001, freeGame: 2.791]
+Thread 0 finished with 2.893 RTP. [baseGame: 0.001, freeGame: 2.893]
+REDRAWS {"batch": 0, "criteria": {"supergame": {"books": 2483, "draws": 2485, "reasons": {"scatter7": 2}}, "supergame_low": {"books": 8001, "draws": 18880, "reasons": {"epic_floor": 2, "scatter7": 18, "win_range": 10859}}, "wincap": {"books": 16, "draws": 16, "reasons": {}}}, "mode": "super", "thread": 2}
+Thread 4 finished with 2.763 RTP. [baseGame: 0.001, freeGame: 2.762]
+REDRAWS {"batch": 0, "criteria": {"supergame": {"books": 2547, "draws": 2552, "reasons": {"scatter7": 5}}, "supergame_low": {"books": 7943, "draws": 18935, "reasons": {"scatter7": 25, "stray8": 1, "win_range": 10964}}, "wincap": {"books": 10, "draws": 10, "reasons": {}}}, "mode": "super", "thread": 3}
+Thread 1 finished with 2.712 RTP. [baseGame: 0.001, freeGame: 2.711]
+REDRAWS {"batch": 0, "criteria": {"supergame": {"books": 2473, "draws": 2476, "reasons": {"epic_floor": 1, "scatter7": 2}}, "supergame_low": {"books": 8005, "draws": 19325, "reasons": {"epic_floor": 1, "scatter7": 20, "win_range": 11299}}, "wincap": {"books": 22, "draws": 22, "reasons": {}}}, "mode": "super", "thread": 0}
+REDRAWS {"batch": 0, "criteria": {"supergame": {"books": 2465, "draws": 2469, "reasons": {"scatter7": 4}}, "supergame_low": {"books": 8017, "draws": 19392, "reasons": {"epic_floor": 3, "scatter7": 23, "win_range": 11349}}, "wincap": {"books": 18, "draws": 18, "reasons": {}}}, "mode": "super", "thread": 4}
+REDRAWS {"batch": 0, "criteria": {"supergame": {"books": 2476, "draws": 2476, "reasons": {}}, "supergame_low": {"books": 8004, "draws": 19429, "reasons": {"epic_floor": 2, "scatter7": 15, "stray8": 1, "win_range": 11407}}, "wincap": {"books": 20, "draws": 20, "reasons": {}}}, "mode": "super", "thread": 1}
+All threads are online.
+Finished joining threads.
+Batch 2 of 4
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+Thread 3 finished with 2.671 RTP. [baseGame: 0.001, freeGame: 2.67]
+Thread 2 finished with 2.751 RTP. [baseGame: 0.001, freeGame: 2.75]
+Thread 1 finished with 2.798 RTP. [baseGame: 0.001, freeGame: 2.797]
+Thread 0 finished with 2.694 RTP. [baseGame: 0.001, freeGame: 2.693]
+Thread 4 finished with 2.682 RTP. [baseGame: 0.001, freeGame: 2.681]
+REDRAWS {"batch": 1, "criteria": {"supergame": {"books": 2469, "draws": 2471, "reasons": {"scatter7": 2}}, "supergame_low": {"books": 8015, "draws": 19234, "reasons": {"epic_floor": 4, "scatter7": 18, "win_range": 11197}}, "wincap": {"books": 16, "draws": 16, "reasons": {}}}, "mode": "super", "thread": 3}
+REDRAWS {"batch": 1, "criteria": {"supergame": {"books": 2420, "draws": 2426, "reasons": {"scatter7": 6}}, "supergame_low": {"books": 8065, "draws": 19216, "reasons": {"epic_floor": 1, "scatter7": 16, "win_range": 11134}}, "wincap": {"books": 15, "draws": 15, "reasons": {}}}, "mode": "super", "thread": 2}
+REDRAWS {"batch": 1, "criteria": {"supergame": {"books": 2479, "draws": 2482, "reasons": {"scatter7": 3}}, "supergame_low": {"books": 8001, "draws": 19193, "reasons": {"epic_floor": 1, "scatter7": 13, "win_range": 11178}}, "wincap": {"books": 20, "draws": 20, "reasons": {}}}, "mode": "super", "thread": 1}
+REDRAWS {"batch": 1, "criteria": {"supergame": {"books": 2429, "draws": 2430, "reasons": {"scatter7": 1}}, "supergame_low": {"books": 8052, "draws": 19345, "reasons": {"epic_floor": 3, "scatter7": 19, "stray8": 1, "win_range": 11270}}, "wincap": {"books": 19, "draws": 19, "reasons": {}}}, "mode": "super", "thread": 0}
+REDRAWS {"batch": 1, "criteria": {"supergame": {"books": 2520, "draws": 2523, "reasons": {"scatter7": 3}}, "supergame_low": {"books": 7969, "draws": 19239, "reasons": {"scatter7": 18, "win_range": 11251}}, "wincap": {"books": 11, "draws": 11, "reasons": {}}}, "mode": "super", "thread": 4}
+All threads are online.
+Finished joining threads.
+Batch 3 of 4
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+Thread 2 finished with 2.801 RTP. [baseGame: 0.001, freeGame: 2.8]
+Thread 0 finished with 2.657 RTP. [baseGame: 0.001, freeGame: 2.656]
+Thread 3 finished with 2.727 RTP. [baseGame: 0.001, freeGame: 2.726]
+Thread 4 finished with 2.805 RTP. [baseGame: 0.001, freeGame: 2.805]
+Thread 1 finished with 2.742 RTP. [baseGame: 0.001, freeGame: 2.741]
+REDRAWS {"batch": 2, "criteria": {"supergame": {"books": 2481, "draws": 2484, "reasons": {"scatter7": 3}}, "supergame_low": {"books": 8006, "draws": 19167, "reasons": {"epic_floor": 2, "scatter7": 20, "win_range": 11139}}, "wincap": {"books": 13, "draws": 13, "reasons": {}}}, "mode": "super", "thread": 2}
+REDRAWS {"batch": 2, "criteria": {"supergame": {"books": 2478, "draws": 2486, "reasons": {"scatter7": 8}}, "supergame_low": {"books": 8011, "draws": 19363, "reasons": {"epic_floor": 2, "scatter7": 19, "win_range": 11330}}, "wincap": {"books": 11, "draws": 11, "reasons": {}}}, "mode": "super", "thread": 0}
+REDRAWS {"batch": 2, "criteria": {"supergame": {"books": 2470, "draws": 2472, "reasons": {"scatter7": 2}}, "supergame_low": {"books": 8014, "draws": 19230, "reasons": {"epic_floor": 2, "scatter7": 19, "win_range": 11195}}, "wincap": {"books": 16, "draws": 16, "reasons": {}}}, "mode": "super", "thread": 3}
+REDRAWS {"batch": 2, "criteria": {"supergame": {"books": 2473, "draws": 2473, "reasons": {}}, "supergame_low": {"books": 8011, "draws": 19317, "reasons": {"epic_floor": 3, "scatter7": 15, "win_range": 11288}}, "wincap": {"books": 16, "draws": 16, "reasons": {}}}, "mode": "super", "thread": 4}
+REDRAWS {"batch": 2, "criteria": {"supergame": {"books": 2453, "draws": 2456, "reasons": {"scatter7": 3}}, "supergame_low": {"books": 8033, "draws": 19407, "reasons": {"epic_floor": 5, "scatter7": 18, "win_range": 11351}}, "wincap": {"books": 14, "draws": 14, "reasons": {}}}, "mode": "super", "thread": 1}
+All threads are online.
+Finished joining threads.
+Batch 4 of 4
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+Thread 0 finished with 2.94 RTP. [baseGame: 0.001, freeGame: 2.939]
+Thread 3 finished with 2.729 RTP. [baseGame: 0.001, freeGame: 2.729]
+Thread 1 finished with 2.661 RTP. [baseGame: 0.001, freeGame: 2.66]
+Thread 2 finished with 2.796 RTP. [baseGame: 0.001, freeGame: 2.795]
+Thread 4 finished with 2.801 RTP. [baseGame: 0.001, freeGame: 2.8]
+REDRAWS {"batch": 3, "criteria": {"supergame": {"books": 2624, "draws": 2624, "reasons": {}}, "supergame_low": {"books": 7859, "draws": 18849, "reasons": {"epic_floor": 2, "scatter7": 24, "win_range": 10964}}, "wincap": {"books": 17, "draws": 17, "reasons": {}}}, "mode": "super", "thread": 0}
+REDRAWS {"batch": 3, "criteria": {"supergame": {"books": 2502, "draws": 2504, "reasons": {"scatter7": 2}}, "supergame_low": {"books": 7983, "draws": 19091, "reasons": {"epic_floor": 2, "scatter7": 20, "stray8": 1, "win_range": 11085}}, "wincap": {"books": 15, "draws": 15, "reasons": {}}}, "mode": "super", "thread": 3}
+REDRAWS {"batch": 3, "criteria": {"supergame": {"books": 2484, "draws": 2486, "reasons": {"scatter7": 2}}, "supergame_low": {"books": 8008, "draws": 19043, "reasons": {"epic_floor": 2, "scatter7": 18, "win_range": 11014}}, "wincap": {"books": 8, "draws": 8, "reasons": {}}}, "mode": "super", "thread": 1}
+REDRAWS {"batch": 3, "criteria": {"supergame": {"books": 2499, "draws": 2503, "reasons": {"epic_floor": 2, "scatter7": 2}}, "supergame_low": {"books": 7987, "draws": 19234, "reasons": {"epic_floor": 2, "scatter7": 17, "win_range": 11228}}, "wincap": {"books": 14, "draws": 14, "reasons": {}}}, "mode": "super", "thread": 2}
+REDRAWS {"batch": 3, "criteria": {"supergame": {"books": 2475, "draws": 2476, "reasons": {"scatter7": 1}}, "supergame_low": {"books": 8016, "draws": 19071, "reasons": {"epic_floor": 1, "scatter7": 20, "win_range": 11034}}, "wincap": {"books": 9, "draws": 9, "reasons": {}}}, "mode": "super", "thread": 4}
+All threads are online.
+Finished joining threads.
+Saving books for  manticore_mayhem in super
+Saving force files for manticore_mayhem in super
+Saving LUTs for manticore_mayhem in super
+Wrote verification file: /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/diversity-candidate-20261015/games/manticore_mayhem/library/configs/books_super.verification.json
+
+Finished creating books in 1012.1705090999603 seconds.
+
+--out: configs not written and RGS checks not run (epic not in this folder)
+real 1012.38
+user 4280.01
+sys 26.87

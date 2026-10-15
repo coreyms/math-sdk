@@ -25,6 +25,24 @@ on 8) until the owner has seen the numbers and the candidate is promoted. The ro
 the 2026-10-06 set is library-pre-scatter8-20261013/. See "Rule pass 3, 2026-10-13" at the
 very bottom of this file.
 
+STATUS 2026-10-15 (diversity pass): SUPER AND EPIC BUYS RE-DEALT INTO A CANDIDATE FOLDER, NOT
+PROMOTED. Stake approval review of 2026-10-15, Major 3: the Epic buy was served by too few
+books (effective book count 1,858, a repeated round 48% likely within 50 buys) and the Super
+buy's under-1x tail sat on 11 books. Both buys were re-simulated with material slices
+(no rule, strip, chance, band table or TARGETS value moved) and shaped with a per-book weight
+ceiling into diversity-candidate-20261015/games/manticore_mayhem/library; the other five
+modes are the published files byte for byte. Epic 77,008 effective books, Super 138,109.
+library/ STILL SERVES THE 2026.10.13 SET until Corey has seen the numbers (REPORT.md in the
+candidate folder). See "Diversity pass, 2026-10-15" at the very bottom of this file.
+
+STATUS 2026-10-15 (Mystery diversity pass, same day): THE MYSTERY BUY RE-DEALT THE SAME WAY INTO
+mystery-candidate-20261015/games/manticore_mayhem/library, NOT PROMOTED. Corey approved it at
+17:10 ("2. Yes"). Material slices, a deeper `nothing` slice and the 1 in 50,000 per-book ceiling;
+no rule, strip, chance, band table, split or TARGETS value moved. Mystery 206,912 effective books
+(was 25,735). The other six modes are the DIVERSITY CANDIDATE's files byte for byte, so this
+folder is that candidate plus the new Mystery and supersedes it for promotion. See "Mystery
+diversity pass, 2026-10-15" at the very bottom of this file.
+
 -------------------------------------------------------------------------------------------
 Files
 -------------------------------------------------------------------------------------------
@@ -372,6 +390,25 @@ Decisions taken here that the spec left open (all reversible, all one constant)
     band. tools/scatter_scan.py reports it from the shaped table. To move it, change
     EPIC8_SHARE_SPIN or EPIC8_SHARE_EPIC_BUY and re-simulate; to PIN it, 8 would need a
     criteria and a TARGETS row of its own (the plan's "definition 2"), which was not chosen.
+24. BUY DECKS ARE FARMED BY PAYOUT RANGE, NOT BY STRIP (diversity pass, 2026-10-15). The
+    Super and Epic buys carry material slices (game_config SUPER_BUY_SLICES /
+    EPIC_BUY_SLICES): extra criteria drawn exactly like the buy itself and accepted only when
+    the round lands in a payout range. Angry Mantis farmed with a dedicated FRBIG strip; here
+    the slices use the buy's own strips, so a farmed book is an ordinary round that happened
+    to land low, and inside every shaper band farmed and natural books are draws from the
+    same distribution. Ranges sit on band edges for that reason.
+25. EARLY REJECT (diversity pass). A slice's draw is abandoned between free spins once its
+    running total reaches the top of its range: wins never shrink, so it could not be
+    accepted. Only distributions that say `early_reject` are affected; every other criteria
+    plays and consumes random numbers exactly as before (the first 200 ids of base / ante /
+    super_ante / bonus / mystery regenerate byte for byte), and an accepted book is never cut
+    short. It is what makes the farming affordable.
+26. PER-BOOK WEIGHT CEILING (diversity pass). tools/shape_lut.py caps every Super and Epic
+    book at 1 in 50,000 rounds of its mode by water-filling inside the band and re-solving the
+    tilt, so band shares and means stay exact. It binds on the Super buy's lowest payouts
+    (the tilt piles the 0-25x band onto them) and on the top of the Epic's 200-300x band.
+    Other modes are not listed and never enter the code. Mystery could not take the same
+    ceiling without a re-deal (its Epic 500-700x band holds 335 books carrying 3.0%).
 
 -------------------------------------------------------------------------------------------
 Open questions for Corey (spec's OPEN queue, still open)
@@ -1124,3 +1161,392 @@ KNOWN LIMITS AND THINGS TO WATCH
     deck has no empty band. Judge the Epic groups on the full deck.
   * tests/test_scatter8_samples.py compares against library-pre-scatter8-20261013/. Keep that
     folder until the next set has replaced this one on Stake.
+
+-------------------------------------------------------------------------------------------
+Diversity pass, 2026-10-15 - THE SUPER AND EPIC BUYS RE-DEALT FOR BOOK DIVERSITY
+(candidate set, NOT promoted: library/ still serves the 2026.10.13 set)
+-------------------------------------------------------------------------------------------
+WHY. Stake approval review of 2026-10-15 (docs/reviews/manticore-stake-approval-review-
+2026-10-15.md, Major 3), against math-verification.md: "run 100,000-1,000,000 simulations to
+ensure sufficient outcome diversity and avoid repeated results in a single session". The Epic
+buy's 100,000 books held 63,894 max wins carrying 0.033% of its weight; half of all Epic buys
+came from 580 books; effective book count (1 / sum p^2) 1,858; a repeated Epic round 9.7%
+likely within 20 buys and 48% within 50. The Super buy's under-1x tail was 11 books carrying
+2.08% (book 44028, 0.4x, 1 buy in 306), effective count 12,486. Corey approved the re-run at
+12:53 on 2026-10-15.
+The cause is the raw game, not the shaper: a bought Epic is naturally far richer than its
+483.5x mean. 1.2% of raw Epic draws land in 200x-400x, which carries 70% of the shaped
+probability, so 100,000 natural books put about 1,200 books where most buys land. The Super
+buy is the same at the bottom of its 0-25x band, where the payout^t tilt piled the band onto
+its 11 sub-1x books.
+
+TARGETS CHOSEN
+  * effective book count inside Angry Mantis's feature-mode range (50,759 to 138,931)
+  * no single book above 1 in 50,000 rounds of its mode (it was 1 in 1,052 / 1 in 306)
+  * a repeated round under 2% likely within 50 buys
+  * everything that is not about diversity unchanged: band shares, means, RTP, max win rate,
+    std, median, the Epic floor, the 8-scatter rate, the Super-to-Epic rate within deck noise
+  * under Stake's 10,000,000-events-per-mode publish limit with a margin. That limit, not
+    compute, caps the deck: the Epic runs about 50 events per book, so 200,000 books is the
+    most it can ever hold (the review's "200,000+ books in the body" cannot fit beside the
+    rest of the mode)
+
+EVERY CONSTANT AND FUNCTION THAT CHANGED (no rule, strip, chance, band table or TARGETS value)
+  game_config.py
+    MATH_VERSION            2026.10.13 -> 2026.10.15. The frontend's mathVersion
+                            (web-sdk apps/manticore_mayhem/src/game/config.ts) must follow when
+                            this set is promoted, not before
+    DIVERSITY_EPIC_BOOKS    NEW 136,000 (the Epic buy was 100,000)
+    DIVERSITY_SUPER_BOOKS   NEW 210,000 (was 100,000)
+    EPIC_BUY_SLICES         NEW epicgame_body 200x-400x 56,000 books, epicgame_mid 400x-1,000x
+                            40,000, epicgame_upper 1,000x-9,999.9x 30,000 (opens on 8 at the
+                            owner's 5%, like `epicgame`). The natural `epicgame` keeps 9,750
+                            and the forced `wincap` 250 (were 99,000 and 1,000)
+    SUPER_BUY_SLICES        NEW supergame_low 0x-499.9x 160,000 books. The natural `supergame`
+                            keeps 49,700, `wincap` 300 (were 99,400 and 600)
+    EPIC_ / SUPER_BUY_WINCAP_QUOTA  NEW, the forced max-win counts above
+    _buy_distributions      NEW `slices`: one criteria per slice with the buy's own strips and
+                            board, `win_range` and `early_reject`. The Bonus buy passes none and
+                            is dealt byte for byte as before
+  gamestate.py              run_freespin: early_reject (decision 25); NEW early_reject_top()
+  game_override.py          docstring only (win_range is in use)
+  game_optimization.py      the slices get a token RTP share in opt_params (0.001 each, taken
+                            from their parent criteria, identified by payout range: Angry
+                            Mantis's `freegame_big` convention). TARGETS untouched
+  tools/shape_lut.py        the slices join their buy's group and bands; NEW PER_BOOK_CEILING
+                            (decision 26); the diversity line in the printout
+  tools/scatter_scan.py     knows the slices (first boards; 8 only in epicgame_upper besides
+                            `epicgame`); the "share of the Epic's 2,500x-and-over rounds"
+                            denominator counts every Epic criteria
+  tests/test_math.py        the scatter-8 config check knows the slices and the new
+                            MATH_VERSION; NEW check 39 (a slice's books lie inside its range and
+                            are whole, a lost draw stops early, the Bonus buy is dealt as before)
+
+HOW THE SPLIT WAS CHOSEN (bootstrapped decks through this shaper, 2026-10-15)
+  Epic, one 200x-1,000x slice of 148,750 books   62,600 effective books, 1.9% repeat in 50
+  Epic, 112,000 (200-400x) + 33,000 (400-1,000x) 128,800, 0.95%, but about 5 hours of
+                                                  simulation on this Mac (started, then stopped)
+  Epic, 56,000 + 40,000 (SHIPPED)                 76,500 predicted, 77,008 delivered, 1.6%
+  Super, one 0x-500x slice of 160,000            139,000 predicted, 138,109 delivered
+  Super, split two or three ways                 149,000 to 157,000: not worth a second slice
+  A 200x-400x Epic book costs about 84 draws (1.2% acceptance) at about 9 ms each even with
+  early reject. 56,000 is also about the least the ceiling allows: the 200x-300x band carries
+  52% of the Epic and needs 26,000 books to keep each under 1 in 50,000.
+
+RE-SIMULATION AS DONE (from math-sdk/)
+  G=games/manticore_mayhem;  C=$G/diversity-candidate-20261015/games;  L=$C/manticore_mayhem/library
+  env/bin/python $G/tests/test_math.py                                       # 39 checks
+  mkdir -p $L/{publish_files,lookup_tables,forces,configs}
+  for m in base ante super_ante bonus mystery; do                            # byte for byte
+    cp -p $G/library/publish_files/{books_$m.jsonl.zst,lookUpTable_${m}_0.csv} $L/publish_files/
+    cp -p $G/library/lookup_tables/{lookUpTable_$m.csv,lookUpTableSegmented_$m.csv} $L/lookup_tables/
+    cp -p $G/library/forces/force_record_$m.json $L/forces/
+    cp -p $G/library/configs/{event_config_$m.json,books_$m.verification.json} $L/configs/
+  done; cp -p $G/library/forces/force.json $L/forces/
+  nice -n 10 env/bin/python $G/run.py --sims 210000 --modes super --threads 5 --batch 10000 \
+      --no-analysis --no-checks --out $C > sim_super.log 2>&1                # 16 min 52 s
+  nice -n 10 env/bin/python $G/run.py --sims 136000 --modes epic --threads 5 --batch 15000 \
+      --no-analysis --no-checks --out $C > sim_epic.log 2>&1                 # 2 h 39 min 56 s
+  MANTICORE_LIB=$L env/bin/python $G/tools/shape_lut.py super
+  MANTICORE_LIB=$L env/bin/python $G/tools/shape_lut.py epic
+  env/bin/python $G/run.py --no-sims --no-analysis --out $C          # configs + RGS checks on $L
+  MANTICORE_LIB=$L env/bin/python $G/check_stats.py
+  MANTICORE_LIB=$L env/bin/python $G/tools/verify_math.py
+  MANTICORE_LIB=$L env/bin/python $G/tools/cap_spin_index.py super epic
+  MANTICORE_LIB=$L env/bin/python $G/analyze_books.py super epic
+  env/bin/python $G/tools/scatter_scan.py --lib $L
+  env/bin/python $G/tools/redraw_summary.py sim_super.log sim_epic.log
+  Five processes (half the cores), nice 10, beside another agent's browser probes. Nothing in
+  library/ was written at any point (55 files checked by size, mtime and sha256 before and
+  after).
+
+RESULTS (before = the published 2026.10.13 set)
+                                  Epic buy (500x)            Super buy (250x)
+                                  before      candidate      before      candidate
+  books                           100,000     136,000        100,000     210,000
+  effective books (1/sum p^2)       1,858      77,008         12,486     138,109
+  most-played book, 1 in            1,052      50,000            306      50,000
+  books serving half of all buys      580      27,155         13,082      53,365
+  top-580 books' share             50.01%       1.16%          8.40%       1.16%
+  repeat chance within 20 buys      9.73%       0.25%          1.49%       0.14%
+  repeat chance within 50 buys     48.33%       1.58%          9.01%       0.88%
+  under 1x (books)                   none        none   2.08% (11)  0.108% (54)
+  RTP                           0.9669900   0.9669901      0.9669901   0.9669900
+  max win, 1 in                     3,000       3,000          8,000       8,000
+  std (cost units)                  1.363       1.358          1.857       1.856
+  mean / median, x bet       483.50/295.0 483.50/296.4  241.75/121.4 241.75/121.3
+  P(win under the price)           78.68%      78.64%         73.74%      73.74%
+  lowest payout                    200.4x      200.0x           0.4x        0.2x
+  events (limit 10,000,000)     5,075,069   6,768,984      4,252,796   8,283,300
+  Epic opens on 8, 1 in             1,134       1,139
+  bought Super plays an Epic, 1 in                             1,108       1,171
+  Repeat chances are exact (P(n buys all distinct) by the elementary-symmetric recurrence);
+  the birthday approximation 1 - exp(-C(n,2) sum p^2) gives the same to 0.05 points.
+  Books at the ceiling: 417 Epic books (298.5x-299.9x, the top of the 200-300x band, where the
+  tilt is positive) and 1,748 Super books (0.2x-9.2x).
+  Shaped groups: every band of SUPER_BANDS and EPIC_BUY_BANDS at its share, no empty band, no
+  unplaced book, no weight-0 row. Epic tilt +0.484, Super -1.478.
+
+VERIFICATION ON THE CANDIDATE
+  * RGS checks (utils/rgs_verification via run.py): all seven modes SHA-256 OK, payout hash
+    OK, entries 100,000 / 210,000 / 136,000. The "VIOLATED etl" lines are the SDK's
+    un-normalised printout, as for every earlier set; check_stats.py (normalised) clears every
+    limit with the 2026.10.13 numbers except CVaR per stake 31.4 -> 31.3 (Super) and 19.4 ->
+    19.3 (Epic). stats_summary.json differs from the published one only in its super and epic
+    entries, by the small amounts above.
+  * verify_math.py, all 846,000 books walked: payout == table row, finalWin and last
+    setTotalWin agree, no weight-0 row; RTP 0.9669889 to 0.9669917, cross-mode spread
+    2.76e-06; the five copied modes print exactly what they printed before.
+  * scatter_scan.py, all seven modes: 0 trigger on 7, 0 stray 8, every first board what its
+    criteria forces (body / mid 6, upper 6 or 8, supergame_low 5), 0 scatters on any of the
+    3,703,782 Super and Epic free-spin boards. Epic 8 as shipped: 1 in 1,139, 5.0% of its
+    2,500x-and-over rounds, average 4,593x, 1.8% of them a max win (was 1 in 1,134, 5.0%,
+    4,666x, 1.9%).
+  * The approval review's math-lens walk (scan.py / report.py / rules.py) over every Super and
+    Epic book: book ids == table ids in the same order, 0 payout mismatches, Epic free spins
+    at least 200.0x on every uncapped round, 12 spins in every Epic and 10 in every Super that
+    stays a Super, sting / swipe / tile-cap rules 0 violations. Its only flags are the known
+    capping-step listing (Minor 4 of the review): 2,133 Epic and 1,509 Super books, every one
+    of them a 10,000x book.
+  * The five other modes: books, tables and segmented tables sha256-identical to library/;
+    index.json identical; today's code deals their first 200 ids byte for byte; the edited
+    shaper re-shapes their tables to the published bytes.
+  * tests/test_math.py 39 / 39.
+
+WHAT MOVED THAT IS NOT DIVERSITY
+  * Under 1x on a Super buy: 2.08% -> 0.11%. It was an artefact of the tilt (11 books carried
+    23% of the 0-25x band); the band itself still carries 9.09% of Super buys, now spread over
+    8,166 books. A bought Super returning under 1x is now about 1 in 925 rather than 1 in 48.
+  * Bought Super that plays an Epic: 1 in 1,108 -> 1 in 1,171. Deck noise, not a rule: per
+    band the upgraded share is the same within its error (200-500x now rests on 114 upgraded
+    books instead of 27; 500-1,000x, natural books only, on 18 of 7,403 instead of 44 of
+    14,684). If the rules quote the rate, they must quote the new one.
+  * Where the Epic's 10,000x lands: mean free spin 8.87 -> 8.72, median 9 both, 94.4% on
+    spins 5-12 (was 96.1%). Forced max wins (WCAP strip) land at spin 4.2 and natural ones at
+    8.9 in both sets; the forced share of the cap group went from 1.6% to 3.9% (250 of 6,386).
+    The Super's: 8.19 -> 8.18.
+  * Lowest Epic payout 200.4x -> 200.0x: still "at least 200x from its free spins".
+  * The Bonus buy's upgrades are untouched (same books): 1 in 105.6 to a Super, 1 in 35,904 to
+    an Epic.
+
+SIZE
+  publish_files 1,286,832,014 -> 1,657,446,368 bytes (+371 MB, +29%): books_epic 371 -> 477 MB,
+  books_super 300 -> 562 MB, the two tables 2.0 -> 2.9 MB and 2.1 -> 4.5 MB. The candidate
+  folder is 1.9 GB with its lookup tables, force records and configs. Every file is far under
+  Stake's 4.2 GB.
+
+KNOWN LIMITS AND THINGS TO WATCH
+  * Mystery is now the least diverse mode: 25,735 effective books, its most-played book a 0.5x
+    "no feature" round at 1 in 481, 4.6% repeat chance within 50. A ceiling alone cannot fix
+    it (its Epic 500-700x band holds 335 books carrying 3.0%); it would need the same re-deal.
+    Not touched: out of this pass's scope.
+  * Above 500x the Super deck holds about half the books it had (the natural criteria went
+    from 99,400 to 49,700 books). Those bands carry 10.5% of Super buys and their most-played
+    book is still 1 in 61,000 or rarer; the overall figures above include them.
+  * configs/math_config.json describes each slice by its payout range with a token 0.001 RTP
+    share (game_optimization.py); nothing reads it, the optimiser is not in the flow.
+  * TO PROMOTE (on the owner's word, mock stopped first): move library/ aside as
+    library-pre-diversity-20261015, put $L in its place, set the frontend's mathVersion to
+    2026.10.15, restart the mock (its book cache rebuilds on first play), then verify_math.py
+    and scatter_scan.py with no arguments. Staging needs the two new books files (1.04 GB).
+    SUPERSEDED for promotion by the Mystery pass below: promote mystery-candidate-20261015
+    instead, which holds this candidate's six other modes byte for byte.
+
+-------------------------------------------------------------------------------------------
+Mystery diversity pass, 2026-10-15 - THE MYSTERY BUY RE-DEALT FOR BOOK DIVERSITY
+(candidate set, NOT promoted: library/ still serves the 2026.10.13 set)
+-------------------------------------------------------------------------------------------
+WHY. After the Super and Epic buys were re-dealt (section above), Mystery was the least diverse
+mode: 25,735 effective books, a repeated round 4.6% likely within 50 buys, and its most-played
+book (id 40891) a Mystery SUPER paying 0.5x, 1 Mystery in 481. Corey approved the re-deal at
+17:10 on 2026-10-15 ("2. Yes"): math freezes once Stake approves it, so this was the last chance.
+Three causes, all in the material, none in the rules:
+  * the Mystery Super's 0x-25x band (3.6% of all Mysteries) was tilted onto its lowest payers,
+    exactly as the bought Super's was: 7 Super books under 1x carried 0.92% of all Mysteries and
+    the band's effective book count was 76 (45% of the mode's sum p^2);
+  * a raw Mystery Epic averages about 2,250x and 64% of them reach the cap, so the 500x-1,000x
+    bands that carry 54% of the Epic outcome held 856 of its 30,000 books;
+  * the zero band (40.3% of all Mysteries) sat on 24,388 `nothing` books.
+
+TARGETS (as for the Super / Epic pass)
+  * effective book count at least inside Angry Mantis's feature-mode range (50,759 to 138,931)
+  * no single book above 1 in 50,000 Mysteries; a repeated round under 2% likely within 50 buys
+  * everything the rules disclose unchanged: the 50 / 40 / 10 split, RTP, the max win reachable
+    and never exceeded, its odds, the mean; band shares exact, median as close as possible
+  * under Stake's 10,000,000-events-per-mode limit with a wide margin
+  * the other six modes byte for byte the diversity candidate's
+
+EVERY CONSTANT AND FUNCTION THAT CHANGED (no rule, strip, chance, band table, split or TARGETS)
+  game_config.py
+    MYSTERY_MATERIAL_QUOTA  0.30 / 0.40 / 0.30 -> 250,000 / 20,000 / 3,000 of 351,000 books
+                            (`nothing` / natural `supergame` / natural `epicgame`), rebuilt
+                            beside the slices; the old dict is kept above it with a pointer
+    DIVERSITY_MYSTERY_BOOKS NEW 351,000 (Mystery was 100,000)
+    MYSTERY_SLICES          NEW, criteria -> (quota, win_range on the ROUND TOTAL, the outcome
+                            criteria it copies):
+                              mystery_super_low   0x-500x        50,000  plays `supergame`
+                              mystery_epic_body   500x-1,000x    18,000  plays `epicgame`
+                              mystery_epic_mid    1,000x-2,500x   6,000  plays `epicgame`
+                              mystery_epic_upper  2,500x-9,999.9x 4,000  plays `epicgame`
+                            Ranges sit on the band edges of SUPER_BANDS (500) and
+                            MYSTERY_EPIC_BANDS (1,000 / 2,500)
+    MYSTERY_OUTCOME         NEW, every Mystery criteria -> nothing / super / epic
+                            (GameConfig.mystery_outcome)
+    _mystery_distributions  the slices first (same reel weights and boards as the outcome they
+                            copy, plus `win_range` and `early_reject`); the three natural
+                            criteria exactly as before, at their new quotas
+  gamestate.py              run_mystery_round reads the outcome from config.mystery_outcome
+                            (was a literal dict of the three natural criteria); comment only in
+                            run_freespin (early_reject already works for Mystery: its running
+                            total includes the spin-in)
+  game_override.py          docstring only
+  game_optimization.py      _material_slices returns (win_range, parent) and knows Mystery;
+                            each Mystery slice gets the same token 0.001 RTP share from the
+                            outcome criteria it copies (math_config.json only; TARGETS untouched)
+  tools/shape_lut.py        Mystery's slices join their outcome's group and bands;
+                            PER_BOOK_CEILING gains "mystery": 1 / 50,000
+  tools/scatter_scan.py     first boards of the four Mystery slices (5 / 6 / 6 / 6)
+  tests/test_math.py        the scatter-8 config check knows the Mystery slices' boards; NEW
+                            check 40 (a Mystery slice plays its outcome: the `mystery` event,
+                            3 + 2 / 3 scatter stings, the feature whole, inside its range, a
+                            Mystery Epic at least 500x, a lost draw stops early)
+
+COST, MEASURED BEFORE COMMITTING (tools in the candidate's evidence/scripts, 2026-10-15)
+  Per accepted book, one process each, five at once (mystery_cost_probe.py):
+    criteria              s/book  draws/book  events/book
+    mystery_nothing        0.001     1.0          3.7
+    supergame (natural)    0.026     1.0         45.1
+    mystery_super_low      0.051     2.5         41.4
+    epicgame (natural)     0.036     1.05        55.3
+    mystery_epic_body      0.60     38           53.0
+    mystery_epic_mid       0.080    12.8         56.3
+    mystery_epic_upper     0.031     4.0         60.5
+  The `nothing` book is the cheap lever: about 3 events against 40-60 for a feature book, and
+  its zero band alone carries 40% of all Mysteries. The 10M-event limit is far away here
+  (Mystery runs 15.9 events per book on average; 628,000 books would still fit).
+
+HOW THE SPLIT WAS CHOSEN (bootstrapped decks from the published Mystery books through the real
+shaper with the ceiling, plan_mystery.py; delivered figure in brackets)
+  60k nothing, 75k Super, 45k Epic (one 1,000x-10,000x upper slice)   126,000 effective
+  200k nothing, 100k Super, 45k Epic                                  234,000
+  250k nothing, 70k Super, 31k Epic in three slices (SHIPPED)          206,000 [206,912]
+  300k nothing, 88k Super, 37k Epic                                    252,000
+  A single 1,000x-10,000x upper slice cannot fill the Epic's 1,000x-1,500x band (1.9% of all
+  Mysteries, needs 955 books under the ceiling): raw Mystery Epics above 1,000x land there only
+  8% of the time, hence mid and upper. The shipped size keeps the books file small (+99 MB) and
+  the run near half an hour while clearing every target by a wide margin.
+
+RE-SIMULATION AS DONE (from math-sdk/)
+  G=games/manticore_mayhem;  C=$G/mystery-candidate-20261015/games;  L=$C/manticore_mayhem/library
+  mkdir -p $C/manticore_mayhem
+  cp -cR $G/diversity-candidate-20261015/games/manticore_mayhem/library $L   # APFS clone
+  env/bin/python $G/tests/test_math.py                                       # 40 checks
+  env/bin/python $C/../evidence/scripts/mystery_identity_probe.py 300 \
+      $G/diversity-candidate-20261015/games/manticore_mayhem/library        # 300 / 300 same
+  nice -n 10 env/bin/python $G/run.py --sims 351000 --modes mystery --threads 5 --batch 17550 \
+      --no-analysis --no-checks --out $C > sim_mystery.log 2>&1               # 26 min 10 s
+  MANTICORE_LIB=$L env/bin/python $G/tools/shape_lut.py mystery              # 1.4 s
+  env/bin/python $G/run.py --no-sims --no-analysis --out $C                  # configs + RGS checks
+  MANTICORE_LIB=$L env/bin/python $G/check_stats.py
+  MANTICORE_LIB=$L env/bin/python $G/tools/verify_math.py                    # 2 min 11 s
+  env/bin/python $G/tools/scatter_scan.py --lib $L                           # 2 min 30 s
+  MANTICORE_LIB=$L env/bin/python $G/analyze_books.py mystery
+  MANTICORE_LIB=$L env/bin/python $G/tools/cap_spin_index.py mystery
+  env/bin/python $C/../evidence/scripts/mystery_rules_walk.py $L             # 1 min 27 s
+  env/bin/python $G/tools/redraw_summary.py sim_mystery.log
+  Five processes, nice 10. Nothing in library/ or in diversity-candidate-20261015/ was written
+  (its 55 files checked by sha256 before and after). The cloned library still holds the old
+  shaped lookUpTable_mystery_0.csv until shape_lut.py rewrites it (the SDK never overwrites an
+  existing _0 table), so shaping is not optional.
+  Identity probe: today's code, given the published deck's own criteria assignment, deals the
+  first 300 published Mystery ids (2026-10-06) byte for byte (91 Epic, 89 nothing, 120 Super):
+  the re-deal changes which rounds are in the deck, not how a Mystery round plays.
+
+RESULTS (before = the published Mystery, identical in library/ and the diversity candidate)
+                                         before                  candidate
+  books                                  100,000                 351,000
+  effective books (1/sum p^2)             25,735                 206,912
+  most-played book, 1 in                     481 (id 40891,      50,000 (the ceiling)
+                                         a Mystery Super, 0.5x)
+  books serving 25% / 50% of buys     6,109 / 19,938          24,617 / 93,047
+  repeat chance within 20 / 50 buys    0.73% / 4.58%           0.09% / 0.59%
+  outcome split nothing/Super/Epic       50 / 40 / 10            50 / 40 / 10 (to 1e-7)
+  RTP                                    0.9669897               0.9669899
+  max win, 1 in                          8,870                   8,870
+  mean / median, x bet                   241.75 / 1.7            241.75 / 4.6
+  hit rate (pays anything)               1 in 1.676              1 in 1.676
+  P(0) / P(under 1x)                     40.35% / 48.74%         40.35% / 47.87%
+  a Mystery Super paying under 1x        0.915% (7 books)        0.046% (23 books)
+  P(win under the 250x price)            79.50%                  79.50%
+  std (cost units)                       2.687                   2.684
+  Mystery Super mean / median            241.75 / 121.5          241.75 / 121.3
+  Mystery Epic mean / median             1,449.5 / 940.8         1,449.5 / 941.7
+  lowest Mystery Epic payout             500.7x                  500.0x
+  a `nothing` that pays something        19.31%                  19.31%
+  effective books nothing/Super/Epic     29,939/6,144/2,240      249,312/47,328/22,247
+  events (limit 10,000,000)              3,548,067               5,586,185
+  max wins land on free spin (mean)      8.79                    8.79 (median 9 both)
+  Every band of MYSTERY_NOTHING_BANDS, MYSTERY_SUPER_BANDS and MYSTERY_EPIC_BANDS ships at its
+  exact share; no band is empty, no book is unplaced, no row has weight 0. Shaper tilts:
+  nothing -0.246 (was -0.067), Super -1.404 (was -1.411), Epic -0.541 (was -0.653).
+  Re-draws (redraw_summary.py): 1,120,161 draws for 351,000 books; Epic body 35.2 draws per
+  book, mid 13.2, upper 4.1, Super low 2.3; Mystery Epic floor re-draws as before.
+
+VERIFICATION ON THE CANDIDATE (all PASS)
+  * RGS checks (run.py): all seven modes SHA-256 OK and payout hash OK, Mystery 351,000
+    entries. Its "VIOLATED etl40b / etl10k 1.1274" lines are the SDK's un-normalised printout,
+    the same value the published Mystery printed.
+  * check_stats.py: every limit cleared; identical to the diversity candidate except Mystery
+    std 2.69 -> 2.68, CVaR per stake 36.6 -> 36.5, p5k* 0.0034 -> 0.0033.
+  * verify_math.py, all 1,197,000 books of the seven modes: payout == table row, finalWin and
+    the last setTotalWin agree, 0 weight-0 rows; RTP 0.9669889 to 0.9669917, cross-mode spread
+    2.76e-06 (unchanged).
+  * scatter_scan.py, all seven modes: 0 trigger on 7, 0 stray 8 (the 2,157 8-scatter books are
+    the other modes' own, unchanged), every Mystery first board what its criteria forces (5 for
+    all 70,000 Supers, 6 for all 31,000 Epics), 0 scatters on its 1,063,976 free-spin boards.
+  * mystery_rules_walk.py (NEW, every Mystery book, clusters recomputed on 38,071 of them and on
+    every max win): 0 books break a rule. It checks every Mystery claim of the rules page and
+    the engine rules a Mystery shares: 3 scatters in columns 0-2 and none in 3-7, 0 / 2 / 3
+    scatter stings in distinct columns 3-7, no wild sting and no new scatter on the Mystery
+    spin, never regular Free Spins, Super 10 spins and Epic 12 at the 128x cap (64x on the
+    spin), the spin's tiles carried into the feature exactly, its wins counted in the round,
+    stings / swipes / roar rules, every win = table pay x tile sum, round total = finalWin = the
+    table payout <= 10,000x, nothing after the wincap event. Its only flags are the known
+    capping step (review Minor 4) on 912 max-win books. Mutation-tested before use.
+  * The other six modes: books, tables, segmented tables, force records, event configs and
+    verification files sha256-identical to the diversity candidate (42 files); index.json
+    identical. config.json, math_config.json, stats_summary.json and force.json differ only in
+    their Mystery entries; config_fe_manticore_mayhem.json only in the ORDER of its symbols list
+    (the SDK builds it from a set; content identical). The edited shaper re-shapes all seven
+    modes' tables (on a clone in the candidate's scratch/) to the shipped bytes.
+  * tests/test_math.py 40 / 40. NOT RUN: tests/test_scatter8_samples.py (long gate, Decimus).
+
+WHAT MOVED THAT IS NOT DIVERSITY
+  * Median Mystery 1.7x -> 4.6x, and P(under 1x) 48.74% -> 47.87%. The same shaper artefact the
+    Super buy lost in its pass: 7 Mystery Super books under 1x carried 0.92% of all Mysteries;
+    under the ceiling 23 books carry 0.046%. The median sits where the curve is steep (the 49th
+    percentile is 2.2x, the 51st 9.3x), so the move looks large and is worth 1% of the price.
+    Nothing the rules state moves. To restore 1.7x the Super would need about 600 more books
+    under 1.7x (0.035% of raw Mystery Supers end there): about 1.7 million more Super draws,
+    30 to 40 minutes, and 1.3% of all Mysteries would again be a Super paying under 1.7x.
+    Not done; consistent with the Super buy.
+  * The Mystery Super's 500x-and-over bands rest on the natural `supergame` (20,000 books, was
+    40,000): 500x-1,000x 6,030 -> 3,067 books for 3.0% of Mysteries, some at the ceiling.
+  * Max-win books 21,905 -> 3,298 (all natural; Mystery has no forced cap). The max-win odds
+    are fixed by the band tables and did not move; where they land did not move either.
+  * Lowest Mystery Epic payout 500.7x -> 500.0x: still at least 500x (a property of the books;
+    the rules state no Mystery floor).
+
+SIZE
+  publish_files 1,657,446,368 -> 1,761,458,475 bytes (+104 MB) against the diversity candidate
+  (+475 MB against library/): books_mystery 237 -> 336 MB, its table 2.0 -> 6.7 MB.
+
+KNOWN LIMITS AND THINGS TO DECIDE
+  * MATH_VERSION stays 2026.10.15, the label the diversity candidate already carries (same day,
+    no rule changed). If the two candidates could ever ship separately they would need
+    different labels; promote only this one and the label is unambiguous.
+  * TO PROMOTE (on the owner's word, mock stopped first): move library/ aside as
+    library-pre-diversity-20261015, put $L (this folder's library, which holds the Super / Epic
+    pass too) in its place, set the frontend's mathVersion to 2026.10.15, restart the mock (its
+    book cache rebuilds on first play), then verify_math.py and scatter_scan.py with no
+    arguments. Staging needs books_super, books_epic and books_mystery (1.37 GB) and the tables.

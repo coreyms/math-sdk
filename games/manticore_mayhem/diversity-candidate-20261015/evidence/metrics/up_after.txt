@@ -1,0 +1,10 @@
+math-sdk
+  [0,200) books  99,525 epic     0 (0.0000)  band p 0.68319  epic share of band (weighted) 0.00000  contributes 0.000000
+  [200,250) books  18,261 epic    13 (0.0007)  band p 0.05417  epic share of band (weighted) 0.00069  contributes 0.000037
+  [250,500) books  62,868 epic   101 (0.0016)  band p 0.15151  epic share of band (weighted) 0.00149  contributes 0.000226
+  [500,1000) books   7,403 epic    18 (0.0024)  band p 0.07576  epic share of band (weighted) 0.00248  contributes 0.000188
+  [1000,2500) books   8,696 epic    79 (0.0091)  band p 0.02828  epic share of band (weighted) 0.00804  contributes 0.000228
+  [2500,6000) books   6,245 epic   128 (0.0205)  band p 0.00606  epic share of band (weighted) 0.01814  contributes 0.000110
+  [6000,10000) books   2,492 epic   114 (0.0457)  band p 0.00091  epic share of band (weighted) 0.04293  contributes 0.000039
+  [10000,10000) books   4,510 epic   972 (0.2155)  band p 0.00012  epic share of band (weighted) 0.21552  contributes 0.000027
+  total P(epic) 0.0008543 = 1 in 1,170.6

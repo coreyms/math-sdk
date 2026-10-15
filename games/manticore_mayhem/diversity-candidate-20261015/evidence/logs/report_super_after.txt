@@ -1,0 +1,20 @@
+super books 210000 ids==lut ids True order same True
+LUT payout == book payout mismatches: 0
+events total 8283300
+books with errors 1509
+[('w !=', 1942), ('spinWin 1000000', 211)]
+   97 1000000 ['w != p*max(m,1)']
+   254 1000000 ['w != p*max(m,1)']
+   351 1000000 ['w != p*max(m,1)', 'w != p*max(m,1)', 'w != p*max(m,1)']
+   658 1000000 ['w != p*max(m,1)']
+  feature epic   p=0.000854 1 in 1,170.6 books=1425
+  feature super  p=0.999146 1 in 1.0 books=208575
+  trigger (feat, nscat): {('epic', 6): '8.543e-04', ('super', 5): '9.991e-01'}
+  max scatters visible in freegame (any step): Counter({0: 210000})
+  max scatters on freegame reveal: Counter({0: 210000})
+  max scatters basegame reveal: Counter({5: 210000})
+  epic rounds 1425 min freegame win (not capped) 207.8x; any <200x from free spins: 0
+  epic min round payout 207.8
+  max-win books 4510 uncapped sum range 1000050 8197510
+  max payout any book 1000000
+  (feat,totalFs): {('super', 10): 208575, ('epic', 12): 1425}

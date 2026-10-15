@@ -1,0 +1,12 @@
+re-draws per ACCEPTED book, by reason (0 is printed as a dot)
+mode        criteria          books      draws draws/book    scatter7      stray8 epic8_floor  epic_floor   win_range      other
+super       supergame_low   160,000    383,960      2.400      0.0023      0.0000           .      0.0003      1.3971      0.000
+super       supergame        49,700     49,754      1.001      0.0010           .           .      0.0001           .          .
+super       wincap              300        300      1.000           .           .           .           .           .          .
+super       ALL             210,000    434,014      2.067
+epic        epicgame_body    56,000  4,682,608     83.618      1.5059      0.0295           .      0.7253     80.3573          .
+epic        epicgame_mid     40,000  1,189,510     29.738      0.5321      0.0108           .      0.2611     27.9337          .
+epic        epicgame_upper   30,001     96,520      3.217      0.0560      0.0012      0.0204      0.0270      2.1126          .
+epic        epicgame          9,749     10,091      1.035      0.0217      0.0002      0.0054      0.0077           .          .
+epic        wincap              250        254      1.016      0.0160           .           .           .           .          .
+epic        ALL             136,000  5,978,983     43.963

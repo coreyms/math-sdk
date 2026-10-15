@@ -1,0 +1,12 @@
+== epic: cost 500x  books 136000  RTP 0.9669901  std 1.36 (cost units)  hit 1 in 1.00
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000333336      3,000.0    10000.00     0.69%  +0.000  6386
+   epicgame     0.999666664          1.0      480.32    99.31%  +0.484  129614
+   RTP share: <1x 0.00%  5x+ 100.0%  20x+ 100.0%  200x+ 100.0%
+   spins paying 5x+ 100.0000%  20x+ 100.0000%  100x+ 100.0000%
+   tail: P(>=5,000x) 0.0039336 (scaled 0.0019668 / 0.010 2*)   P(>=10,000x) 0.0003333 (scaled 0.0001667 / 0.005 2*)   cap 1 in 3,000
+   ETL>40x cost 0.0000 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 9,672x bet (limit 20,000) = 19.3 per stake (limit 700)
+   diversity: effective books 77,008   top book 1 in 50,000   half of all rounds from 27,155 books   ceiling 1 in 50,000
+   wrote games/manticore_mayhem/diversity-candidate-20261015/games/manticore_mayhem/library/publish_files/lookUpTable_epic_0.csv
+
+cross-mode RTP spread 0.00e+00 (limit 0.005); target 0.9669900

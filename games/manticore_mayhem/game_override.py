@@ -148,8 +148,11 @@ class GameStateOverride(GameExecutables):
         On top of the SDK's win_criteria / force_freegame checks:
           * a distribution may carry `win_range` (lo, hi) and the book is accepted only when
             its final win lands inside it - the farming hook Angry Mantis uses to fill bands
-            the natural strips never reach. Unused today, kept so a tail pass does not need a
-            code change.
+            the natural strips never reach. Used by basegame_mid / basegame_high (2026-09-20)
+            and, since the diversity pass of 2026-10-15, by the Super, Epic and Mystery buys'
+            material slices (game_config SUPER_BUY_SLICES / EPIC_BUY_SLICES / MYSTERY_SLICES),
+            whose draws also stop early once they pass the top of the range (`early_reject`,
+            gamestate.run_freespin).
           * `basegame` means a PAYING base-game round: a zero-win book there would be
             indistinguishable from a `0` book and would blur the hit rate (same rule as the
             0_0_cluster sample). Two criteria are exempt: `0` itself, and Mystery's

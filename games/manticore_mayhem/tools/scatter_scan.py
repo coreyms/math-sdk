@@ -61,10 +61,21 @@ FIRST_BOARD = {
     ("ante", "wincap"): {6}, ("ante", "epicgame"): {6, 8}, ("ante", "supergame"): {5}, ("ante", "freegame"): {4},
     ("super_ante", "wincap"): {6}, ("super_ante", "epicgame"): {6, 8}, ("super_ante", "supergame"): {4, 5},
     ("bonus", "wincap"): {4}, ("bonus", "freegame"): {4},
-    ("super", "wincap"): {5}, ("super", "supergame"): {5},
+    ("super", "wincap"): {5}, ("super", "supergame"): {5}, ("super", "supergame_low"): {5},
     ("epic", "wincap"): {6}, ("epic", "epicgame"): {6, 8},
+    # diversity pass (2026-10-15): the buys' material slices (game_config EPIC_BUY_SLICES /
+    # SUPER_BUY_SLICES) force the buy's own board; only the Epic's upper slice may open on 8
+    ("epic", "epicgame_body"): {6}, ("epic", "epicgame_mid"): {6}, ("epic", "epicgame_upper"): {6, 8},
     ("mystery", "mystery_nothing"): {3}, ("mystery", "supergame"): {5}, ("mystery", "epicgame"): {6},
+    # Mystery diversity pass (2026-10-15): the Mystery's material slices (game_config
+    # MYSTERY_SLICES) play the outcome they copy: 3 plus 2 stings for a Super, 3 plus 3 for an Epic
+    ("mystery", "mystery_super_low"): {5}, ("mystery", "mystery_epic_body"): {6},
+    ("mystery", "mystery_epic_mid"): {6}, ("mystery", "mystery_epic_upper"): {6},
 }
+# The criteria that may open on the forced 8 (rule pass 3) and the criteria whose rounds are
+# Epics by construction (the denominator of "share of the Epic's 2,500x-and-over rounds").
+EPIC8_CRITERIA = ("epicgame", "epicgame_upper")
+EPIC_CRITERIA = ("epicgame", "epicgame_body", "epicgame_mid", "epicgame_upper")
 MAX_EXAMPLES = 8
 
 
@@ -167,7 +178,7 @@ def walk_book(mode, book):
         if trigger == FULL_BOARD_SCATTERS:
             if first != FULL_BOARD_SCATTERS:
                 problems.append(f"stray 8: first board held {first}")
-            if mode not in EPIC8_MODES or criteria != "epicgame":
+            if mode not in EPIC8_MODES or criteria not in EPIC8_CRITERIA:
                 problems.append(f"8 scatters in {mode}/{criteria}")
             if payout < int(round(EPIC8_MIN_WIN * 100)):
                 problems.append(f"8-scatter round pays {payout / 100:,.1f}x, under {EPIC8_MIN_WIN:,.0f}x")
@@ -253,7 +264,7 @@ def scan(mode, lib, quiet=False):
         w8 = sum(table[r["id"]][0] for r in eights)
         floor = int(round(EPIC8_MIN_WIN * 100))
         epic_high = sum(
-            table[i][0] for i, (criteria, _, payout) in rows.items() if criteria == "epicgame" and payout >= floor
+            table[i][0] for i, (criteria, _, payout) in rows.items() if criteria in EPIC_CRITERIA and payout >= floor
         )
         out["shipped"] = {
             "shaped": shaped,

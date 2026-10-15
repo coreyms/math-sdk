@@ -34,8 +34,31 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.dirname(HERE)
 sys.path.insert(0, GAME)
 
-from game_config import WINCAP, TARGET_RTP  # noqa: E402
+from game_config import EPIC_BUY_SLICES, MYSTERY_SLICES, SUPER_BUY_SLICES, WINCAP, TARGET_RTP  # noqa: E402
 from game_optimization import TARGETS  # noqa: E402
+
+MATERIAL_SLICES = {"super": SUPER_BUY_SLICES, "epic": EPIC_BUY_SLICES}
+# Mystery diversity pass (2026-10-15): Mystery's slices, by the outcome criteria they copy. A
+# slice's books join that outcome's group (and its bands); they are never a group of their own.
+MYSTERY_SLICE_PARENT = {name: parent for name, (_, _, parent) in MYSTERY_SLICES.items()}
+
+
+def _mystery_criteria(parent):
+    return {parent} | {name for name, p in MYSTERY_SLICE_PARENT.items() if p == parent}
+
+# PER-BOOK WEIGHT CEILING (diversity pass, 2026-10-15). Inside a band the shaper tilts weight
+# by payout^t, and when a band's mean has to come DOWN (every buy is naturally richer than its
+# price) the tilt piles weight onto the band's lowest-paying books: the Super buy's 0-25x band
+# put 2.08% of all Super buys on 11 books under 1x. With a ceiling, no single book of the mode
+# may carry more than this share of its rounds; what a book loses over the ceiling is spread
+# over the rest of its band (water-filling) and the tilt is re-solved, so every band share and
+# every group mean is still exact. Modes not listed are shaped exactly as before (the ceiling
+# code is never entered for them).
+# 1 in 50,000: binds only on the Super buy's lowest-paying books (the tilt piles the 0-25x
+# band onto them); the Epic buy's densest book lands near 1 in 76,000 without it.
+# Mystery (Mystery diversity pass, 2026-10-15): the same 1 in 50,000. It binds on the Mystery
+# Super's lowest payers exactly as on the bought Super's (the two share SUPER_BANDS and mean).
+PER_BOOK_CEILING = {"super": 1 / 50_000, "epic": 1 / 50_000, "mystery": 1 / 50_000}
 
 LIB = os.environ.get("MANTICORE_LIB") or os.path.join(GAME, "library")
 PAYOUT_SCALE = 100  # lookup-table payouts are hundredths of the base bet
@@ -133,9 +156,13 @@ def _spin_groups(mode):
 
 def _buy_groups(mode, criteria, bands):
     t = TARGETS[mode]["criteria"]
+    # Diversity pass (2026-10-15): the buy's material slices (game_config SUPER_BUY_SLICES /
+    # EPIC_BUY_SLICES) are the same rounds as the buy's own criteria, farmed by payout range,
+    # so they join its group and its bands; they are never a group of their own.
     return [
         {"name": "cap", "criteria": CAP_CRITERIA, "bands": [(CAP, 1.0)], "p": t["wincap"][0]},
-        {"name": criteria, "criteria": {criteria}, "bands": bands, "p": "residual", "mean": "residual"},
+        {"name": criteria, "criteria": {criteria} | set(MATERIAL_SLICES.get(mode, {})), "bands": bands,
+         "p": "residual", "mean": "residual"},
     ]
 
 
@@ -153,9 +180,9 @@ def groups_for(mode):
         return [
             {"name": "nothing", "criteria": {"mystery_nothing"}, "bands": MYSTERY_NOTHING_BANDS,
              "p": "residual", "mean": t["mystery_nothing"][1]},
-            {"name": "super", "criteria": {"supergame"}, "bands": MYSTERY_SUPER_BANDS,
+            {"name": "super", "criteria": _mystery_criteria("supergame"), "bands": MYSTERY_SUPER_BANDS,
              "p": t["supergame"][0], "mean": t["supergame"][1]},
-            {"name": "epic", "criteria": {"epicgame"}, "bands": MYSTERY_EPIC_BANDS,
+            {"name": "epic", "criteria": _mystery_criteria("epicgame"), "bands": MYSTERY_EPIC_BANDS,
              "p": t["epicgame"][0], "mean": "residual"},
         ]
     raise KeyError(mode)
@@ -242,6 +269,36 @@ def shape(mode, dry_run=False, quiet=False):
     assert all(0 < g["p"] <= 1 for g in groups), [(g["name"], g["p"]) for g in groups]
     assert abs(sum(g["p"] for g in groups) - 1) < 1e-9
 
+    # Per-book ceiling (diversity pass): the mode-wide ceiling as a share OF EACH BAND, for the
+    # groups whose bands are tilted (the cap group is uniform and never near it).
+    ceiling = PER_BOOK_CEILING.get(mode)
+    if ceiling is not None:
+        for g in groups:
+            if g["name"] == "cap":
+                continue
+            g["_cap"] = {}
+            for band, s in g["bands"]:
+                frac = ceiling / (g["p"] * s)
+                n = len(g["members"][band])
+                assert n * frac >= 1.0, (
+                    f"{mode}/{g['name']} band {band}: {n} books cannot carry {g['p'] * s:.4%} under a "
+                    f"ceiling of {ceiling:.2e} per book"
+                )
+                if frac < 1.0:
+                    g["_cap"][band] = frac
+
+    def water_fill(e, cap):
+        """Shares proportional to e, none above cap, summing to 1 (cap * len(e) >= 1)."""
+        clipped = np.zeros(len(e), dtype=bool)
+        while True:
+            free = ~clipped
+            lam = (1.0 - cap * clipped.sum()) / e[free].sum()
+            over = free & (lam * e > cap)
+            if not over.any():
+                break
+            clipped |= over
+        return np.where(clipped, cap, lam * e)
+
     def band_shares(g, t):
         out = {}
         for band, _ in g["bands"]:
@@ -249,6 +306,9 @@ def shape(mode, dry_run=False, quiet=False):
             l -= l.max()
             e = np.exp(l)
             out[band] = e / e.sum()
+            cap = g.get("_cap", {}).get(band)
+            if cap is not None and out[band].max() > cap:
+                out[band] = water_fill(e, cap)
         return out
 
     def group_mean(g, t):
@@ -268,7 +328,11 @@ def shape(mode, dry_run=False, quiet=False):
                 lo = mid
             else:
                 hi = mid
-        return (lo + hi) / 2
+        t = (lo + hi) / 2
+        if g.get("_cap"):  # the ceiling bends the tilt curve: prove the solve still lands
+            got = group_mean(g, t)
+            assert abs(got - target) <= 1e-6 * max(1.0, target), f"{mode}/{g['name']}: mean {got} != {target}"
+        return t
 
     for g in groups:
         g["_pay"] = {band: np.array([p for _, p in g["members"][band]]) for band, _ in g["bands"]}
@@ -335,6 +399,11 @@ def shape(mode, dry_run=False, quiet=False):
         print(f"   ETL>40x cost {share(40 * cost):.4f} (limit 0.9)   ETL>10,000x cost "
               f"{share(10000 * cost):.4f} (limit 0.8)   "
               f"CVaR(0.1%) {cvar:,.0f}x bet (limit 20,000) = {cvar / cost:.1f} per stake (limit 700)")
+        p = np.array(sorted(wi.values(), reverse=True), dtype=float) / total
+        half = int(np.searchsorted(np.cumsum(p), 0.5)) + 1
+        print(f"   diversity: effective books {1 / float((p ** 2).sum()):,.0f}   top book 1 in "
+              f"{1 / p[0]:,.0f}   half of all rounds from {half:,} books   ceiling "
+              f"{'none' if ceiling is None else f'1 in {1 / ceiling:,.0f}'}")
 
     if dry_run:
         return rtp

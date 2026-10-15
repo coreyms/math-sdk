@@ -1,0 +1,9 @@
+reject mystery_epic_body:win_range: 500 draws rejected so far
+reject mystery_epic_body:win_range: 1000 draws rejected so far
+reject mystery_epic_body:win_range: 1500 draws rejected so far
+reject mystery_epic_body:win_range: 2000 draws rejected so far
+reject mystery_epic_body:win_range: 2500 draws rejected so far
+reject mystery_epic_body:win_range: 3000 draws rejected so far
+reject mystery_epic_body:win_range: 3500 draws rejected so far
+reject mystery_epic_body:win_range: 4000 draws rejected so far
+{"criteria": "mystery_epic_body", "books": 120, "sec_per_book": 0.600767982006073, "draws_per_book": 38.175, "reasons": {"epic_floor": 113, "win_range": 4348}, "events_per_book": 53.03333333333333, "pay_min": 504.4, "pay_median": 756.1, "pay_max": 989.2}

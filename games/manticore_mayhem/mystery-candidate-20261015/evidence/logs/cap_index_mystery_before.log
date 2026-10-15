@@ -1,0 +1,15 @@
+library /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/diversity-candidate-20261015/games/manticore_mayhem/library
+
+== mystery: cap-hit spin index (weight-weighted, 11 distinct indices)
+   free spin 2      0.15%   cumulative   0.15%
+   free spin 3      0.61%   cumulative   0.76%
+   free spin 4      1.97%   cumulative   2.73%
+   free spin 5      4.17%   cumulative   6.90%
+   free spin 6      8.11%   cumulative  15.01%
+   free spin 7     10.98%   cumulative  25.99%
+   free spin 8     14.88%   cumulative  40.87%
+   free spin 9     17.77%   cumulative  58.64%
+   free spin 10    20.64%   cumulative  79.29%
+   free spin 11    11.02%   cumulative  90.30%
+   free spin 12     9.70%   cumulative 100.00%
+   mean spin 8.79   median spin 9   share landing on spins 5-12: 97.3%

@@ -1,0 +1,52 @@
+Manticore Mayhem math version 2026.10.15
+--out: every file of this run goes to /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/diversity-candidate-20261015/games/manticore_mayhem/library; the analysis is off
+
+Creating books...
+
+Creating books for manticore_mayhem in epic
+Batch 1 of 2
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+Thread 1 finished with 4.063 RTP. [baseGame: 0.0, freeGame: 4.063]
+REDRAWS {"batch": 0, "criteria": {"epicgame": {"books": 999, "draws": 1028, "reasons": {"epic8_floor": 4, "epic_floor": 5, "scatter7": 20}}, "epicgame_body": {"books": 5505, "draws": 459545, "reasons": {"epic_floor": 3988, "scatter7": 8310, "stray8": 160, "win_range": 441582}}, "epicgame_mid": {"books": 4024, "draws": 117191, "reasons": {"epic_floor": 1046, "scatter7": 2125, "stray8": 35, "win_range": 109961}}, "epicgame_upper": {"books": 3051, "draws": 9902, "reasons": {"epic8_floor": 56, "epic_floor": 89, "scatter7": 187, "stray8": 7, "win_range": 6512}}, "wincap": {"books": 21, "draws": 21, "reasons": {}}}, "mode": "epic", "thread": 1}
+Thread 0 finished with 3.957 RTP. [baseGame: 0.0, freeGame: 3.956]
+REDRAWS {"batch": 0, "criteria": {"epicgame": {"books": 991, "draws": 1023, "reasons": {"epic8_floor": 4, "epic_floor": 4, "scatter7": 23, "stray8": 1}}, "epicgame_body": {"books": 5655, "draws": 466523, "reasons": {"epic_floor": 4132, "scatter7": 8312, "stray8": 168, "win_range": 448256}}, "epicgame_mid": {"books": 3965, "draws": 117491, "reasons": {"epic_floor": 999, "scatter7": 2151, "stray8": 48, "win_range": 110328}}, "epicgame_upper": {"books": 2962, "draws": 9648, "reasons": {"epic8_floor": 55, "epic_floor": 76, "scatter7": 179, "stray8": 2, "win_range": 6374}}, "wincap": {"books": 27, "draws": 27, "reasons": {}}}, "mode": "epic", "thread": 0}
+Thread 2 finished with 3.965 RTP. [baseGame: 0.0, freeGame: 3.965]
+REDRAWS {"batch": 0, "criteria": {"epicgame": {"books": 993, "draws": 1024, "reasons": {"epic8_floor": 3, "epic_floor": 6, "scatter7": 22}}, "epicgame_body": {"books": 5641, "draws": 464947, "reasons": {"epic_floor": 4071, "scatter7": 8443, "stray8": 158, "win_range": 446634}}, "epicgame_mid": {"books": 3990, "draws": 119975, "reasons": {"epic_floor": 979, "scatter7": 2247, "stray8": 31, "win_range": 112728}}, "epicgame_upper": {"books": 2947, "draws": 9301, "reasons": {"epic8_floor": 55, "epic_floor": 72, "scatter7": 151, "stray8": 3, "win_range": 6073}}, "wincap": {"books": 29, "draws": 29, "reasons": {}}}, "mode": "epic", "thread": 2}
+Thread 4 finished with 3.961 RTP. [baseGame: 0.0, freeGame: 3.961]
+REDRAWS {"batch": 0, "criteria": {"epicgame": {"books": 965, "draws": 1003, "reasons": {"epic8_floor": 10, "epic_floor": 7, "scatter7": 21}}, "epicgame_body": {"books": 5557, "draws": 469981, "reasons": {"epic_floor": 4175, "scatter7": 8350, "stray8": 166, "win_range": 451733}}, "epicgame_mid": {"books": 4063, "draws": 117953, "reasons": {"epic_floor": 1007, "scatter7": 2008, "stray8": 40, "win_range": 110835}}, "epicgame_upper": {"books": 2993, "draws": 9504, "reasons": {"epic8_floor": 63, "epic_floor": 85, "scatter7": 157, "stray8": 4, "win_range": 6202}}, "wincap": {"books": 22, "draws": 22, "reasons": {}}}, "mode": "epic", "thread": 4}
+Thread 3 finished with 3.977 RTP. [baseGame: 0.0, freeGame: 3.976]
+REDRAWS {"batch": 0, "criteria": {"epicgame": {"books": 961, "draws": 995, "reasons": {"epic8_floor": 7, "epic_floor": 8, "scatter7": 19}}, "epicgame_body": {"books": 5585, "draws": 472092, "reasons": {"epic_floor": 4138, "scatter7": 8571, "stray8": 194, "win_range": 453604}}, "epicgame_mid": {"books": 4040, "draws": 121861, "reasons": {"epic_floor": 1064, "scatter7": 2173, "stray8": 38, "win_range": 114546}}, "epicgame_upper": {"books": 2989, "draws": 9471, "reasons": {"epic8_floor": 63, "epic_floor": 65, "scatter7": 149, "stray8": 4, "win_range": 6201}}, "wincap": {"books": 25, "draws": 25, "reasons": {}}}, "mode": "epic", "thread": 3}
+All threads are online.
+Finished joining threads.
+Batch 2 of 2
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+Thread 0 finished with 3.973 RTP. [baseGame: 0.0, freeGame: 3.972]
+REDRAWS {"batch": 1, "criteria": {"epicgame": {"books": 983, "draws": 1008, "reasons": {"epic8_floor": 3, "epic_floor": 6, "scatter7": 16}}, "epicgame_body": {"books": 5593, "draws": 461862, "reasons": {"epic_floor": 3939, "scatter7": 8375, "stray8": 142, "win_range": 443813}}, "epicgame_mid": {"books": 4020, "draws": 117310, "reasons": {"epic_floor": 1031, "scatter7": 2063, "stray8": 55, "win_range": 110141}}, "epicgame_upper": {"books": 2992, "draws": 9678, "reasons": {"epic8_floor": 64, "epic_floor": 75, "scatter7": 181, "stray8": 4, "win_range": 6362}}, "wincap": {"books": 12, "draws": 12, "reasons": {}}}, "mode": "epic", "thread": 0}
+Thread 2 finished with 3.972 RTP. [baseGame: 0.0, freeGame: 3.971]
+REDRAWS {"batch": 1, "criteria": {"epicgame": {"books": 966, "draws": 1011, "reasons": {"epic8_floor": 6, "epic_floor": 12, "scatter7": 26, "stray8": 1}}, "epicgame_body": {"books": 5623, "draws": 466852, "reasons": {"epic_floor": 4085, "scatter7": 8426, "stray8": 161, "win_range": 448557}}, "epicgame_mid": {"books": 3951, "draws": 116885, "reasons": {"epic_floor": 1057, "scatter7": 2059, "stray8": 51, "win_range": 109767}}, "epicgame_upper": {"books": 3036, "draws": 9484, "reasons": {"epic8_floor": 67, "epic_floor": 89, "scatter7": 167, "stray8": 4, "win_range": 6121}}, "wincap": {"books": 24, "draws": 25, "reasons": {"scatter7": 1}}}, "mode": "epic", "thread": 2}
+Thread 1 finished with 4.04 RTP. [baseGame: 0.0, freeGame: 4.039]
+REDRAWS {"batch": 1, "criteria": {"epicgame": {"books": 1006, "draws": 1054, "reasons": {"epic8_floor": 11, "epic_floor": 11, "scatter7": 26}}, "epicgame_body": {"books": 5503, "draws": 465194, "reasons": {"epic_floor": 3901, "scatter7": 8281, "stray8": 143, "win_range": 447366}}, "epicgame_mid": {"books": 3978, "draws": 121976, "reasons": {"epic_floor": 1153, "scatter7": 2164, "stray8": 47, "win_range": 114634}}, "epicgame_upper": {"books": 3080, "draws": 10108, "reasons": {"epic8_floor": 62, "epic_floor": 105, "scatter7": 170, "stray8": 3, "win_range": 6688}}, "wincap": {"books": 33, "draws": 36, "reasons": {"scatter7": 3}}}, "mode": "epic", "thread": 1}
+Thread 4 finished with 3.928 RTP. [baseGame: 0.0, freeGame: 3.928]
+REDRAWS {"batch": 1, "criteria": {"epicgame": {"books": 922, "draws": 953, "reasons": {"epic8_floor": 3, "epic_floor": 7, "scatter7": 21}}, "epicgame_body": {"books": 5677, "draws": 476096, "reasons": {"epic_floor": 4089, "scatter7": 8586, "stray8": 173, "win_range": 457571}}, "epicgame_mid": {"books": 3965, "draws": 119667, "reasons": {"epic_floor": 1030, "scatter7": 2230, "stray8": 49, "win_range": 112393}}, "epicgame_upper": {"books": 3006, "draws": 9774, "reasons": {"epic8_floor": 75, "epic_floor": 84, "scatter7": 171, "stray8": 2, "win_range": 6436}}, "wincap": {"books": 30, "draws": 30, "reasons": {}}}, "mode": "epic", "thread": 4}
+Thread 3 finished with 3.97 RTP. [baseGame: 0.0, freeGame: 3.97]
+REDRAWS {"batch": 1, "criteria": {"epicgame": {"books": 963, "draws": 992, "reasons": {"epic8_floor": 2, "epic_floor": 9, "scatter7": 18}}, "epicgame_body": {"books": 5661, "draws": 479516, "reasons": {"epic_floor": 4097, "scatter7": 8678, "stray8": 186, "win_range": 460894}}, "epicgame_mid": {"books": 4004, "draws": 119201, "reasons": {"epic_floor": 1080, "scatter7": 2063, "stray8": 38, "win_range": 112016}}, "epicgame_upper": {"books": 2945, "draws": 9650, "reasons": {"epic8_floor": 51, "epic_floor": 71, "scatter7": 168, "stray8": 4, "win_range": 6411}}, "wincap": {"books": 27, "draws": 27, "reasons": {}}}, "mode": "epic", "thread": 3}
+All threads are online.
+Finished joining threads.
+Saving books for  manticore_mayhem in epic
+Saving force files for manticore_mayhem in epic
+Saving LUTs for manticore_mayhem in epic
+Wrote verification file: /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/diversity-candidate-20261015/games/manticore_mayhem/library/configs/books_epic.verification.json
+
+Finished creating books in 9596.150221824646 seconds.
+
+real 9597.59
+user 45705.74
+sys 152.05

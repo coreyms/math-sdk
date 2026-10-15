@@ -1,0 +1,39 @@
+library /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/diversity-candidate-20261015/games/manticore_mayhem/library
+
+===== super  (cost 250x, 210,000 books) =====
+  RTP 2.7557   hit 1 in 1.00   std 7.0 (cost units)
+  max win 10,000.0x   cap hits 4510 (1 in 47)
+  share of RETURN by band:
+                 0    0.00% of return     0.00% of books
+               <1x    0.00% of return     0.03% of books
+              1-5x    0.00% of return     0.29% of books
+             5-20x    0.05% of return     2.45% of books
+           20-100x    1.93% of return    21.98% of books
+          100-500x   23.41% of return    61.28% of books
+         500-2000x   10.30% of return     6.72% of books
+       2000-10000x   33.14% of return     5.11% of books
+               cap   31.17% of return     2.15% of books
+  features: bonus 0.00%  super 99.32%  epic 0.68%  of books
+  per spin (2,302,702 spins): swipe 33.3%  any sting 17.4%  roar 7.6%
+  sting events per spin: normal 40.3%  big 2.63%  super 1.50%  scatter 0.00%
+  average tile sum on a paying cluster: 29.25  (3,232,486 paying clusters)
+  events/book 39.4 (max 78)  ->  100k books 3.94M   200k books 7.89M   limit 10M   max books under the limit: 253,522
+
+===== epic  (cost 500x, 136,000 books) =====
+  RTP 3.9805   hit 1 in 1.00   std 5.8 (cost units)
+  max win 10,000.0x   cap hits 6386 (1 in 21)
+  share of RETURN by band:
+                 0    0.00% of return     0.00% of books
+               <1x    0.00% of return     0.00% of books
+              1-5x    0.00% of return     0.00% of books
+             5-20x    0.00% of return     0.00% of books
+           20-100x    0.00% of return     0.00% of books
+          100-500x    7.37% of return    46.40% of books
+         500-2000x   12.06% of return    28.35% of books
+       2000-10000x   56.98% of return    20.55% of books
+               cap   23.59% of return     4.70% of books
+  features: bonus 0.00%  super 0.00%  epic 100.00%  of books
+  per spin (1,747,080 spins): swipe 37.0%  any sting 25.7%  roar 6.0%
+  sting events per spin: normal 56.2%  big 3.79%  super 6.53%  scatter 0.00%
+  average tile sum on a paying cluster: 48.16  (3,067,964 paying clusters)
+  events/book 49.8 (max 86)  ->  100k books 4.98M   200k books 9.95M   limit 10M   max books under the limit: 200,916

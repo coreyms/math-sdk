@@ -1,0 +1,11 @@
+Mystery rules walk of games/manticore_mayhem/mystery-candidate-20261015/games/manticore_mayhem/library
+  books 351,000 (ids == lookup ids in order: True), events 5,586,185, clusters recomputed on 38,071
+  outcome nothing  share 0.500000024 (shown as 50%)  books 250,000
+  outcome super    share 0.399999980 (shown as 40%)  books 70,000
+  outcome epic     share 0.099999996 (shown as 10%)  books 31,000
+  a `nothing` Mystery pays something 19.3061% of the time
+  RTP 0.9669899  max win 10,000.0x  1 in 8,869.8  max-win books 3,298 (weight > 0: 3,298)
+  lowest Mystery Epic payout: see scatter_scan; books whose cap step is not pay x tiles: 912
+  books breaking a rule: 0
+MYSTERY RULES WALK PASS
+nice -n 10 env/bin/python $C/evidence/scripts/mystery_rules_walk.py $L  86.52s user 0.31s system 99% cpu 1:27.14 total

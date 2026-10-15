@@ -1,0 +1,19 @@
+epic books 136000 ids==lut ids True order same True
+LUT payout == book payout mismatches: 0
+events total 6768984
+books with errors 2133
+[('w !=', 2985), ('spinWin 1000000', 321)]
+   62 1000000 ['w != p*max(m,1)']
+   79 1000000 ['w != p*max(m,1)']
+   242 1000000 ['w != p*max(m,1)']
+   254 1000000 ['spinWin 1000000 != 2330100']
+  feature epic   p=1.000000 1 in 1.0 books=136000
+  trigger (feat, nscat): {('epic', 6): '9.991e-01', ('epic', 8): '8.779e-04'}
+  max scatters visible in freegame (any step): Counter({0: 136000})
+  max scatters on freegame reveal: Counter({0: 136000})
+  max scatters basegame reveal: Counter({6: 134396, 8: 1604})
+  epic rounds 136000 min freegame win (not capped) 200.0x; any <200x from free spins: 0
+  epic min round payout 200.0
+  max-win books 6386 uncapped sum range 1000020 8636580
+  max payout any book 1000000
+  (feat,totalFs): {('epic', 12): 136000}

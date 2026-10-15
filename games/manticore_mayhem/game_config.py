@@ -38,9 +38,11 @@ TARGET_RTP = 0.96699
 WINCAP = 10000.0  # spec B: max win 10,000x base bet (Corey 2026-09-20)
 # The date of the rule set the books are simulated under. The game shows it in Game Info as
 # `mathVersion` (web-sdk apps/manticore_mayhem/src/game/config.ts), which has to be set to the
-# SAME string when a new set of books is handed over. Bumped from 2026.10.06 for rule pass 3.
+# SAME string when a new set of books is handed over. Bumped from 2026.10.06 for rule pass 3,
+# and from 2026.10.13 for the diversity pass (2026-10-15: no rule changed, two buys re-dealt).
 # It is a label only: nothing in the engine, the shaper or the published configs reads it.
-MATH_VERSION = "2026.10.13"
+# The Mystery diversity pass of the same day (Mystery re-dealt, no rule changed) keeps the label.
+MATH_VERSION = "2026.10.15"  # diversity pass (Super and Epic buys re-simulated); was 2026.10.13
 
 ANTE_COST = 3.0
 SUPER_ANTE_COST = 10.0
@@ -277,9 +279,145 @@ MYSTERY_SPLIT = {"mystery_nothing": 0.50, "supergame": 0.40, "epicgame": 0.10}
 # How much simulated MATERIAL each Mystery slice gets, which is NOT the shipped split.
 # RULE PASS 2: a `nothing` book is now a real base-strip spin with a board, cascades and a
 # payout of its own, so the slice needs real depth (the 2026-09-20 quota of 0.20 was sized for
-# byte-identical three-event books). The Epic slice still needs its own tail, so the quota is
+# byte-identical three-event books). The Epic slice still needs its own tail, so the quota was
 # split 0.30 / 0.40 / 0.30 rather than following the shipped 50 / 40 / 10 probabilities.
+# MYSTERY DIVERSITY PASS (2026-10-15): the deck is re-dealt with material slices; the quotas of
+# the three natural criteria are set further down, beside MYSTERY_SLICES, and this dict is
+# rebuilt there.
 MYSTERY_MATERIAL_QUOTA = {"mystery_nothing": 0.30, "supergame": 0.40, "epicgame": 0.30}
+
+# --- BUY MATERIAL SLICES (diversity pass, 2026-10-15) -----------------------------------
+# Stake approval review of 2026-10-15, Major 3: the Epic buy was served by very few books
+# (63,894 of its 100,000 books were 10,000x rounds carrying 0.033% of the weight, half of all
+# Epic buys came from 580 books, effective book count 1,858) and the Super buy's under-1x tail
+# was 11 books carrying 2.08%. The cause is the raw game, not the shaper: a bought Epic is
+# naturally far richer than its 483.5x mean (only 4.4% of raw Epic rounds end between 200x
+# and 1,000x, where the shaped table puts 92% of the probability), so a 100,000-book deck holds
+# a few hundred books where most buys land.
+#
+# THE FIX IS MATERIAL, NOT RULES. Nothing about the game changes: same strips, same board,
+# same features, same floors, same caps, same band tables. Each slice below is one more
+# criteria of the buy, drawn EXACTLY like the buy's own criteria and accepted only when the
+# round total lands in its win_range (the farming hook game_override.check_repeat has carried
+# since 2026-09-20, used by basegame_mid / basegame_high). A slice decides which simulated
+# rounds go into the deck; the shaper alone decides how often each is played.
+#
+# `early_reject` (gamestate.run_freespin): a draw is abandoned between free spins as soon as
+# its running total reaches the top of the slice's range. Wins only ever grow, so that draw
+# could never be accepted; stopping it early saves most of the cost of farming the low bands
+# (most raw Epic rounds pass 1,000x well before their twelfth spin). An accepted book is never
+# cut short, so every published book is a complete, ordinary round.
+#
+# Each entry: criteria -> (quota, win_range, scatter_triggers). The `scatter_triggers` of a
+# slice is the buy's own board: 5 for the Super buy, and for the Epic buy 6, or 6/8 at the
+# owner's EPIC8_SHARE_EPIC_BUY on the slice whose range can hold an 8-scatter round (2,500x or
+# more), so the share of 8 among the Epic's 2,500x-and-over rounds is what it was.
+#
+# Ranges sit on the shaper's band edges (tools/shape_lut.py: SUPER_BANDS 250 / 500, the
+# EPIC_BUY_BANDS 1,000), so inside every band the farmed books and the natural ones are draws
+# from the same distribution and nothing a band holds (Super-to-Epic upgrades, 8-scatter
+# boards) changes its share.
+#
+# SIZE. Stake's publish limit is 10,000,000 events per mode (math-verification.md); the Epic
+# buy runs about 48 events per book, the Super buy about 37 on these slices. The decks are
+# sized well under it (Epic about 6.7M, Super about 8.3M; readme.txt, "Diversity pass, 2026-10-15").
+#
+# HOW THE BOOKS ARE SPLIT. Weight per band is fixed by the shaper, so the deck is most diverse
+# when books are spread roughly in proportion to it. The Epic buy's 200x-400x carries about
+# 70% of its probability and only 1.15% of raw Epic rounds land there, so it gets a slice of
+# its own; one 200x-1,000x slice of the same size would fill 400x-1,000x (8% of the
+# probability, 3.1% of raw rounds) at its expense. Measured on bootstrapped decks through this
+# shaper (2026-10-15): one 148,750-book body slice 62,600 effective books; 112,000 + 33,000
+# books in two slices 128,800; the 56,000 + 40,000 shipped here 76,500. The Super buy's
+# single 0x-500x slice already lands in proportion (139,000; a split adds 7%), so it stays one.
+#
+# COST. A 200x-400x Epic book costs about 84 draws (1.2% of raw Epic draws land there) at
+# about 9 ms each even with early_reject; 5 processes managed about 620 draws a second on this
+# Mac, so the Epic deck took 2 h 40 min (2026-10-15). 112,000 + 33,000 books would have taken
+# about 5 hours for a repeat chance within 50 buys of 0.95% instead of 1.6%; both sit inside
+# Angry Mantis's range. 56,000 is also about the least the per-book ceiling allows: the
+# 200x-300x band carries 52% of the Epic's probability and needs 26,000 books to keep each
+# under 1 in 50,000 (tools/shape_lut.py PER_BOOK_CEILING).
+DIVERSITY_EPIC_BOOKS = 136_000  # the Epic buy's deck (run.py --sims for the epic mode)
+DIVERSITY_SUPER_BOOKS = 210_000  # the Super buy's deck
+# Forced max wins (WCAP strip, wild-dense). Kept to a small share of the cap books so a max win
+# still looks like a natural round, as before (1,000 of 63,894 in the 2026-10-13 Epic deck,
+# 600 of 9,053 in the Super deck); the natural `epicgame` / `supergame` books bring the rest.
+EPIC_BUY_WINCAP_QUOTA = 250 / DIVERSITY_EPIC_BOOKS
+SUPER_BUY_WINCAP_QUOTA = 300 / DIVERSITY_SUPER_BOOKS
+_EPIC_BUY_BOARD = {6: 1 - EPIC8_SHARE_EPIC_BUY, 8: EPIC8_SHARE_EPIC_BUY}
+EPIC_BUY_SLICES = {
+    # 200x-400x: 70% of every Epic buy, 1.2% of raw Epic draws (84 draws per book)
+    "epicgame_body": (56_000 / DIVERSITY_EPIC_BOOKS, (200.0, 400.0), {6: 1}),
+    # 400x-1,000x: 21% of every Epic buy, 3.4% of raw Epic draws (30 draws per book)
+    "epicgame_mid": (40_000 / DIVERSITY_EPIC_BOOKS, (400.0, 1000.0), {6: 1}),
+    # 1,000x up to (not including) the max win: the upper bands without the natural caps. The
+    # only slice that can hold an 8-scatter round (2,500x or more), so it opens on 8 at the
+    # owner's share exactly like the natural `epicgame` criteria.
+    "epicgame_upper": (30_000 / DIVERSITY_EPIC_BOOKS, (1000.0, WINCAP), _EPIC_BUY_BOARD),
+}
+# The natural `epicgame` keeps 9,750 books (136,000 less the slices and the 250 forced caps):
+# about 6,100 natural max wins plus 3,600 more upper and body books.
+# the Super buy's 0x to 500x: 87% of every Super buy, 37% of raw Super rounds. The natural
+# `supergame` keeps 49,700 books (about 4,200 natural max wins, all of the upper bands).
+SUPER_BUY_SLICES = {"supergame_low": (160_000 / DIVERSITY_SUPER_BOOKS, (0.0, 500.0), {5: 1})}
+
+# --- MYSTERY MATERIAL SLICES (Mystery diversity pass, 2026-10-15) -----------------------
+# The same fix for the Mystery buy, approved by Corey at 17:10 on 2026-10-15 ("2. Yes"). After
+# the Super and Epic buys were re-dealt, Mystery was the least diverse mode: 25,735 effective
+# books, a repeated round 4.6% likely within 50 buys, and its most-played book a Mystery Super
+# paying 0.5x at 1 Mystery in 481. Same causes as the buys:
+#   * the Mystery Super's 0-25x band is tilted onto its lowest payers, so 7 Super books under
+#     1x carried 0.92% of all Mysteries (the bought Super's under-1x tail, before its pass);
+#   * a raw Mystery Epic averages about 2,250x and 64% of them reach the 10,000x cap, so the
+#     500x-1,000x bands that carry 54% of the Epic slice held 856 books of 30,000;
+#   * the zero band (40.3% of all Mysteries) sat on 24,388 `nothing` books.
+#
+# Nothing about the game changes: same reveal (3 scatters in columns 0-2), same stings (0 / 2 /
+# 3), same spin-in, same features, the same 500x Mystery Epic floor, the same band tables and
+# the same 50 / 40 / 10 split (TARGETS). Each slice is the Mystery's own Super or Epic outcome,
+# drawn EXACTLY like the natural `supergame` / `epicgame` criteria and accepted only when the
+# ROUND TOTAL (spin-in plus feature) lands in its win_range; `early_reject` stops a lost draw
+# between free spins. Ranges sit on the shaper's band edges (SUPER_BANDS 500, MYSTERY_EPIC_BANDS
+# 1,000), so inside every band farmed and natural books are draws from the same distribution.
+#
+# Each entry: criteria -> (quota, win_range on the round total, the outcome it plays). The
+# outcome criteria is the natural one whose distribution the slice copies (`supergame` = 2
+# scatter stings and a Super, `epicgame` = 3 and an Epic); gamestate.run_mystery_round reads it.
+#
+# The `nothing` slice is the cheap lever: a `nothing` book is one spin of about 3 events (a
+# Super or Epic book runs 40 to 60), and its zero band alone carries 40% of all Mysteries.
+#
+# SIZE AND COST (measured 2026-10-15, one process per criteria, five at once): events per book
+# and seconds per ACCEPTED book are nothing 3.7 / 0.001, Super 0x-500x 41 / 0.05 (2.5 draws),
+# natural Super 45 / 0.03, Epic 500x-1,000x 53 / 0.60 (38 draws), natural Epic 55 / 0.04.
+# Stake's publish limit is 10,000,000 events per mode; this deck is about 5.6 million. The split
+# was chosen on bootstrapped decks through the real shaper (readme.txt, "Mystery diversity pass,
+# 2026-10-15"): 281,000 books 167,000 effective, 351,000 books 206,000 (SHIPPED), 425,000 books
+# 252,000. The 1,000x-1,500x band (1.9% of all Mysteries) is why the Epic's upper bands are cut
+# in two: raw Mystery Epics above 1,000x land there only 8% of the time.
+DIVERSITY_MYSTERY_BOOKS = 351_000  # the Mystery buy's deck (run.py --sims for the mystery mode)
+MYSTERY_SLICES = {
+    # the Mystery Super's 0x-500x: 89% of the Super outcome, 43% of raw Mystery Supers
+    "mystery_super_low": (50_000 / DIVERSITY_MYSTERY_BOOKS, (0.0, 500.0), "supergame"),
+    # the Mystery Epic's 500x-1,000x: 54% of the Epic outcome, 2.9% of raw Mystery Epics
+    "mystery_epic_body": (18_000 / DIVERSITY_MYSTERY_BOOKS, (500.0, 1000.0), "epicgame"),
+    # 1,000x-2,500x: 33% of the Epic outcome, 7.7% of raw Mystery Epics
+    "mystery_epic_mid": (6_000 / DIVERSITY_MYSTERY_BOOKS, (1000.0, 2500.0), "epicgame"),
+    # 2,500x up to (not including) the max win: the upper bands without the natural caps
+    "mystery_epic_upper": (4_000 / DIVERSITY_MYSTERY_BOOKS, (2500.0, WINCAP), "epicgame"),
+}
+# The natural criteria keep the rest: `nothing` its whole deck, `supergame` the Super's 500x-and-
+# over bands and its max wins, `epicgame` the Epic's max wins (64% of its books reach the cap).
+MYSTERY_MATERIAL_QUOTA = {
+    "mystery_nothing": 250_000 / DIVERSITY_MYSTERY_BOOKS,
+    "supergame": 20_000 / DIVERSITY_MYSTERY_BOOKS,
+    "epicgame": 3_000 / DIVERSITY_MYSTERY_BOOKS,
+}
+assert abs(sum(MYSTERY_MATERIAL_QUOTA.values()) + sum(q for q, _, _ in MYSTERY_SLICES.values()) - 1) < 1e-12
+# Which Mystery outcome every Mystery criteria plays (the `mystery` event's `outcome`).
+MYSTERY_OUTCOME = {"mystery_nothing": "nothing", "supergame": "super", "epicgame": "epic"}
+MYSTERY_OUTCOME.update({name: MYSTERY_OUTCOME[parent] for name, (_, _, parent) in MYSTERY_SLICES.items()})
 
 
 class GameConfig(Config):
@@ -399,6 +537,7 @@ class GameConfig(Config):
         self.mystery_sting_reels = tuple(MYSTERY_STING_REELS)
         self.mystery_anticipation = tuple(MYSTERY_ANTICIPATION)
         self.mystery_sting_count = dict(MYSTERY_STING_COUNT)
+        self.mystery_outcome = dict(MYSTERY_OUTCOME)  # Mystery diversity pass (2026-10-15)
         self.roar_chance = dict(ROAR_CHANCE)
         self.epic_min_win = EPIC_MIN_WIN
         self.mystery_epic_min_win = MYSTERY_EPIC_MIN_WIN
@@ -474,15 +613,20 @@ class GameConfig(Config):
             BetMode(
                 name="super", cost=SUPER_COST, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=False, is_buybonus=True,
-                distributions=self._buy_distributions("supergame", {5: 1}, wincap_quota=0.006),
+                # Diversity pass (2026-10-15): plus the 0x-500x material slice.
+                distributions=self._buy_distributions(
+                    "supergame", {5: 1}, wincap_quota=SUPER_BUY_WINCAP_QUOTA, slices=SUPER_BUY_SLICES
+                ),
             ),
             BetMode(
                 name="epic", cost=EPIC_COST, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=False, is_buybonus=True,
                 # Rule pass 3: the only buy that may open on 8 (6 or more IS an Epic, so 8 is
-                # still "its" scatters). Quotas unchanged; its `wincap` board stays 6.
+                # still "its" scatters). Its `wincap` board stays 6.
+                # Diversity pass (2026-10-15): plus the body and upper material slices.
                 distributions=self._buy_distributions(
-                    "epicgame", {6: 1}, wincap_quota=0.01, epic8_share=EPIC8_SHARE["epic"]
+                    "epicgame", {6: 1}, wincap_quota=EPIC_BUY_WINCAP_QUOTA, epic8_share=EPIC8_SHARE["epic"],
+                    slices=EPIC_BUY_SLICES,
                 ),
             ),
             BetMode(
@@ -609,19 +753,46 @@ class GameConfig(Config):
         return dists
 
     def _buy_distributions(
-        self, criteria: str, scatter_triggers: dict, wincap_quota: float, epic8_share: float = 0.0
+        self, criteria: str, scatter_triggers: dict, wincap_quota: float, epic8_share: float = 0.0,
+        slices: dict = None,
     ):
         """A bought feature is the natural scatter board: 4 / 5 / 6 scatters (spec C).
 
         RULE PASS 3 (2026-10-13): `epic8_share` is passed by the Epic buy only. It puts 8
         scatters on that share of the `epicgame` draws (6 or more is an Epic, so the board is
         still what was bought) and leaves the mode's `wincap` board at 6. The Bonus and Super
-        buys never pass it: their first board is the 4 or 5 that was bought, in every book."""
+        buys never pass it: their first board is the 4 or 5 that was bought, in every book.
+
+        DIVERSITY PASS (2026-10-15): `slices` (Super and Epic buys only) adds the material
+        criteria of SUPER_BUY_SLICES / EPIC_BUY_SLICES ahead of the buy's own criteria, which
+        keeps whatever quota is left. Without `slices` the list is exactly what it was, so the
+        Bonus buy is dealt byte for byte as before."""
         feature_triggers = scatter_triggers
         if epic8_share:
             assert scatter_triggers == {MAX_TRIGGER_SCATTERS: 1}, "only the Epic buy may open on 8"
             feature_triggers = self._epic_scatter_triggers(epic8_share)
-        return [
+        material = []
+        for name, (quota, win_range, triggers) in (slices or {}).items():
+            # a slice's board is the buy's own: 5 for the Super buy, 6 (or the Epic's 6/8) for
+            # the Epic buy, never anything that was not bought
+            assert set(triggers) <= set(feature_triggers), (name, triggers, feature_triggers)
+            material.append(
+                Distribution(
+                    criteria=name, quota=quota,
+                    conditions={
+                        "reel_weights": self._reel_weights("BR"),
+                        "scatter_triggers": dict(triggers),
+                        "force_freegame": True,
+                        "win_range": tuple(win_range),
+                        "early_reject": True,
+                    },
+                )
+            )
+        main_quota = round(1.0 - wincap_quota - sum(d.get_quota() for d in material), 9)
+        assert main_quota > 0, f"{criteria}: the material slices leave no quota for the buy itself"
+        if not material:
+            main_quota = round(1.0 - wincap_quota, 6)
+        return material + [
             Distribution(
                 criteria="wincap", quota=wincap_quota, win_criteria=self.wincap,
                 conditions={
@@ -632,7 +803,7 @@ class GameConfig(Config):
                 },
             ),
             Distribution(
-                criteria=criteria, quota=round(1.0 - wincap_quota, 6),
+                criteria=criteria, quota=main_quota,
                 conditions={
                     "reel_weights": self._reel_weights("BR"),
                     "scatter_triggers": feature_triggers,
@@ -647,8 +818,26 @@ class GameConfig(Config):
 
         RULE PASS 2 (Corey, 2026-09-23): every Mystery outcome is now a REAL spin. The reveal
         always shows 3 scatters in columns 0,1,2; `nothing` simply plays that board out (its
-        cluster wins count), `super` stings 2 more scatters into columns 3..7 and `epic` 3."""
-        return [
+        cluster wins count), `super` stings 2 more scatters into columns 3..7 and `epic` 3.
+
+        MYSTERY DIVERSITY PASS (2026-10-15): the material slices of MYSTERY_SLICES come first,
+        each a copy of its outcome criteria's conditions plus `win_range` and `early_reject`.
+        They decide which simulated rounds go into the deck, never how often one is played."""
+        board = {"supergame": 5, "epicgame": 6}  # 3 on the reveal plus 2 or 3 scatter stings
+        material = [
+            Distribution(
+                criteria=name, quota=quota,
+                conditions={
+                    "reel_weights": self._reel_weights("BR"),
+                    "scatter_triggers": {board[parent]: 1},
+                    "force_freegame": True,
+                    "win_range": tuple(win_range),
+                    "early_reject": True,
+                },
+            )
+            for name, (quota, win_range, parent) in MYSTERY_SLICES.items()
+        ]
+        return material + [
             # RULE PASS 2: the `nothing` slice plays a real board, so it has NO win_criteria -
             # it keeps whatever its clusters pay, zero included. Its criteria is named
             # `mystery_nothing` rather than `0` precisely because it is no longer a zero-win

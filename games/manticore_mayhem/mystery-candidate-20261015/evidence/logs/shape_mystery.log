@@ -1,0 +1,13 @@
+== mystery: cost 250x  books 351000  RTP 0.9669899  std 2.68 (cost units)  hit 1 in 1.68
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   nothing      0.500000024          2.0        0.20     0.04%  -0.246  250000
+   super        0.399999980          2.5      241.75    40.00%  -1.404  70000
+   epic         0.099999996         10.0     1449.49    59.96%  -0.541  31000
+   RTP share: <1x 0.01%  5x+ 100.0%  20x+ 99.8%  200x+ 90.7%
+   spins paying 5x+ 49.8869%  20x+ 47.0123%  100x+ 32.1765%
+   tail: P(>=5,000x) 0.0041721 (scaled 0.0033377 / 0.010 2*)   P(>=10,000x) 0.0001127 (scaled 0.0000902 / 0.005 2*)   cap 1 in 8,870
+   ETL>40x cost 0.0047 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 9,127x bet (limit 20,000) = 36.5 per stake (limit 700)
+   diversity: effective books 206,912   top book 1 in 50,000   half of all rounds from 93,047 books   ceiling 1 in 50,000
+   wrote games/manticore_mayhem/mystery-candidate-20261015/games/manticore_mayhem/library/publish_files/lookUpTable_mystery_0.csv
+
+cross-mode RTP spread 0.00e+00 (limit 0.005); target 0.9669900

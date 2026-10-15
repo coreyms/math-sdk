@@ -1,0 +1,100 @@
+== base: cost 1x  books 100000  RTP 0.9669893  std 22.21 (cost units)  hit 1 in 3.56
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000000333  3,000,696.2    10000.00     0.34%  +0.000  1082
+   zero         0.718882992          1.4        0.00     0.00%  +0.000  35000
+   dribble      0.140250008          7.1        0.33     4.79%  -3.455  37299
+   basewin      0.114750000          8.7        1.28    15.15%  -3.244  12264
+   midwin       0.018000000         55.6        7.50    13.96%  -4.604  8501
+   bigwin       0.004200000        238.1       30.00    13.03%  -4.146  1336
+   bonus        0.003333333        300.0       96.70    33.33%  +0.181  2986
+   super        0.000500000      2,000.0      241.75    12.50%  -1.398  1092
+   epic         0.000083333     12,000.0      800.00     6.89%  -0.327  440
+   RTP share: <1x 4.79%  5x+ 80.0%  20x+ 65.2%  200x+ 32.5%
+   spins paying 5x+ 2.5994%  20x+ 0.7367%  100x+ 0.1342%
+   tail: P(>=5,000x) 0.0000033 (scaled 0.0000033 / 0.010 2*)   P(>=10,000x) 0.0000003 (scaled 0.0000003 / 0.005 2*)   cap 1 in 3,000,696
+   ETL>40x cost 0.5434 (limit 0.9)   ETL>10,000x cost 0.0034 (limit 0.8)   CVaR(0.1%) 382x bet (limit 20,000) = 382.3 per stake (limit 700)
+   diversity: effective books 55,096   top book 1 in 31,971   half of all rounds from 23,535 books   ceiling none
+   wrote games/manticore_mayhem/mystery-candidate-20261015/scratch/reshape_check/publish_files/lookUpTable_base_0.csv
+== ante: cost 3x  books 100000  RTP 0.9669889  std 15.35 (cost units)  hit 1 in 3.73
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000001000  1,000,336.1    10000.00     0.34%  +0.000  1453
+   zero         0.732082328          1.4        0.00     0.00%  +0.000  30000
+   dribble      0.121000005          8.3        0.33     1.38%  -3.451  33238
+   basewin      0.099000001         10.1        1.32     4.52%  -2.477  12057
+   midwin       0.025000000         40.0        9.00     7.76%  +1.029  8699
+   bigwin       0.003333333        300.0       36.00     4.14%  +0.273  1406
+   bonus        0.016666667         60.0       88.00    50.56%  -1.338  9896
+   super        0.002500000        400.0      230.00    19.82%  -2.482  2725
+   epic         0.000416667      2,400.0      800.00    11.49%  -0.849  526
+   RTP share: <1x 1.39%  5x+ 94.0%  20x+ 85.0%  200x+ 50.0%
+   spins paying 5x+ 4.6423%  20x+ 1.8639%  100x+ 0.6064%
+   tail: P(>=5,000x) 0.0000143 (scaled 0.0000143 / 0.010 2*)   P(>=10,000x) 0.0000010 (scaled 0.0000010 / 0.005 2*)   cap 1 in 1,000,336
+   ETL>40x cost 0.6135 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 941x bet (limit 20,000) = 313.6 per stake (limit 700)
+   diversity: effective books 48,671   top book 1 in 9,531   half of all rounds from 20,454 books   ceiling none
+   wrote games/manticore_mayhem/mystery-candidate-20261015/scratch/reshape_check/publish_files/lookUpTable_ante_0.csv
+== super_ante: cost 10x  books 100000  RTP 0.9669917  std 11.82 (cost units)  hit 1 in 3.32
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000002002    499,587.8    10000.00     0.21%  +0.000  3325
+   zero         0.699040178          1.4        0.00     0.00%  +0.000  30000
+   dribble      0.140249999          7.1        0.33     0.48%  -3.294  33940
+   basewin      0.114750002          8.7        1.69     2.01%  +3.319  12566
+   midwin       0.015000000         66.7        7.50     1.16%  -4.839  8506
+   bigwin       0.001500000        666.7       30.00     0.47%  -4.096  1388
+   super        0.025641026         39.0      241.75    64.10%  -1.418  9076
+   epic         0.003816794        262.0      800.00    31.58%  -0.989  1199
+   RTP share: <1x 0.48%  5x+ 97.5%  20x+ 96.1%  200x+ 81.1%
+   spins paying 5x+ 4.5607%  20x+ 2.8965%  100x+ 1.8173%
+   tail: P(>=5,000x) 0.0001061 (scaled 0.0001061 / 0.010 2*)   P(>=10,000x) 0.0000020 (scaled 0.0000020 / 0.005 2*)   cap 1 in 499,588
+   ETL>40x cost 0.6291 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 2,842x bet (limit 20,000) = 284.2 per stake (limit 700)
+   diversity: effective books 49,678   top book 1 in 9,719   half of all rounds from 20,796 books   ceiling none
+   wrote games/manticore_mayhem/mystery-candidate-20261015/scratch/reshape_check/publish_files/lookUpTable_super_ante_0.csv
+== bonus: cost 100x  books 100000  RTP 0.9669900  std 2.08 (cost units)  hit 1 in 1.00
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000040000     24,999.8    10000.00     0.41%  +0.000  996
+   freegame     0.999960000          1.0       96.30    99.59%  +0.150  99004
+   RTP share: <1x 0.00%  5x+ 99.9%  20x+ 97.5%  200x+ 47.0%
+   spins paying 5x+ 96.5579%  20x+ 78.6790%  100x+ 25.0779%
+   tail: P(>=5,000x) 0.0002398 (scaled 0.0002398 / 0.010 2*)   P(>=10,000x) 0.0000400 (scaled 0.0000400 / 0.005 2*)   cap 1 in 25,000
+   ETL>40x cost 0.0274 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 4,436x bet (limit 20,000) = 44.4 per stake (limit 700)
+   diversity: effective books 64,443   top book 1 in 40,768   half of all rounds from 23,984 books   ceiling none
+   wrote games/manticore_mayhem/mystery-candidate-20261015/scratch/reshape_check/publish_files/lookUpTable_bonus_0.csv
+== super: cost 250x  books 210000  RTP 0.9669900  std 1.86 (cost units)  hit 1 in 1.00
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000124999      8,000.1    10000.00     0.52%  +0.000  4510
+   supergame    0.999875001          1.0      240.53    99.48%  -1.478  205490
+   RTP share: <1x 0.00%  5x+ 100.0%  20x+ 99.7%  200x+ 76.9%
+   spins paying 5x+ 98.6700%  20x+ 92.1872%  100x+ 55.3058%
+   tail: P(>=5,000x) 0.0015969 (scaled 0.0012775 / 0.010 2*)   P(>=10,000x) 0.0001250 (scaled 0.0001000 / 0.005 2*)   cap 1 in 8,000
+   ETL>40x cost 0.0052 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 7,836x bet (limit 20,000) = 31.3 per stake (limit 700)
+   diversity: effective books 138,109   top book 1 in 50,000   half of all rounds from 53,365 books   ceiling 1 in 50,000
+   wrote games/manticore_mayhem/mystery-candidate-20261015/scratch/reshape_check/publish_files/lookUpTable_super_0.csv
+== epic: cost 500x  books 136000  RTP 0.9669901  std 1.36 (cost units)  hit 1 in 1.00
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000333336      3,000.0    10000.00     0.69%  +0.000  6386
+   epicgame     0.999666664          1.0      480.32    99.31%  +0.484  129614
+   RTP share: <1x 0.00%  5x+ 100.0%  20x+ 100.0%  200x+ 100.0%
+   spins paying 5x+ 100.0000%  20x+ 100.0000%  100x+ 100.0000%
+   tail: P(>=5,000x) 0.0039336 (scaled 0.0019668 / 0.010 2*)   P(>=10,000x) 0.0003333 (scaled 0.0001667 / 0.005 2*)   cap 1 in 3,000
+   ETL>40x cost 0.0000 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 9,672x bet (limit 20,000) = 19.3 per stake (limit 700)
+   diversity: effective books 77,008   top book 1 in 50,000   half of all rounds from 27,155 books   ceiling 1 in 50,000
+   wrote games/manticore_mayhem/mystery-candidate-20261015/scratch/reshape_check/publish_files/lookUpTable_epic_0.csv
+== mystery: cost 250x  books 351000  RTP 0.9669899  std 2.68 (cost units)  hit 1 in 1.68
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   nothing      0.500000024          2.0        0.20     0.04%  -0.246  250000
+   super        0.399999980          2.5      241.75    40.00%  -1.404  70000
+   epic         0.099999996         10.0     1449.49    59.96%  -0.541  31000
+   RTP share: <1x 0.01%  5x+ 100.0%  20x+ 99.8%  200x+ 90.7%
+   spins paying 5x+ 49.8869%  20x+ 47.0123%  100x+ 32.1765%
+   tail: P(>=5,000x) 0.0041721 (scaled 0.0033377 / 0.010 2*)   P(>=10,000x) 0.0001127 (scaled 0.0000902 / 0.005 2*)   cap 1 in 8,870
+   ETL>40x cost 0.0047 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 9,127x bet (limit 20,000) = 36.5 per stake (limit 700)
+   diversity: effective books 206,912   top book 1 in 50,000   half of all rounds from 93,047 books   ceiling 1 in 50,000
+   wrote games/manticore_mayhem/mystery-candidate-20261015/scratch/reshape_check/publish_files/lookUpTable_mystery_0.csv
+
+cross-mode RTP spread 2.76e-06 (limit 0.005); target 0.9669900
+base same bytes
+ante same bytes
+super_ante same bytes
+bonus same bytes
+super same bytes
+epic same bytes
+mystery same bytes

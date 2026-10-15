@@ -197,6 +197,20 @@ def hit_rate(mode: str) -> float:
 _SCATTERS = {"freegame": 4, "supergame": 5, "epicgame": 6}
 
 
+def _material_slices(mode: str) -> dict:
+    """criteria -> (win_range, parent criteria) of a buy's material slices (diversity pass,
+    2026-10-15). Empty for every mode but the Super, Epic and Mystery buys. The parent is the
+    criteria whose target the slice's books serve: the buy's own criteria, or for Mystery the
+    outcome the slice plays (game_config MYSTERY_SLICES)."""
+    from game_config import EPIC_BUY_SLICES, MYSTERY_SLICES, SUPER_BUY_SLICES
+
+    if mode == "mystery":
+        return {name: (win_range, parent) for name, (_, win_range, parent) in MYSTERY_SLICES.items()}
+    parent = {"super": "supergame", "epic": "epicgame"}.get(mode)
+    slices = {"super": SUPER_BUY_SLICES, "epic": EPIC_BUY_SLICES}.get(mode, {})
+    return {name: (win_range, parent) for name, (_, win_range, _) in slices.items()}
+
+
 def _conditions(mode: str) -> dict:
     split = mode_rtp_split(mode)
     conds = {}
@@ -219,6 +233,20 @@ def _conditions(mode: str) -> dict:
             ).return_dict()
         else:
             conds[criteria] = ConstructConditions(rtp=round(rtp, 9), hr=round(1 / p, 5)).return_dict()
+    # DIVERSITY PASS (2026-10-15): the Super and Epic buys' material slices (game_config
+    # SUPER_BUY_SLICES / EPIC_BUY_SLICES). They are simulation MATERIAL, not targets: their
+    # books sit in the buy's own shaper group (tools/shape_lut.py) and the shaper sets every
+    # weight. run.py's setup needs one condition per criteria, so each slice gets a TOKEN RTP
+    # share taken from its parent criteria and is identified by its payout range (house
+    # convention from Angry Mantis's farmed `freegame_big` slices). Nothing reads these numbers:
+    # the Rust optimiser is not part of the flow. Mystery's slices (2026-10-15, MYSTERY_SLICES)
+    # take their token from the outcome criteria they copy.
+    for name, (win_range, parent) in _material_slices(mode).items():
+        token = 0.001
+        conds[parent]["rtp"] = round(conds[parent]["rtp"] - token, 9)
+        conds[name] = ConstructConditions(
+            rtp=token, hr="x", search_conditions=(float(win_range[0]), float(win_range[1]))
+        ).return_dict()
     # rounding the per-criteria shares must not move the mode off TARGET_RTP
     drift = TARGET_RTP - sum(c["rtp"] for c in conds.values())
     biggest = max((k for k in conds if k != "0"), key=lambda k: conds[k]["rtp"])

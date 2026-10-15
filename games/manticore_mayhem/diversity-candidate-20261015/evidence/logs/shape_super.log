@@ -1,0 +1,12 @@
+== super: cost 250x  books 210000  RTP 0.9669900  std 1.86 (cost units)  hit 1 in 1.00
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000124999      8,000.1    10000.00     0.52%  +0.000  4510
+   supergame    0.999875001          1.0      240.53    99.48%  -1.478  205490
+   RTP share: <1x 0.00%  5x+ 100.0%  20x+ 99.7%  200x+ 76.9%
+   spins paying 5x+ 98.6700%  20x+ 92.1872%  100x+ 55.3058%
+   tail: P(>=5,000x) 0.0015969 (scaled 0.0012775 / 0.010 2*)   P(>=10,000x) 0.0001250 (scaled 0.0001000 / 0.005 2*)   cap 1 in 8,000
+   ETL>40x cost 0.0052 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 7,836x bet (limit 20,000) = 31.3 per stake (limit 700)
+   diversity: effective books 138,109   top book 1 in 50,000   half of all rounds from 53,365 books   ceiling 1 in 50,000
+   wrote games/manticore_mayhem/diversity-candidate-20261015/games/manticore_mayhem/library/publish_files/lookUpTable_super_0.csv
+
+cross-mode RTP spread 0.00e+00 (limit 0.005); target 0.9669900

@@ -68,12 +68,31 @@ class GameState(GameStateOverride):
         persist for the whole round. Rule pass 2: the Mystery buy now HAS a spin-in, so a
         Mystery Super / Epic inherits its tiles the same way every other feature does."""
         self.reset_fs_spin()
+        # Diversity pass (2026-10-15): a material slice of the Super / Epic buy (game_config
+        # SUPER_BUY_SLICES / EPIC_BUY_SLICES) or of the Mystery buy (MYSTERY_SLICES, where the
+        # running total includes the spin-in) only accepts rounds that END under the top of its
+        # win_range. Wins never shrink, so once the running total reaches that top the draw is
+        # lost whatever the remaining spins do: stop playing it. check_repeat then rejects it on
+        # its win_range as it would have at the end. Only a distribution that says
+        # `early_reject` is affected, so every other criteria plays (and consumes random
+        # numbers) exactly as before; an ACCEPTED book is never cut short.
+        early_top = self.early_reject_top()
         while self.fs < self.tot_fs and not self.wincap_triggered:
+            if early_top is not None and self.win_manager.running_bet_win >= early_top:
+                break
             self.update_freespin()
             self.draw_board(emit_event=True)
             self.play_spin()
             self.win_manager.update_gametype_wins(self.gametype)
         self.end_freespin()
+
+    def early_reject_top(self):
+        """The win at which a draw of the current criteria can no longer be accepted, when its
+        distribution asks for early rejection (diversity pass, 2026-10-15); otherwise None."""
+        conditions = self.get_current_distribution_conditions()
+        if not isinstance(conditions, dict) or not conditions.get("early_reject"):
+            return None
+        return conditions["win_range"][1]
 
     def plan_scatter_sting(self) -> list:
         """Decide whether this base-game reveal is played as a SCATTER STING, and which of its
@@ -118,7 +137,9 @@ class GameState(GameStateOverride):
         cluster wins count toward the round and its lit tiles carry into the feature; wild
         stings are disabled on the spin-in, so the only sting seen there is the scatter one.
         """
-        outcome = {"mystery_nothing": "nothing", "supergame": "super", "epicgame": "epic"}[self.criteria]
+        # Mystery diversity pass (2026-10-15): a material slice (game_config MYSTERY_SLICES) plays
+        # the outcome of the criteria it copies; its early_reject is handled in run_freespin.
+        outcome = self.config.mystery_outcome[self.criteria]
         mystery_event(self, outcome)
 
         self.reset_tiles()

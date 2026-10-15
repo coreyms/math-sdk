@@ -1,0 +1,2 @@
+reject mystery_super_low:win_range: 500 draws rejected so far
+{"criteria": "mystery_super_low", "books": 400, "sec_per_book": 0.05059525728225708, "draws_per_book": 2.4775, "reasons": {"win_range": 591}, "events_per_book": 41.38, "pay_min": 8.0, "pay_median": 193.8, "pay_max": 498.8}
