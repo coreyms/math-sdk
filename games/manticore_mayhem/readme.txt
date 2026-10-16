@@ -4,6 +4,11 @@ tumbling refill, doubling multiplier tiles. Max win 10,000x. Target RTP 96.7% ev
 Game id: manticore_mayhem. Spec: ~/Projects/manticore/docs/manticore-spec.md (blocks B/C/D).
 Forked from the SDK's 0_0_cluster sample; conventions follow games/angry_mantis.
 
+STATUS 2026-10-15 20:25 (CURRENT): PROMOTED AND SUBMITTED. library/ now holds the final 2026.10.15 set (the
+Mystery candidate folder, which already contains the Super and Epic diversity pass); the previous library is kept as
+library-pre-diversity-20261015. Staging served the same 15 files (sha256 checked) and Corey uploaded them to Stake with
+frontend 1.0.01 on 2026-10-15. The status lines below are the history of how it got here.
+
 STATUS 2026-09-23 (rule pass 2): TUNED. Every mode ships at RTP 0.9670 from shaped lookup
 tables, 100,000 books per mode, ALL SEVEN modes re-simulated. THE RTP TARGET MOVED FROM 96.0%
 TO 96.7% on 2026-09-23 (Corey: "I care more about building a base of fans than about profit");
