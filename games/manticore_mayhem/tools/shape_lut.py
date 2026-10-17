@@ -34,10 +34,20 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.dirname(HERE)
 sys.path.insert(0, GAME)
 
-from game_config import EPIC_BUY_SLICES, MYSTERY_SLICES, SUPER_BUY_SLICES, WINCAP, TARGET_RTP  # noqa: E402
+from game_config import (  # noqa: E402
+    BONUS_BUY_SLICES,
+    BONUS_MIN_WIN,
+    EPIC_BUY_SLICES,
+    MYSTERY_SLICES,
+    SUPER_BUY_SLICES,
+    SUPER_MIN_WIN,
+    TARGET_RTP,
+    WINCAP,
+)
 from game_optimization import TARGETS  # noqa: E402
 
-MATERIAL_SLICES = {"super": SUPER_BUY_SLICES, "epic": EPIC_BUY_SLICES}
+# Reshape 2026-10-16: the Bonus buy has material slices too.
+MATERIAL_SLICES = {"bonus": BONUS_BUY_SLICES, "super": SUPER_BUY_SLICES, "epic": EPIC_BUY_SLICES}
 # Mystery diversity pass (2026-10-15): Mystery's slices, by the outcome criteria they copy. A
 # slice's books join that outcome's group (and its bands); they are never a group of their own.
 MYSTERY_SLICE_PARENT = {name: parent for name, (_, _, parent) in MYSTERY_SLICES.items()}
@@ -58,7 +68,25 @@ def _mystery_criteria(parent):
 # band onto them); the Epic buy's densest book lands near 1 in 76,000 without it.
 # Mystery (Mystery diversity pass, 2026-10-15): the same 1 in 50,000. It binds on the Mystery
 # Super's lowest payers exactly as on the bought Super's (the two share SUPER_BANDS and mean).
-PER_BOOK_CEILING = {"super": 1 / 50_000, "epic": 1 / 50_000, "mystery": 1 / 50_000}
+# Reshape 2026-10-16: the Bonus buy joins them (its 10x floor puts about 21% of all buys in 10x-25x).
+PER_BOOK_CEILING = {"bonus": 1 / 50_000, "super": 1 / 50_000, "epic": 1 / 50_000, "mystery": 1 / 50_000}
+# REHEARSALS ONLY (reshape 2026-10-16): a 10,000-book rehearsal deck cannot meet a 1 in 50,000
+# ceiling by construction, so MANTICORE_REHEARSAL_CEILING=N shapes it under 1 in N instead and the
+# printout says so. Never set for a real deck: the published tables are shaped at 1 in 50,000.
+if os.environ.get("MANTICORE_REHEARSAL_CEILING"):
+    _n = float(os.environ["MANTICORE_REHEARSAL_CEILING"])
+    PER_BOOK_CEILING = {mode: 1 / _n for mode in PER_BOOK_CEILING}
+    print(f"REHEARSAL: per-book ceiling 1 in {_n:,.0f} (real decks use 1 in 50,000)")
+
+# CASCADE-STEP PREFERENCE (reshape 2026-10-16). Inside each band of the base-game groups (dribble,
+# basewin, midwin, bigwin) of base / ante / super_ante, a book's weight is payout^t x
+# e^(STEP_PREFERENCE x min(steps, STEP_CAP)), steps = the cascade steps of its base spin (read from
+# the books). Band shares, group means, RTP and hit rate stay exact (t is solved with the
+# preference in place); only WHICH books represent a band moves, towards multi-step tumbles: a 2x
+# win is more often a two- or three-step tumble than one cluster. Books are untouched.
+STEP_PREFERENCE = 0.7
+STEP_CAP = 4
+STEP_GROUPS = {"dribble", "basewin", "midwin", "bigwin"}
 
 LIB = os.environ.get("MANTICORE_LIB") or os.path.join(GAME, "library")
 PAYOUT_SCALE = 100  # lookup-table payouts are hundredths of the base bet
@@ -78,11 +106,14 @@ BIGWIN = [((20, 50), 0.86), ((50, 100), 0.105), ((100, 500), 0.035)]
 
 # A Bonus: 8 spins, 64x ladder, no Roar and no Super Sting. Modest by design (spec B:
 # "bonuses fairly frequent but not the point").
-BONUS_BANDS = [((0, 10), 0.09), ((10, 25), 0.19), ((25, 50), 0.24), ((50, 100), 0.23),
+# RESHAPE 2026-10-16: the Free Spins floor (10x on the free spins, BONUS_MIN_WIN) removes the old
+# ((0, 10), 0.09) band; the other shares are unchanged and normalised, so 10x-25x is 20.9%.
+BONUS_BANDS = [((BONUS_MIN_WIN, 25), 0.19), ((25, 50), 0.24), ((50, 100), 0.23),
                ((100, 200), 0.15), ((200, 500), 0.085), ((500, 1500), 0.014),
                ((1500, 5000), 0.0018), ((5000, WINCAP), 0.0002)]
 # A Super: 10 spins, 128x ladder, Roar, a rare Super Sting.
-SUPER_BANDS = [((0, 25), 0.09), ((25, 60), 0.18), ((60, 120), 0.22), ((120, 250), 0.24),
+# RESHAPE 2026-10-16: the Super floor (25x, SUPER_MIN_WIN) removes the old ((0, 25), 0.09) band.
+SUPER_BANDS = [((SUPER_MIN_WIN, 60), 0.18), ((60, 120), 0.22), ((120, 250), 0.24),
                ((250, 500), 0.15), ((500, 1000), 0.075), ((1000, 2500), 0.028),
                ((2500, 6000), 0.006), ((6000, WINCAP), 0.0009)]
 # An Epic BOUGHT for 500x: floor 200x, mean 0.967 x 500 = 481x. Most rounds return about half
@@ -119,7 +150,7 @@ BASE_SPIN_CRITERIA = {"basegame", "basegame_mid", "basegame_high", "0"}
 CAP_CRITERIA = {"wincap", "freegame", "supergame", "epicgame"}
 # How much of the `basegame` criteria's probability is a sub-1x dribble rather than a 1-5x win.
 # 0.55 puts the dribble at about 4.8% of RTP, which is where Angry Mantis shipped (4.7%).
-DRIBBLE_SHARE_OF_BASEGAME = 0.55
+DRIBBLE_SHARE_OF_BASEGAME = 0.58  # reshape 2026-10-16: was 0.55 (base hit 28% -> 44%)
 DRIBBLE_MEAN = 0.33  # the floor these bands can reach is 0.29 (the smallest payout is 0.2x)
 
 
@@ -208,6 +239,30 @@ def read_segmented(mode):
                 out[int(r[0])] = (r[1], pay[int(r[0])])
     assert len(out) == len(pay), f"{mode}: segmented/payout tables disagree"
     return out
+
+
+def base_spin_steps(mode):
+    """book id -> cascade steps of the BASE spin (cascade events before the first free-spin
+    reveal), read from the books of the library being shaped (reshape 2026-10-16)."""
+    import io
+    import json
+
+    import zstandard
+
+    path = os.path.join(LIB, "publish_files", f"books_{mode}.jsonl.zst")
+    steps = {}
+    with open(path, "rb") as fh:
+        for line in io.TextIOWrapper(zstandard.ZstdDecompressor().stream_reader(fh), encoding="utf-8"):
+            book = json.loads(line)
+            n = 0
+            for event in book["events"]:
+                kind = event["type"]
+                if kind == "reveal" and event.get("gameType") == "freegame":
+                    break
+                if kind == "cascade":
+                    n += 1
+            steps[book["id"]] = n
+    return steps
 
 
 def in_band(band, payout):
@@ -302,7 +357,7 @@ def shape(mode, dry_run=False, quiet=False):
     def band_shares(g, t):
         out = {}
         for band, _ in g["bands"]:
-            l = g["_log"][band] * t
+            l = g["_log"][band] * t + g["_pref"][band]
             l -= l.max()
             e = np.exp(l)
             out[band] = e / e.sum()
@@ -334,9 +389,15 @@ def shape(mode, dry_run=False, quiet=False):
             assert abs(got - target) <= 1e-6 * max(1.0, target), f"{mode}/{g['name']}: mean {got} != {target}"
         return t
 
+    steps = base_spin_steps(mode) if mode in ("base", "ante", "super_ante") and STEP_PREFERENCE else None
     for g in groups:
         g["_pay"] = {band: np.array([p for _, p in g["members"][band]]) for band, _ in g["bands"]}
         g["_log"] = {band: np.log(np.maximum(g["_pay"][band], 0.01)) for band, _ in g["bands"]}
+        g["_pref"] = {
+            band: (STEP_PREFERENCE * np.minimum(np.array([steps[i] for i, _ in g["members"][band]], dtype=float), STEP_CAP)
+                   if steps is not None and g["name"] in STEP_GROUPS else np.zeros(len(g["members"][band])))
+            for band, _ in g["bands"]
+        }
         if g.get("mean", None) not in (None, "residual"):
             g["t"] = solve(g, g["mean"])
         elif "mean" not in g:
@@ -380,6 +441,10 @@ def shape(mode, dry_run=False, quiet=False):
             n = sum(len(v) for v in g["members"].values())
             print(f"   {g['name']:11s} {got:12.9f} {1 / got:12,.1f} {gm:11.2f} "
                   f"{got * gm / cost / rtp:9.2%} {g['t']:+7.3f}  {n}")
+        if steps is not None:
+            sw = lambda k: sum(wi[i] for i in wi if steps.get(i, 0) >= k) / total
+            print(f"   base-spin cascade steps (step preference {STEP_PREFERENCE:g}): 2+ {sw(2):.2%}  3+ {sw(3):.3%}"
+                  f" (1 in {1 / max(sw(3), 1e-12):,.0f})")
         print(f"   RTP share: <1x {share(0.01, 1):.2%}  5x+ {share(5):.1%}  20x+ {share(20):.1%}  "
               f"200x+ {share(200):.1%}")
         print(f"   spins paying 5x+ {p_ge(5):.4%}  20x+ {p_ge(20):.4%}  100x+ {p_ge(100):.4%}")

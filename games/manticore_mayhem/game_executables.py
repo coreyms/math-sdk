@@ -8,7 +8,7 @@ import random
 
 from src.calculations.cluster import Cluster
 
-from game_calculations import GameCalculations
+from game_calculations import GameCalculations, fast_cell_completes, fast_clusters, fast_has_win
 from game_events import (
     bonus_end_event,
     bonus_start_event,
@@ -76,9 +76,19 @@ class GameExecutables(GameCalculations):
             # spin: it bounds the tail and the events-per-book budget at the same time.
             if swipes >= self.config.swipe_max_per_spin:
                 break
-            if random.random() >= self.config.swipe_chance.get(ctx, 0.0):
+            chance = self.config.swipe_chance.get(ctx, 0.0)
+            # RESCUE (reshape 2026-10-16): the first swipe roll of a free spin that has paid
+            # nothing so far uses SWIPE_CHANCE_DEAD (game_config) where the context has one.
+            if swipes == 0 and self.win_manager.spin_win == 0 and ctx in self.config.swipe_chance_dead:
+                chance = self.config.swipe_chance_dead[ctx]
+            if random.random() >= chance:
                 break
-            self.do_swipe()
+            if self.config.swipe_must_win.get(ctx, False):
+                # MUST WIN (reshape 2026-10-16): no band that refills into a win -> no swipe.
+                if not self.do_swipe_must_win():
+                    break
+            else:
+                self.do_swipe()
             swipes += 1
 
         # setWin is not emitted (derivable from the cascade events); one running total per
@@ -123,6 +133,101 @@ class GameExecutables(GameCalculations):
         self.remove_and_refill(positions)
         swipe_event(self, rows, removed, tile_changes)
 
+    # ---------------------------------------------------------------------------------
+    # MUST-WIN creature rules (math reshape, Corey 2026-10-16)
+    # ---------------------------------------------------------------------------------
+    def board_has_win(self) -> bool:
+        """Does the current board hold at least one paying 5+ cluster (wilds substituting)?"""
+        # exactly "some cluster of fast_clusters / Cluster.get_clusters is in the paytable", stopping
+        # at the first one (fast_has_win; equality asserted in tests/test_math.py)
+        return fast_has_win(self.board, self.config.paying_symbols, self.config.special_symbols["wild"])
+
+    def do_swipe_must_win(self) -> bool:
+        """A swipe that always completes a winning cluster (reshape 2026-10-16).
+
+        The six bands are tried in random order. Each try is the ordinary swipe (tiles in the band
+        stepped up, the band cleared except scatters, the board refilled off the strip); if the
+        refilled board holds a paying cluster that try is kept and its `swipe` event emitted, which
+        is byte for byte the event do_swipe writes. Otherwise the board, the tile grid, the reel
+        positions and the tumble bookkeeping are put back exactly as they were and the next band
+        is tried. If no band works there is no swipe and nothing is emitted. The cascade loop that
+        follows evaluates the board, so the win this swipe made is paid by the next cascade.
+        """
+        starts = list(self.config.swipe_band_starts)
+        random.shuffle(starts)
+        for start in starts:
+            rows = tuple(range(start, start + self.config.swipe_band_rows))
+            snap_board = [list(column) for column in self.board]
+            snap_tiles = [list(column) for column in self.tile_grid]
+            snap_positions = list(self.reel_positions)
+            snap_before = getattr(self, "board_before_tumble", None)
+            snap_new = [list(column) for column in self.new_symbols_from_tumble]
+            positions = [
+                (reel, row)
+                for reel in range(self.config.num_reels)
+                for row in rows
+                if not self.board[reel][row].check_attribute("scatter")
+            ]
+            tile_changes = self.double_tiles(
+                positions, seed_empty=self.config.swipe_seeds_empty_tiles[self.context]
+            )
+            self.remove_and_refill(positions)
+            if self.board_has_win():
+                removed = sorted(cell(reel, row) for reel, row in positions)
+                swipe_event(self, rows, removed, tile_changes)
+                return True
+            for reel, row in positions:
+                snap_board[reel][row].explode = False
+            self.board = snap_board
+            self.tile_grid = snap_tiles
+            self.reel_positions = snap_positions
+            self.board_before_tumble = snap_before
+            self.new_symbols_from_tumble = snap_new
+            self.get_special_symbols_on_board()
+        return False
+
+    def place_normal_run_must_win(self, normals: int) -> None:
+        """A run of `normals` normal stings whose LAST sting completes a paying cluster touching
+        it (reshape 2026-10-16). The first normals-1 cells are drawn exactly as place_normal_sting
+        draws them, on the live board; the last is the first cell, in random order, whose wild
+        completes a paying 5+ cluster that contains it (sting_shape_wins on a one-cell shape). If no
+        cell can, the board is put back and the WHOLE run is dropped: nothing is recorded or
+        emitted. Otherwise every sting is recorded and emitted in order, as before."""
+        wild = self.config.special_symbols["wild"][0]
+        snap_board = [list(column) for column in self.board]
+
+        def free_cells():
+            return [
+                (reel, row)
+                for reel in range(self.config.num_reels)
+                for row in range(self.config.num_rows[reel])
+                if not self.board[reel][row].check_attribute("wild", "scatter")
+            ]
+
+        cells = []
+        for _ in range(normals - 1):
+            candidates = free_cells()
+            if not candidates:
+                break
+            reel, row = random.choice(candidates)
+            self.board[reel][row] = self.create_symbol(wild)
+            cells.append((reel, row))
+        candidates = free_cells()
+        random.shuffle(candidates)
+        # fast_cell_completes is exactly sting_shape_wins([rc]) (equality asserted in the tests)
+        paying, wilds = self.config.paying_symbols, self.config.special_symbols["wild"]
+        last = next((rc for rc in candidates if fast_cell_completes(self.board, rc[0], rc[1], paying, wilds)), None)
+        if last is None:
+            self.board = snap_board
+            self.get_special_symbols_on_board()
+            return
+        self.board[last[0]][last[1]] = self.create_symbol(wild)
+        cells.append(last)
+        self.get_special_symbols_on_board()
+        for reel, row in cells:
+            self.record({"sting": "normal", "gametype": self.gametype})
+            sting_event(self, "normal", cell(reel, row), [cell(reel, row)], wild)
+
     def maybe_sting(self, ctx: str) -> None:
         """The sting system (rule pass 2, Corey 2026-09-23).
 
@@ -155,6 +260,11 @@ class GameExecutables(GameCalculations):
         normals = random.choices(counts, weights=[table[c] for c in counts])[0]
         normals = min(normals, self.config.sting_max_per_spin - (1 if finisher else 0))
 
+        # MUST WIN (reshape 2026-10-16): a normal-only run must end on a winning sting. A run
+        # with a big / super finisher keeps the finisher's own must-win rule.
+        if not finisher and normals > 0 and self.config.sting_must_win.get(ctx, False):
+            self.place_normal_run_must_win(normals)
+            return
         for _ in range(normals):
             self.place_normal_sting()
         if finisher:
@@ -197,7 +307,7 @@ class GameExecutables(GameCalculations):
         shape_set = set(shape)
         for reel, row in shape:
             trial[reel][row] = wild_symbol
-        clusters = Cluster.get_clusters(trial, "wild")
+        clusters = fast_clusters(trial, self.config.special_symbols["wild"])  # = Cluster.get_clusters
         for symbol, found in clusters.items():
             for positions in found:
                 if (len(positions), symbol) not in self.config.paytable:

@@ -4,7 +4,12 @@ tumbling refill, doubling multiplier tiles. Max win 10,000x. Target RTP 96.7% ev
 Game id: manticore_mayhem. Spec: ~/Projects/manticore/docs/manticore-spec.md (blocks B/C/D).
 Forked from the SDK's 0_0_cluster sample; conventions follow games/angry_mantis.
 
-STATUS 2026-10-15 20:25 (CURRENT): PROMOTED AND SUBMITTED. library/ now holds the final 2026.10.15 set (the
+STATUS 2026-10-16 (math reshape, CURRENT): Corey's go at 16:16 ("1. 44%, 2. 25x. 3. Strong."). library/ holds the
+2026.10.16 set: 44% base hit rate, clumped base strips, swipes and sting runs that always pay, the free-spins rescue
+swipe, Free Spins 10x / Super 25x floors. Every gate passed on it (see "Math reshape, 2026-10-16" at the bottom).
+The 2026.10.15 set Stake has is library-pre-reshape-20261016/. NOT COMMITTED, NOT ON STAGING: waits for Corey's look.
+
+STATUS 2026-10-15 20:25 (superseded by 2026-10-16): PROMOTED AND SUBMITTED. library/ now holds the final 2026.10.15 set (the
 Mystery candidate folder, which already contains the Super and Epic diversity pass); the previous library is kept as
 library-pre-diversity-20261015. Staging served the same 15 files (sha256 checked) and Corey uploaded them to Stake with
 frontend 1.0.01 on 2026-10-15. The status lines below are the history of how it got here.
@@ -1555,3 +1560,150 @@ KNOWN LIMITS AND THINGS TO DECIDE
     pass too) in its place, set the frontend's mathVersion to 2026.10.15, restart the mock (its
     book cache rebuilds on first play), then verify_math.py and scatter_scan.py with no
     arguments. Staging needs books_super, books_epic and books_mystery (1.37 GB) and the tables.
+
+-------------------------------------------------------------------------------------------
+Math reshape, 2026-10-16 - MORE BASE WINS, CREATURE ALWAYS PAYS, FREE SPINS FLOORS, RESCUE SWIPE
+-------------------------------------------------------------------------------------------
+Corey's decision, 2026-10-16 16:16, on the proposal in ~/Desktop/Manticore Mayhem/feedback/
+math_reshape_r1/PROPOSAL.md: "1. 44%, 2. 25x. 3. Strong." That is a 44% base hit rate, a 25x
+Super floor (Free Spins 10x, Epic 200x as before) and the strong free-spins rescue swipe. Why: the
+2026-10-15 gameplay review (docs/reviews/manticore-harsh-review-2026-10-15-gameplay.md) measured a
+still base game (72% of spins with no cluster, a 3+ tumble 1 spin in 134), a creature whose
+actions mostly changed nothing (83% of base swipes and half of all sting runs led to no win) and
+free spins that paid nothing 4 times in 10 (43% / 42% / 38% for Free Spins / Super / Epic), with
+9% of Free Spins rounds paying under 10x. Corey: "For more wins, and less swipes/features that
+lead to nothing ... I would prefer that free spins never pay less than 10x the base spin amount."
+
+WHAT DID NOT CHANGE: the paytable, the board, the tile ladder (seed 2, doubling, caps 64 / 128),
+spin counts 8 / 10 / 12, buy prices, TARGET_RTP, the 10,000x max win, the Mystery split, every
+scatter rule (one per column, 7 never, 8 only as an Epic's first board at 2,500x+), the Epic 200x
+and Mystery Epic 500x floors, the feature strip FR, the wincap strip WCAP, the event schema.
+
+EVERY CONSTANT THAT CHANGED
+  reels/make_reels.py   CLUMP {BR 0.2, BA 0.2, SA 0.2, FR 0, WCAP 0}: a share of each symbol's
+                        stops laid as vertical pairs (build_reel_clumped). The old construction
+                        de-clumped every strip to 0.5% equal vertical neighbours; a plain shuffle
+                        gives about 14%; 0.2 gives about 9%. BR, BA, SA regenerated
+                        (`make_reels.py BR BA SA`); FR and WCAP untouched byte for byte.
+  reels/BRB.csv         NEW: the 2026-09-20 BR, byte for byte (sha1 86eef219...). The buys' trigger
+                        spin and the Mystery spin-in are drawn on it (game_config.BUY_STRIP), so
+                        the bought features and Mystery's `nothing` slice keep their board.
+  game_config.py
+    MATH_VERSION        2026.10.15 -> 2026.10.16
+    SWIPE_CHANCE        base .25 -> .35, bonus .32 -> .12, super .30 -> .12, epic .35 -> .12
+    SWIPE_MUST_WIN      NEW, True everywhere: the six bands are tried in random order, the first
+                        whose refill pays is used, none -> no swipe (game_executables.do_swipe_must_win)
+    SWIPE_CHANCE_DEAD   NEW {bonus .9, super .9, epic .9}: the first swipe roll of a free spin that
+                        has paid nothing so far ("the rescue")
+    STING_CHANCE        base .12 -> .15 (the others unchanged)
+    STING_MUST_WIN      NEW, True everywhere: a normal-only run's last sting must complete a paying
+                        cluster touching it, or the run is dropped (place_normal_run_must_win)
+    BONUS_MIN_WIN 10, SUPER_MIN_WIN 25, FEATURE_MIN_WIN {bonus 10, super 25, epic 200}: NEW floors
+                        on the FREE SPINS total, re-drawn in gamestate.enforce_feature_floor for
+                        natural, bought and Mystery rounds (a capped round passes)
+    BUY_STRIP           NEW "BRB" for every buy criteria and Mystery
+    DIVERSITY_EPIC_BOOKS 136,000 -> 135,000 (splits evenly over 3 processes; slices unchanged)
+    DIVERSITY_SUPER_BOOKS 210,000 -> 189,000 (3 x 63,000; under the 10M-events limit with the
+                        rescue's extra cascades); SUPER_BUY_SLICES 0x-500x (160,000) -> 25x-60x
+                        18,000 + 60x-120x 20,000 + 120x-500x 60,000 (sized on the rehearsal: the
+                        first cut, 12,000 + 80,000, projected a repeat chance within 50 buys of
+                        about 1.8% against the 2% house limit)
+    DIVERSITY_BONUS_BOOKS NEW 129,000; BONUS_BUY_SLICES NEW 10x-25x 16,000 + 25x-50x 20,000 +
+                        50x-100x 12,000; BONUS_BUY_WINCAP_QUOTA 520 books (was 0.004 of 100,000)
+    spin-mode decks     100,000 -> 99,000 books (split evenly over the processes)
+    MYSTERY_SLICES      mystery_super_low 0x-500x (50,000) -> 25x-60x 6,000 + mystery_super_mid
+                        60x-500x 44,000
+  game_optimization.py  TARGETS base: freegame 1/300 -> 1/360, supergame 1/2,000 -> 1/2,600,
+                        epicgame 1/12,000 -> 1/14,000, basegame_high .0042 -> .0030,
+                        basegame_mid .018 -> .016, basegame .255 -> .42. ante: freegame 1/60 ->
+                        1/63, basegame .22 -> .33. super_ante: supergame 1/39 -> 1/39.5, basegame
+                        .255 -> .37. _material_slices: the Bonus buy's slices.
+  tools/shape_lut.py    BONUS_BANDS start at 10x (the ((0,10), .09) band removed), SUPER_BANDS at
+                        25x (((0,25), .09) removed); DRIBBLE_SHARE_OF_BASEGAME .55 -> .58;
+                        PER_BOOK_CEILING adds bonus (1 in 50,000); STEP_PREFERENCE 0.7 per base-spin
+                        cascade step (capped at 4) inside the base groups of the spin modes (read
+                        from the books, base_spin_steps); MANTICORE_REHEARSAL_CEILING (rehearsals
+                        only, printed when set).
+  game_executables.py   play_spin: rescue chance + must-win; do_swipe_must_win; board_has_win;
+                        place_normal_run_must_win; maybe_sting routes normal-only runs through it.
+  game_calculations.py  RUN TIME ONLY, NO BOOK CHANGES: fast_clusters (exactly the SDK's
+                        Cluster.get_clusters - same clusters, same cell and symbol order - with sets
+                        instead of list scans; now used by evaluate_clusters_with_tiles and the
+                        sting checks), fast_has_win (the yes/no "is there a paying cluster",
+                        stopping at the first 5), fast_cell_completes (the one-cell sting check).
+                        All three asserted equal to the full SDK scan on thousands of random boards
+                        (tests/test_math.py). A Free Spins round went from 42 ms to about 15 ms;
+                        without them the full run would not have fitted in a night.
+  gamestate.py          enforce_feature_floor: Free Spins 10x / Super 25x before the Epic checks.
+  tools/scatter_scan.py the gate also checks the Free Spins 10x and Super 25x floors book by book;
+                        the new slices' forced boards.
+  tests/test_math.py    45 checks (5 new: swipe always pays, every sting run pays, the rescue only
+                        on a free spin that paid nothing, the 10x / 25x floors, the strips and
+                        BRB); 4 updated (MATH_VERSION, floors, the Bonus buy's slices, a larger
+                        sample for the 8-board re-draw).
+  NOT RUN               tests/test_scatter8_samples.py: its part 4 compares regenerated books one
+                        for one with the 2026-10-13 rollback copy, which cannot hold after a
+                        deliberate engine change. Its parts 1 to 3 are covered by the rehearsal
+                        (pipeline + scatter_scan over 65,000 books) and by test_math.py's samples.
+
+HOW IT WAS RUN
+  rehearsal             reshape-rehearsal-20261016/ (10,000 books per mode, Epic 5,000), shaped
+                        under MANTICORE_REHEARSAL_CEILING=1500, every gate passed.
+  rollback              library/ moved aside as library-pre-reshape-20261016 (the 2026.10.15 set,
+                        what Stake has).
+  full run              reshape-20261016/schedule.sh, nice 10, 5 processes in all, one run.py per
+                        output folder at a time (the SDK removes its temp folder when a run ends):
+                          run_epic    epic 135,000 books, 3 processes
+                          run_rest    bonus 129,000, mystery 351,000, base / ante / super_ante
+                                      99,000, 2 processes, one mode after another
+                          run_super   super 189,000, 5 processes, once both of the above are done
+                        then reshape-20261016/merge_and_gate.sh: merge into library/, shape, gates.
+                        Two earlier starts (16:48, 16:58) were stopped to add the run-time speed-ups
+                        and re-balance; their partial folders are in reshape-20261016/aborted_*.
+  logs                  reshape-20261016/logs (timeline, sim logs, every gate's output)
+
+RESULTS ON THE REAL BOOKS (library/, math 2026.10.16; before = library-pre-reshape-20261016, the
+2026.10.15 set). Full tables: ~/Desktop/Manticore Mayhem/feedback/math_reshape_r1/data/
+today_vs_new_real_books.md (scripts/compare_libraries.py, one set of definitions for both).
+  base          hit 28.1% -> 44.2% (1 in 2.26)   pays at least the bet 14.1% -> 19.9%
+                tumble 2+ steps 5.2% -> 13.3%, 3+ 1 in 134 -> 1 in 33   multiplier used 5.8% -> 10.0%
+                swipe on the spin 24.1% (17% followed by a win) -> 8.2% (100%)
+                sting run on the spin 12.0% (50% hollow) -> 10.0% (every one pays)
+                nothing at all happens 53.1% -> 55.8% (no more hollow creature theatre)
+                std 22.21 -> 19.42   features 53.1% -> 43.6% of RTP, any feature 1 in 255 -> 1 in 309
+                100 spins: median -49.6% -> -41.8% of stake, longest run without a win 11 -> 7
+  ante          hit 26.8% -> 37.7%   std 15.35 -> 14.64   3+ tumbles 1 in 86 -> 1 in 32
+  super_ante    hit 30.1% -> 41.6%   std 11.82 -> 11.46   3+ tumbles 1 in 89 -> 1 in 31
+  free spins    dead free spins, Free Spins / Super / Epic buys: 43.2 / 41.7 / 37.9% -> 19.8 / 18.3 /
+                15.5% (3.46 / 4.17 / 4.55 -> 1.59 / 1.83 / 1.86 per round); rounds with 4+ dead
+                48.5 / 65.8 / 75.9% -> 5.0 / 8.9 / 8.5%. Lowest live free spins total 0.0x / 0.0x /
+                200.0x -> 10.0x / 25.0x / 200.0x (natural rounds and Mystery's Super the same).
+                Free Spins p10 / median 10.9x / 47.3x -> 16.6x / 53.1x. Super 25.9x / 121.2x -> 38.7x /
+                129.6x. Epic 221.2x / 296.4x -> 222.0x / 296.5x.
+  creature      swipes followed by a win 100.0% and sting runs that pay 100.0% in base, ante,
+                super_ante and the Bonus buy (walk_actions on every book).
+GATES (all PASS; logs in reshape-20261016/logs/gate_*.log)
+  RTP           every mode 0.96699 (base 0.9669856: the max win's integer weights over 1,018 capped
+                books land it at 1 in 3,004,031; ante .9669909, super_ante .9669896); spread 5.3e-6
+  operator risk check_stats: every mode inside the 2-star limits (base std 19.42, cvar/cost <= 320,
+                etl40 <= 0.585); run.py's RGS checks print the same un-normalised etl40b/etl10k lines
+                for the modes priced above 1x as the shipped set did (readme, tuning pass)
+  books         verify_math: 1,101,000 books walked, payout = LUT and finalWin = total on every one;
+                2 rows with weight 0 (a 511.4x base and a 509.7x super_ante spin without a feature,
+                above the 500x top of BIGWIN)
+  scatters      scatter_scan PASS: 0 triggers on 7, 2,167 books on 8 (all forced first boards of an
+                Epic at 2,500x+), no scatter on a free-spin board, scatter-sting reveals show 0 to 3,
+                the 10x / 25x / 200x / Mystery 500x / Epic8 2,500x floors on every book
+  diversity     bonus 96,841 effective books, top 1 in 50,000, repeat within 50 buys 1.26%;
+                super 89,650 / 50,000 / 1.36%; epic 73,243 / 50,000 / 1.66%; mystery 160,573 /
+                50,000 / 0.76%. Spin modes as before: base 55,173 / 11,827 / 2.20%, ante 48,093 /
+                9,387 / 2.52%, super_ante 48,043 / 3,670 / 2.52% (the step preference concentrates
+                super_ante's 20x-50x band; a spin-mode ceiling would need DRIBBLE_MEAN 0.33 -> 0.35)
+  events        epic 7.25M, super 8.37M, mystery 6.0M, bonus 4.57M (limit 10M per mode)
+  max win       base 1 in 3,004,031, ante 999,728, super_ante 500,104, bonus 25,000, super 8,000,
+                epic 3,000, mystery 8,623; cap spin index epic mean 9.09, 96.1% on free spins 5-12
+  8 scatters    as shipped: base 1 in 2,068,851, ante 1 in 322,690, super_ante 1 in 35,973, epic buy
+                1 in 1,088 (10.7 / 12.3 / 11.9 / 5.2% of the Epic's 2,500x-and-over rounds)
+  tests         test_math.py 47/47
+  RUN TIME      Free Spins 2 h 01 min, Mystery 1 h 39 min, base / ante / super_ante 3 min each (2
+                processes); Epic 4 h 45 min (3 processes); Super 37 min (5 processes). 17:11 to 22:33.

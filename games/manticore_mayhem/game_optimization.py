@@ -69,18 +69,24 @@ DRIBBLE_MEAN = 0.30
 MID_MEAN = 7.5  # the 5-20x band
 HIGH_MEAN = 30.0  # the 20-500x band
 
+# MATH RESHAPE (Corey 2026-10-16 16:16, "1. 44%"): the base game moves from a 28% hit rate to 44%.
+# Paid for by slightly rarer features (Free Spins 1 in 300 -> 360, Super 2,000 -> 2,600, Epic 12,000
+# -> 14,000; any feature 1 in 255 -> 309) and fewer 20x+ base-only wins (0.42% -> 0.30%), so base
+# spins carry 56% of the RTP instead of 47%. Evidence: ~/Desktop/Manticore Mayhem/feedback/
+# math_reshape_r1/PROPOSAL.md (variant R2, shaped with this shaper on the 2026.10.15 decks).
+# Old values in the comments.
 TARGETS = {
     "base": {
         "cost": 1.0,
         "criteria": {
             # criteria: (probability per round, mean x base bet or "residual")
             "wincap": (1 / 3_000_000, WINCAP),
-            "epicgame": (1 / 12_000, EPIC_MEAN),
-            "supergame": (1 / 2_000, SUPER_MEAN),
-            "freegame": (1 / 300, BONUS_MEAN),
-            "basegame_high": (0.0042, HIGH_MEAN),
-            "basegame_mid": (0.0180, MID_MEAN),
-            "basegame": (0.2550, "residual"),
+            "epicgame": (1 / 14_000, EPIC_MEAN),  # was 1 / 12,000
+            "supergame": (1 / 2_600, SUPER_MEAN),  # was 1 / 2,000
+            "freegame": (1 / 360, BONUS_MEAN),  # was 1 / 300
+            "basegame_high": (0.0030, HIGH_MEAN),  # was 0.0042
+            "basegame_mid": (0.0160, MID_MEAN),  # was 0.0180
+            "basegame": (0.4200, "residual"),  # was 0.2550
             "0": ("residual", 0.0),
         },
     },
@@ -95,10 +101,10 @@ TARGETS = {
             "wincap": (1 / 1_000_000, WINCAP),
             "epicgame": (1 / 2_400, EPIC_MEAN),
             "supergame": (1 / 400, 230.0),  # was SUPER_MEAN 241.75x
-            "freegame": (1 / 60, 88.0),  # was BONUS_MEAN 96.7x
+            "freegame": (1 / 63, 88.0),  # was BONUS_MEAN 96.7x; reshape 2026-10-16: was 1 / 60
             "basegame_high": (1 / 300, 36.0),  # was 0.0018 at 30x: 12x the price
             "basegame_mid": (1 / 40, 9.0),  # was 0.0160 at 7.5x: 3x the price
-            "basegame": (0.2200, "residual"),
+            "basegame": (0.3300, "residual"),  # reshape 2026-10-16: was 0.2200 (hit 27% -> 38%)
             "0": ("residual", 0.0),
         },
     },
@@ -107,10 +113,10 @@ TARGETS = {
         "criteria": {
             "wincap": (1 / 500_000, WINCAP),
             "epicgame": (1 / 262, EPIC_MEAN),
-            "supergame": (1 / 39, SUPER_MEAN),
+            "supergame": (1 / 39.5, SUPER_MEAN),  # reshape 2026-10-16: was 1 / 39
             "basegame_high": (0.0015, HIGH_MEAN),
             "basegame_mid": (0.0150, MID_MEAN),
-            "basegame": (0.2550, "residual"),
+            "basegame": (0.3700, "residual"),  # reshape 2026-10-16: was 0.2550 (hit 30% -> 42%)
             "0": ("residual", 0.0),
         },
     },
@@ -202,12 +208,13 @@ def _material_slices(mode: str) -> dict:
     2026-10-15). Empty for every mode but the Super, Epic and Mystery buys. The parent is the
     criteria whose target the slice's books serve: the buy's own criteria, or for Mystery the
     outcome the slice plays (game_config MYSTERY_SLICES)."""
-    from game_config import EPIC_BUY_SLICES, MYSTERY_SLICES, SUPER_BUY_SLICES
+    from game_config import BONUS_BUY_SLICES, EPIC_BUY_SLICES, MYSTERY_SLICES, SUPER_BUY_SLICES
 
     if mode == "mystery":
         return {name: (win_range, parent) for name, (_, win_range, parent) in MYSTERY_SLICES.items()}
-    parent = {"super": "supergame", "epic": "epicgame"}.get(mode)
-    slices = {"super": SUPER_BUY_SLICES, "epic": EPIC_BUY_SLICES}.get(mode, {})
+    # reshape 2026-10-16: the Bonus buy has material slices too
+    parent = {"bonus": "freegame", "super": "supergame", "epic": "epicgame"}.get(mode)
+    slices = {"bonus": BONUS_BUY_SLICES, "super": SUPER_BUY_SLICES, "epic": EPIC_BUY_SLICES}.get(mode, {})
     return {name: (win_range, parent) for name, (_, win_range, _) in slices.items()}
 
 

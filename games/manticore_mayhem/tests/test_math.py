@@ -930,7 +930,7 @@ def _():
     assert EPIC8_MIN_WIN == 2500.0 and EPIC8_SHARE_SPIN == 0.10 and EPIC8_SHARE_EPIC_BUY == 0.05
     assert EPIC8_SHARE == {"base": 0.10, "ante": 0.10, "super_ante": 0.10, "epic": 0.05}, EPIC8_SHARE
     assert (MAX_TRIGGER_SCATTERS, FULL_BOARD_SCATTERS) == (6, 8)
-    assert MATH_VERSION == "2026.10.15", MATH_VERSION  # diversity pass; rule pass 3 was 2026.10.13
+    assert MATH_VERSION == "2026.10.16", MATH_VERSION  # math reshape; 2026.10.15 diversity, 2026.10.13 rule pass 3
 
     cfg = GameConfig()
     forced = {}
@@ -960,11 +960,15 @@ def _():
     assert forced[("super", "supergame")] == {5: 1} and forced[("super", "wincap")] == {5: 1}
     assert forced[("epic", "wincap")] == {6: 1}
     # the diversity pass's material slices force the buy's own board (5 / 6), never more
-    assert forced[("super", "supergame_low")] == {5: 1}
+    for name in ("supergame_low", "supergame_lowmid", "supergame_mid"):
+        assert forced[("super", name)] == {5: 1}, (name, forced[("super", name)])
+    # reshape 2026-10-16: the Bonus buy's material slices force its own 4-scatter board
+    for name in ("freegame_low", "freegame_mid", "freegame_m2"):
+        assert forced[("bonus", name)] == {4: 1}, (name, forced[("bonus", name)])
     assert forced[("epic", "epicgame_body")] == {6: 1} and forced[("epic", "epicgame_mid")] == {6: 1}
     assert forced[("mystery", "epicgame")] == {6: 1} and forced[("mystery", "supergame")] == {5: 1}
     # the Mystery diversity pass (2026-10-15): its slices are the Mystery Super / Epic, 5 / 6
-    assert forced[("mystery", "mystery_super_low")] == {5: 1}
+    assert forced[("mystery", "mystery_super_low")] == {5: 1} and forced[("mystery", "mystery_super_mid")] == {5: 1}
     assert forced[("mystery", "mystery_epic_body")] == {6: 1} and forced[("mystery", "mystery_epic_mid")] == {6: 1}
     assert forced[("mystery", "mystery_epic_upper")] == {6: 1}
     for mode in ("base", "ante", "super_ante"):
@@ -1049,9 +1053,12 @@ def _():
     # an ordinary 6-scatter Epic only ever knows the 200x floor
     assert floor(6, 250.0, 250.0) == (False, {})
     assert floor(6, 199.9, 199.9) == (True, {"epic_floor": 1})
-    # and a Bonus or a Super has no floor at all
-    assert floor(5, 10.0, 10.0, bonus="super") == (False, {})
-    assert floor(4, 0.2, 0.2, bonus="bonus") == (False, {})
+    # RESHAPE 2026-10-16: Free Spins pay at least 10x and a Super 25x, on the free spins alone
+    assert floor(5, 30.0, 24.9, bonus="super") == (True, {"super_floor": 1})
+    assert floor(5, 25.0, 25.0, bonus="super") == (False, {})
+    assert floor(4, 12.0, 9.9, bonus="bonus") == (True, {"bonus_floor": 1})
+    assert floor(4, 10.0, 10.0, bonus="bonus") == (False, {})
+    assert floor(4, 0.2, 0.2, capped=True, bonus="bonus") == (False, {})
     gs.reset_redraw_counts()
     gs.reset_book()
 
@@ -1070,8 +1077,10 @@ def _():
     eights = 0
     rejected = {}
     for mode, criteria, books in (
-        ("base", "epicgame", 40), ("ante", "epicgame", 40), ("super_ante", "epicgame", 60),
-        ("epic", "epicgame", 150), ("epic", "wincap", 8), ("base", "wincap", 6),
+        # reshape 2026-10-16: samples doubled - the new engine re-draws an 8 board under 2,500x
+        # less often, and the sample must still exercise that re-draw
+        ("base", "epicgame", 80), ("ante", "epicgame", 80), ("super_ante", "epicgame", 120),
+        ("epic", "epicgame", 300), ("epic", "wincap", 8), ("base", "wincap", 6),
         ("bonus", "freegame", 60), ("super", "supergame", 60),
         ("base", "supergame", 30), ("ante", "freegame", 30), ("super_ante", "supergame", 40),
     ):
@@ -1105,6 +1114,11 @@ def _():
                 assert f["capped"] or f["end"]["totalSessionWin"] >= EPIC_MIN_WIN * 100, where
             if f["bonus"]["bonus"] == "epic" and not f["capped"]:
                 assert f["end"]["totalSessionWin"] >= EPIC_MIN_WIN * 100, f"{where}: Epic under 200x"
+            # reshape 2026-10-16: the Free Spins and Super floors, book by book
+            if f["bonus"]["bonus"] == "bonus" and not f["capped"]:
+                assert f["end"]["totalSessionWin"] >= 1000, f"{where}: Free Spins under 10x"
+            if f["bonus"]["bonus"] == "super" and not f["capped"]:
+                assert f["end"]["totalSessionWin"] >= 2500, f"{where}: Super under 25x"
         for name, n in gs.redraw_summary()[criteria]["reasons"].items():
             rejected[name] = rejected.get(name, 0) + n
         stats = gs.redraw_summary()[criteria]
@@ -1226,14 +1240,16 @@ def _():
 
 @check("diversity: a buy's material slice keeps only rounds inside its range, whole, and drops a lost draw early")
 def _():
-    from game_config import EPIC_BUY_SLICES, SUPER_BUY_SLICES
+    from game_config import BONUS_BUY_SLICES, EPIC_BUY_SLICES, SUPER_BUY_SLICES
 
     cfg = GameConfig()
     gs = GameState(cfg)
-    # the Bonus buy is dealt exactly as before the pass (no slice, same quotas and boards)
+    # RESHAPE 2026-10-16: the Bonus buy has its three material slices first, then wincap, then its
+    # own criteria, and only the slices carry a range
     bonus = next(bm for bm in cfg.bet_modes if bm.get_name() == "bonus").get_distributions()
-    assert [(d.get_criteria(), d.get_quota()) for d in bonus] == [("wincap", 0.004), ("freegame", 0.996)]
-    assert all("win_range" not in d._conditions and "early_reject" not in d._conditions for d in bonus)
+    assert [d.get_criteria() for d in bonus] == list(BONUS_BUY_SLICES) + ["wincap", "freegame"]
+    assert abs(sum(d.get_quota() for d in bonus) - 1.0) < 1e-9
+    assert all(("win_range" in d._conditions) == (d.get_criteria() in BONUS_BUY_SLICES) for d in bonus)
 
     played = {"spins": 0}
     real_update = gs.update_freespin
@@ -1244,7 +1260,9 @@ def _():
 
     gs.update_freespin = counting_update
     try:
-        for mode, slices, spins in (("epic", EPIC_BUY_SLICES, 12), ("super", SUPER_BUY_SLICES, 10)):
+        for mode, slices, spins in (
+            ("epic", EPIC_BUY_SLICES, 12), ("super", SUPER_BUY_SLICES, 10), ("bonus", BONUS_BUY_SLICES, 8)
+        ):
             for criteria, (_, (lo, hi), _) in slices.items():
                 gs.betmode, gs.criteria = mode, criteria
                 gs.reset_redraw_counts()
@@ -1260,7 +1278,7 @@ def _():
                     # into an Epic plays the Epic's 12), and the book closes on its final win
                     start = next(e for e in events if e["type"] == "bonusStart")
                     reveals = [e for e in events if e["type"] == "reveal" and e["gameType"] == "freegame"]
-                    assert len(reveals) == start["totalFs"] in (spins, 12), (mode, criteria, len(reveals))
+                    assert len(reveals) == start["totalFs"] in (spins, 10, 12), (mode, criteria, len(reveals))
                     assert events[-1]["type"] == "finalWin"
                 stats = gs.redraw_summary()[criteria]
                 assert stats["books"] == 3
@@ -1334,6 +1352,215 @@ def _():
     finally:
         gs.update_freespin = real_update
         gs.reset_redraw_counts()
+
+
+# ---------------------------------------------------------------------------------------
+# MATH RESHAPE (Corey 2026-10-16 16:16: "1. 44%, 2. 25x. 3. Strong.")
+# ---------------------------------------------------------------------------------------
+def spins_of(events):
+    out = []
+    for e in events:
+        if e["type"] == "reveal":
+            out.append([])
+        if out:
+            out[-1].append(e)
+    return out
+
+
+def sample_books(gs, plan):
+    """Yield (mode, criteria, sim, events) for a fixed sample plan."""
+    for mode, criteria, books in plan:
+        gs.betmode, gs.criteria = mode, criteria
+        for sim in range(books):
+            gs.run_spin(sim, 700_000 + sim)
+            yield mode, criteria, sim, gs.book.to_json()["events"]
+
+
+RESHAPE_PLAN = (
+    ("base", "basegame", 150), ("base", "0", 60), ("ante", "basegame", 60), ("super_ante", "basegame", 60),
+    ("bonus", "freegame", 25), ("super", "supergame", 20), ("epic", "epicgame", 15), ("mystery", "supergame", 15),
+)
+
+
+@check("reshape: every swipe completes a winning cluster, in every mode and context")
+def _():
+    gs = GameState(GameConfig())
+    swipes = 0
+    for mode, criteria, sim, events in sample_books(gs, RESHAPE_PLAN):
+        for sp in spins_of(events):
+            for k, e in enumerate(sp):
+                if e["type"] != "swipe":
+                    continue
+                swipes += 1
+                nxt = sp[k + 1] if k + 1 < len(sp) else None
+                assert nxt is not None and nxt["type"] == "cascade", f"{mode}/{criteria} {sim}: a swipe led to {nxt and nxt['type']}"
+    assert swipes > 50, swipes
+    gs.reset_redraw_counts()
+
+
+@check("reshape: every wild sting run puts a stung cell into a paying cluster")
+def _():
+    gs = GameState(GameConfig())
+    runs = 0
+    for mode, criteria, sim, events in sample_books(gs, RESHAPE_PLAN):
+        for sp in spins_of(events):
+            stung, paid, any_run = set(), False, False
+            for e in sp:
+                if e["type"] == "sting" and e["kind"] != "scatter":
+                    stung.update(e["cells"])
+                    any_run = True
+                elif e["type"] == "cascade":
+                    if any(stung & set(w["c"]) for w in e["wins"]):
+                        paid = True
+                    stung -= set(e["removed"])
+            if any_run:
+                runs += 1
+                assert paid, f"{mode}/{criteria} {sim}: a sting run paid nothing"
+    assert runs > 40, runs
+    gs.reset_redraw_counts()
+
+
+@check("reshape: the rescue swipe fires only on a free spin that has paid nothing, and always pays")
+def _():
+    gs = new_state()
+    cfg = gs.config
+    saved = dict(cfg.swipe_chance), dict(cfg.swipe_chance_dead)
+    try:
+        cfg.swipe_chance["bonus"] = 0.0
+        cfg.swipe_chance_dead["bonus"] = 1.0
+        gs.bonus_type = "bonus"
+        gs.gametype = cfg.freegame_type
+        gs.tile_cap = cfg.tile_cap["bonus"]
+        gs.reelstrip = cfg.reels["FR"]
+        rescued = quiet = 0
+        for seed in range(60):
+            random.seed(seed)
+            gs.reset_tiles()
+            gs.win_manager.reset_spin_win()
+            gs.reel_positions = [random.randrange(len(r)) for r in gs.reelstrip]
+            gs.board = [[gs.create_symbol(gs.reelstrip[r][(gs.reel_positions[r] + w) % len(gs.reelstrip[r])])
+                         for w in range(8)] for r in range(8)]
+            gs.get_special_symbols_on_board()
+            pays_already = gs.board_has_win()
+            gs.book.events = []
+            cfg.sting_chance["bonus"], old_sting = 0.0, cfg.sting_chance["bonus"]
+            gs.play_spin()
+            cfg.sting_chance["bonus"] = old_sting
+            kinds = [e["type"] for e in gs.book.events]
+            if pays_already:
+                # a paying spin never rolls the rescue (and the ordinary chance is 0 here)
+                assert "swipe" not in kinds, kinds
+            elif "swipe" in kinds:
+                rescued += 1
+                assert kinds[kinds.index("swipe") + 1] == "cascade", kinds
+            else:
+                quiet += 1
+        assert rescued > 10, (rescued, quiet)
+    finally:
+        cfg.swipe_chance.clear(); cfg.swipe_chance.update(saved[0])
+        cfg.swipe_chance_dead.clear(); cfg.swipe_chance_dead.update(saved[1])
+        gs.reset_book()
+
+
+@check("reshape: Free Spins 10x / Super 25x floors hold, natural, bought and Mystery")
+def _():
+    from game_config import BONUS_MIN_WIN, FEATURE_MIN_WIN, SUPER_MIN_WIN
+
+    assert (BONUS_MIN_WIN, SUPER_MIN_WIN) == (10.0, 25.0), "the owner's floors (2026-10-16)"
+    assert FEATURE_MIN_WIN == {"bonus": 10.0, "super": 25.0, "epic": 200.0}, FEATURE_MIN_WIN
+    gs = GameState(GameConfig())
+    seen = {"bonus": 0, "super": 0}
+    plan = (("bonus", "freegame", 40), ("bonus", "freegame_low", 6), ("super", "supergame", 25),
+            ("super", "supergame_low", 4), ("mystery", "supergame", 15), ("mystery", "mystery_super_low", 3),
+            ("base", "freegame", 15), ("ante", "freegame", 15), ("super_ante", "supergame", 15))
+    for mode, criteria, sim, events in sample_books(gs, plan):
+        start = next(e for e in events if e["type"] == "bonusStart")
+        end = next(e for e in events if e["type"] == "bonusEnd")
+        capped = any(e["type"] == "wincap" for e in events)
+        floor = {"bonus": 1000, "super": 2500, "epic": 20000}[start["bonus"]]
+        if start["bonus"] in seen:
+            seen[start["bonus"]] += 1
+        assert capped or end["totalSessionWin"] >= floor, f"{mode}/{criteria} {sim}: {start['bonus']} paid {end['totalSessionWin']}"
+    assert seen["bonus"] > 50 and seen["super"] > 50, seen
+    gs.reset_redraw_counts()
+
+
+@check("reshape: base strips clumped, the buys and the Mystery spin-in on the 2026-09-20 BR (BRB)")
+def _():
+    import hashlib
+
+    from game_config import BUY_STRIP
+
+    here = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "reels")
+    sha = lambda name: hashlib.sha1(open(os.path.join(here, name), "rb").read()).hexdigest()
+    # the files that must NOT move: the old BR (now BRB), the feature strip and the wincap strip
+    assert sha("BRB.csv") == "86eef219c24a7cfe72939023e4d8ea1a5da42f3b", "BRB is not the 2026-09-20 BR"
+    assert sha("FR.csv") == "37432b5ae3ae2a918459079a93054b244d6eba50", "FR moved"
+    assert sha("WCAP.csv") == "de9f6e78a308f1f6f3606b72e009abc1f3b841a8", "WCAP moved"
+    cfg = GameConfig()
+    assert BUY_STRIP == "BRB"
+    for name in ("BR", "BA", "SA"):
+        strip = cfg.reels[name]
+        same = sum(1 for col in strip for k in range(1, len(col)) if col[k] == col[k - 1])
+        cells = sum(len(col) for col in strip)
+        assert 0.06 < same / cells < 0.14, (name, same / cells)  # clump 0.2: about 9% alike
+    for bm in cfg.bet_modes:
+        for d in bm.get_distributions():
+            base_strips = set(d._conditions["reel_weights"][cfg.basegame_type])
+            if bm.get_name() in ("bonus", "super", "epic", "mystery"):
+                assert base_strips == {"BRB"}, (bm.get_name(), d.get_criteria(), base_strips)
+            else:
+                assert base_strips <= {"BR", "BA", "SA"}, (bm.get_name(), base_strips)
+
+
+@check("speed: fast_clusters returns exactly what the SDK's Cluster.get_clusters returns")
+def _():
+    from game_calculations import fast_clusters
+
+    gs = new_state()
+    rng = random.Random(20261016)
+    names = ["L1", "L2", "L3", "L4", "M1", "M2", "M3", "H1", "W", "S"]
+    for trial in range(3000):
+        # boards from the real strips and from skewed random mixes (many wilds, few symbols)
+        if trial % 2:
+            strip = gs.config.reels[rng.choice(["BR", "BRB", "BA", "SA", "FR", "WCAP"])]
+            pos = [rng.randrange(len(col)) for col in strip]
+            board = [[gs.create_symbol(strip[r][(pos[r] + w) % len(strip[r])]) for w in range(8)] for r in range(8)]
+        else:
+            pool = rng.sample(names, rng.randint(2, 6))
+            board = [[gs.create_symbol(rng.choice(pool)) for _ in range(8)] for _ in range(8)]
+        # items in order: the symbol order is the order win entries are written in
+        sdk = list(Cluster.get_clusters(board, "wild").items())
+        fast = list(fast_clusters(board).items())
+        assert sdk == fast, (trial, sdk, fast)
+
+
+@check("speed: fast_has_win and fast_cell_completes answer exactly as the full cluster scan does")
+def _():
+    from game_calculations import fast_cell_completes, fast_clusters, fast_has_win
+
+    gs = new_state()
+    cfg = gs.config
+    paying = cfg.paying_symbols
+    # the early stop at 5 is only exact because every paying symbol pays every size from 5 to 64
+    assert all((n, s) in cfg.paytable for s in paying for n in range(5, 65))
+    rng = random.Random(161016)
+    names = ["L1", "L2", "L3", "L4", "M1", "M2", "M3", "H1", "W", "S"]
+    for trial in range(2500):
+        if trial % 2:
+            strip = cfg.reels[rng.choice(["BR", "BRB", "BA", "SA", "FR", "WCAP"])]
+            pos = [rng.randrange(len(col)) for col in strip]
+            board = [[gs.create_symbol(strip[r][(pos[r] + w) % len(strip[r])]) for w in range(8)] for r in range(8)]
+        else:
+            pool = rng.sample(names, rng.randint(3, 7))
+            board = [[gs.create_symbol(rng.choice(pool)) for _ in range(8)] for _ in range(8)]
+        full = any((len(c), s) in cfg.paytable for s, found in fast_clusters(board).items() for c in found)
+        assert fast_has_win(board, paying) == full, trial
+        gs.board = board
+        for reel, row in rng.sample([(r, w) for r in range(8) for w in range(8)], 6):
+            if board[reel][row].check_attribute("wild", "scatter"):
+                continue
+            assert fast_cell_completes(board, reel, row, paying) == gs.sting_shape_wins([(reel, row)]), (trial, reel, row)
 
 
 def main() -> int:

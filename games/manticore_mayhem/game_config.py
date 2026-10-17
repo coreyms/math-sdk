@@ -42,7 +42,7 @@ WINCAP = 10000.0  # spec B: max win 10,000x base bet (Corey 2026-09-20)
 # and from 2026.10.13 for the diversity pass (2026-10-15: no rule changed, two buys re-dealt).
 # It is a label only: nothing in the engine, the shaper or the published configs reads it.
 # The Mystery diversity pass of the same day (Mystery re-dealt, no rule changed) keeps the label.
-MATH_VERSION = "2026.10.15"  # diversity pass (Super and Epic buys re-simulated); was 2026.10.13
+MATH_VERSION = "2026.10.16"  # math reshape (Corey 2026-10-16 16:16); was 2026.10.15 (diversity pass)
 
 ANTE_COST = 3.0
 SUPER_ANTE_COST = 10.0
@@ -91,8 +91,22 @@ TILE_GROW_MIN_CLUSTER = {"base": MIN_CLUSTER, "bonus": MIN_CLUSTER, "super": MIN
 # engine's RNG, and the `swipe` event carries the ACTUAL rows of that swipe.
 SWIPE_BAND_ROWS = 3
 SWIPE_BAND_STARTS = tuple(range(0, NUM_ROWS - SWIPE_BAND_ROWS + 1))  # (0, 1, 2, 3, 4, 5)
-SWIPE_CHANCE = {"base": 0.25, "bonus": 0.32, "super": 0.30, "epic": 0.35}
+# MATH RESHAPE (Corey 2026-10-16 16:16: "1. 44%, 2. 25x. 3. Strong."). Was base 0.25, bonus 0.32,
+# super 0.30, epic 0.35. Every swipe now MUST complete a winning cluster (SWIPE_MUST_WIN below), so
+# the base chance is raised to keep the manticore present on paying spins, and the free-spins chance
+# is lowered because the RESCUE swipe (SWIPE_CHANCE_DEAD) now does the work on the spins that matter.
+SWIPE_CHANCE = {"base": 0.35, "bonus": 0.12, "super": 0.12, "epic": 0.12}
 SWIPE_MAX_PER_SPIN = 2  # bounds both the tail and the events-per-book budget
+# MUST WIN (reshape 2026-10-16): when a swipe roll succeeds, the six bands are tried in random
+# order and the first whose refill makes a paying 5+ cluster is used; if none does, there is NO
+# swipe at all (nothing is emitted). The rule big and super stings have followed since rule pass 2.
+# Before it, 83% of base swipes were followed by no win (2026-10-15 review).
+SWIPE_MUST_WIN = {"base": True, "bonus": True, "super": True, "epic": True}
+# RESCUE (reshape 2026-10-16, "strong"): in Free Spins / Super / Epic the FIRST swipe roll of a free
+# spin that has paid nothing so far uses this chance instead of SWIPE_CHANCE. With SWIPE_MUST_WIN it
+# turns a dead free spin into a paying one 90% of the time it can. Trial (PROPOSAL.md section 4):
+# dead free spins 43 / 42 / 38% -> about 21 / 19 / 17%. Base has no rescue chance.
+SWIPE_CHANCE_DEAD = {"bonus": 0.9, "super": 0.9, "epic": 0.9}
 # DECISION (Claude 2026-09-20, spec is silent), REVISED IN THE TUNING PASS: whether a swipe
 # SEEDS cold cells (0 -> 2) as well as doubling live ones, per context.
 #   base/ante/super_ante (tiles reset every spin): TRUE. This is the lever the first sim's
@@ -127,7 +141,14 @@ SWIPE_SEEDS_EMPTY_TILES = {"base": True, "bonus": True, "super": True, "epic": T
 # super/epic normal+big+super (super most common in the Epic).
 STING_MAX_PER_SPIN = 5
 # P(the spin fires a sting sequence at all), per context.
-STING_CHANCE = {"base": 0.12, "bonus": 0.20, "super": 0.22, "epic": 0.40}
+# Reshape 2026-10-16: base 0.12 -> 0.15 (every normal-only run now pays, STING_MUST_WIN below).
+STING_CHANCE = {"base": 0.15, "bonus": 0.20, "super": 0.22, "epic": 0.40}
+# MUST WIN for NORMAL-only runs (reshape 2026-10-16). The last normal sting of a run with no
+# finisher must complete a paying 5+ cluster that touches it: the cells are walked in random
+# order on a throwaway board; if none can, the WHOLE run is dropped and nothing is emitted. Runs
+# that end on a big or super finisher keep the finisher's own must-win rule (unchanged). Before
+# it, half of all base sting runs never touched a winning cluster (2026-10-15 review).
+STING_MUST_WIN = {"base": True, "bonus": True, "super": True, "epic": True}
 # Given a sequence fires, P(it ends on a big / super finisher). One uniform roll picks between
 # them, so the two shares ADD rather than compound and must sum to <= 1. These are sized to
 # keep the per-spin rates in the same neighbourhood as the 2026-09-20 build:
@@ -201,6 +222,18 @@ LOW_SYMBOLS = ("L1", "L2", "L3", "L4")
 FS_SPINS = {"bonus": 8, "super": 10, "epic": 12}  # no retriggers
 EPIC_MIN_WIN = 200.0  # spec C: Epic floor is about 40% of its 500x price
 MYSTERY_EPIC_MIN_WIN = 500.0  # spec C: a Mystery Epic always pays >= 2x the 250x price
+# FREE SPINS FLOORS (reshape, Corey 2026-10-16: "never less than 10x", Super 25x). On the FREE
+# SPINS total, exactly like the Epic's 200x, for natural and bought rounds alike and for Mystery's
+# Super; a round under its floor is re-drawn (gamestate.enforce_feature_floor), so the floor is a
+# property of the books and the rules can state it. A round that reached the 10,000x cap passes.
+BONUS_MIN_WIN = 10.0  # Free Spins: at least 10x the bet from its free spins (10% of the 100x price)
+SUPER_MIN_WIN = 25.0  # Super: at least 25x (10% of the 250x price)
+FEATURE_MIN_WIN = {"bonus": BONUS_MIN_WIN, "super": SUPER_MIN_WIN, "epic": EPIC_MIN_WIN}
+# The base strip the BUYS and the Mystery spin-in are drawn on (reshape 2026-10-16). The base game
+# moved to clumped strips (reels/make_reels.py CLUMP); the buys' trigger spin and Mystery's spin-in
+# stay on the 2026-09-20 BR, kept byte for byte as BRB.csv, so the bought features (and Mystery's
+# `nothing` slice, a settled ruling) keep the trigger board they were tuned on and the trial measured.
+BUY_STRIP = "BRB"
 
 # --- SCATTER COUNTS: 7 NEVER, 8 ONLY AS AN EPIC'S FIRST BOARD (rule pass 3, Corey 2026-10-13) ---
 # THE OWNER'S DECISION, 2026-10-13: "take 7 out of the game completely" and let 8 scatters be
@@ -338,8 +371,18 @@ MYSTERY_MATERIAL_QUOTA = {"mystery_nothing": 0.30, "supergame": 0.40, "epicgame"
 # Angry Mantis's range. 56,000 is also about the least the per-book ceiling allows: the
 # 200x-300x band carries 52% of the Epic's probability and needs 26,000 books to keep each
 # under 1 in 50,000 (tools/shape_lut.py PER_BOOK_CEILING).
-DIVERSITY_EPIC_BOOKS = 136_000  # the Epic buy's deck (run.py --sims for the epic mode)
-DIVERSITY_SUPER_BOOKS = 210_000  # the Super buy's deck
+# RESHAPE 2026-10-16: 136,000 -> 135,000 so the deck splits evenly over its simulation processes
+# (run beside the other six modes); every slice keeps its book count, the natural `epicgame` gives
+# up the 1,000.
+DIVERSITY_EPIC_BOOKS = 135_000  # the Epic buy's deck (run.py --sims for the epic mode)
+# RESHAPE 2026-10-16: 210,000 -> 190,000. The rescue swipe adds cascades to every free spin, so
+# events per book rise; 190,000 keeps the deck well under the 10,000,000-events publish limit.
+DIVERSITY_SUPER_BOOKS = 189_000  # the Super buy's deck (189,000 = 3 x 63,000: three processes)
+# RESHAPE 2026-10-16: the Bonus buy gets material slices too. With the 10x floor its 10x-25x band
+# carries about 21% of all buys and the strong rescue makes raw rounds that low rare (2.4% of raw
+# rounds, trial), so the deck is farmed in three low slices and shaped under the same 1 in 50,000
+# per-book ceiling as the Super and Epic buys.
+DIVERSITY_BONUS_BOOKS = 129_000  # the Bonus buy's deck (129,000 = 3 x 43,000: three processes)
 # Forced max wins (WCAP strip, wild-dense). Kept to a small share of the cap books so a max win
 # still looks like a natural round, as before (1,000 of 63,894 in the 2026-10-13 Epic deck,
 # 600 of 9,053 in the Super deck); the natural `epicgame` / `supergame` books bring the rest.
@@ -360,7 +403,27 @@ EPIC_BUY_SLICES = {
 # about 6,100 natural max wins plus 3,600 more upper and body books.
 # the Super buy's 0x to 500x: 87% of every Super buy, 37% of raw Super rounds. The natural
 # `supergame` keeps 49,700 books (about 4,200 natural max wins, all of the upper bands).
-SUPER_BUY_SLICES = {"supergame_low": (160_000 / DIVERSITY_SUPER_BOOKS, (0.0, 500.0), {5: 1})}
+# RESHAPE 2026-10-16: the 25x Super floor removes 0x-25x, and the rescue swipe makes raw Supers end
+# under 60x on only 1.7% of rounds (trial), so the old single 0x-500x slice is cut in two on the
+# shaper's band edges (SUPER_BANDS 25 / 60 / 500): 25x-60x (20% of every Super buy) and 60x-500x.
+# Sized on the 10,000-book rehearsal (reshape-rehearsal-20261016): with 12,000 + 80,000 books the
+# deck projected to about 69,000 effective books, a repeat chance within 50 buys of about 1.8%
+# against the house limit of 2%, so the two weakest bands get more books (projected about 82,000
+# effective, 1.5%).
+SUPER_BUY_SLICES = {
+    "supergame_low": (18_000 / DIVERSITY_SUPER_BOOKS, (SUPER_MIN_WIN, 60.0), {5: 1}),
+    "supergame_lowmid": (20_000 / DIVERSITY_SUPER_BOOKS, (60.0, 120.0), {5: 1}),
+    "supergame_mid": (60_000 / DIVERSITY_SUPER_BOOKS, (120.0, 500.0), {5: 1}),
+}
+BONUS_BUY_WINCAP_QUOTA = 520 / DIVERSITY_BONUS_BOOKS  # was 0.004 of a 100,000-book deck (400 books)
+# On the shaper's band edges (BONUS_BANDS 10 / 25 / 50 / 100). Raw shares with the strong rescue:
+# 10x-25x 2.4%, 25x-50x 7.6%, 50x-100x 17.8% of rounds (trial); each band is stocked to well over
+# what the 1 in 50,000 ceiling needs (share x 50,000).
+BONUS_BUY_SLICES = {
+    "freegame_low": (16_000 / DIVERSITY_BONUS_BOOKS, (BONUS_MIN_WIN, 25.0), {4: 1}),
+    "freegame_mid": (20_000 / DIVERSITY_BONUS_BOOKS, (25.0, 50.0), {4: 1}),
+    "freegame_m2": (12_000 / DIVERSITY_BONUS_BOOKS, (50.0, 100.0), {4: 1}),
+}
 
 # --- MYSTERY MATERIAL SLICES (Mystery diversity pass, 2026-10-15) -----------------------
 # The same fix for the Mystery buy, approved by Corey at 17:10 on 2026-10-15 ("2. Yes"). After
@@ -398,8 +461,10 @@ SUPER_BUY_SLICES = {"supergame_low": (160_000 / DIVERSITY_SUPER_BOOKS, (0.0, 500
 # in two: raw Mystery Epics above 1,000x land there only 8% of the time.
 DIVERSITY_MYSTERY_BOOKS = 351_000  # the Mystery buy's deck (run.py --sims for the mystery mode)
 MYSTERY_SLICES = {
-    # the Mystery Super's 0x-500x: 89% of the Super outcome, 43% of raw Mystery Supers
-    "mystery_super_low": (50_000 / DIVERSITY_MYSTERY_BOOKS, (0.0, 500.0), "supergame"),
+    # RESHAPE 2026-10-16: the Mystery Super's old 0x-500x slice, cut at the 25x Super floor and at
+    # 60x exactly like the bought Super's (same 50,000 books in all)
+    "mystery_super_low": (6_000 / DIVERSITY_MYSTERY_BOOKS, (SUPER_MIN_WIN, 60.0), "supergame"),
+    "mystery_super_mid": (44_000 / DIVERSITY_MYSTERY_BOOKS, (60.0, 500.0), "supergame"),
     # the Mystery Epic's 500x-1,000x: 54% of the Epic outcome, 2.9% of raw Mystery Epics
     "mystery_epic_body": (18_000 / DIVERSITY_MYSTERY_BOOKS, (500.0, 1000.0), "epicgame"),
     # 1,000x-2,500x: 33% of the Epic outcome, 7.7% of raw Mystery Epics
@@ -517,9 +582,12 @@ class GameConfig(Config):
         self.swipe_band_starts = tuple(SWIPE_BAND_STARTS)
         assert all(0 <= s and s + SWIPE_BAND_ROWS <= NUM_ROWS for s in SWIPE_BAND_STARTS)
         self.swipe_chance = dict(SWIPE_CHANCE)
+        self.swipe_must_win = dict(SWIPE_MUST_WIN)  # reshape 2026-10-16
+        self.swipe_chance_dead = dict(SWIPE_CHANCE_DEAD)  # reshape 2026-10-16
         self.swipe_max_per_spin = SWIPE_MAX_PER_SPIN
         self.swipe_seeds_empty_tiles = dict(SWIPE_SEEDS_EMPTY_TILES)
         self.sting_chance = dict(STING_CHANCE)
+        self.sting_must_win = dict(STING_MUST_WIN)  # reshape 2026-10-16
         self.sting_big_chance = dict(STING_BIG_CHANCE)
         self.sting_super_chance = dict(STING_SUPER_CHANCE)
         self.sting_max_per_spin = STING_MAX_PER_SPIN
@@ -540,6 +608,7 @@ class GameConfig(Config):
         self.mystery_outcome = dict(MYSTERY_OUTCOME)  # Mystery diversity pass (2026-10-15)
         self.roar_chance = dict(ROAR_CHANCE)
         self.epic_min_win = EPIC_MIN_WIN
+        self.feature_min_win = dict(FEATURE_MIN_WIN)  # reshape 2026-10-16: Free Spins 10x, Super 25x
         self.mystery_epic_min_win = MYSTERY_EPIC_MIN_WIN
         # Rule pass 3 (2026-10-13): 7 never triggers, 8 only as a forced first board.
         self.max_trigger_scatters = MAX_TRIGGER_SCATTERS
@@ -556,7 +625,8 @@ class GameConfig(Config):
         # ---- Reels ---------------------------------------------------------------------
         # BR base, BA ante (scatter-richer), SA super ante, FR feature (NO scatters),
         # WCAP wincap-forcing feature strip. Generated by reels/make_reels.py.
-        reels = {"BR": "BR.csv", "BA": "BA.csv", "SA": "SA.csv", "FR": "FR.csv", "WCAP": "WCAP.csv"}
+        # BRB (reshape 2026-10-16): the 2026-09-20 BR, the buys' and the Mystery spin-in's board.
+        reels = {"BR": "BR.csv", "BRB": "BRB.csv", "BA": "BA.csv", "SA": "SA.csv", "FR": "FR.csv", "WCAP": "WCAP.csv"}
         self.reels = {}
         for name, filename in reels.items():
             self.reels[name] = self.read_reels_csv(os.path.join(self.reels_path, filename))
@@ -566,7 +636,7 @@ class GameConfig(Config):
         # Rule pass 3 (2026-10-13): a forced 8-scatter first board needs a scatter stop on
         # EVERY reel of every base strip (the SDK's force_special_board would spin forever on
         # a strip with a scatter-free reel). BR carries exactly one per reel, BA two, SA three.
-        for name in ("BR", "BA", "SA"):
+        for name in ("BR", "BRB", "BA", "SA"):
             for reel_index, reel in enumerate(self.reels[name]):
                 assert "S" in reel, f"base strip {name} reel {reel_index} has no scatter: 8 cannot be forced"
 
@@ -608,7 +678,10 @@ class GameConfig(Config):
             BetMode(
                 name="bonus", cost=BONUS_COST, rtp=self.rtp, max_win=self.wincap,
                 auto_close_disabled=False, is_feature=False, is_buybonus=True,
-                distributions=self._buy_distributions("freegame", {4: 1}, wincap_quota=0.004),
+                # Reshape 2026-10-16: plus the 10x-100x material slices (BONUS_BUY_SLICES).
+                distributions=self._buy_distributions(
+                    "freegame", {4: 1}, wincap_quota=BONUS_BUY_WINCAP_QUOTA, slices=BONUS_BUY_SLICES
+                ),
             ),
             BetMode(
                 name="super", cost=SUPER_COST, rtp=self.rtp, max_win=self.wincap,
@@ -780,7 +853,7 @@ class GameConfig(Config):
                 Distribution(
                     criteria=name, quota=quota,
                     conditions={
-                        "reel_weights": self._reel_weights("BR"),
+                        "reel_weights": self._reel_weights(BUY_STRIP),
                         "scatter_triggers": dict(triggers),
                         "force_freegame": True,
                         "win_range": tuple(win_range),
@@ -796,7 +869,7 @@ class GameConfig(Config):
             Distribution(
                 criteria="wincap", quota=wincap_quota, win_criteria=self.wincap,
                 conditions={
-                    "reel_weights": self._reel_weights("BR", wincap=True),
+                    "reel_weights": self._reel_weights(BUY_STRIP, wincap=True),
                     "scatter_triggers": scatter_triggers,
                     "force_wincap": True,
                     "force_freegame": True,
@@ -805,7 +878,7 @@ class GameConfig(Config):
             Distribution(
                 criteria=criteria, quota=main_quota,
                 conditions={
-                    "reel_weights": self._reel_weights("BR"),
+                    "reel_weights": self._reel_weights(BUY_STRIP),
                     "scatter_triggers": feature_triggers,
                     "force_freegame": True,
                 },
@@ -828,7 +901,7 @@ class GameConfig(Config):
             Distribution(
                 criteria=name, quota=quota,
                 conditions={
-                    "reel_weights": self._reel_weights("BR"),
+                    "reel_weights": self._reel_weights(BUY_STRIP),
                     "scatter_triggers": {board[parent]: 1},
                     "force_freegame": True,
                     "win_range": tuple(win_range),
@@ -844,12 +917,12 @@ class GameConfig(Config):
             # bucket; game_override.check_repeat lists it as a criteria that may pay nothing.
             Distribution(
                 criteria="mystery_nothing", quota=MYSTERY_MATERIAL_QUOTA["mystery_nothing"],
-                conditions={"reel_weights": self._reel_weights("BR")},
+                conditions={"reel_weights": self._reel_weights(BUY_STRIP)},
             ),
             Distribution(
                 criteria="supergame", quota=MYSTERY_MATERIAL_QUOTA["supergame"],
                 conditions={
-                    "reel_weights": self._reel_weights("BR"),
+                    "reel_weights": self._reel_weights(BUY_STRIP),
                     "scatter_triggers": {5: 1},
                     "force_freegame": True,
                 },
@@ -857,7 +930,7 @@ class GameConfig(Config):
             Distribution(
                 criteria="epicgame", quota=MYSTERY_MATERIAL_QUOTA["epicgame"],
                 conditions={
-                    "reel_weights": self._reel_weights("BR"),
+                    "reel_weights": self._reel_weights(BUY_STRIP),
                     "scatter_triggers": {6: 1},
                     "force_freegame": True,
                 },

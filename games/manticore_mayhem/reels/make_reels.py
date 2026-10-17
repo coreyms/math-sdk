@@ -50,6 +50,62 @@ WCAP = {"L1": 4, "L2": 4, "L3": 4, "L4": 4, "M1": 6, "M2": 6, "M3": 8, "H1": 14,
 PAD_TO = {"BR": 120, "BA": 150, "SA": 130, "FR": 110, "WCAP": 110}
 PAD_WITH = ["L1", "L2", "L3", "L4"]
 
+# CLUMP (math reshape, Corey 2026-10-16: "1. 44%, 2. 25x. 3. Strong."). The share of each
+# symbol's stops laid down as VERTICAL PAIRS (two of the same symbol in a row on the strip).
+# 0 is the old construction byte for byte: the de-clumping pass then leaves almost no equal
+# neighbours (0.5% on BR), against about 14% for a plain shuffle of the same symbols - an
+# anti-cluster bias that is a large part of why 72% of base spins had no cluster at all.
+# 0.2 puts about 9% of vertical neighbours alike, still BELOW a plain shuffle. Base-game strips
+# only: on the feature strip the same change makes free spins far too hot (raw Free Spins 28x
+# its price at 0.4, measured), so FR and WCAP keep 0.
+# Evidence: ~/Desktop/Manticore Mayhem/feedback/math_reshape_r1/PROPOSAL.md, section 4.
+CLUMP = {"BR": 0.2, "BA": 0.2, "SA": 0.2, "FR": 0.0, "WCAP": 0.0}
+# BRB is NOT generated here: it is the 2026-09-20 BR strip, kept byte for byte as reels/BRB.csv
+# for the buys' trigger spin and the Mystery spin-in (game_config.BUY_STRIP), so the bought
+# features and Mystery's `nothing` slice keep the board they were tuned and ruled on.
+
+
+def build_reel_clumped(counts: dict, rng: random.Random, pad_to: int, clump: float) -> list:
+    """One reel with vertical PAIRS (reshape 2026-10-16): the same symbols as build_reel (counts
+    padded with lows to length), laid down as blocks of one or two equal symbols, `clump` of each
+    symbol's stops in pairs. Blocks are de-clumped against each other, so runs never exceed two.
+    Scatters are inserted exactly as build_reel does (no 8-row window can show two)."""
+    n_scatter = counts.get("S", 0)
+    stops = {sym: n for sym, n in counts.items() if sym != "S"}
+    total, i = sum(stops.values()), 0
+    while total < pad_to - n_scatter:
+        sym = PAD_WITH[i % len(PAD_WITH)]
+        stops[sym] = stops.get(sym, 0) + 1
+        total += 1
+        i += 1
+    blocks = []
+    for sym, n in stops.items():
+        pairs = int(round(n * clump / 2))
+        blocks += [[sym, sym]] * pairs + [[sym]] * (n - 2 * pairs)
+    rng.shuffle(blocks)
+    for _ in range(50):  # until no two neighbouring blocks share a symbol (bounded)
+        clean = True
+        for k in range(1, len(blocks)):
+            if blocks[k][0] == blocks[k - 1][0]:
+                clean = False
+                j = rng.randrange(len(blocks))
+                blocks[k], blocks[j] = blocks[j], blocks[k]
+        if clean:
+            break
+    filler = [sym for block in blocks for sym in block]
+    if n_scatter == 0:
+        return filler
+    strip, idx = [], 0
+    gap = len(filler) // n_scatter
+    assert gap > ROWS + 1, f"scatter spacing too dense: gap {gap} <= {ROWS + 1} (lengthen the strip)"
+    for k in range(n_scatter):
+        target = k * gap + rng.randrange(0, max(1, gap - ROWS))
+        strip += filler[idx:target]
+        strip.append("S")
+        idx = target
+    strip += filler[idx:]
+    return strip
+
 
 def build_reel(counts: dict, rng: random.Random, pad_to: int) -> list:
     """One reel: shuffled paying symbols padded to length, then scatters inserted with a
@@ -93,7 +149,11 @@ def build_reel(counts: dict, rng: random.Random, pad_to: int) -> list:
 
 def write_csv(name: str, counts: dict, seed: int) -> None:
     rng = random.Random(seed)
-    reels = [build_reel(counts, rng, PAD_TO[name]) for _ in range(NUM_REELS)]
+    clump = CLUMP.get(name, 0.0)
+    if clump:
+        reels = [build_reel_clumped(counts, rng, PAD_TO[name], clump) for _ in range(NUM_REELS)]
+    else:
+        reels = [build_reel(counts, rng, PAD_TO[name]) for _ in range(NUM_REELS)]
     length = max(len(r) for r in reels)
     for r in reels:
         i = 0
@@ -106,13 +166,21 @@ def write_csv(name: str, counts: dict, seed: int) -> None:
     print(f"{name}.csv: {NUM_REELS} reels x {length} stops")
 
 
-def main() -> None:
-    write_csv("BR", BASE, 11)
-    write_csv("BA", ANTE, 12)
-    write_csv("SA", SUPER_ANTE, 13)
-    write_csv("FR", FEATURE, 14)
-    write_csv("WCAP", WCAP, 15)
+STRIPS = {"BR": (BASE, 11), "BA": (ANTE, 12), "SA": (SUPER_ANTE, 13), "FR": (FEATURE, 14), "WCAP": (WCAP, 15)}
+
+
+def main(names=None) -> None:
+    """Write the named strips (all five when none are named). RESHAPE 2026-10-16: only BR, BA and
+    SA were regenerated (`make_reels.py BR BA SA`); FR and WCAP are the 2026-09-20 files (FR was
+    made with MANTICORE_FEATURE_WILDS=8, so a plain re-run would CHANGE it - do not)."""
+    import sys
+
+    for name in names or list(STRIPS):
+        counts, seed = STRIPS[name]
+        write_csv(name, counts, seed)
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+
+    main(sys.argv[1:])

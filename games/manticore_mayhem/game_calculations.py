@@ -13,6 +13,108 @@ from src.executables.executables import Executables
 from game_events import cell, reveal_event, sting_event
 
 
+def fast_clusters(board, wild_names=("W",)):
+    """Exactly src/calculations/cluster.Cluster.get_clusters(board, "wild"), faster (reshape
+    2026-10-16, run-time only). Same traversal - cells in reel-major order, a cluster started at
+    every unchecked non-wild cell, a depth-first walk whose neighbour list (left, right, up, down,
+    each not yet seen BY THIS CLUSTER) is built before it recurses, wilds joining any cluster - so
+    the SAME clusters come back with their cells in the SAME order, and every book is byte for byte
+    what the SDK function makes. The SDK version tests membership in Python lists; this one uses
+    sets and a name grid. tests/test_math.py compares the two on thousands of random boards."""
+    from collections import defaultdict
+
+    names = [[sym.name for sym in column] for column in board]
+    wild = [[name in wild_names for name in column] for column in names]
+    n_reels = len(board)
+    already = set()
+    clusters = defaultdict(list)
+
+    def walk(reel, row, symbol, cluster, local):
+        neighbours = []
+        for r, w, ok in (
+            (reel - 1, row, reel > 0),
+            (reel + 1, row, reel < n_reels - 1),
+            (reel, row - 1, row > 0),
+            (reel, row + 1, row < len(board[reel]) - 1),
+        ):
+            if ok and (r, w) not in local:
+                neighbours.append((r, w))
+                local.add((r, w))
+        for r, w in neighbours:
+            if wild[r][w] or names[r][w] == symbol:
+                cluster.append((r, w))
+                already.add((r, w))
+                walk(r, w, symbol, cluster, local)
+
+    for reel in range(n_reels):
+        for row in range(len(board[reel])):
+            if (reel, row) in already or wild[reel][row]:
+                continue
+            cluster = [(reel, row)]
+            already.add((reel, row))
+            walk(reel, row, names[reel][row], cluster, {(reel, row)})
+            clusters[names[reel][row]].append(cluster)
+    return clusters
+
+
+def fast_has_win(board, paying, wild_names=("W",), extra_wild=None):
+    """True when the board holds a paying cluster: some symbol s in `paying` whose connected
+    group of s-or-wild cells (the SDK's cluster, see fast_clusters) has 5 or more cells. Stops at
+    the first such group (reshape 2026-10-16, run-time only; the answer is exactly what scanning
+    fast_clusters / Cluster.get_clusters for a (size, symbol) in the paytable gives, every paying
+    symbol paying from 5 to 64 - asserted in tests/test_math.py). `extra_wild` is one (reel, row)
+    treated as a wild (the one-cell sting test)."""
+    n_reels = len(board)
+    names = [[sym.name for sym in column] for column in board]
+    wild = [[name in wild_names for name in column] for column in names]
+    if extra_wild is not None:
+        wild[extra_wild[0]][extra_wild[1]] = True
+    seen = set()
+    for reel in range(n_reels):
+        for row in range(len(board[reel])):
+            symbol = names[reel][row]
+            if wild[reel][row] or (reel, row) in seen or symbol not in paying:
+                continue
+            group = {(reel, row)}
+            stack = [(reel, row)]
+            while stack:
+                r, w = stack.pop()
+                for rr, ww in ((r - 1, w), (r + 1, w), (r, w - 1), (r, w + 1)):
+                    if 0 <= rr < n_reels and 0 <= ww < len(board[rr]) and (rr, ww) not in group:
+                        if wild[rr][ww] or names[rr][ww] == symbol:
+                            group.add((rr, ww))
+                            stack.append((rr, ww))
+                if len(group) >= 5:
+                    return True
+            seen.update(cell for cell in group if not wild[cell[0]][cell[1]])
+    return False
+
+
+def fast_cell_completes(board, reel, row, paying, wild_names=("W",)):
+    """Would a wild at (reel, row) complete a paying cluster (5+ cells, at least one of them a paying
+    symbol) that CONTAINS that cell? Exactly GameExecutables.sting_shape_wins([(reel, row)]), faster
+    (reshape 2026-10-16, run-time only; asserted equal in tests/test_math.py)."""
+    n_reels = len(board)
+    names = [[sym.name for sym in column] for column in board]
+    wild = [[name in wild_names for name in column] for column in names]
+    wild[reel][row] = True
+    for symbol in paying:
+        group = {(reel, row)}
+        stack = [(reel, row)]
+        has_symbol = False
+        while stack:
+            r, w = stack.pop()
+            for rr, ww in ((r - 1, w), (r + 1, w), (r, w - 1), (r, w + 1)):
+                if 0 <= rr < n_reels and 0 <= ww < len(board[rr]) and (rr, ww) not in group:
+                    if wild[rr][ww] or names[rr][ww] == symbol:
+                        group.add((rr, ww))
+                        stack.append((rr, ww))
+                        has_symbol = has_symbol or not wild[rr][ww]
+            if has_symbol and len(group) >= 5:
+                return True
+    return False
+
+
 class GameCalculations(Executables):
     """Tile grid + cluster evaluation + board drawing."""
 
@@ -112,7 +214,8 @@ class GameCalculations(Executables):
         shape, but the win entries are the compact ones from EVENT_SCHEMA.md and the tile grid
         replaces the sample's position_multipliers.
         """
-        clusters = Cluster.get_clusters(self.board, "wild")
+        # exactly Cluster.get_clusters(self.board, "wild"), faster (fast_clusters above)
+        clusters = fast_clusters(self.board, self.config.special_symbols["wild"])
         win_entries, all_positions, total_win, cluster_list = [], [], 0.0, []
         for sym in clusters:
             for cluster in clusters[sym]:

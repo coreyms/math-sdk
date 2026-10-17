@@ -22,6 +22,8 @@ publish_files/lookUpTable_<mode>_0.csv). It exits 1 if any book breaks any of th
   * an 8 trigger only off a FIRST board of 8 (the reveal's scatters plus its scatter stings)
   * every 8-scatter round pays at least EPIC8_MIN_WIN (2,500x) on the round total
   * every Epic pays at least 200x from its free spins, a Mystery Epic 500x on the round
+  * (reshape 2026-10-16) every Free Spins round pays at least 10x and every Super 25x from its
+    free spins, natural, bought and Mystery alike
     (a round that reached the 10,000x cap passes, as in the engine)
   * the first board is what the criteria forces: Bonus buy 4, Super buy 5, Epic buy 6 or 8,
     `wincap` its mode's own count, Mystery 3 plus 0 / 2 / 3 stings
@@ -42,8 +44,10 @@ GAME = os.path.dirname(HERE)
 sys.path.insert(0, GAME)
 
 from game_config import (  # noqa: E402
+    BONUS_MIN_WIN,
     EPIC8_MIN_WIN,
     EPIC_MIN_WIN,
+    SUPER_MIN_WIN,
     FULL_BOARD_SCATTERS,
     MAX_TRIGGER_SCATTERS,
     MYSTERY_EPIC_MIN_WIN,
@@ -61,7 +65,10 @@ FIRST_BOARD = {
     ("ante", "wincap"): {6}, ("ante", "epicgame"): {6, 8}, ("ante", "supergame"): {5}, ("ante", "freegame"): {4},
     ("super_ante", "wincap"): {6}, ("super_ante", "epicgame"): {6, 8}, ("super_ante", "supergame"): {4, 5},
     ("bonus", "wincap"): {4}, ("bonus", "freegame"): {4},
+    # reshape 2026-10-16: the Bonus buy's material slices force its own 4-scatter board
+    ("bonus", "freegame_low"): {4}, ("bonus", "freegame_mid"): {4}, ("bonus", "freegame_m2"): {4},
     ("super", "wincap"): {5}, ("super", "supergame"): {5}, ("super", "supergame_low"): {5},
+    ("super", "supergame_lowmid"): {5}, ("super", "supergame_mid"): {5},
     ("epic", "wincap"): {6}, ("epic", "epicgame"): {6, 8},
     # diversity pass (2026-10-15): the buys' material slices (game_config EPIC_BUY_SLICES /
     # SUPER_BUY_SLICES) force the buy's own board; only the Epic's upper slice may open on 8
@@ -69,7 +76,7 @@ FIRST_BOARD = {
     ("mystery", "mystery_nothing"): {3}, ("mystery", "supergame"): {5}, ("mystery", "epicgame"): {6},
     # Mystery diversity pass (2026-10-15): the Mystery's material slices (game_config
     # MYSTERY_SLICES) play the outcome they copy: 3 plus 2 stings for a Super, 3 plus 3 for an Epic
-    ("mystery", "mystery_super_low"): {5}, ("mystery", "mystery_epic_body"): {6},
+    ("mystery", "mystery_super_low"): {5}, ("mystery", "mystery_super_mid"): {5}, ("mystery", "mystery_epic_body"): {6},
     ("mystery", "mystery_epic_mid"): {6}, ("mystery", "mystery_epic_upper"): {6},
 }
 # The criteria that may open on the forced 8 (rule pass 3) and the criteria whose rounds are
@@ -182,6 +189,13 @@ def walk_book(mode, book):
                 problems.append(f"8 scatters in {mode}/{criteria}")
             if payout < int(round(EPIC8_MIN_WIN * 100)):
                 problems.append(f"8-scatter round pays {payout / 100:,.1f}x, under {EPIC8_MIN_WIN:,.0f}x")
+        # FREE SPINS FLOORS (reshape 2026-10-16): Free Spins 10x, Super 25x on the free spins total,
+        # every mode (natural, bought, Mystery's Super); a capped round passes, as in the engine
+        floor = {"bonus": BONUS_MIN_WIN, "super": SUPER_MIN_WIN}.get(bonus["bonus"])
+        if floor is not None and not capped and end["totalSessionWin"] < int(round(floor * 100)):
+            problems.append(
+                f"{bonus['bonus']} free spins pay {end['totalSessionWin'] / 100:,.1f}x, under {floor:,.0f}x"
+            )
         if bonus["bonus"] == "epic" and not capped:
             if mode == "mystery":
                 if payout < int(round(MYSTERY_EPIC_MIN_WIN * 100)):

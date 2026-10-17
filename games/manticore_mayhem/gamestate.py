@@ -166,6 +166,7 @@ class GameState(GameStateOverride):
         """Guaranteed minimums (spec C). Rounds below the floor are simply re-drawn, which is
         how the floor becomes a real number the rules can disclose.
 
+          * Free Spins: at least 10x, Super: at least 25x, on the free spins (reshape 2026-10-16)
           * Epic: at least 200x (about 40% of the 500x price)
           * an Epic reached through Mystery: at least 500x (2x the Mystery price)
 
@@ -179,7 +180,16 @@ class GameState(GameStateOverride):
         200x floor is still checked for the same round, on its free spins alone, right after.
         A round that reached the 10,000x cap passes all of them, as before.
         """
-        if self.bonus_type != "epic" or self.wincap_triggered:
+        if self.wincap_triggered:
+            return
+        # FREE SPINS FLOORS (reshape, Corey 2026-10-16): Free Spins at least 10x and Super at least
+        # 25x, on the FREE SPINS total exactly like the Epic's 200x below, natural and bought rounds
+        # and Mystery's Super alike. game_config.FEATURE_MIN_WIN.
+        if self.bonus_type != "epic":
+            floor = self.config.feature_min_win.get(self.bonus_type, 0.0)
+            if floor and self.win_manager.freegame_wins < floor:
+                self._count_rejection(f"{self.betmode}:{self.bonus_type}_floor")
+                self.repeat = True
             return
         # Only a round that trigger_count_allowed() let through gets here, so a trigger count
         # of 8 means the first board was the forced 8 (never a stray one, never Mystery, whose
