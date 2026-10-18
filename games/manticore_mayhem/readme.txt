@@ -4,13 +4,16 @@ tumbling refill, doubling multiplier tiles. Max win 10,000x. Target RTP 96.7% ev
 Game id: manticore_mayhem. Spec: ~/Projects/manticore/docs/manticore-spec.md (blocks B/C/D).
 Forked from the SDK's 0_0_cluster sample; conventions follow games/angry_mantis.
 
-STATUS 2026-10-18 (math fix, CANDIDATE, NOT PROMOTED, waits for Corey's look): fix-candidate-20261018/games/
+STATUS 2026-10-18 (math fix, PROMOTED, CURRENT): Corey's go 2026-10-18 08:02 ("1. Yes"); he moved library/ to
+library-pre-fix-20261018/ and copied the candidate in himself (the publish files' sha256 match the candidate's). fix-candidate-20261018/games/
 manticore_mayhem/library holds MATH_VERSION 2026.10.18: the scatter-sting stand-in can no longer be part of a visible 5+
 group (harsh review 2026-10-17, Mystery book 1050), base / ante / super_ante re-simulated at exactly 300,000 books each
 (the reshape shipped 99,000), Mystery re-dealt (393,000 books, 222,815 effective); Bonus / Super / Epic are library/'s
-files byte for byte. Every gate passed on it. library/ STILL SERVES 2026.10.16. See "Math fix, 2026-10-18" at the bottom.
+files byte for byte. Every gate passed on it; test_math 49/49 and test_scatter8_samples parts 1-3 passed again on the
+promoted library/ (part 4 compares with the 2026-10-13 rollback copy and cannot hold since the 10-15 re-deal). Not on
+staging yet (staging serves 2026.10.16 until Corey says). See "Math fix, 2026-10-18" at the bottom.
 
-STATUS 2026-10-16 (math reshape, CURRENT): Corey's go at 16:16 ("1. 44%, 2. 25x. 3. Strong."). library/ holds the
+STATUS 2026-10-16 (math reshape, superseded 2026-10-18; kept in library-pre-fix-20261018/): Corey's go at 16:16 ("1. 44%, 2. 25x. 3. Strong."). library/ holds the
 2026.10.16 set: 44% base hit rate, clumped base strips, swipes and sting runs that always pay, the free-spins rescue
 swipe, Free Spins 10x / Super 25x floors. Every gate passed on it (see "Math reshape, 2026-10-16" at the bottom).
 The 2026.10.15 set Stake has is library-pre-reshape-20261016/. NOT COMMITTED, NOT ON STAGING: waits for Corey's look.
