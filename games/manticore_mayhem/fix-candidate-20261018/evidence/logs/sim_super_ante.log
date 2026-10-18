@@ -1,0 +1,654 @@
+Manticore Mayhem math version 2026.10.18
+--out: every file of this run goes to /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/fix-candidate-20261018/games/manticore_mayhem/library; the analysis is off
+
+Creating books...
+
+Creating books for manticore_mayhem in super_ante
+Batch 1 of 3
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 13000 draws rejected so far
+reject basegame_high:win_range: 13000 draws rejected so far
+reject basegame_high:win_range: 13000 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_high:win_range: 13500 draws rejected so far
+reject basegame_mid:win_range: 7500 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 13500 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_high:win_range: 13500 draws rejected so far
+Thread 4 finished with 52.886 RTP. [baseGame: 0.264, freeGame: 52.622]
+Thread 1 finished with 52.201 RTP. [baseGame: 0.269, freeGame: 51.932]
+Thread 0 finished with 53.02 RTP. [baseGame: 0.27, freeGame: 52.75]
+Thread 3 finished with 55.324 RTP. [baseGame: 0.269, freeGame: 55.055]
+Thread 2 finished with 56.126 RTP. [baseGame: 0.261, freeGame: 55.865]
+REDRAWS {"batch": 0, "criteria": {"0": {"books": 6011, "draws": 19302, "reasons": {}}, "basegame": {"books": 9858, "draws": 15774, "reasons": {}}, "basegame_high": {"books": 217, "draws": 19959, "reasons": {"win_range": 12107}}, "basegame_mid": {"books": 1235, "draws": 14488, "reasons": {"win_range": 7741}}, "epicgame": {"books": 672, "draws": 745, "reasons": {"epic8_floor": 11, "epic_floor": 3, "scatter7": 57, "stray8": 2}}, "supergame": {"books": 1974, "draws": 1984, "reasons": {"scatter7": 9, "stray8": 1}}, "wincap": {"books": 33, "draws": 40, "reasons": {"scatter7": 7}}}, "mode": "super_ante", "thread": 4}
+REDRAWS {"batch": 0, "criteria": {"0": {"books": 5989, "draws": 18751, "reasons": {}}, "basegame": {"books": 9919, "draws": 15865, "reasons": {}}, "basegame_high": {"books": 243, "draws": 22389, "reasons": {"win_range": 13695}}, "basegame_mid": {"books": 1186, "draws": 13506, "reasons": {"win_range": 7253}}, "epicgame": {"books": 658, "draws": 733, "reasons": {"epic8_floor": 12, "epic_floor": 2, "scatter7": 55, "stray8": 6}}, "supergame": {"books": 1960, "draws": 1978, "reasons": {"scatter7": 14, "stray8": 3, "super_floor": 1}}, "wincap": {"books": 45, "draws": 48, "reasons": {"scatter7": 3}}}, "mode": "super_ante", "thread": 1}
+REDRAWS {"batch": 0, "criteria": {"0": {"books": 5947, "draws": 18838, "reasons": {}}, "basegame": {"books": 9950, "draws": 16234, "reasons": {}}, "basegame_high": {"books": 266, "draws": 22634, "reasons": {"win_range": 13832}}, "basegame_mid": {"books": 1150, "draws": 12393, "reasons": {"win_range": 6612}}, "epicgame": {"books": 672, "draws": 750, "reasons": {"epic8_floor": 12, "epic_floor": 7, "scatter7": 54, "stray8": 5}}, "supergame": {"books": 1974, "draws": 1997, "reasons": {"scatter7": 19, "super_floor": 4}}, "wincap": {"books": 41, "draws": 45, "reasons": {"scatter7": 3, "stray8": 1}}}, "mode": "super_ante", "thread": 0}
+REDRAWS {"batch": 0, "criteria": {"0": {"books": 6012, "draws": 19200, "reasons": {}}, "basegame": {"books": 9805, "draws": 15633, "reasons": {}}, "basegame_high": {"books": 239, "draws": 20965, "reasons": {"win_range": 12829}}, "basegame_mid": {"books": 1184, "draws": 13186, "reasons": {"win_range": 7045}}, "epicgame": {"books": 699, "draws": 771, "reasons": {"epic8_floor": 10, "epic_floor": 2, "scatter7": 53, "stray8": 7}}, "supergame": {"books": 2013, "draws": 2026, "reasons": {"epic_floor": 1, "scatter7": 12}}, "wincap": {"books": 48, "draws": 55, "reasons": {"scatter7": 6, "stray8": 1}}}, "mode": "super_ante", "thread": 3}
+REDRAWS {"batch": 0, "criteria": {"0": {"books": 5949, "draws": 18717, "reasons": {}}, "basegame": {"books": 9955, "draws": 16143, "reasons": {}}, "basegame_high": {"books": 237, "draws": 22074, "reasons": {"win_range": 13602}}, "basegame_mid": {"books": 1118, "draws": 13042, "reasons": {"win_range": 6953}}, "epicgame": {"books": 711, "draws": 787, "reasons": {"epic8_floor": 11, "epic_floor": 5, "scatter7": 56, "stray8": 4}}, "supergame": {"books": 1977, "draws": 1990, "reasons": {"scatter7": 9, "stray8": 1, "super_floor": 3}}, "wincap": {"books": 53, "draws": 57, "reasons": {"scatter7": 4}}}, "mode": "super_ante", "thread": 2}
+All threads are online.
+Finished joining threads.
+Batch 2 of 3
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 13000 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 13500 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+Thread 1 finished with 52.657 RTP. [baseGame: 0.264, freeGame: 52.392]
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+REDRAWS {"batch": 1, "criteria": {"0": {"books": 6014, "draws": 19114, "reasons": {}}, "basegame": {"books": 9944, "draws": 16002, "reasons": {}}, "basegame_high": {"books": 207, "draws": 16586, "reasons": {"win_range": 10089}}, "basegame_mid": {"books": 1208, "draws": 14063, "reasons": {"win_range": 7485}}, "epicgame": {"books": 667, "draws": 737, "reasons": {"epic8_floor": 8, "epic_floor": 1, "scatter7": 58, "stray8": 3}}, "supergame": {"books": 1924, "draws": 1937, "reasons": {"scatter7": 10, "super_floor": 3}}, "wincap": {"books": 36, "draws": 42, "reasons": {"scatter7": 4, "stray8": 2}}}, "mode": "super_ante", "thread": 1}
+Thread 3 finished with 54.312 RTP. [baseGame: 0.269, freeGame: 54.043]
+reject basegame_high:win_range: 14000 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+REDRAWS {"batch": 1, "criteria": {"0": {"books": 5991, "draws": 19084, "reasons": {}}, "basegame": {"books": 9881, "draws": 15875, "reasons": {}}, "basegame_high": {"books": 231, "draws": 19398, "reasons": {"win_range": 11755}}, "basegame_mid": {"books": 1215, "draws": 13171, "reasons": {"win_range": 6980}}, "epicgame": {"books": 684, "draws": 754, "reasons": {"epic8_floor": 13, "epic_floor": 2, "scatter7": 53, "stray8": 2}}, "supergame": {"books": 1957, "draws": 1976, "reasons": {"scatter7": 16, "stray8": 1, "super_floor": 2}}, "wincap": {"books": 41, "draws": 45, "reasons": {"scatter7": 4}}}, "mode": "super_ante", "thread": 3}
+Thread 4 finished with 53.682 RTP. [baseGame: 0.268, freeGame: 53.414]
+Thread 0 finished with 54.527 RTP. [baseGame: 0.263, freeGame: 54.263]
+Thread 2 finished with 55.224 RTP. [baseGame: 0.264, freeGame: 54.96]
+REDRAWS {"batch": 1, "criteria": {"0": {"books": 6059, "draws": 18992, "reasons": {}}, "basegame": {"books": 9710, "draws": 15639, "reasons": {}}, "basegame_high": {"books": 240, "draws": 21043, "reasons": {"win_range": 12787}}, "basegame_mid": {"books": 1239, "draws": 13575, "reasons": {"win_range": 7162}}, "epicgame": {"books": 662, "draws": 723, "reasons": {"epic8_floor": 12, "epic_floor": 3, "scatter7": 41, "stray8": 5}}, "supergame": {"books": 2053, "draws": 2072, "reasons": {"epic_floor": 1, "scatter7": 13, "stray8": 1, "super_floor": 4}}, "wincap": {"books": 37, "draws": 41, "reasons": {"scatter7": 3, "stray8": 1}}}, "mode": "super_ante", "thread": 4}
+REDRAWS {"batch": 1, "criteria": {"0": {"books": 5938, "draws": 18849, "reasons": {}}, "basegame": {"books": 9819, "draws": 15881, "reasons": {}}, "basegame_high": {"books": 254, "draws": 21077, "reasons": {"win_range": 12746}}, "basegame_mid": {"books": 1222, "draws": 13987, "reasons": {"win_range": 7409}}, "epicgame": {"books": 701, "draws": 785, "reasons": {"epic8_floor": 13, "epic_floor": 2, "scatter7": 67, "stray8": 2}}, "supergame": {"books": 2030, "draws": 2042, "reasons": {"scatter7": 11, "super_floor": 1}}, "wincap": {"books": 36, "draws": 41, "reasons": {"scatter7": 4, "stray8": 1}}}, "mode": "super_ante", "thread": 0}
+REDRAWS {"batch": 1, "criteria": {"0": {"books": 6017, "draws": 19155, "reasons": {}}, "basegame": {"books": 9792, "draws": 15694, "reasons": {}}, "basegame_high": {"books": 242, "draws": 23466, "reasons": {"win_range": 14432}}, "basegame_mid": {"books": 1212, "draws": 13430, "reasons": {"win_range": 7117}}, "epicgame": {"books": 692, "draws": 782, "reasons": {"epic8_floor": 10, "scatter7": 75, "stray8": 5}}, "supergame": {"books": 2002, "draws": 2016, "reasons": {"scatter7": 10, "stray8": 1, "super_floor": 3}}, "wincap": {"books": 43, "draws": 47, "reasons": {"scatter7": 4}}}, "mode": "super_ante", "thread": 2}
+All threads are online.
+Finished joining threads.
+Batch 3 of 3
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_mid:win_range: 500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_mid:win_range: 1000 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 1500 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_mid:win_range: 1500 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_mid:win_range: 2000 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 3500 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 2500 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 3000 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_mid:win_range: 3500 draws rejected so far
+reject basegame_high:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_mid:win_range: 4000 draws rejected so far
+reject basegame_high:win_range: 7500 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 8000 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_mid:win_range: 4500 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 8500 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_high:win_range: 9000 draws rejected so far
+reject basegame_mid:win_range: 5000 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 9500 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 10000 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_mid:win_range: 5500 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_high:win_range: 10500 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_high:win_range: 11000 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_mid:win_range: 6000 draws rejected so far
+reject basegame_high:win_range: 11500 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_high:win_range: 12000 draws rejected so far
+reject basegame_mid:win_range: 7500 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_high:win_range: 13000 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_mid:win_range: 7000 draws rejected so far
+reject basegame_high:win_range: 12500 draws rejected so far
+reject basegame_mid:win_range: 6500 draws rejected so far
+reject basegame_high:win_range: 13000 draws rejected so far
+Thread 0 finished with 53.0 RTP. [baseGame: 0.27, freeGame: 52.73]
+Thread 1 finished with 54.163 RTP. [baseGame: 0.265, freeGame: 53.899]
+Thread 2 finished with 52.883 RTP. [baseGame: 0.265, freeGame: 52.619]
+Thread 4 finished with 53.985 RTP. [baseGame: 0.264, freeGame: 53.721]
+REDRAWS {"batch": 2, "criteria": {"0": {"books": 5964, "draws": 18997, "reasons": {}}, "basegame": {"books": 9842, "draws": 15839, "reasons": {}}, "basegame_high": {"books": 240, "draws": 21437, "reasons": {"win_range": 12937}}, "basegame_mid": {"books": 1199, "draws": 13744, "reasons": {"win_range": 7227}}, "epicgame": {"books": 668, "draws": 726, "reasons": {"epic8_floor": 1, "epic_floor": 3, "scatter7": 51, "stray8": 3}}, "supergame": {"books": 2054, "draws": 2072, "reasons": {"epic_floor": 1, "scatter7": 14, "stray8": 1, "super_floor": 2}}, "wincap": {"books": 33, "draws": 36, "reasons": {"scatter7": 3}}}, "mode": "super_ante", "thread": 0}
+REDRAWS {"batch": 2, "criteria": {"0": {"books": 6032, "draws": 19331, "reasons": {}}, "basegame": {"books": 9791, "draws": 15623, "reasons": {}}, "basegame_high": {"books": 247, "draws": 20824, "reasons": {"win_range": 12602}}, "basegame_mid": {"books": 1209, "draws": 13860, "reasons": {"win_range": 7427}}, "epicgame": {"books": 668, "draws": 754, "reasons": {"epic8_floor": 4, "epic_floor": 2, "scatter7": 77, "stray8": 3}}, "supergame": {"books": 2003, "draws": 2019, "reasons": {"scatter7": 13, "stray8": 2, "super_floor": 1}}, "wincap": {"books": 50, "draws": 55, "reasons": {"scatter7": 4, "stray8": 1}}}, "mode": "super_ante", "thread": 1}
+REDRAWS {"batch": 2, "criteria": {"0": {"books": 6029, "draws": 19060, "reasons": {}}, "basegame": {"books": 9748, "draws": 15670, "reasons": {}}, "basegame_high": {"books": 250, "draws": 21006, "reasons": {"win_range": 12731}}, "basegame_mid": {"books": 1230, "draws": 14466, "reasons": {"win_range": 7801}}, "epicgame": {"books": 661, "draws": 755, "reasons": {"epic8_floor": 14, "epic_floor": 3, "scatter7": 72, "stray8": 5}}, "supergame": {"books": 2048, "draws": 2057, "reasons": {"scatter7": 7, "stray8": 1, "super_floor": 1}}, "wincap": {"books": 34, "draws": 39, "reasons": {"scatter7": 5}}}, "mode": "super_ante", "thread": 2}
+reject basegame_high:win_range: 13500 draws rejected so far
+REDRAWS {"batch": 2, "criteria": {"0": {"books": 6036, "draws": 19162, "reasons": {}}, "basegame": {"books": 9748, "draws": 15843, "reasons": {}}, "basegame_high": {"books": 239, "draws": 21811, "reasons": {"win_range": 13375}}, "basegame_mid": {"books": 1245, "draws": 13476, "reasons": {"win_range": 7187}}, "epicgame": {"books": 708, "draws": 792, "reasons": {"epic8_floor": 10, "epic_floor": 2, "scatter7": 69, "stray8": 3}}, "supergame": {"books": 1984, "draws": 1995, "reasons": {"scatter7": 9, "super_floor": 2}}, "wincap": {"books": 40, "draws": 52, "reasons": {"scatter7": 11, "stray8": 1}}}, "mode": "super_ante", "thread": 4}
+Thread 3 finished with 53.849 RTP. [baseGame: 0.268, freeGame: 53.581]
+REDRAWS {"batch": 2, "criteria": {"0": {"books": 6012, "draws": 19371, "reasons": {}}, "basegame": {"books": 9838, "draws": 15804, "reasons": {}}, "basegame_high": {"books": 248, "draws": 22372, "reasons": {"win_range": 13663}}, "basegame_mid": {"books": 1148, "draws": 12714, "reasons": {"win_range": 6790}}, "epicgame": {"books": 677, "draws": 749, "reasons": {"epic8_floor": 10, "epic_floor": 5, "scatter7": 52, "stray8": 5}}, "supergame": {"books": 2047, "draws": 2070, "reasons": {"scatter7": 16, "stray8": 2, "super_floor": 5}}, "wincap": {"books": 30, "draws": 30, "reasons": {}}}, "mode": "super_ante", "thread": 3}
+All threads are online.
+Finished joining threads.
+Saving books for  manticore_mayhem in super_ante
+Saving force files for manticore_mayhem in super_ante
+Saving LUTs for manticore_mayhem in super_ante
+Wrote verification file: /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/fix-candidate-20261018/games/manticore_mayhem/library/configs/books_super_ante.verification.json
+
+Finished creating books in 241.03861498832703 seconds.
+

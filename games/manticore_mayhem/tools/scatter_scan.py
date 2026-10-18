@@ -76,7 +76,7 @@ FIRST_BOARD = {
     ("mystery", "mystery_nothing"): {3}, ("mystery", "supergame"): {5}, ("mystery", "epicgame"): {6},
     # Mystery diversity pass (2026-10-15): the Mystery's material slices (game_config
     # MYSTERY_SLICES) play the outcome they copy: 3 plus 2 stings for a Super, 3 plus 3 for an Epic
-    ("mystery", "mystery_super_low"): {5}, ("mystery", "mystery_super_mid"): {5}, ("mystery", "mystery_epic_body"): {6},
+    ("mystery", "mystery_super_low"): {5}, ("mystery", "mystery_super_mid"): {5}, ("mystery", "mystery_super_high"): {5}, ("mystery", "mystery_epic_body"): {6},
     ("mystery", "mystery_epic_mid"): {6}, ("mystery", "mystery_epic_upper"): {6},
 }
 # The criteria that may open on the forced 8 (rule pass 3) and the criteria whose rounds are

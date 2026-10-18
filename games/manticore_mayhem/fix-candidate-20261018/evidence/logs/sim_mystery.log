@@ -1,0 +1,25 @@
+Manticore Mayhem math version 2026.10.18
+--out: every file of this run goes to /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/fix-candidate-20261018/games/manticore_mayhem/library; the analysis is off
+
+Creating books...
+
+Creating books for manticore_mayhem in mystery
+Batch 1 of 3
+Started thread 0
+Started thread 1
+Started thread 2
+Started thread 3
+Started thread 4
+reject mystery_super_low:win_range: 500 draws rejected so far
+reject mystery_super_low:win_range: 500 draws rejected so far
+reject mystery_super_low:win_range: 500 draws rejected so far
+reject mystery_super_low:win_range: 500 draws rejected so far
+reject mystery_super_low:win_range: 500 draws rejected so far
+reject mystery_super_low:win_range: 1000 draws rejected so far
+reject mystery_super_low:win_range: 1000 draws rejected so far
+reject mystery_super_low:win_range: 1000 draws rejected so far
+reject mystery_super_low:win_range: 1000 draws rejected so far
+reject mystery_epic_body:win_range: 500 draws rejected so far
+reject mystery_epic_body:win_range: 500 draws rejected so far
+reject mystery_super_low:win_range: 1000 draws rejected so far
+reject mystery_super_low:win_range: 1500 draws rejected so far

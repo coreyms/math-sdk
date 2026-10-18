@@ -1064,6 +1064,7 @@ def _():
     assert forced[("mystery", "epicgame")] == {6: 1} and forced[("mystery", "supergame")] == {5: 1}
     # the Mystery diversity pass (2026-10-15): its slices are the Mystery Super / Epic, 5 / 6
     assert forced[("mystery", "mystery_super_low")] == {5: 1} and forced[("mystery", "mystery_super_mid")] == {5: 1}
+    assert forced[("mystery", "mystery_super_high")] == {5: 1}  # math fix 2026-10-18
     assert forced[("mystery", "mystery_epic_body")] == {6: 1} and forced[("mystery", "mystery_epic_mid")] == {6: 1}
     assert forced[("mystery", "mystery_epic_upper")] == {6: 1}
     for mode in ("base", "ante", "super_ante"):
