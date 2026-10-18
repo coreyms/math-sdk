@@ -115,6 +115,26 @@ def fast_cell_completes(board, reel, row, paying, wild_names=("W",)):
     return False
 
 
+def standin_group_size(names, reel, row, symbol, wild_names=("W",), stop_at=None):
+    """Size of the group a `symbol` at (reel, row) would belong to on the name grid `names`
+    ([reel][row]): every cell reachable orthogonally through `symbol` or a wild, the same group
+    fast_clusters / Cluster.get_clusters builds for that symbol. Stops counting at `stop_at`
+    (math fix 2026-10-18: the scatter-sting stand-in test only needs to know "5 or more")."""
+    n_reels = len(names)
+    group = {(reel, row)}
+    stack = [(reel, row)]
+    while stack:
+        r, w = stack.pop()
+        for rr, ww in ((r - 1, w), (r + 1, w), (r, w - 1), (r, w + 1)):
+            if 0 <= rr < n_reels and 0 <= ww < len(names[rr]) and (rr, ww) not in group:
+                if names[rr][ww] == symbol or names[rr][ww] in wild_names:
+                    group.add((rr, ww))
+                    stack.append((rr, ww))
+                    if stop_at is not None and len(group) >= stop_at:
+                        return len(group)
+    return len(group)
+
+
 class GameCalculations(Executables):
     """Tile grid + cluster evaluation + board drawing."""
 
@@ -312,18 +332,39 @@ class GameCalculations(Executables):
     # ---------------------------------------------------------------------------------
     # Reveal, placeholders and scatter stings (rule pass 2, 2026-09-23)
     # ---------------------------------------------------------------------------------
-    def placeholder_symbol(self, board, reel: int, row: int) -> str:
-        """A paying symbol (L1..H1, never W or S) that differs from all four orthogonal
-        neighbours of (reel,row) on `board`, so the cell it covers is isolated and CANNOT join
-        any cluster. That is what makes a scatter sting provably free: the cluster set of the
-        displayed board is identical to the cluster set of the real board."""
+    def placeholder_symbol(self, board, reel: int, row: int):
+        """The stand-in a scatter sting shows at (reel,row) before the Manticore stings the
+        War Standard in: a paying symbol (L1..H1, never W or S) that is NOT PART OF ANY GROUP OF
+        `min_cluster` OR MORE on `board` - orthogonal, Wilds linking, exactly as the cluster
+        evaluator counts. That is what makes a scatter sting provably free: the cluster set of
+        the displayed board is identical to the cluster set of the real board.
+
+        MATH FIX 2026-10-18 (harsh review 2026-10-17, Mystery book 1050): the old rule only made
+        the stand-in differ from its four neighbours, so a Wild neighbour still linked it to
+        matching symbols beyond (M3 W W M3 with the stand-in M3 above the second W: five cells a
+        player reads as a cluster that never pays). Now every candidate is tested with the
+        group walk below. Among those that fit, a symbol that also differs from all four
+        neighbours is preferred (the old look); if none does, any symbol that fits; if NO
+        paying symbol fits, None, and the caller throws the draw away (REDRAW_STANDIN).
+
+        `board` must hold every OTHER stung cell as the scatter (or as its already chosen
+        stand-in), which is what emit_reveal passes."""
+        names = [[sym.name for sym in column] for column in board]
         neighbours = set()
         for d_reel, d_row in ((-1, 0), (1, 0), (0, -1), (0, 1)):
             r, w = reel + d_reel, row + d_row
             if 0 <= r < self.config.num_reels and 0 <= w < self.config.num_rows[r]:
-                neighbours.add(board[r][w].name)
-        options = [name for name in self.config.paying_symbols if name not in neighbours]
-        assert options, "no placeholder symbol differs from all four neighbours"
+                neighbours.add(names[r][w])
+        wilds = self.config.special_symbols["wild"]
+        fits = [
+            name
+            for name in self.config.paying_symbols
+            if standin_group_size(names, reel, row, name, wilds, self.config.min_cluster) < self.config.min_cluster
+        ]
+        isolated = [name for name in fits if name not in neighbours]
+        options = isolated or fits
+        if not options:
+            return None
         return random.choice(options)
 
     def anticipation_from_board(self, board) -> list:
@@ -360,9 +401,24 @@ class GameCalculations(Executables):
             reveal_event(self)
             return
 
+        scatter = self.config.special_symbols["scatter"][0]
         display = [list(column) for column in self.board]
+        # Math fix 2026-10-18: every stung cell starts as what the real board will hold (the
+        # scatter, which links nothing), so each stand-in is tested against the board the
+        # player will really see; a later stand-in is tested with the earlier ones in place, so
+        # no two stand-ins can build a group together either. In a natural trigger these cells
+        # already are scatters (no change); in the Mystery spin-in they become them here.
         for reel, row in sting_cells:
-            display[reel][row] = self.create_symbol(self.placeholder_symbol(display, reel, row))
+            if display[reel][row].name != scatter:
+                display[reel][row] = self.create_symbol(scatter)
+        for reel, row in sting_cells:
+            name = self.placeholder_symbol(display, reel, row)
+            if name is None:
+                # No paying symbol fits: show the first one and throw the draw away in
+                # check_repeat (REDRAW_STANDIN), so no book ever carries this board.
+                self.standin_redraw = True
+                name = self.config.paying_symbols[0]
+            display[reel][row] = self.create_symbol(name)
 
         real_board, real_anticipation = self.board, self.anticipation
         self.board = display

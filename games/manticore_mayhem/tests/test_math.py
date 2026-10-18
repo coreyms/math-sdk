@@ -741,15 +741,45 @@ def paying_clusters(gs, board):
     }
 
 
-@check("scatter sting: the placeholder never joins a cluster, and the clusters are identical")
+def standin_reveal(gs, sting_cells, anticipation=None):
+    """Run emit_reveal on gs.board and return (visible board, real board after the stings) as
+    Symbol grids, the way a player first sees the reveal and the way the round is evaluated."""
+    gs.book.events = []
+    gs.emit_reveal(sting_cells, anticipation=anticipation)
+    reveal = [e for e in gs.book.events if e["type"] == "reveal"][-1]
+    visible = [[gs.create_symbol(name) for name in column] for column in reveal["board"]]
+    return visible, [list(column) for column in gs.board]
+
+
+def assert_standins_free(gs, visible, real, sting_cells, tag):
+    """The math fix 2026-10-18 rule: no stand-in is part of a group of 5+ (Wilds linking), and
+    the visible board's paying clusters are exactly the real board's."""
+    from game_calculations import standin_group_size
+
+    names = [[sym.name for sym in column] for column in visible]
+    for reel, row in sting_cells:
+        name = names[reel][row]
+        assert name in gs.config.paying_symbols and name not in ("W", "S"), (tag, name)
+        size = standin_group_size(names, reel, row, name, ("W",))
+        assert size < gs.config.min_cluster, f"{tag}: stand-in {name} at {(reel, row)} is in a group of {size}"
+    assert paying_clusters(gs, visible) == paying_clusters(gs, real), f"{tag}: visible clusters differ from the real board"
+
+
+@check("scatter sting: the stand-in is never in a 5+ group (Wilds linking), and the clusters are identical")
 def _():
     """The whole point of the feature: what the player sees before the sting has EXACTLY the
-    same paying clusters as the real board, so the round's payout cannot have changed."""
+    same paying clusters as the real board, so the round's payout cannot have changed. Math fix
+    2026-10-18: the boards now carry Wilds (the old rule, "differ from the four neighbours",
+    failed through a Wild neighbour), and the check is the walk's: no stand-in in a 5+ group."""
     gs = new_state()
     symbols = ("L1", "L2", "L3", "L4", "M1", "M2", "M3", "H1")
-    for trial in range(400):
+    redraws = 0
+    for trial in range(600):
         random.seed(trial)
-        rows = [" ".join(random.choice(symbols) for _ in range(8)) for _ in range(8)]
+        pool = symbols + ("W",) * (trial % 3)  # 0, 1 or 2 Wilds in every 10 cells (far above the strips)
+        rows = [" ".join(random.choice(pool) for _ in range(8)) for _ in range(8)]
+        set_board(gs, rows)
+        gs.reset_book()
         set_board(gs, rows)
         # drop 4 scatters in, one per column, as a real trigger board would
         scatters = []
@@ -759,21 +789,86 @@ def _():
             scatters.append((reel, row))
         gs.get_special_symbols_on_board()
         before = paying_clusters(gs, gs.board)
-
         sting_cells = random.sample(scatters, random.randint(1, 4))
-        display = [list(column) for column in gs.board]
-        for reel, row in sting_cells:
-            name = gs.placeholder_symbol(display, reel, row)
-            assert name in gs.config.paying_symbols and name not in ("W", "S"), name
-            display[reel][row] = gs.create_symbol(name)
-        # the placeholder differs from all four orthogonal neighbours, so it is isolated
-        for reel, row in sting_cells:
-            for d_reel, d_row in ((-1, 0), (1, 0), (0, -1), (0, 1)):
-                r, w = reel + d_reel, row + d_row
-                if 0 <= r < 8 and 0 <= w < 8:
-                    assert display[r][w].name != display[reel][row].name, (reel, row, r, w)
-        after = paying_clusters(gs, display)
-        assert before == after, f"trial {trial}: the placeholder board has different clusters"
+        visible, real = standin_reveal(gs, sting_cells)
+        if gs.standin_redraw:
+            redraws += 1
+            continue
+        assert paying_clusters(gs, real) == before, f"trial {trial}: the sting changed the real board"
+        assert_standins_free(gs, visible, real, sting_cells, f"trial {trial}")
+    # dense Wilds make a stung cell with no free stand-in common here; real strips rarely do it
+    # (tools/redraw_summary.py counts the `standin` re-draws of a run)
+    assert 600 - redraws >= 450, redraws
+
+
+@check("scatter sting: book 1050's phantom (M3 W W M3, stand-in M3 above the second Wild) cannot be dealt")
+def _():
+    """Fixture: Mystery book 1050 of the 2026.10.16 set (harsh review 2026-10-17). Its spin-in
+    showed the stand-in Royal Chalice at reel 6 row 2, directly above the Wild of row 3: with
+    M3 W W M3 in columns 5-8 of row 4 that is five cells read as a cluster, and nothing paid.
+    The landed board is rebuilt here (stung cells as their old stand-ins), the old choice is
+    proven to make the phantom, and the new rule is run on it for 300 seeds."""
+    from game_calculations import standin_group_size
+
+    rows = [
+        "L1 L3 L2 L1 M3 L2 L2 M1",
+        "L4 L4 L3 L2 L3 M3 L1 L3",
+        "L1 S  L1 L4 M2 M1 M3 L2",
+        "M1 L1 M1 L1 M3 W  W  M3",
+        "S  L4 L1 L4 L1 L2 L1 L2",
+        "L2 L1 L3 L2 L2 M3 L3 H1",
+        "M3 L2 M1 M2 L3 L4 M1 L3",
+        "L4 L4 S  L3 M2 L2 M2 M2",
+    ]
+    sting_cells = [(6, 2), (4, 7)]
+    gs = new_state()
+    gs.betmode, gs.criteria = "mystery", "supergame"
+    set_board(gs, rows)
+    names = [[sym.name for sym in column] for column in gs.board]
+    names[4][7] = "S"
+    # the old rule allowed M3 here (it differs from M1, L2, L1 and the Wild), and it is a 5-group
+    assert "M3" not in {names[5][2], names[7][2], names[6][1], names[6][3]}
+    assert standin_group_size(names, 6, 2, "M3", ("W",)) == 5
+    picked = set()
+    for seed in range(300):
+        random.seed(seed)
+        gs.reset_book()
+        gs.betmode, gs.criteria = "mystery", "supergame"
+        set_board(gs, rows)
+        visible, real = standin_reveal(gs, sting_cells, anticipation=gs.config.mystery_anticipation)
+        assert not gs.standin_redraw, seed
+        assert real[6][2].name == "S" and real[4][7].name == "S"
+        assert visible[6][2].name != "M3", f"seed {seed}: the phantom stand-in came back"
+        assert_standins_free(gs, visible, real, sting_cells, f"seed {seed}")
+        picked.add(visible[6][2].name)
+    assert len(picked) >= 3, picked
+
+
+@check("scatter sting: a cell where no symbol fits throws the draw away")
+def _():
+    """A stung cell with a Wild on all four sides has no free stand-in (any symbol there is a
+    group of 5 with the Wilds): emit_reveal flags the draw and check_repeat re-draws it."""
+    gs = new_state()
+    rows = [
+        "L1 L2 L3 L4 M1 M2 M3 H1",
+        "H1 M3 M2 M1 W  L3 L2 L1",
+        "L1 L2 L3 W  S  W  M3 H1",
+        "H1 M3 M2 M1 W  L3 L2 L1",
+        "L1 L2 L3 L4 M1 M2 M3 H1",
+        "H1 M3 M2 M1 L4 L3 L2 L1",
+        "L1 L2 L3 L4 M1 M2 M3 H1",
+        "H1 M3 M2 M1 L4 L3 L2 L1",
+    ]
+    set_board(gs, rows)
+    names = [[sym.name for sym in column] for column in gs.board]
+    from game_calculations import standin_group_size
+
+    assert all(standin_group_size(names, 4, 2, s, ("W",)) >= 5 for s in gs.config.paying_symbols)
+    assert gs.placeholder_symbol(gs.board, 4, 2) is None
+    standin_reveal(gs, [(4, 2)])
+    assert gs.standin_redraw is True
+    gs.reset_book()
+    assert gs.standin_redraw is False
 
 
 @check("scatter sting: natural triggers only, real board evaluated, never on a buy")
@@ -930,7 +1025,7 @@ def _():
     assert EPIC8_MIN_WIN == 2500.0 and EPIC8_SHARE_SPIN == 0.10 and EPIC8_SHARE_EPIC_BUY == 0.05
     assert EPIC8_SHARE == {"base": 0.10, "ante": 0.10, "super_ante": 0.10, "epic": 0.05}, EPIC8_SHARE
     assert (MAX_TRIGGER_SCATTERS, FULL_BOARD_SCATTERS) == (6, 8)
-    assert MATH_VERSION == "2026.10.16", MATH_VERSION  # math reshape; 2026.10.15 diversity, 2026.10.13 rule pass 3
+    assert MATH_VERSION == "2026.10.18", MATH_VERSION  # math fix; 2026.10.16 reshape, 2026.10.15 diversity, 2026.10.13 rule pass 3
 
     cfg = GameConfig()
     forced = {}

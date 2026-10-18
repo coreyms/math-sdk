@@ -19,6 +19,10 @@ ZERO_WIN_CRITERIA = ("0", "mystery_nothing")
 REDRAW_SCATTER7 = "scatter7"
 REDRAW_STRAY8 = "stray8"
 REDRAW_EPIC8_FLOOR = "epic8_floor"
+# MATH FIX 2026-10-18: a scatter-sting reveal where no paying symbol can stand in for a stung
+# cell without being part of a visible 5+ group (game_calculations.placeholder_symbol). The draw
+# is thrown away like the others. Counted only when no other reason already threw it away.
+REDRAW_STANDIN = "standin"
 # The line each simulation thread prints when it finishes a batch; tools/redraw_summary.py
 # sums them over a run's log.
 REDRAW_LOG_PREFIX = "REDRAWS "
@@ -46,6 +50,8 @@ class GameStateOverride(GameExecutables):
         # re-drawn round into the next one and the game stays stateless.
         self.reveal_scatters = 0
         self.trigger_scatters = 0
+        # Math fix 2026-10-18: set by emit_reveal when no stand-in fits (REDRAW_STANDIN).
+        self.standin_redraw = False
         self.reset_tiles()
 
     def reset_fs_spin(self) -> None:
@@ -165,6 +171,11 @@ class GameStateOverride(GameExecutables):
         stats = self._redraw_stats()
         stats["draws"] += 1
         if self.repeat:
+            return
+
+        if self.standin_redraw:
+            self._count_rejection(f"{self.betmode}:{self.criteria}:{REDRAW_STANDIN}")
+            self.repeat = True
             return
 
         if self.win_manager.running_bet_win == 0 and self.criteria not in ZERO_WIN_CRITERIA:

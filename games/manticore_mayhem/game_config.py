@@ -42,7 +42,9 @@ WINCAP = 10000.0  # spec B: max win 10,000x base bet (Corey 2026-09-20)
 # and from 2026.10.13 for the diversity pass (2026-10-15: no rule changed, two buys re-dealt).
 # It is a label only: nothing in the engine, the shaper or the published configs reads it.
 # The Mystery diversity pass of the same day (Mystery re-dealt, no rule changed) keeps the label.
-MATH_VERSION = "2026.10.16"  # math reshape (Corey 2026-10-16 16:16); was 2026.10.15 (diversity pass)
+# Math fix 2026-10-18 (harsh review 2026-10-17): the scatter-sting stand-in may never be part of a visible
+# 5+ group (game_calculations.placeholder_symbol), the spin modes re-simulated at 300,000 books, Mystery re-dealt.
+MATH_VERSION = "2026.10.18"  # math fix (Corey 2026-10-17 22:54 "go ahead and run it"); was 2026.10.16 (math reshape)
 
 ANTE_COST = 3.0
 SUPER_ANTE_COST = 10.0
@@ -553,6 +555,8 @@ class GameConfig(Config):
                 pay_group[(rng, sym)] = pay
         self.paytable = self.convert_range_table(pay_group)
         assert min(k[0] for k in self.paytable) == MIN_CLUSTER
+        # Math fix 2026-10-18: the scatter-sting stand-in test (placeholder_symbol) reads it.
+        self.min_cluster = MIN_CLUSTER
 
         # The eight PAYING symbols, in ladder order. The scatter-sting placeholder is drawn
         # from this list (never W, never S), so a placeholder always looks like a real symbol.
