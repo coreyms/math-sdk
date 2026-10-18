@@ -1,0 +1,129 @@
+{
+ "mode": "bonus",
+ "cost": 100,
+ "books": 129000,
+ "missing_lut_rows": 0,
+ "seconds": 183,
+ "violations": {
+  "gametype_wins_ne_payout_capped": 528
+ },
+ "examples": {
+  "gametype_wins_ne_payout_capped": [
+   51,
+   166,
+   359,
+   1039,
+   1716
+  ]
+ },
+ "counts": {
+  "books": 129000,
+  "bonusEnd_total_eq_fg": 128135,
+  "bonusEnd_total_eq_round": 84203,
+  "feat_bonus": 126875,
+  "f_bonus_swipes": 300679,
+  "f_bonus_sting_runs": 180312,
+  "f_bonus_normal_only_runs": 145230,
+  "fg_spins": 1034598,
+  "f_bonus_sting_only_extended_existing": 33295,
+  "b_swipes": 17106,
+  "b_sting_runs": 17700,
+  "b_normal_only_runs": 17700,
+  "b_sting_only_extended_existing": 2646,
+  "cap_books": 866,
+  "capping_step_lists_more_than_paid": 459,
+  "cap_with_unplayed_spins": 696,
+  "feat_super": 2034,
+  "f_super_swipes": 6373,
+  "f_super_sting_runs": 4399,
+  "f_super_normal_only_runs": 2694,
+  "f_super_sting_only_extended_existing": 642,
+  "feat_epic": 91,
+  "f_epic_sting_runs": 366,
+  "f_epic_swipes": 230,
+  "f_epic_normal_only_runs": 136,
+  "f_epic_sting_only_extended_existing": 46
+ },
+ "weighted": {
+  "hit": 1.0,
+  "win_under_cost": 0.7244496161715652,
+  "feat_bonus": 0.9962418805960928,
+  "feat_bonus_on_4": 0.9962418805960928,
+  "b_spins": 1.0,
+  "b_dead": 0.7027490815325798,
+  "b_deadpre": 0.7614862354552966,
+  "f_bonus_spins": 7.969881142204564,
+  "f_bonus_swipe_spin": 1.9667119475079273,
+  "f_bonus_deadpre": 3.3235640510641535,
+  "f_bonus_deadpre_swipe": 1.7444349866345006,
+  "f_bonus_dead": 1.5791290644298888,
+  "f_bonus_sting_run": 1.249417241102139,
+  "f_bonus_paidpre": 4.646317091140548,
+  "f_bonus_big_sting": 0.1459959962158685,
+  "f_bonus_paidpre_swipe": 0.22227696087346183,
+  "f_bonus_sting_only_extended": 0.24292377742790608,
+  "trigger_spin_paid": 0.29722653067538224,
+  "b_paidpre": 0.23851376454467577,
+  "b_swipe_spin": 0.0763484130046286,
+  "b_deadpre_swipe": 0.05873715392271801,
+  "b_sting_run": 0.12564102601056978,
+  "b_sting_only_extended": 0.01844154367133066,
+  "cap": 3.9999674020238414e-05,
+  "feat_super": 0.003743346162893965,
+  "feat_super_on_5": 0.003743346162893965,
+  "f_super_spins": 0.03741184517692908,
+  "f_super_swipe_spin": 0.009482931888797999,
+  "f_super_deadpre": 0.014642885162408937,
+  "f_super_deadpre_swipe": 0.00818594412414169,
+  "f_super_roar": 0.0028542142084441095,
+  "f_super_paidpre": 0.02276896001452076,
+  "f_super_sting_run": 0.00608330848307783,
+  "f_super_big_sting": 0.0008116603104106691,
+  "f_super_dead": 0.006456941038266917,
+  "b_paidpre_swipe": 0.0176112590819107,
+  "f_super_super_sting": 0.00030902039415635184,
+  "f_super_sting_only_extended": 0.001011553568511806,
+  "b_3plus_steps": 0.0054728996547690634,
+  "feat_epic": 1.4773241007474642e-05,
+  "feat_epic_on_6": 1.4773241007474642e-05,
+  "f_epic_spins": 0.00016808728108504462,
+  "f_epic_sting_run": 5.3581924027110525e-05,
+  "f_epic_super_sting": 1.8630776009426368e-05,
+  "f_epic_paidpre": 0.0001176493310595265,
+  "f_epic_swipe_spin": 3.4664407017538765e-05,
+  "f_epic_deadpre": 5.0437950025519656e-05,
+  "f_epic_deadpre_swipe": 2.6252033013282434e-05,
+  "f_epic_roar": 1.2559169006354418e-05,
+  "f_epic_sting_only_extended": 8.953671004530192e-06,
+  "f_super_paidpre_swipe": 0.0012969877646562234,
+  "f_epic_dead": 2.4185917012237086e-05,
+  "f_epic_big_sting": 8.59485800434865e-06,
+  "f_epic_paidpre_swipe": 8.412374004256322e-06
+ },
+ "mins": {
+  "bonus_freespins_total": [
+   10.0,
+   3184
+  ],
+  "bonus_round_total": [
+   10.0,
+   3184
+  ],
+  "super_freespins_total": [
+   26.0,
+   27494
+  ],
+  "super_round_total": [
+   30.2,
+   71486
+  ],
+  "epic_freespins_total": [
+   399.6,
+   50947
+  ],
+  "epic_round_total": [
+   400.0,
+   50947
+  ]
+ }
+}

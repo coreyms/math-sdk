@@ -1,0 +1,32 @@
+== bonus: cost 100x  books 129000  RTP 0.9669900  std 1.88 (cost units)  hit 1 in 1.00
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000040000     25,000.0    10000.00     0.41%  +0.000  866
+   freegame     0.999960000          1.0       96.30    99.59%  -1.606  128134
+   RTP share: <1x 0.00%  5x+ 100.0%  20x+ 97.7%  200x+ 45.1%
+   spins paying 5x+ 100.0000%  20x+ 85.4005%  100x+ 27.5550%
+   tail: P(>=5,000x) 0.0002595 (scaled 0.0002595 / 0.010 2*)   P(>=10,000x) 0.0000400 (scaled 0.0000400 / 0.005 2*)   cap 1 in 25,000
+   ETL>40x cost 0.0217 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 3,902x bet (limit 20,000) = 39.0 per stake (limit 700)
+   diversity: effective books 96,841   top book 1 in 50,000   half of all rounds from 37,910 books   ceiling 1 in 50,000
+   wrote games/manticore_mayhem/fix-candidate-20261018/scratch/reshape_check/publish_files/lookUpTable_bonus_0.csv
+== super: cost 250x  books 189000  RTP 0.9669900  std 1.71 (cost units)  hit 1 in 1.00
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000125000      8,000.0    10000.00     0.52%  +0.000  7216
+   supergame    0.999875000          1.0      240.53    99.48%  -4.040  181784
+   RTP share: <1x 0.00%  5x+ 100.0%  20x+ 100.0%  200x+ 74.1%
+   spins paying 5x+ 100.0000%  20x+ 100.0000%  100x+ 59.1941%
+   tail: P(>=5,000x) 0.0012846 (scaled 0.0010277 / 0.010 2*)   P(>=10,000x) 0.0001250 (scaled 0.0001000 / 0.005 2*)   cap 1 in 8,000
+   ETL>40x cost 0.0052 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 7,587x bet (limit 20,000) = 30.3 per stake (limit 700)
+   diversity: effective books 89,650   top book 1 in 50,000   half of all rounds from 30,975 books   ceiling 1 in 50,000
+   wrote games/manticore_mayhem/fix-candidate-20261018/scratch/reshape_check/publish_files/lookUpTable_super_0.csv
+== epic: cost 500x  books 135000  RTP 0.9669900  std 1.36 (cost units)  hit 1 in 1.00
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000333333      3,000.0    10000.00     0.69%  +0.000  5188
+   epicgame     0.999666667          1.0      480.32    99.31%  +0.441  129812
+   RTP share: <1x 0.00%  5x+ 100.0%  20x+ 100.0%  200x+ 100.0%
+   spins paying 5x+ 100.0000%  20x+ 100.0000%  100x+ 100.0000%
+   tail: P(>=5,000x) 0.0039336 (scaled 0.0019668 / 0.010 2*)   P(>=10,000x) 0.0003333 (scaled 0.0001667 / 0.005 2*)   cap 1 in 3,000
+   ETL>40x cost 0.0000 (limit 0.9)   ETL>10,000x cost 0.0000 (limit 0.8)   CVaR(0.1%) 9,669x bet (limit 20,000) = 19.3 per stake (limit 700)
+   diversity: effective books 73,243   top book 1 in 50,000   half of all rounds from 25,286 books   ceiling 1 in 50,000
+   wrote games/manticore_mayhem/fix-candidate-20261018/scratch/reshape_check/publish_files/lookUpTable_epic_0.csv
+
+cross-mode RTP spread 5.93e-10 (limit 0.005); target 0.9669900

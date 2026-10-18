@@ -1,0 +1,138 @@
+{
+ "mode": "base",
+ "cost": 1,
+ "books": 300000,
+ "missing_lut_rows": 0,
+ "seconds": 74,
+ "violations": {
+  "gametype_wins_ne_payout_capped": 1459
+ },
+ "examples": {
+  "gametype_wins_ne_payout_capped": [
+   325,
+   339,
+   713,
+   1015,
+   1158
+  ]
+ },
+ "counts": {
+  "books": 300000,
+  "fg_spins": 148689,
+  "b_sting_runs": 45042,
+  "b_normal_only_runs": 45042,
+  "bonusEnd_total_eq_fg": 13758,
+  "bonusEnd_total_eq_round": 7433,
+  "feat_bonus": 8584,
+  "f_bonus_sting_runs": 13737,
+  "f_bonus_normal_only_runs": 10307,
+  "f_bonus_swipes": 23676,
+  "b_swipes": 93426,
+  "b_sting_only_extended_existing": 12220,
+  "feat_super": 3889,
+  "f_super_swipes": 11976,
+  "f_super_sting_runs": 8529,
+  "cap_books": 3043,
+  "cap_with_unplayed_spins": 2597,
+  "feat_epic": 4327,
+  "f_epic_sting_runs": 16745,
+  "f_epic_swipes": 10553,
+  "capping_step_lists_more_than_paid": 2061,
+  "f_epic_sting_only_extended_existing": 1708,
+  "f_epic_normal_only_runs": 5826,
+  "f_bonus_sting_only_extended_existing": 2466,
+  "scatter_sting_reveals": 2486,
+  "scatter_sting_visible_S_max": 3,
+  "scatter_sting_visible_S_1": 309,
+  "f_super_normal_only_runs": 5226,
+  "scatter_sting_visible_S_0": 141,
+  "f_super_sting_only_extended_existing": 1351,
+  "scatter_sting_visible_S_3": 1353,
+  "scatter_sting_visible_S_2": 683
+ },
+ "weighted": {
+  "hit": 0.44223414315821513,
+  "win_under_cost": 0.2435999966426703,
+  "win_under_1x": 0.2435999966426703,
+  "b_spins": 1.0,
+  "b_paidpre": 0.40325319373992713,
+  "b_dead": 0.5598297207362732,
+  "b_deadpre": 0.5967468062575737,
+  "b_sting_run": 0.09848585409042736,
+  "feat_bonus": 0.002762053020307359,
+  "feat_bonus_on_4": 0.002762053020307359,
+  "trigger_spin_paid": 0.0011701311134109924,
+  "f_bonus_spins": 0.022096423287459314,
+  "f_bonus_paidpre": 0.012892530727645261,
+  "f_bonus_sting_run": 0.0034046097086255704,
+  "f_bonus_swipe_spin": 0.005448237854765181,
+  "f_bonus_deadpre": 0.009203892559813812,
+  "f_bonus_deadpre_swipe": 0.0048379962831050895,
+  "f_bonus_dead": 0.004365896276708721,
+  "b_swipe_spin": 0.08378337075794574,
+  "b_paidpre_swipe": 0.0468662852369055,
+  "b_3plus_steps": 0.03151009308756182,
+  "b_deadpre_swipe": 0.03691708552103934,
+  "b_sting_only_extended": 0.02220689444387172,
+  "feat_super": 0.0004000410123885355,
+  "feat_super_on_5": 0.0004000410123885355,
+  "f_super_spins": 0.004000358621887737,
+  "f_super_swipe_spin": 0.0009698370227280859,
+  "f_super_deadpre": 0.001557633620320159,
+  "f_super_deadpre_swipe": 0.0008283075736050154,
+  "f_super_paidpre": 0.0024427250015672886,
+  "f_super_sting_run": 0.0006043494879047483,
+  "f_super_super_sting": 2.2842542051476854e-05,
+  "f_super_dead": 0.0007293260467151655,
+  "f_bonus_big_sting": 0.00040075983435868315,
+  "f_bonus_paidpre_swipe": 0.0006102415716600753,
+  "cap": 3.333329861585277e-07,
+  "feat_epic": 7.206079100771561e-05,
+  "feat_epic_on_6": 7.17101540222758e-05,
+  "f_epic_spins": 0.0008635990321393325,
+  "f_epic_paidpre": 0.0005243885142252286,
+  "f_epic_roar": 5.6090427670876e-05,
+  "f_epic_sting_run": 0.00020783759936964172,
+  "f_epic_super_sting": 3.9927610342028686e-05,
+  "f_epic_swipe_spin": 0.0002204691308451377,
+  "f_epic_deadpre": 0.0003392105179145125,
+  "f_epic_deadpre_swipe": 0.00019305277098358997,
+  "f_epic_big_sting": 2.576428693015355e-05,
+  "f_epic_sting_only_extended": 3.8268665410915896e-05,
+  "f_epic_paidpre_swipe": 2.7416359861552083e-05,
+  "f_bonus_sting_only_extended": 0.0006359801345912988,
+  "scatter_sting_round": 0.0004879941387363342,
+  "f_super_roar": 0.0002939715557930055,
+  "f_super_big_sting": 7.22994619978071e-05,
+  "feat_epic_on_8": 3.506369854400035e-07,
+  "f_epic_dead": 0.0001461577469308829,
+  "f_super_sting_only_extended": 0.00012182493994129067,
+  "f_super_paidpre_swipe": 0.00014152944912307228
+ },
+ "mins": {
+  "bonus_freespins_total": [
+   10.0,
+   11926
+  ],
+  "bonus_round_total": [
+   10.0,
+   11926
+  ],
+  "super_freespins_total": [
+   29.3,
+   179032
+  ],
+  "super_round_total": [
+   29.3,
+   179032
+  ],
+  "epic_freespins_total": [
+   207.9,
+   145967
+  ],
+  "epic_round_total": [
+   207.9,
+   145967
+  ]
+ }
+}

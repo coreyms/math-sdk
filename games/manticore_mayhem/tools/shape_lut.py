@@ -417,6 +417,20 @@ def shape(mode, dry_run=False, quiet=False):
             for (book_id, _), frac in zip(g["members"][band], sh[band]):
                 w[book_id] = share * float(frac)
     wi = {i: max(1, int(round(v))) for i, v in w.items()}
+    # MATH FIX 2026-10-18: the cap group is uniform, so plain rounding moves EVERY capped book the same way.
+    # At 1 in 3,000,000 over 300,000 base books (3,043 capped, about 109.5 weight each) that lifted the max-win
+    # odds to 1 in 2,987,483 and the RTP to 0.9670037, above the RGS's 0.967 ceiling. The cap group's weight is
+    # now dealt out exactly: its integer total is round(p x TOTAL_WEIGHT), split as evenly as integers allow
+    # (the lowest book ids take the +1s). Only the cap rows of a table can move, by at most 1 each.
+    for g in groups:
+        if g["name"] != CAP:
+            continue
+        ids = sorted(book_id for band, _ in g["bands"] for book_id, _ in g["members"][band])
+        if not ids:
+            continue
+        q, r = divmod(int(round(g["p"] * TOTAL_WEIGHT)), len(ids))
+        for k, book_id in enumerate(ids):
+            wi[book_id] = max(1, q + (1 if k < r else 0))
     total = sum(wi.values())
     pays = {i: p for i, (_, p) in books.items()}
 

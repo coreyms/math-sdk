@@ -1,0 +1,7 @@
+bonus 20000 books 28s
+bonus 40000 books 56s
+bonus 60000 books 85s
+bonus 80000 books 113s
+bonus 100000 books 141s
+bonus 120000 books 170s
+{"mode": "bonus", "books": 129000, "seconds": 183, "violations": {"gametype_wins_ne_payout_capped": 528}, "missing_lut_rows": 0}

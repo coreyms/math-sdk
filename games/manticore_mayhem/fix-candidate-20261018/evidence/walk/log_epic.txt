@@ -1,0 +1,7 @@
+epic 20000 books 44s
+epic 40000 books 88s
+epic 60000 books 133s
+epic 80000 books 176s
+epic 100000 books 219s
+epic 120000 books 261s
+{"mode": "epic", "books": 135000, "seconds": 292, "violations": {"gametype_wins_ne_payout_capped": 1997}, "missing_lut_rows": 0}

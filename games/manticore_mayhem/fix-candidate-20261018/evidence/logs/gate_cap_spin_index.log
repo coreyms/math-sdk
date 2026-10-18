@@ -1,0 +1,101 @@
+library /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/fix-candidate-20261018/games/manticore_mayhem/library
+
+== epic: cap-hit spin index (weight-weighted, 12 distinct indices)
+   free spin 1      0.02%   cumulative   0.02%
+   free spin 2      0.52%   cumulative   0.54%
+   free spin 3      1.25%   cumulative   1.79%
+   free spin 4      2.06%   cumulative   3.86%
+   free spin 5      3.91%   cumulative   7.77%
+   free spin 6      6.65%   cumulative  14.42%
+   free spin 7      9.35%   cumulative  23.77%
+   free spin 8     11.91%   cumulative  35.68%
+   free spin 9     15.48%   cumulative  51.16%
+   free spin 10    17.12%   cumulative  68.27%
+   free spin 11    15.27%   cumulative  83.54%
+   free spin 12    16.46%   cumulative 100.00%
+   mean spin 9.09   median spin 9   share landing on spins 5-12: 96.1%
+
+== super: cap-hit spin index (weight-weighted, 11 distinct indices)
+   free spin 2      0.26%   cumulative   0.26%
+   free spin 3      0.85%   cumulative   1.11%
+   free spin 4      2.05%   cumulative   3.16%
+   free spin 5      4.14%   cumulative   7.30%
+   free spin 6      7.54%   cumulative  14.84%
+   free spin 7     11.82%   cumulative  26.66%
+   free spin 8     17.72%   cumulative  44.39%
+   free spin 9     22.34%   cumulative  66.73%
+   free spin 10    28.87%   cumulative  95.59%
+   free spin 11     2.41%   cumulative  98.00%
+   free spin 12     2.00%   cumulative 100.00%
+   mean spin 8.42   median spin 9   share landing on spins 5-12: 96.8%
+
+== bonus: cap-hit spin index (weight-weighted, 11 distinct indices)
+   free spin 2      1.15%   cumulative   1.15%
+   free spin 3      4.16%   cumulative   5.31%
+   free spin 4      7.85%   cumulative  13.16%
+   free spin 5     14.32%   cumulative  27.48%
+   free spin 6     18.94%   cumulative  46.42%
+   free spin 7     18.36%   cumulative  64.78%
+   free spin 8     18.71%   cumulative  83.49%
+   free spin 9      6.81%   cumulative  90.30%
+   free spin 10     7.39%   cumulative  97.69%
+   free spin 11     1.15%   cumulative  98.85%
+   free spin 12     1.15%   cumulative 100.00%
+   mean spin 6.71   median spin 7   share landing on spins 5-12: 86.8%
+
+== mystery: cap-hit spin index (weight-weighted, 11 distinct indices)
+   free spin 2      0.06%   cumulative   0.06%
+   free spin 3      0.19%   cumulative   0.26%
+   free spin 4      1.58%   cumulative   1.84%
+   free spin 5      3.34%   cumulative   5.18%
+   free spin 6      5.74%   cumulative  10.92%
+   free spin 7      9.95%   cumulative  20.87%
+   free spin 8     14.37%   cumulative  35.24%
+   free spin 9     19.56%   cumulative  54.80%
+   free spin 10    21.77%   cumulative  76.57%
+   free spin 11    12.31%   cumulative  88.88%
+   free spin 12    11.12%   cumulative 100.00%
+   mean spin 9.05   median spin 9   share landing on spins 5-12: 98.2%
+
+== base: cap-hit spin index (weight-weighted, 12 distinct indices)
+   free spin 1      0.03%   cumulative   0.03%
+   free spin 2      1.55%   cumulative   1.58%
+   free spin 3      3.45%   cumulative   5.03%
+   free spin 4      6.31%   cumulative  11.34%
+   free spin 5      7.86%   cumulative  19.20%
+   free spin 6      8.05%   cumulative  27.25%
+   free spin 7      9.36%   cumulative  36.61%
+   free spin 8     11.54%   cumulative  48.15%
+   free spin 9     13.34%   cumulative  61.49%
+   free spin 10    15.54%   cumulative  77.03%
+   free spin 11    11.79%   cumulative  88.83%
+   free spin 12    11.17%   cumulative 100.00%
+   mean spin 8.23   median spin 9   share landing on spins 5-12: 88.7%
+
+== ante: cap-hit spin index (weight-weighted, 11 distinct indices)
+   free spin 2      1.23%   cumulative   1.23%
+   free spin 3      3.07%   cumulative   4.30%
+   free spin 4      5.04%   cumulative   9.34%
+   free spin 5      6.36%   cumulative  15.70%
+   free spin 6      8.04%   cumulative  23.74%
+   free spin 7      9.64%   cumulative  33.38%
+   free spin 8     12.94%   cumulative  46.32%
+   free spin 9     15.72%   cumulative  62.04%
+   free spin 10    16.43%   cumulative  78.48%
+   free spin 11    10.70%   cumulative  89.18%
+   free spin 12    10.82%   cumulative 100.00%
+   mean spin 8.36   median spin 9   share landing on spins 5-12: 90.7%
+
+== super_ante: cap-hit spin index (weight-weighted, 11 distinct indices)
+   free spin 2      0.46%   cumulative   0.46%
+   free spin 3      1.92%   cumulative   2.38%
+   free spin 4      3.16%   cumulative   5.55%
+   free spin 5      4.89%   cumulative  10.44%
+   free spin 6      7.47%   cumulative  17.90%
+   free spin 7     10.02%   cumulative  27.92%
+   free spin 8     13.37%   cumulative  41.29%
+   free spin 9     15.89%   cumulative  57.18%
+   free spin 10    19.43%   cumulative  76.60%
+   free spin 11    12.23%   cumulative  88.83%
+   free spin 12    11.17%   cumulative 100.00%
+   mean spin 8.71   median spin 9   share landing on spins 5-12: 94.5%

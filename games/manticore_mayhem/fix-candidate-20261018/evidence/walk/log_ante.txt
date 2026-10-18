@@ -1,0 +1,15 @@
+ante 20000 books 8s
+ante 40000 books 15s
+ante 60000 books 23s
+ante 80000 books 31s
+ante 100000 books 39s
+ante 120000 books 47s
+ante 140000 books 55s
+ante 160000 books 63s
+ante 180000 books 70s
+ante 200000 books 78s
+ante 220000 books 86s
+ante 240000 books 94s
+ante 260000 books 102s
+ante 280000 books 110s
+{"mode": "ante", "books": 300000, "seconds": 117, "violations": {"gametype_wins_ne_payout_capped": 2675}, "missing_lut_rows": 0}

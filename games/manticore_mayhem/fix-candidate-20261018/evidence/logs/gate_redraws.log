@@ -1,0 +1,38 @@
+re-draws per ACCEPTED book, by reason (0 is printed as a dot)
+mode        criteria          books      draws draws/book    scatter7      stray8 epic8_floor  epic_floor   win_range bonus_floor     standin super_floor      other
+ante        0                90,000    249,650      2.774           .           .           .           .           .           .           .           .      1.774
+ante        basegame_high     3,600    247,057     68.627           .           .           .           .     42.1278           .           .           .     25.499
+ante        basegame        144,600    230,578      1.595           .           .           .           .           .           .           .           .      0.595
+ante        basegame_mid     18,000    179,258      9.959           .           .           .           .      5.2596           .           .           .      3.699
+ante        freegame         30,000     30,106      1.004      0.0005           .           .           .           .      0.0030           .           .          .
+ante        supergame         9,000      9,047      1.005      0.0042      0.0001           .      0.0001           .           .           .      0.0008          .
+ante        epicgame          4,200      4,442      1.058      0.0388      0.0014      0.0148      0.0026           .           .           .           .          .
+ante        wincap              600        615      1.025      0.0250           .           .           .           .           .           .           .          .
+ante        ALL             300,000    950,753      3.169
+base        basegame_high     3,600    330,211     91.725           .           .           .           .     56.1917           .           .           .     34.534
+base        0               105,000    277,925      2.647           .           .           .           .           .           .           .           .      1.647
+base        basegame        156,600    251,427      1.606           .           .           .           .           .           .           .           .      0.606
+base        basegame_mid     18,000    210,815     11.712           .           .           .           .      6.2652           .           .           .      4.447
+base        freegame          9,000      9,024      1.003           .           .           .           .           .      0.0027           .           .          .
+base        epicgame          3,600      3,728      1.036      0.0172      0.0006      0.0147      0.0031           .           .           .           .          .
+base        supergame         3,600      3,605      1.001      0.0006           .           .           .           .           .           .      0.0008          .
+base        wincap              600        612      1.020      0.0200           .           .           .           .           .           .           .          .
+base        ALL             300,000  1,087,347      3.624
+mystery     mystery_super_low   18,000  1,112,536     61.808           .           .           .           .     60.6872           .      0.0007      0.1197          .
+mystery     mystery_epic_body   18,000    532,895     29.605           .           .           .      0.7076     27.8969           .      0.0008           .          .
+mystery     mystery_super_mid   24,000    446,536     18.606           .           .           .           .     17.5730           .      0.0003      0.0324          .
+mystery     mystery_nothing  250,000    250,000      1.000           .           .           .           .           .           .           .           .          .
+mystery     mystery_super_high   50,000    103,012      2.060           .           .           .           .      1.0563           .      0.0000      0.0039          .
+mystery     mystery_epic_mid    6,000     65,651     10.942           .           .           .      0.2602      9.6817           .           .           .          .
+mystery     supergame        20,000     20,054      1.003           .           .           .           .           .           .      0.0001      0.0027          .
+mystery     mystery_epic_upper    4,000     13,436      3.359           .           .           .      0.0845      2.2745           .           .           .          .
+mystery     epicgame          3,000      3,069      1.023           .           .           .      0.0230           .           .           .           .          .
+mystery     ALL             393,000  2,547,189      6.481
+super_ante  basegame_high     3,600    317,041     88.067           .           .           .           .     53.6617           .           .           .     33.405
+super_ante  0                90,000    285,923      3.177           .           .           .           .           .           .           .           .      2.177
+super_ante  basegame        147,600    237,519      1.609           .           .           .           .           .           .           .           .      0.609
+super_ante  basegame_mid     18,000    203,101     11.283           .           .           .           .      6.0105           .           .           .      4.273
+super_ante  supergame        30,000     30,231      1.008      0.0061      0.0005           .      0.0001           .           .           .      0.0011          .
+super_ante  epicgame         10,200     11,343      1.112      0.0873      0.0059      0.0148      0.0041           .           .           .           .          .
+super_ante  wincap              600        673      1.122      0.1083      0.0133           .           .           .           .           .           .          .
+super_ante  ALL             300,000  1,085,831      3.619

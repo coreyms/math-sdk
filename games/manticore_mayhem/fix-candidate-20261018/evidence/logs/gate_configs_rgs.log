@@ -1,0 +1,66 @@
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [ante] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [super_ante] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [bonus] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [super] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [epic] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [mystery] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+Manticore Mayhem math version 2026.10.18
+--out: every file of this run goes to /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/fix-candidate-20261018/games/manticore_mayhem/library; the analysis is off
+[FAST PATH] Using verification sidecar for base
+[FAST PATH] base: SHA-256 OK, payout hash OK, entries=300000
+[FAST PATH] Using verification sidecar for ante
+[FAST PATH] ante: SHA-256 OK, payout hash OK, entries=300000
+	VIOLATED: etl40b  VALUE:1.6679 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for super_ante
+[FAST PATH] super_ante: SHA-256 OK, payout hash OK, entries=300000
+	VIOLATED: etl40b  VALUE:5.8266 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for bonus
+[FAST PATH] bonus: SHA-256 OK, payout hash OK, entries=129000
+	VIOLATED: etl40b  VALUE:2.0958 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for super
+[FAST PATH] super: SHA-256 OK, payout hash OK, entries=189000
+	VIOLATED: etl40b  VALUE:1.25 --- LIMIT: 0.9
+	VIOLATED: etl10k  VALUE:1.25 --- LIMIT: 0.8
+
+
+
+[FAST PATH] Using verification sidecar for epic
+[FAST PATH] epic: SHA-256 OK, payout hash OK, entries=135000
+	VIOLATED: etl10k  VALUE:3.3333 --- LIMIT: 0.8
+
+
+
+[FAST PATH] Using verification sidecar for mystery
+[FAST PATH] mystery: SHA-256 OK, payout hash OK, entries=393000
+	VIOLATED: etl40b  VALUE:1.1597 --- LIMIT: 0.9
+	VIOLATED: etl10k  VALUE:1.1597 --- LIMIT: 0.8
+
+
+

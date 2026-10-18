@@ -1,0 +1,7 @@
+walk base exit 0
+walk ante exit 0
+walk super_ante exit 0
+walk bonus exit 0
+walk epic exit 0
+walk super exit 0
+walk mystery exit 0

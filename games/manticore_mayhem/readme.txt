@@ -4,6 +4,12 @@ tumbling refill, doubling multiplier tiles. Max win 10,000x. Target RTP 96.7% ev
 Game id: manticore_mayhem. Spec: ~/Projects/manticore/docs/manticore-spec.md (blocks B/C/D).
 Forked from the SDK's 0_0_cluster sample; conventions follow games/angry_mantis.
 
+STATUS 2026-10-18 (math fix, CANDIDATE, NOT PROMOTED, waits for Corey's look): fix-candidate-20261018/games/
+manticore_mayhem/library holds MATH_VERSION 2026.10.18: the scatter-sting stand-in can no longer be part of a visible 5+
+group (harsh review 2026-10-17, Mystery book 1050), base / ante / super_ante re-simulated at exactly 300,000 books each
+(the reshape shipped 99,000), Mystery re-dealt (393,000 books, 222,815 effective); Bonus / Super / Epic are library/'s
+files byte for byte. Every gate passed on it. library/ STILL SERVES 2026.10.16. See "Math fix, 2026-10-18" at the bottom.
+
 STATUS 2026-10-16 (math reshape, CURRENT): Corey's go at 16:16 ("1. 44%, 2. 25x. 3. Strong."). library/ holds the
 2026.10.16 set: 44% base hit rate, clumped base strips, swipes and sting runs that always pay, the free-spins rescue
 swipe, Free Spins 10x / Super 25x floors. Every gate passed on it (see "Math reshape, 2026-10-16" at the bottom).
@@ -79,6 +85,10 @@ Files
                         often 8 lands as SHIPPED. --lib DIR scans another library.
   tools/redraw_summary.py  (rule pass 3) adds up the `REDRAWS` lines of a run's log: draws per
                         accepted book and re-draws by reason, per mode and criteria.
+  tools/phantom_walk.py    (math fix 2026-10-18) the harsh review's full book walk (walk.py of 2026-10-17)
+                        with an independent board replay; its `scatter_sting_visible_clusters_ne_real`
+                        count is the stand-in gate. MANTICORE_LIB=<library> WALK_OUT=<folder>.
+                        tools/phantom_walk_summary.py turns the seven walk_<mode>.json into one table.
   tools/compare_books.py   (rule pass 3) two libraries book against book: proves a
                         re-simulated Bonus or Super buy is the old set except the ids that
                         triggered on 7.
@@ -1707,3 +1717,85 @@ GATES (all PASS; logs in reshape-20261016/logs/gate_*.log)
   tests         test_math.py 47/47
   RUN TIME      Free Spins 2 h 01 min, Mystery 1 h 39 min, base / ante / super_ante 3 min each (2
                 processes); Epic 4 h 45 min (3 processes); Super 37 min (5 processes). 17:11 to 22:33.
+
+-------------------------------------------------------------------------------------------
+Math fix, 2026-10-18 - NO PHANTOM GROUP FROM A SCATTER-STING STAND-IN, 300,000 SPIN BOOKS, MYSTERY RE-DEALT
+(candidate set, NOT promoted: library/ still serves 2026.10.16)
+-------------------------------------------------------------------------------------------
+WHY. Harsh review 2026-10-17, math lens (~/Desktop/Manticore Mayhem/feedback/harsh_review_2026-10-17/math):
+  * the stand-in a scatter sting shows before the War Standard lands only had to differ from its four
+    neighbours, so a Wild neighbour still linked it to matching symbols beyond. Mystery book 1050: row 4 reads
+    M3 W W M3 in columns 5-8 with the stand-in M3 above the second W, five cells a player reads as a cluster,
+    and nothing pays. Walk count (scatter_sting_visible_clusters_ne_real): base 2, ante 12, super_ante 43,
+    mystery 781. The rules promise the stings do not change the result.
+  * base / ante / super_ante shipped 99,000 books (Stake: 100,000 to 1,000,000). WHY 99,000: the SDK
+    (src/state/run_sims.py run_multi_process_sims) splits a mode into processes x batches x books with int(),
+    so a count that does not divide evenly silently loses books (100,000 on 3 processes = 99,999). The
+    reshape's first plan ran 3 processes x 11,000 batches, 99,000 was picked to divide evenly, and the final
+    schedule (2 processes) kept it. Nothing in the math needed it. 300,000 = 5 processes x 3 x 20,000.
+Corey 2026-10-17 22:54: "go ahead and run it".
+
+EVERY CHANGE (no rule other than the stand-in, strip, chance, band table, split or TARGETS value moved)
+  game_calculations.py  placeholder_symbol: a candidate stand-in is kept only if the group it would join
+                        (orthogonal, Wilds linking, exactly the cluster evaluator's group) has fewer than
+                        MIN_CLUSTER cells; among those, one that also differs from all four neighbours is
+                        preferred; none fits -> None. NEW standin_group_size. emit_reveal sets every stung
+                        cell to the scatter first, then picks the stand-ins one after another, so two
+                        stand-ins cannot build a group together either; no fit -> self.standin_redraw.
+  game_override.py      REDRAW_STANDIN "standin": check_repeat throws such a draw away (counted by reason).
+  game_config.py        MATH_VERSION 2026.10.18; config.min_cluster; the Mystery deck (below).
+  tools/shape_lut.py    the cap group's integer weight is dealt out exactly (round(p x 1e12), split as evenly
+                        as integers allow). Plain rounding moved all 3,043 capped base books (about 109.5
+                        weight each) the same way: max win 1 in 2,987,483 and RTP 0.9670037, above the RGS's
+                        0.967 ceiling. Only cap rows move, by at most 1. Re-shaping the untouched buys with
+                        it would move 326 / 2,768 / 855 cap rows of Bonus / Super / Epic by 1; they were not
+                        re-shaped (their files are library/'s byte for byte).
+  tools/scatter_scan.py, tests/test_math.py  the new Mystery slice's forced board (5).
+  tests/test_math.py    49 checks: the stand-in check now uses boards with Wilds and the walk's rule; NEW book
+                        1050 fixture (the old choice proven to make the 5-group, the new rule run on 300 seeds);
+                        NEW a cell with a Wild on all four sides re-draws.
+  tools/phantom_walk.py, tools/phantom_walk_summary.py  NEW (copies of the review's walk, paths only).
+  Mystery deck (material only): DIVERSITY_MYSTERY_BOOKS 351,000 -> 393,000; mystery_super_low 25x-60x
+                        6,000 -> 18,000; mystery_super_mid 60x-500x 44,000 -> 60x-120x 24,000; NEW
+                        mystery_super_high 120x-1,000x 50,000; nothing 250,000, natural Super 20,000, Epic
+                        slices 18,000 / 6,000 / 4,000 and natural Epic 3,000 unchanged. Why: a plain re-deal of
+                        the 2026.10.16 deck gives about 160,000 effective books (plan_mystery.py reproduces the
+                        shipped 160,573 as 160,111); its 60x-120x band sat at the ceiling and 120x-250x was thin.
+                        Planned 235,982, delivered 222,815.
+
+HOW IT WAS RUN (from math-sdk/, G=games/manticore_mayhem, F=$G/fix-candidate-20261018, L=$F/games/manticore_mayhem/library)
+  cp -cR $G/library $L                                         # APFS clone, 55 files sha256-logged before/after
+  $F/run_spin.sh     run.py --sims 300000 --modes <m> --threads 5 --batch 20000 --out $F/games, nice 10
+                     base 4 min 48 s, ante 4 min 27 s, super_ante 4 min 3 s
+  MANTICORE_LIB=$L shape_lut.py base ante super_ante
+  $F/run_mystery.sh  run.py --sims 393000 --modes mystery --threads 5 --batch 26200, nice 10, 40 min 37 s
+  MANTICORE_LIB=$L shape_lut.py mystery
+  run.py --no-sims --no-analysis --out $F/games                # configs + RGS checks
+  then check_stats, verify_math, scatter_scan --lib, cap_spin_index, redraw_summary, tests, $F/gate_walk.sh
+  (tools/phantom_walk.py on all seven modes), lut_stats.py / session_repeat.py (the review's, in
+  $F/evidence/scripts), identity_probe_buys.py. Logs: $F/evidence/logs, $F/evidence/walk, $F/evidence/metrics.
+
+RESULTS (before = library/, the 2026.10.16 set)
+                     books              effective books     repeat in 100   hit          max win 1 in
+  base               99,000 -> 300,000   55,173 -> 166,955   8.58 -> 2.92%   44.22 -> 44.22%  3,004,031 -> 3,000,003
+  ante               99,000 -> 300,000   48,093 -> 145,463   9.78 -> 3.35%   37.71 -> 37.71%    999,728 -> 1,000,000
+  super_ante         99,000 -> 300,000   48,043 -> 146,079   9.79 -> 3.33%   41.56 -> 41.56%    500,104 ->   500,000
+  mystery           351,000 -> 393,000  160,573 -> 222,815   3.04 -> 2.20%   59.65 -> 59.65%      8,623 ->     8,623
+  bonus / super / epic unchanged (129,000 / 189,000 / 135,000 books; 96,841 / 89,650 / 73,243 effective)
+  RTP 0.9669898 / 0.9669901 / 0.9669900 / 0.9669900 / 0.9669901 / 0.9669900 / 0.9669900; spread 3.3e-07.
+  Mystery 50 / 40 / 10 exactly, events 6,010,155 -> 7,869,177 (limit 10,000,000), median 25.0x both.
+  Stand-in re-draws: 0 in the spin modes, 36 of 2,547,189 Mystery draws.
+
+GATES ON THE CANDIDATE (all PASS)
+  phantom walk 0 scatter_sting_visible_clusters_ne_real in all seven modes (1,746,000 books; 2,486 / 6,600 /
+  6,086 / 143,000 scatter-sting reveals checked in base / ante / super_ante / mystery); its only flag is the known
+  capped-round w / totals (gametype_wins_ne_payout_capped), left alone as the brief asked. verify_math: payout =
+  table and finalWin = total on all 1,746,000 books. scatter_scan PASS (0 on 7, 3,185 on 8 all allowed, 0
+  scatters on a free-spin board, reveals show at most 3, the 10x / 25x / 200x / 500x / 2,500x floors). check_stats
+  inside every 2-star limit. RGS checks SHA-256 and payout hash OK, 300,000 rows per spin mode, the same
+  un-normalised etl lines for modes priced above 1x as the shipped set. tests 49 / 49. library/ unchanged.
+  identity_probe_buys.py: today's code deals the first 150 Bonus / Super / Epic ids byte for byte as library/.
+
+TO PROMOTE (on Corey's word, mock stopped first): move library/ aside as library-pre-fix-20261018, put $L in its
+place, set the frontend's mathVersion to 2026.10.18, restart the mock, then verify_math.py and scatter_scan.py.
+Staging needs books_base / ante / super_ante / mystery and all seven tables plus index.json.

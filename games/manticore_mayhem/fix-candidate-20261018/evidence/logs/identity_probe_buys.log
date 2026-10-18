@@ -1,0 +1,18 @@
+reject freegame_low:win_range: 500 draws rejected so far
+bonus      first 150 ids: 150 identical, 0 different
+reject supergame_low:win_range: 500 draws rejected so far
+reject supergame_low:win_range: 1000 draws rejected so far
+super      first 150 ids: 150 identical, 0 different
+reject epicgame_body:win_range: 500 draws rejected so far
+reject epicgame_body:win_range: 1000 draws rejected so far
+reject epicgame_body:win_range: 1500 draws rejected so far
+reject epicgame_mid:win_range: 500 draws rejected so far
+reject epicgame_body:win_range: 2000 draws rejected so far
+reject epicgame_body:win_range: 2500 draws rejected so far
+reject epicgame_body:win_range: 3000 draws rejected so far
+reject epicgame_body:win_range: 3500 draws rejected so far
+reject epicgame_body:win_range: 4000 draws rejected so far
+reject epicgame_mid:win_range: 1000 draws rejected so far
+reject epicgame_body:win_range: 4500 draws rejected so far
+reject epicgame_body:win_range: 5000 draws rejected so far
+epic       first 150 ids: 150 identical, 0 different

@@ -1,0 +1,15 @@
+base 20000 books 5s
+base 40000 books 10s
+base 60000 books 15s
+base 80000 books 19s
+base 100000 books 24s
+base 120000 books 29s
+base 140000 books 34s
+base 160000 books 39s
+base 180000 books 44s
+base 200000 books 49s
+base 220000 books 54s
+base 240000 books 59s
+base 260000 books 64s
+base 280000 books 69s
+{"mode": "base", "books": 300000, "seconds": 74, "violations": {"gametype_wins_ne_payout_capped": 1459}, "missing_lut_rows": 0}

@@ -1,0 +1,78 @@
+{
+ "mode": "epic",
+ "cost": 500,
+ "books": 135000,
+ "missing_lut_rows": 0,
+ "seconds": 292,
+ "violations": {
+  "gametype_wins_ne_payout_capped": 1997
+ },
+ "examples": {
+  "gametype_wins_ne_payout_capped": [
+   54,
+   78,
+   120,
+   121,
+   230
+  ]
+ },
+ "counts": {
+  "books": 135000,
+  "bonusEnd_total_eq_fg": 129814,
+  "bonusEnd_total_eq_round": 93086,
+  "feat_epic": 135000,
+  "b_sting_runs": 17232,
+  "b_normal_only_runs": 17232,
+  "f_epic_sting_runs": 433458,
+  "f_epic_normal_only_runs": 257413,
+  "f_epic_swipes": 402609,
+  "f_epic_sting_only_extended_existing": 63340,
+  "fg_spins": 1604913,
+  "b_swipes": 13386,
+  "cap_books": 5188,
+  "cap_with_unplayed_spins": 4334,
+  "b_sting_only_extended_existing": 2271,
+  "capping_step_lists_more_than_paid": 3406
+ },
+ "weighted": {
+  "hit": 1.0,
+  "feat_epic": 1.0,
+  "feat_epic_on_6": 0.9990804877140788,
+  "trigger_spin_paid": 0.2603646928697966,
+  "b_spins": 1.0,
+  "b_sting_run": 0.12050943183227192,
+  "b_paidpre": 0.20239471367797687,
+  "f_epic_spins": 11.999030645116749,
+  "f_epic_sting_run": 2.7293076691671074,
+  "f_epic_paidpre": 7.7370844866414075,
+  "f_epic_dead": 1.8640469468839969,
+  "f_epic_deadpre": 4.2619461585084615,
+  "f_epic_super_sting": 0.3989331794918024,
+  "f_epic_swipe_spin": 2.7848854870486215,
+  "f_epic_deadpre_swipe": 2.397899211620776,
+  "f_epic_roar": 0.7254258929468742,
+  "f_epic_sting_only_extended": 0.4688986901205423,
+  "f_epic_big_sting": 0.3629495772861433,
+  "feat_epic_on_8": 0.0009195122859185547,
+  "b_dead": 0.7395069978833165,
+  "b_deadpre": 0.7976052863220036,
+  "f_epic_paidpre_swipe": 0.386986275426878,
+  "win_under_cost": 0.7866420161538517,
+  "b_swipe_spin": 0.07122603898923192,
+  "b_deadpre_swipe": 0.05809828843867118,
+  "b_paidpre_swipe": 0.013127750550560357,
+  "cap": 0.00033333418760794276,
+  "b_sting_only_extended": 0.01607686421909184,
+  "b_3plus_steps": 0.0030393142274254405
+ },
+ "mins": {
+  "epic_freespins_total": [
+   200.0,
+   51
+  ],
+  "epic_round_total": [
+   200.0,
+   51
+  ]
+ }
+}

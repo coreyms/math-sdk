@@ -1,0 +1,10 @@
+super 20000 books 36s
+super 40000 books 72s
+super 60000 books 109s
+super 80000 books 145s
+super 100000 books 180s
+super 120000 books 215s
+super 140000 books 249s
+super 160000 books 284s
+super 180000 books 316s
+{"mode": "super", "books": 189000, "seconds": 330, "violations": {"gametype_wins_ne_payout_capped": 3883}, "missing_lut_rows": 0}

@@ -1,0 +1,27 @@
+library /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/fix-candidate-20261018/games/manticore_mayhem/library
+== base: cost 1x  books 300000  RTP 0.9669898  hit 1 in 2.26  cap 1 in 3,000,003
+   tail P(>=5k) 0.0000026 (scaled 0.0000026 / 0.010)   P(>=10k) 0.0000003 (scaled 0.0000003 / 0.005)
+   books walked 300,000: payout!=LUT 0, final/total mismatch 0, rows with weight 0 1 (0.00%)
+== ante: cost 3x  books 300000  RTP 0.9669901  hit 1 in 2.65  cap 1 in 1,000,000
+   tail P(>=5k) 0.0000140 (scaled 0.0000140 / 0.010)   P(>=10k) 0.0000010 (scaled 0.0000010 / 0.005)
+   books walked 300,000: payout!=LUT 0, final/total mismatch 0, rows with weight 0 1 (0.00%)
+== super_ante: cost 10x  books 300000  RTP 0.9669900  hit 1 in 2.41  cap 1 in 500,000
+   tail P(>=5k) 0.0000978 (scaled 0.0000978 / 0.010)   P(>=10k) 0.0000020 (scaled 0.0000020 / 0.005)
+   books walked 300,000: payout!=LUT 0, final/total mismatch 0, rows with weight 0 1 (0.00%)
+== bonus: cost 100x  books 129000  RTP 0.9669900  hit 1 in 1.00  cap 1 in 25,000
+   tail P(>=5k) 0.0002595 (scaled 0.0002595 / 0.010)   P(>=10k) 0.0000400 (scaled 0.0000400 / 0.005)
+   bands (x price): [0,0.4) 39.037%  [0.4,0.5) 8.162%  [0.5,1) 25.246%  [1,2) 16.465%  [2,5) 9.330%  [5,10) 1.367%  [10,20) 0.280%  [20,1e+09) 0.109%  cap 0.0040%
+   books walked 129,000: payout!=LUT 0, final/total mismatch 0, rows with weight 0 0 (0.00%)
+== super: cost 250x  books 189000  RTP 0.9669901  hit 1 in 1.00  cap 1 in 8,000
+   tail P(>=5k) 0.0012846 (scaled 0.0010277 / 0.010)   P(>=10k) 0.0001250 (scaled 0.0001000 / 0.005)
+   bands (x price): [0,0.4) 40.806%  [0.4,0.5) 6.542%  [0.5,1) 23.762%  [1,2) 16.666%  [2,5) 10.293%  [5,10) 1.152%  [10,20) 0.651%  [20,1e+09) 0.116%  cap 0.0125%
+   books walked 189,000: payout!=LUT 0, final/total mismatch 0, rows with weight 0 0 (0.00%)
+== epic: cost 500x  books 135000  RTP 0.9669900  hit 1 in 1.00  cap 1 in 3,000
+   tail P(>=5k) 0.0039336 (scaled 0.0019668 / 0.010)   P(>=10k) 0.0003333 (scaled 0.0001667 / 0.005)
+   bands (x price): [0.4,0.5) 24.549%  [0.5,1) 54.115%  [1,2) 15.342%  [2,5) 4.236%  [5,10) 1.364%  [10,20) 0.360%  cap 0.0333%
+   books walked 135,000: payout!=LUT 0, final/total mismatch 0, rows with weight 0 0 (0.00%)
+== mystery: cost 250x  books 393000  RTP 0.9669900  hit 1 in 1.68  cap 1 in 8,623
+   tail P(>=5k) 0.0040710 (scaled 0.0032568 / 0.010)   P(>=10k) 0.0001160 (scaled 0.0000928 / 0.005)
+   bands (x price): [0,0.4) 66.428%  [0.4,0.5) 2.621%  [0.5,1) 9.396%  [1,2) 6.667%  [2,5) 10.544%  [5,10) 2.780%  [10,20) 1.158%  [20,1e+09) 0.396%  cap 0.0116%
+   books walked 393,000: payout!=LUT 0, final/total mismatch 0, rows with weight 0 0 (0.00%)
+cross-mode RTP spread 3.30e-07 (spec B limit 0.005)

@@ -1,0 +1,9 @@
+verify6 exit 0
+scan6 exit 0
+check_stats exit 0
+identity exit 0
+verify exit 0
+cap_index exit 0
+scan exit 0
+walk mystery done
+tests exit 0
