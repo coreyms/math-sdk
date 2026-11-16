@@ -1,0 +1,15 @@
+Run Over Reindeer math 2026.11.15, contract 2026-11-15a
+copied the base books and lookup table to ante_2
+copied the base books and lookup table to ante_4
+copied the base books and lookup table to ante_10
+Traceback (most recent call last):
+  File "/Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/run.py", line 143, in <module>
+    execute_all_tests(config)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py", line 257, in execute_all_tests
+    win_dist, lut_payouts, weights_range, min_win, max_win = verify_lookup_format(lut_file)
+                                                             ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py", line 116, in verify_lookup_format
+    assert payout % 10 == 0, "Payout values must be in increments of 10."
+           ^^^^^^^^^^^^^^^^
+AssertionError: Payout values must be in increments of 10.

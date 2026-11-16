@@ -1,0 +1,211 @@
+{
+ "books": 6025,
+ "header_keys": [
+  "baseGameWins",
+  "criteria",
+  "events",
+  "freeGameWins",
+  "id",
+  "payoutMultiplier"
+ ],
+ "event_counts": {
+  "reveal": 47005,
+  "finalWin": 6025,
+  "strike": 16352,
+  "columnWild": 5620,
+  "winInfo": 26561,
+  "setTotalWin": 26570,
+  "grandmaWild": 12740,
+  "freeSpinTrigger": 4032,
+  "floorTopUp": 9,
+  "freeSpinEnd": 4032,
+  "freeSpinRetrigger": 222,
+  "wincap": 2
+ },
+ "math_only_events": [],
+ "frontend_only_events": [],
+ "fields": {
+  "columnWild": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "finalWin": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "floorTopUp": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "freeSpinEnd": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "freeSpinRetrigger": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "freeSpinTrigger": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "grandmaWild": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "reveal": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "setTotalWin": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "strike": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "winInfo": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  },
+  "wincap": {
+   "math_not_frontend": [],
+   "frontend_not_seen_in_books": []
+  }
+ },
+ "sub": {
+  "wins[]": {
+   "math_not_frontend": [],
+   "frontend_not_seen": []
+  },
+  "grandma": {
+   "math_not_frontend": [],
+   "frontend_not_seen": []
+  },
+  "held[]": {
+   "math_not_frontend": [],
+   "frontend_not_seen": []
+  }
+ },
+ "values": {
+  "board.symbols": [
+   "CW",
+   "H1",
+   "H2",
+   "H3",
+   "H4",
+   "L1",
+   "L2",
+   "L3",
+   "L4",
+   "L5",
+   "S",
+   "W"
+  ],
+  "columnWild.tier": [
+   "grandma",
+   "reindeer",
+   "santa"
+  ],
+  "columnWild.multiplier.base": [
+   10,
+   15,
+   20,
+   3,
+   30,
+   4,
+   40,
+   5,
+   50,
+   6,
+   75,
+   8
+  ],
+  "wins.symbol": [
+   "H1",
+   "H2",
+   "H3",
+   "H4",
+   "L1",
+   "L2",
+   "L3",
+   "L4",
+   "L5",
+   "W"
+  ],
+  "grandmaWild.multiplier": [
+   10,
+   100,
+   15,
+   2,
+   20,
+   25,
+   3,
+   30,
+   4,
+   40,
+   5,
+   50,
+   6,
+   7,
+   75,
+   8
+  ],
+  "bonusType": [
+   "freespins",
+   "super"
+  ],
+  "start.tier": [
+   "reindeer",
+   "santa"
+  ],
+  "grandma.wasWild": [
+   false
+  ],
+  "grandma.add": [
+   0
+  ],
+  "columnWild.multiplier.bonus": [
+   10,
+   12,
+   15,
+   2,
+   20,
+   3,
+   30,
+   4,
+   50,
+   6,
+   8
+  ],
+  "columnWild.multiplier.super": [
+   10,
+   12,
+   15,
+   20,
+   25,
+   30,
+   4,
+   5,
+   50,
+   6,
+   8
+  ]
+ },
+ "winInfo_running_over_cap": [
+  [
+   "super",
+   1473,
+   36,
+   73450
+  ],
+  [
+   "super",
+   1473,
+   36,
+   73450
+  ]
+ ],
+ "winInfo_running_over_cap_n": 2
+}

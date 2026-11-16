@@ -1,0 +1,20 @@
+23:05:28 base: books start
+--- (first attempt failed on a shell quoting bug, nothing was built)
+23:05:51 base: books start
+23:10:21 base: books done
+23:10:21 bonus: books start
+23:16:51 bonus: books done
+23:16:51 super: books start
+23:21:35 super: books done
+23:21:35 shaper start
+23:24:09 configs and Stake checks start
+23:24:19 analysis start
+23:24:20 all done
+--- reshaping with MIN_NATURAL_CAPS (first shaping kept in production_first_shaping/)
+23:27:17 base: books exist, skipped
+23:27:18 bonus: books exist, skipped
+23:27:18 super: books exist, skipped
+23:27:18 shaper start
+23:29:10 configs and Stake checks start
+23:29:18 analysis start
+23:29:19 all done

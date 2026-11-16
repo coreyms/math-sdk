@@ -1,0 +1,16 @@
+bonus books 300000 weighted mean 96.1 unweighted mean 190.5 unweighted median 8.0
+        0-10     books 52.623%  weight  7.458%  weight per book vs average 0.14
+       10-30     books 14.488%  weight 20.346%  weight per book vs average 1.40
+       30-100    books 12.872%  weight 41.164%  weight per book vs average 3.20
+      100-300    books  7.784%  weight 26.124%  weight per book vs average 3.36
+      300-1000   books  7.530%  weight  4.632%  weight per book vs average 0.62
+     1000-5000   books  4.276%  weight  0.268%  weight per book vs average 0.06
+     5000-1e+09  books  0.427%  weight  0.007%  weight per book vs average 0.02
+super_bonus books 300000 weighted mean 288.3 unweighted mean 477.8 unweighted median 58.3
+        0-10     books 20.142%  weight  3.738%  weight per book vs average 0.19
+       10-30     books 16.486%  weight  9.376%  weight per book vs average 0.57
+       30-100    books 22.510%  weight 23.879%  weight per book vs average 1.06
+      100-300    books 13.268%  weight 33.621%  weight per book vs average 2.53
+      300-1000   books 14.780%  weight 25.614%  weight per book vs average 1.73
+     1000-5000   books 11.530%  weight  3.655%  weight per book vs average 0.32
+     5000-1e+09  books  1.284%  weight  0.118%  weight per book vs average 0.09

@@ -1,0 +1,26 @@
+{
+ "run_over_reindeer/fixtures_2026-11-15/showcase_books.json": {
+  "rounds": 27,
+  "grandma_strikes": 60,
+  "case": 0,
+  "hits": []
+ },
+ "run_over_reindeer/fixtures_2026-11-15/books_base.json": {
+  "rounds": 2000,
+  "grandma_strikes": 1294,
+  "case": 0,
+  "hits": []
+ },
+ "run_over_reindeer/fixtures_2026-11-15/books_bonus.json": {
+  "rounds": 2000,
+  "grandma_strikes": 4287,
+  "case": 0,
+  "hits": []
+ },
+ "run_over_reindeer/fixtures_2026-11-15/books_super.json": {
+  "rounds": 2000,
+  "grandma_strikes": 7795,
+  "case": 0,
+  "hits": []
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "COLUMN_MULT.reindeer": {"2": 50, "3": 35, "4": 10, "5": 5},
+ "COLUMN_MULT.santa": {"10": 60, "15": 25, "20": 10, "25": 5},
+ "COLUMN_MULT.grandma": {"50": 70, "75": 22, "100": 8},
+ "FEATURE.base.column_tier": {"reindeer": 96, "santa": 3.7, "grandma": 0.3},
+ "FEATURE.base.santa_count": {"0": 39, "1": 0.93, "2": 0.065, "3": 0.005},
+ "FEATURE.base.grandma_count": {"0": 29, "1": 0.95, "2": 0.05},
+ "FEATURE.freespins.column_tier": {"reindeer": 92, "santa": 7, "grandma": 1},
+ "FEATURE.freespins.santa_count": {"0": 1},
+ "FEATURE.freespins.grandma_count": {"0": 0.85, "1": 0.15},
+ "FEATURE.freespins.grandma_mult": {"2": 35, "3": 30, "4": 15, "5": 10, "6": 4, "8": 3, "10": 2, "15": 0.6, "20": 0.25, "25": 0.1, "50": 0.04, "75": 0.008, "100": 0.002},
+ "FEATURE.super.column_tier": {"reindeer": 85, "santa": 13, "grandma": 2},
+ "FEATURE.super.santa_count": {"0": 0.98, "1": 0.02},
+ "FEATURE.super.grandma_count": {"0": 0.88, "1": 0.12},
+ "FEATURE.super.grandma_mult": {"5": 60, "6": 15, "8": 10, "10": 8, "15": 4, "20": 2, "25": 0.7, "50": 0.25, "75": 0.04, "100": 0.01}
+}

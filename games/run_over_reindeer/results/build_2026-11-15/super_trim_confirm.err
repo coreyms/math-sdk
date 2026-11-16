@@ -1,0 +1,1 @@
+PYTHONDONTWRITEBYTECODE=1 nice -n 19 ../../../../env/bin/python  400000 80000  234.47s user 5.52s system 180% cpu 2:12.80 total

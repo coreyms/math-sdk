@@ -1,0 +1,193 @@
+19:12:39 ok bonus 93875 6.5
+19:12:44 ok super_bonus 82104 12.5
+19:12:50 ok base 919091 1.2
+19:12:55 ok bonus 228843 5.9
+19:13:01 ok super_bonus 262674 4.0
+19:13:07 ok base 587545 1.0
+19:13:12 ok bonus 298386 4.1
+19:13:18 ok super_bonus 208635 6.8
+19:13:23 ok base 78280 1.0
+19:13:29 ok bonus 115794 6.0
+19:13:34 ok super_bonus 211812 22.1
+19:13:39 ok base 292504 1.0
+19:13:44 429 on https://rgsd.stake-engine.com wait 90
+19:15:15 ok bonus 239083 2.0
+19:15:20 ok super_bonus 221556 23.9
+19:15:26 ok base 966792 1.5
+19:15:31 429 on https://rgsd.stake-engine.com wait 90
+19:17:01 ok bonus 238783 0.2
+19:17:07 ok super_bonus 195595 37.2
+19:17:12 ok base 716838 2.0
+19:17:18 429 on https://rgsd.stake-engine.com wait 90
+19:18:48 ok bonus 263941 22.3
+19:18:53 429 on https://rgsd.stake-engine.com wait 90
+19:20:24 ok super_bonus 230175 61.4
+19:20:29 ok base 231277 1.0
+19:20:35 ok bonus 204447 11.6
+19:20:40 429 on https://rgsd.stake-engine.com wait 90
+19:22:11 ok super_bonus 89317 71.3
+19:22:16 ok base 849685 1.0
+19:22:22 ok bonus 94069 14.9
+19:22:27 429 on https://rgsd.stake-engine.com wait 90
+19:23:58 ok super_bonus 181761 60.8
+19:24:03 ok base 818333 8.0
+19:24:09 ok bonus 137976 20.6
+19:24:14 429 on https://rgsd.stake-engine.com wait 90
+19:25:44 ok super_bonus 230629 56.0
+19:25:49 429 on https://rgsd.stake-engine.com wait 90
+19:27:19 ok base 52354 9.0
+19:27:25 ok bonus 16749 22.5
+19:27:31 ok super_bonus 230744 72.5
+19:27:36 429 on https://rgsd.stake-engine.com wait 90
+19:29:07 ok base 157145 6.8
+19:29:12 ok bonus 143316 22.9
+19:29:18 ok super_bonus 290764 55.0
+19:29:23 429 on https://rgsd.stake-engine.com wait 90
+19:30:54 ok base 806228 7.7
+19:30:59 429 on https://rgsd.stake-engine.com wait 90
+19:32:29 ok bonus 263930 20.1
+19:32:35 ok super_bonus 59765 119.7
+19:32:40 ok base 693168 6.9
+19:32:45 429 on https://rgsd.stake-engine.com wait 90
+19:34:16 ok bonus 205876 22.6
+19:34:22 ok super_bonus 122484 118.3
+19:34:27 ok base 37549 13.8
+19:34:32 429 on https://rgsd.stake-engine.com wait 90
+19:36:03 ok bonus 250860 34.7
+19:36:09 ok super_bonus 274832 87.3
+19:36:14 ok base 77329 15.5
+19:36:19 429 on https://rgsd.stake-engine.com wait 90
+19:37:50 ok bonus 111345 28.2
+19:37:55 429 on https://rgsd.stake-engine.com wait 90
+19:39:25 ok super_bonus 111030 127.6
+19:39:31 ok base 617778 6.6
+19:39:37 ok bonus 175455 28.7
+19:39:42 429 on https://rgsd.stake-engine.com wait 90
+19:41:12 ok super_bonus 129510 83.1
+19:41:18 ok base 109649 6.0
+19:41:23 ok bonus 241877 37.1
+19:41:28 429 on https://rgsd.stake-engine.com wait 90
+19:42:59 ok super_bonus 164348 147.0
+19:43:04 429 on https://rgsd.stake-engine.com wait 90
+19:44:35 ok base 999261 14.0
+19:44:40 ok bonus 292234 49.5
+19:44:46 ok super_bonus 57457 132.3
+19:44:51 429 on https://rgsd.stake-engine.com wait 90
+19:46:22 ok base 1034774 12.0
+19:46:27 ok bonus 149660 37.0
+19:46:33 ok super_bonus 8475 245.0
+19:46:38 429 on https://rgsd.stake-engine.com wait 90
+19:48:08 ok base 648331 8.0
+19:48:14 ok bonus 64313 28.5
+19:48:19 ok super_bonus 5694 211.0
+19:48:25 429 on https://rgsd.stake-engine.com wait 90
+19:49:55 ok base 1015213 96.4
+19:50:00 429 on https://rgsd.stake-engine.com wait 90
+19:51:30 ok bonus 168843 26.0
+19:51:36 ok super_bonus 167498 240.0
+19:51:41 ok base 1038211 32.7
+19:51:46 429 on https://rgsd.stake-engine.com wait 90
+19:53:16 429 on https://rgsd.engine.io wait 180
+19:56:17 ok bonus 78514 66.0
+19:56:22 429 on https://rgsd.engine.io wait 90
+19:57:53 ok super_bonus 278978 193.6
+19:57:58 429 on https://rgsd.engine.io wait 90
+19:59:28 ok base 1010174 98.4
+19:59:33 429 on https://rgsd.engine.io wait 90
+20:01:04 ok bonus 157283 66.0
+20:01:09 ok super_bonus 201690 213.6
+20:01:15 429 on https://rgsd.stake-engine.com wait 90
+20:02:45 ok base 1019146 56.5
+20:02:51 ok bonus 36859 79.5
+20:02:56 ok super_bonus 161429 227.0
+20:03:01 429 on https://rgsd.stake-engine.com wait 90
+20:04:32 ok base 1023551 70.5
+20:04:37 429 on https://rgsd.stake-engine.com wait 90
+20:06:08 ok bonus 183850 66.3
+20:06:13 ok super_bonus 136977 202.2
+20:06:18 429 on https://rgsd.engine.io wait 90
+20:07:49 ok base 1004293 50.1
+20:07:54 ok bonus 133165 52.0
+20:07:59 429 on https://rgsd.stake-engine.com wait 90
+20:09:30 ok super_bonus 160923 253.7
+20:09:35 429 on https://rgsd.stake-engine.com wait 90
+20:11:06 ok base 1035810 23.2
+20:11:11 ok bonus 100089 76.3
+20:11:16 429 on https://rgsd.engine.io wait 90
+20:12:47 ok super_bonus 102729 426.0
+20:12:53 ok base 603991 36.0
+20:12:58 429 on https://rgsd.stake-engine.com wait 90
+20:14:28 ok bonus 197300 59.5
+20:14:34 ok super_bonus 236146 367.5
+20:14:39 429 on https://rgsd.engine.io wait 90
+20:16:09 429 on https://rgsd.stake-engine.com wait 180
+20:19:10 ok base 1022598 62.5
+20:19:15 ok bonus 203140 57.6
+20:19:21 ok super_bonus 279553 381.3
+20:19:26 ok base 548658 40.0
+20:19:32 ok bonus 35929 95.2
+20:19:37 429 on https://rgsd.stake-engine.com wait 90
+20:21:07 ok super_bonus 247764 616.8
+20:21:12 429 on https://rgsd.stake-engine.com wait 90
+20:22:43 ok bonus 97506 97.5
+20:22:49 ok super_bonus 12931 459.2
+20:22:54 ok bonus 195981 112.2
+20:22:59 429 on https://rgsd.stake-engine.com wait 90
+20:24:30 ok super_bonus 246571 356.8
+20:24:36 ok bonus 35411 167.1
+20:24:41 429 on https://rgsd.engine.io wait 90
+20:26:11 429 on https://rgsd.stake-engine.com wait 180
+20:29:11 ok super_bonus 283697 646.5
+20:29:17 ok bonus 101930 155.4
+20:29:22 ok super_bonus 41952 395.9
+20:29:27 ok bonus 196078 149.7
+20:29:33 ok super_bonus 240052 1391.5
+20:29:38 429 on https://rgsd.stake-engine.com wait 90
+20:31:08 ok bonus 268599 115.0
+20:31:13 ok super_bonus 125048 814.5
+20:31:19 ok bonus 104342 178.3
+20:31:24 429 on https://rgsd.stake-engine.com wait 90
+20:32:54 ok super_bonus 41039 1331.6
+20:32:59 429 on https://rgsd.stake-engine.com wait 90
+20:34:30 ok bonus 64021 160.9
+20:34:36 ok super_bonus 218709 880.1
+20:34:41 429 on https://rgsd.engine.io wait 90
+20:36:11 ok bonus 1612 166.6
+20:36:17 ok super_bonus 105864 936.3
+20:36:22 429 on https://rgsd.stake-engine.com wait 90
+20:37:52 ok bonus 107526 182.3
+20:37:58 429 on https://rgsd.stake-engine.com wait 90
+20:39:28 ok super_bonus 89501 1176.3
+20:39:34 ok bonus 263842 199.1
+20:39:39 ok super_bonus 56854 4840.8
+20:39:44 429 on https://rgsd.stake-engine.com wait 90
+20:41:14 ok bonus 87207 327.0
+20:41:20 ok super_bonus 223294 2831.0
+20:41:25 ok bonus 186759 351.6
+20:41:30 429 on https://rgsd.stake-engine.com wait 90
+20:43:01 ok super_bonus 246581 2882.2
+20:43:06 429 on https://rgsd.stake-engine.com wait 90
+20:44:37 ok bonus 281461 387.0
+20:44:42 ok super_bonus 65320 2600.0
+20:44:48 ok bonus 110983 350.7
+20:44:53 429 on https://rgsd.stake-engine.com wait 90
+20:46:23 ok bonus 179880 477.7
+20:46:29 ok bonus 151140 439.5
+20:46:34 ok bonus 244231 252.6
+20:46:39 429 on https://rgsd.stake-engine.com wait 90
+20:48:10 ok bonus 168654 311.5
+20:48:15 ok bonus 239942 741.5
+20:48:21 ok bonus 26762 536.4
+20:48:26 429 on https://rgsd.stake-engine.com wait 90
+20:49:57 ok bonus 159544 545.0
+20:50:02 429 on https://rgsd.stake-engine.com wait 90
+20:51:32 ok bonus 223896 1644.6
+20:51:38 ok bonus 43366 521.2
+20:51:43 ok bonus 205560 973.3
+20:51:48 429 on https://rgsd.stake-engine.com wait 90
+20:53:19 ok bonus 214600 4609.2
+20:53:24 ok bonus 202378 7126.0
+20:53:30 ok bonus 273467 2480.1
+20:53:35 429 on https://rgsd.stake-engine.com wait 90
+20:55:05 ok bonus 240728 2501.7
+20:55:10 done

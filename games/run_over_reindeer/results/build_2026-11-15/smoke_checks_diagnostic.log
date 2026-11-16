@@ -1,0 +1,46 @@
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [ante_2] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [ante_4] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [ante_10] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [bonus] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+[FAST PATH] Using verification sidecar for base
+[FAST PATH] base: SHA-256 OK, payout hash OK, entries=6000
+[FAST PATH] Using verification sidecar for ante_2
+[FAST PATH] ante_2: SHA-256 OK, payout hash OK, entries=6000
+	VIOLATED: etl40b  VALUE:1.4044 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for ante_4
+[FAST PATH] ante_4: SHA-256 OK, payout hash OK, entries=6000
+	VIOLATED: etl40b  VALUE:2.6356 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for ante_10
+[FAST PATH] ante_10: SHA-256 OK, payout hash OK, entries=6000
+	VIOLATED: etl40b  VALUE:5.95 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for bonus
+[FAST PATH] bonus: SHA-256 OK, payout hash OK, entries=3000
+	VIOLATED: rtp  VALUE:0.967 --- LIMIT: 0.967
+
+
+
+[FAST PATH] Using verification sidecar for super
+[FAST PATH] super: SHA-256 OK, payout hash OK, entries=3000
+OFF-GRID PAYOUTS (would fail the real check): {"lookUpTable_base_0.csv": {"books": 6000, "off_grid": 1268}, "lookUpTable_ante_2_0.csv": {"books": 6000, "off_grid": 1268}, "lookUpTable_ante_4_0.csv": {"books": 6000, "off_grid": 1268}, "lookUpTable_ante_10_0.csv": {"books": 6000, "off_grid": 1268}, "lookUpTable_bonus_0.csv": {"books": 3000, "off_grid": 1181}, "lookUpTable_super_0.csv": {"books": 3000, "off_grid": 932}}
+stats summary: /Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/results/build_2026-11-15/smoke/games/run_over_reindeer/library/stats_summary.json

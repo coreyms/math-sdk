@@ -1,0 +1,227 @@
+[
+ {
+  "key": "plain_line_win",
+  "mode": "base",
+  "sim": 101,
+  "in_fixture_set": true,
+  "payout_x": 2.0,
+  "events": 4,
+  "why": "base spin, plain line wins, no strike"
+ },
+ {
+  "key": "base_one_column",
+  "mode": "base",
+  "sim": 11,
+  "in_fixture_set": true,
+  "payout_x": 7.5,
+  "events": 6,
+  "why": "base spin, one Santa column (not sticky)"
+ },
+ {
+  "key": "base_two_columns",
+  "mode": "base",
+  "sim": 382,
+  "in_fixture_set": true,
+  "payout_x": 102.6,
+  "events": 8,
+  "why": "base spin, two-column Santa strike"
+ },
+ {
+  "key": "base_three_columns",
+  "mode": "base",
+  "sim": 10977,
+  "in_fixture_set": false,
+  "payout_x": 232.5,
+  "events": 10,
+  "why": "base spin, three-column Santa strike"
+ },
+ {
+  "key": "tier_reindeer",
+  "mode": "base",
+  "sim": 11,
+  "in_fixture_set": true,
+  "payout_x": 7.5,
+  "events": 6,
+  "why": "column tier reindeer (base)"
+ },
+ {
+  "key": "tier_santa",
+  "mode": "base",
+  "sim": 335,
+  "in_fixture_set": true,
+  "payout_x": 0.1,
+  "events": 6,
+  "why": "column tier santa (base)"
+ },
+ {
+  "key": "tier_grandma",
+  "mode": "base",
+  "sim": 4413,
+  "in_fixture_set": false,
+  "payout_x": 4.0,
+  "events": 6,
+  "why": "column tier grandma: Grandma walks out of the smoke (base)"
+ },
+ {
+  "key": "base_grandma_strike",
+  "mode": "base",
+  "sim": 14,
+  "in_fixture_set": true,
+  "payout_x": 7.5,
+  "events": 6,
+  "why": "base spin, one Grandma strike, one-spin Grandma Wild"
+ },
+ {
+  "key": "grandma_3x",
+  "mode": "bonus",
+  "sim": 0,
+  "in_fixture_set": true,
+  "payout_x": 99.2,
+  "events": 42,
+  "why": "Free Spins round with a 3x Grandma Wild"
+ },
+ {
+  "key": "grandma_25x",
+  "mode": "bonus",
+  "sim": 0,
+  "in_fixture_set": true,
+  "payout_x": 99.2,
+  "events": 42,
+  "why": "Free Spins round with a 25x Grandma Wild"
+ },
+ {
+  "key": "grandma_100x",
+  "mode": "bonus",
+  "sim": 26,
+  "in_fixture_set": true,
+  "payout_x": 22.1,
+  "events": 34,
+  "why": "Free Spins round with a 100x Grandma Wild"
+ },
+ {
+  "key": "natural_free_spins",
+  "mode": "base",
+  "sim": 730,
+  "in_fixture_set": true,
+  "payout_x": 45.7,
+  "events": 30,
+  "why": "natural Free Spins trigger (3 scatters)"
+ },
+ {
+  "key": "natural_super",
+  "mode": "base",
+  "sim": 829,
+  "in_fixture_set": true,
+  "payout_x": 488.7,
+  "events": 39,
+  "why": "natural Super trigger (4 scatters)"
+ },
+ {
+  "key": "floor_top_up",
+  "mode": "base",
+  "sim": 23,
+  "in_fixture_set": true,
+  "payout_x": 10.15,
+  "events": 32,
+  "why": "natural Free Spins ending in a 10x floor top-up"
+ },
+ {
+  "key": "floor_top_up_super",
+  "mode": "base",
+  "sim": 734,
+  "in_fixture_set": true,
+  "payout_x": 50.0,
+  "events": 29,
+  "why": "natural Super ending in a 50x floor top-up"
+ },
+ {
+  "key": "retrigger",
+  "mode": "bonus",
+  "sim": 8,
+  "in_fixture_set": true,
+  "payout_x": 35.0,
+  "events": 42,
+  "why": "Free Spins round with a retrigger (+3 spins)"
+ },
+ {
+  "key": "three_columns_free_spins",
+  "mode": "bonus",
+  "sim": 10,
+  "in_fixture_set": true,
+  "payout_x": 580.4,
+  "events": 38,
+  "why": "Free Spins round holding three columns"
+ },
+ {
+  "key": "super_typical",
+  "mode": "super",
+  "sim": 4,
+  "in_fixture_set": true,
+  "payout_x": 160.5,
+  "events": 47,
+  "why": "bought Super: the opening column and a typical win"
+ },
+ {
+  "key": "column_30x",
+  "mode": "bonus",
+  "sim": 3,
+  "in_fixture_set": true,
+  "payout_x": 712.3,
+  "events": 34,
+  "why": "Free Spins round with a rare 30x column start (Santa tier)"
+ },
+ {
+  "key": "column_50x",
+  "mode": "bonus",
+  "sim": 4,
+  "in_fixture_set": true,
+  "payout_x": 8.15,
+  "events": 26,
+  "why": "Free Spins round with a rare 50x column start (Grandma tier)"
+ },
+ {
+  "key": "grandma_red_box",
+  "mode": "bonus",
+  "sim": 2,
+  "in_fixture_set": true,
+  "payout_x": 0.4,
+  "events": 26,
+  "why": "a Santa column with a Grandma car in it: Grandma tier, red box on her cell (Free Spins)"
+ },
+ {
+  "key": "multi_reel_strikes",
+  "mode": "super",
+  "sim": 1,
+  "in_fixture_set": true,
+  "payout_x": 1152.8,
+  "events": 55,
+  "why": "one spin with Grandma and Santa strikes in 3+ reels (order check: Grandma first, then Santa, left to right)"
+ },
+ {
+  "key": "wild_line_three_columns_scatter",
+  "mode": "super",
+  "sim": 1034,
+  "in_fixture_set": true,
+  "payout_x": 6539.3,
+  "events": 43,
+  "why": "three columns on reels 1-3, then a scatter on reel 4: the line pays as a line of Wilds only"
+ },
+ {
+  "key": "wild_line_then_scatter",
+  "mode": "bonus",
+  "sim": 1034,
+  "in_fixture_set": true,
+  "payout_x": 948.6,
+  "events": 46,
+  "why": "three Wilds (any kind), then a scatter on reel 4: a line of Wilds only"
+ },
+ {
+  "key": "max_win",
+  "mode": "super",
+  "sim": 1473,
+  "in_fixture_set": true,
+  "payout_x": 7777.0,
+  "events": 41,
+  "why": "max win: the round reaches 7,777x and ends (wincap)"
+ }
+]

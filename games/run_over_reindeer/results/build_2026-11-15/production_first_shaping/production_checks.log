@@ -1,0 +1,48 @@
+Run Over Reindeer math 2026.11.15, contract 2026-11-15a
+copied the base books and lookup table to ante_2
+copied the base books and lookup table to ante_4
+copied the base books and lookup table to ante_10
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [ante_2] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [ante_4] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [ante_10] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+/Users/corey/Projects/stake-engine/math-sdk/utils/rgs_verification.py:188: UserWarning: 
+Mode [bonus] fails 3-star volatility limits:
+
+  warnings.warn(f"\nMode [{name}] fails 3-star volatility limits:\n")
+[FAST PATH] Using verification sidecar for base
+[FAST PATH] base: SHA-256 OK, payout hash OK, entries=600000
+[FAST PATH] Using verification sidecar for ante_2
+[FAST PATH] ante_2: SHA-256 OK, payout hash OK, entries=600000
+	VIOLATED: etl40b  VALUE:1.4226 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for ante_4
+[FAST PATH] ante_4: SHA-256 OK, payout hash OK, entries=600000
+	VIOLATED: etl40b  VALUE:2.6722 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for ante_10
+[FAST PATH] ante_10: SHA-256 OK, payout hash OK, entries=600000
+	VIOLATED: etl40b  VALUE:5.7996 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for bonus
+[FAST PATH] bonus: SHA-256 OK, payout hash OK, entries=240000
+	VIOLATED: etl40b  VALUE:2.3179 --- LIMIT: 0.9
+
+
+
+[FAST PATH] Using verification sidecar for super
+[FAST PATH] super: SHA-256 OK, payout hash OK, entries=210000

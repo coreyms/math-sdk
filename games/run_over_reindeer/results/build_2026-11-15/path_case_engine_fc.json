@@ -1,0 +1,95 @@
+{
+ "rules": "fc",
+ "result": {
+  "base": {
+   "rounds": 1000000,
+   "spins_with_g": 94735,
+   "g_strikes": 102946,
+   "case": 5452,
+   "case_rounds": 5362,
+   "gw_above": 1291,
+   "examples": [
+    {
+     "mode": "base",
+     "seed": 51000,
+     "i": 36,
+     "cell": 11
+    },
+    {
+     "mode": "base",
+     "seed": 51000,
+     "i": 794,
+     "cell": 11
+    },
+    {
+     "mode": "base",
+     "seed": 51000,
+     "i": 937,
+     "cell": 1
+    }
+   ],
+   "case_per_g_strike": 0.052959804169176075,
+   "case_rounds_1_in": 186.4975755315181
+  },
+  "bonus": {
+   "rounds": 200000,
+   "spins_with_g": 422869,
+   "g_strikes": 444602,
+   "case": 22642,
+   "case_rounds": 21385,
+   "gw_above": 3785,
+   "examples": [
+    {
+     "mode": "bonus",
+     "seed": 52000,
+     "i": 11,
+     "cell": 15
+    },
+    {
+     "mode": "bonus",
+     "seed": 52000,
+     "i": 30,
+     "cell": 3
+    },
+    {
+     "mode": "bonus",
+     "seed": 52000,
+     "i": 39,
+     "cell": 15
+    }
+   ],
+   "case_per_g_strike": 0.050926446574689276,
+   "case_rounds_1_in": 9.352349777881694
+  },
+  "super": {
+   "rounds": 200000,
+   "spins_with_g": 748812,
+   "g_strikes": 811724,
+   "case": 39416,
+   "case_rounds": 35702,
+   "gw_above": 12430,
+   "examples": [
+    {
+     "mode": "super",
+     "seed": 53000,
+     "i": 2,
+     "cell": 7
+    },
+    {
+     "mode": "super",
+     "seed": 53000,
+     "i": 7,
+     "cell": 7
+    },
+    {
+     "mode": "super",
+     "seed": 53000,
+     "i": 21,
+     "cell": 18
+    }
+   ],
+   "case_per_g_strike": 0.04855837698528071,
+   "case_rounds_1_in": 5.601927062909641
+  }
+ }
+}

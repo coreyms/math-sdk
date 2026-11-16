@@ -1,0 +1,115 @@
+{
+ "base": {
+  "cost": 1.0,
+  "books": 6000,
+  "fs_1_in": 181.95011100852707,
+  "super_1_in": 1819.5011100852705,
+  "fs_mean_target": 88.27996746746746,
+  "super_mean_target": 338.31062674459173,
+  "tilt_a": [
+   -0.026435370766993628,
+   -0.04599689157256523
+  ],
+  "p_cap": 1.3672096912848613e-06,
+  "maxwin_1_in": 731416.699555597,
+  "cap_books": 4,
+  "basegame_mean": 1.0572793448589628,
+  "p_nt_win": 0.281549,
+  "rtp": 0.9670000000000001,
+  "max_book_prob": 0.0004760716820817549,
+  "max_book_1_in": 2100.5240127436773,
+  "ceiling_ok": null,
+  "rtp_integer_weights": 0.9669999998708868
+ },
+ "ante_2": {
+  "cost": 2.0,
+  "books": 6000,
+  "fs_1_in": 63.37672844383466,
+  "super_1_in": 1000.0,
+  "fs_mean_target": 83.99208333333334,
+  "super_mean_target": 316.0359375,
+  "tilt_a": [
+   -8.146639408943201e-17,
+   2.4651594327050816e-17
+  ],
+  "p_cap": 2.0833333333333334e-06,
+  "maxwin_1_in": 480000.0,
+  "cap_books": 4,
+  "basegame_mean": 1.0572793448589628,
+  "p_nt_win": 0.281549,
+  "rtp": 0.9670000000000003,
+  "max_book_prob": 0.00047093090216281574,
+  "max_book_1_in": 2123.4537708342364,
+  "ceiling_ok": null,
+  "rtp_integer_weights": 0.966999999968257
+ },
+ "ante_4": {
+  "cost": 4.0,
+  "books": 6000,
+  "fs_1_in": 36.27262671404395,
+  "super_1_in": 250.0,
+  "fs_mean_target": 83.99208333333334,
+  "super_mean_target": 316.0359375,
+  "tilt_a": [
+   -8.146639408943201e-17,
+   2.4651594327050816e-17
+  ],
+  "p_cap": 8.333333333333334e-06,
+  "maxwin_1_in": 120000.0,
+  "cap_books": 4,
+  "basegame_mean": 1.0572793448589628,
+  "p_nt_win": 0.281549,
+  "rtp": 0.967,
+  "max_book_prob": 0.0004638468141931557,
+  "max_book_1_in": 2155.884161324818,
+  "ceiling_ok": null,
+  "rtp_integer_weights": 0.9669999999868256
+ },
+ "ante_10": {
+  "cost": 10.0,
+  "books": 6000,
+  "fs_1_in": 56.59358010614255,
+  "super_1_in": 40.0,
+  "fs_mean_target": 83.99208333333334,
+  "super_mean_target": 316.0359375,
+  "tilt_a": [
+   -8.146639408943201e-17,
+   2.4651594327050816e-17
+  ],
+  "p_cap": 5.208333333333334e-05,
+  "maxwin_1_in": 19200.0,
+  "cap_books": 4,
+  "basegame_mean": 1.0572793448589628,
+  "p_nt_win": 0.281549,
+  "rtp": 0.9670000000000002,
+  "max_book_prob": 0.00045852986966970425,
+  "max_book_1_in": 2180.8830048963578,
+  "ceiling_ok": null,
+  "rtp_integer_weights": 0.9669999999958137
+ },
+ "bonus": {
+  "cost": 100.0,
+  "books": 3000,
+  "cap_rate_from": "BOUGHT_CAP_1_IN (no natural cap in the sample)",
+  "tilt_a": -0.015054752159364231,
+  "p_cap": 5.555555555555556e-05,
+  "cap_books": 1,
+  "rtp": 0.9670000000000002,
+  "max_book_prob": 0.000357953429090264,
+  "max_book_1_in": 2793.659506325984,
+  "ceiling_ok": false,
+  "rtp_integer_weights": 0.9670000000001019
+ },
+ "super": {
+  "cost": 300.0,
+  "books": 3000,
+  "tilt_a": 0.024252055618416188,
+  "p_cap": 0.0006042789286721296,
+  "cap_books": 6,
+  "rtp": 0.9669999999999999,
+  "max_book_prob": 0.0003487405632898425,
+  "max_book_1_in": 2867.4611022202425,
+  "ceiling_ok": false,
+  "rtp_integer_weights": 0.9669999999999622
+ }
+}

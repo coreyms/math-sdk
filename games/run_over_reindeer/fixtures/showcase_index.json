@@ -1,0 +1,200 @@
+[
+ {
+  "key": "plain_line_win",
+  "mode": "base",
+  "sim": 101,
+  "in_fixture_set": true,
+  "payout_x": 2.0,
+  "events": 4,
+  "why": "base spin, plain line wins, no strike"
+ },
+ {
+  "key": "base_one_column",
+  "mode": "base",
+  "sim": 11,
+  "in_fixture_set": true,
+  "payout_x": 7.5,
+  "events": 6,
+  "why": "base spin, one Santa column (not sticky)"
+ },
+ {
+  "key": "base_two_columns",
+  "mode": "base",
+  "sim": 382,
+  "in_fixture_set": true,
+  "payout_x": 102.6,
+  "events": 8,
+  "why": "base spin, two-column Santa strike"
+ },
+ {
+  "key": "base_three_columns",
+  "mode": "base",
+  "sim": 10977,
+  "in_fixture_set": false,
+  "payout_x": 232.5,
+  "events": 10,
+  "why": "base spin, three-column Santa strike"
+ },
+ {
+  "key": "tier_reindeer",
+  "mode": "base",
+  "sim": 11,
+  "in_fixture_set": true,
+  "payout_x": 7.5,
+  "events": 6,
+  "why": "column tier reindeer (base)"
+ },
+ {
+  "key": "tier_santa",
+  "mode": "base",
+  "sim": 335,
+  "in_fixture_set": true,
+  "payout_x": 0.1,
+  "events": 6,
+  "why": "column tier santa (base)"
+ },
+ {
+  "key": "tier_grandma",
+  "mode": "base",
+  "sim": 4413,
+  "in_fixture_set": false,
+  "payout_x": 4.0,
+  "events": 6,
+  "why": "column tier grandma: Grandma walks out of the smoke (base)"
+ },
+ {
+  "key": "base_grandma_strike",
+  "mode": "base",
+  "sim": 14,
+  "in_fixture_set": true,
+  "payout_x": 7.5,
+  "events": 6,
+  "why": "base spin, one Grandma strike, one-spin Grandma Wild"
+ },
+ {
+  "key": "grandma_3x",
+  "mode": "bonus",
+  "sim": 0,
+  "in_fixture_set": true,
+  "payout_x": 96.5,
+  "events": 43,
+  "why": "Free Spins round with a 3x Grandma Wild"
+ },
+ {
+  "key": "grandma_25x",
+  "mode": "bonus",
+  "sim": 0,
+  "in_fixture_set": true,
+  "payout_x": 96.5,
+  "events": 43,
+  "why": "Free Spins round with a 25x Grandma Wild"
+ },
+ {
+  "key": "grandma_100x",
+  "mode": "bonus",
+  "sim": 26,
+  "in_fixture_set": true,
+  "payout_x": 15.9,
+  "events": 34,
+  "why": "Free Spins round with a 100x Grandma Wild"
+ },
+ {
+  "key": "natural_free_spins",
+  "mode": "base",
+  "sim": 730,
+  "in_fixture_set": true,
+  "payout_x": 38.9,
+  "events": 30,
+  "why": "natural Free Spins trigger (3 scatters)"
+ },
+ {
+  "key": "natural_super",
+  "mode": "base",
+  "sim": 829,
+  "in_fixture_set": true,
+  "payout_x": 144.3,
+  "events": 40,
+  "why": "natural Super trigger (4 scatters)"
+ },
+ {
+  "key": "floor_top_up",
+  "mode": "base",
+  "sim": 23,
+  "in_fixture_set": true,
+  "payout_x": 10.15,
+  "events": 32,
+  "why": "natural Free Spins ending in a 10x floor top-up"
+ },
+ {
+  "key": "floor_top_up_super",
+  "mode": "base",
+  "sim": 734,
+  "in_fixture_set": true,
+  "payout_x": 50.0,
+  "events": 31,
+  "why": "natural Super ending in a 50x floor top-up"
+ },
+ {
+  "key": "one_crossing",
+  "mode": "bonus",
+  "sim": 0,
+  "in_fixture_set": true,
+  "payout_x": 96.5,
+  "events": 43,
+  "why": "Free Spins round with one crossing (a held column doubled)"
+ },
+ {
+  "key": "two_crossings",
+  "mode": "bonus",
+  "sim": 6,
+  "in_fixture_set": true,
+  "payout_x": 25.5,
+  "events": 32,
+  "why": "Free Spins round with two crossings"
+ },
+ {
+  "key": "retrigger",
+  "mode": "bonus",
+  "sim": 8,
+  "in_fixture_set": true,
+  "payout_x": 35.0,
+  "events": 42,
+  "why": "Free Spins round with a retrigger (+3 spins)"
+ },
+ {
+  "key": "three_columns_free_spins",
+  "mode": "bonus",
+  "sim": 10,
+  "in_fixture_set": true,
+  "payout_x": 678.6,
+  "events": 40,
+  "why": "Free Spins round holding three columns"
+ },
+ {
+  "key": "super_typical",
+  "mode": "super",
+  "sim": 4,
+  "in_fixture_set": true,
+  "payout_x": 214.4,
+  "events": 50,
+  "why": "bought Super: opening column, crossings, a typical win"
+ },
+ {
+  "key": "crossing_to_cap50",
+  "mode": "super",
+  "sim": 1,
+  "in_fixture_set": true,
+  "payout_x": 731.0,
+  "events": 59,
+  "why": "a crossing that reaches the 50x column cap"
+ },
+ {
+  "key": "max_win",
+  "mode": "super",
+  "sim": 96,
+  "in_fixture_set": true,
+  "payout_x": 7777.0,
+  "events": 62,
+  "why": "max win: the round reaches 7,777x and ends (wincap)"
+ }
+]

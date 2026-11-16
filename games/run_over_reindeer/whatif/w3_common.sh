@@ -1,0 +1,8 @@
+# What-if 3 shared patch snippets (sourced by the runs below; kept for the record)
+L12="R.PAYLINES=[[0,0,0,0,0],[1,1,1,1,1],[2,2,2,2,2],[3,3,3,3,3],[0,1,2,1,0],[3,2,1,2,3],[1,2,3,2,1],[2,1,0,1,2],[0,0,1,0,0],[3,3,2,3,3],[0,1,0,1,0],[3,2,3,2,3]]"
+MFPAY="R.PAYTABLE={'H1':{3:2.5,4:5,5:10},'H2':{3:2,4:4,5:8},'H3':{3:1.5,4:3,5:6},'H4':{3:1,4:2,5:4},'L1':{3:0.1,4:0.5,5:1},'L2':{3:0.1,4:0.5,5:1},'L3':{3:0.1,4:0.5,5:1},'L4':{3:0.1,4:0.5,5:1},'L5':{3:0.1,4:0.5,5:1},'W':{3:2.5,4:5,5:10}}"
+RULE_FS="f=R.FEATURE['freespins']; f['grandma_sticky']=False; f['column_crossing']=True"
+RULE_SU="f=R.FEATURE['super']; f['grandma_sticky']=False; f['column_crossing']=True"
+REC_FS="f=R.FEATURE['freespins']; f['grandma_sticky']=False; f['column_crossing']=True; f['column_mult']={'reindeer':{2:60,3:30,4:10},'santa':{5:60,8:30,10:10},'grandma':{10:60,15:30,20:10}}; f['santa_by_held']={0:{0:0.82,1:0.18},1:{0:0.95,1:0.05},2:{0:0.99,1:0.01},3:{0:1}}; f['grandma_count']={0:0.79,1:0.2,2:0.01}"
+REC_SU="f=R.FEATURE['super']; f['grandma_sticky']=False; f['column_crossing']=True; f['column_mult']={'reindeer':{2:70,3:30},'santa':{4:60,6:40},'grandma':{8:60,10:40}}; f['santa_by_held']={1:{0:0.95,1:0.05},2:{0:0.99,1:0.01},3:{0:1}}; f['grandma_count']={0:0.66,1:0.31,2:0.03}"
+BASE12="f=R.FEATURE['base']; f['grandma_mult']={2:50,3:25,4:12,5:8,10:5}; f['column_mult']={'reindeer':{5:40,6:25,8:20,10:15},'santa':{15:45,20:30,25:25},'grandma':{50:60,75:30,100:10}}; f['column_tier']={'reindeer':85,'santa':13,'grandma':2}; f['santa_count']={0:29,1:0.94,2:0.055,3:0.005}; f['scatter_count']={0:0.8,1:0.15,2:0.04598,3:0.003664,4:0.000346,5:0.00001}"

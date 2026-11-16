@@ -1,0 +1,3 @@
+.....s.....                                                              [100%]
+10 passed, 1 skipped in 7.60s
+PYTHONDONTWRITEBYTECODE=1 nice -n 19 env/bin/python -m pytest  -q -p   5.95s user 0.16s system 76% cpu 8.016 total

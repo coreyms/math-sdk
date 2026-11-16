@@ -1,0 +1,8906 @@
+{
+ "run_over_reindeer/fixtures/showcase_books.json": {
+  "rounds": 22,
+  "grandma_strikes": 50,
+  "case": 6,
+  "hits": [
+   {
+    "name": "natural_super",
+    "mode": "base",
+    "sim": 829,
+    "event": 33,
+    "cell": 2
+   },
+   {
+    "name": "floor_top_up_super",
+    "mode": "base",
+    "sim": 734,
+    "event": 7,
+    "cell": 6
+   },
+   {
+    "name": "crossing_to_cap50",
+    "mode": "super",
+    "sim": 1,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": "crossing_to_cap50",
+    "mode": "super",
+    "sim": 1,
+    "event": 29,
+    "cell": 14
+   },
+   {
+    "name": "crossing_to_cap50",
+    "mode": "super",
+    "sim": 1,
+    "event": 35,
+    "cell": 6
+   },
+   {
+    "name": "max_win",
+    "mode": "super",
+    "sim": 96,
+    "event": 23,
+    "cell": 15
+   }
+  ]
+ },
+ "run_over_reindeer/fixtures/books_base.json": {
+  "rounds": 2000,
+  "grandma_strikes": 239,
+  "case": 8,
+  "hits": [
+   {
+    "name": null,
+    "mode": null,
+    "sim": 361,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 425,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 734,
+    "event": 7,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 829,
+    "event": 33,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 973,
+    "event": 1,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1428,
+    "event": 1,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1457,
+    "event": 3,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1990,
+    "event": 12,
+    "cell": 6
+   }
+  ]
+ },
+ "run_over_reindeer/fixtures/books_bonus.json": {
+  "rounds": 2000,
+  "grandma_strikes": 4413,
+  "case": 211,
+  "hits": [
+   {
+    "name": null,
+    "mode": null,
+    "sim": 9,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 11,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 29,
+    "event": 30,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 33,
+    "event": 13,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 35,
+    "event": 7,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 51,
+    "event": 23,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 55,
+    "event": 13,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 57,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 65,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 69,
+    "event": 8,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 75,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 86,
+    "event": 9,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 88,
+    "event": 12,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 93,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 106,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 113,
+    "event": 31,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 114,
+    "event": 16,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 128,
+    "event": 6,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 129,
+    "event": 3,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 129,
+    "event": 11,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 141,
+    "event": 26,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 161,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 185,
+    "event": 22,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 189,
+    "event": 9,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 200,
+    "event": 14,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 208,
+    "event": 22,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 217,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 238,
+    "event": 20,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 241,
+    "event": 14,
+    "cell": 9
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 249,
+    "event": 13,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 256,
+    "event": 27,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 273,
+    "event": 21,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 279,
+    "event": 17,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 289,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 295,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 299,
+    "event": 21,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 306,
+    "event": 26,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 307,
+    "event": 19,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 311,
+    "event": 3,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 311,
+    "event": 22,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 314,
+    "event": 20,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 320,
+    "event": 15,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 326,
+    "event": 13,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 334,
+    "event": 3,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 365,
+    "event": 13,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 370,
+    "event": 13,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 379,
+    "event": 25,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 381,
+    "event": 15,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 382,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 388,
+    "event": 25,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 388,
+    "event": 30,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 404,
+    "event": 33,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 427,
+    "event": 20,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 436,
+    "event": 56,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 441,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 454,
+    "event": 14,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 469,
+    "event": 6,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 474,
+    "event": 8,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 490,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 503,
+    "event": 34,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 509,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 511,
+    "event": 32,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 529,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 537,
+    "event": 5,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 539,
+    "event": 5,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 552,
+    "event": 14,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 560,
+    "event": 22,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 564,
+    "event": 5,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 566,
+    "event": 22,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 580,
+    "event": 27,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 590,
+    "event": 11,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 606,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 613,
+    "event": 20,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 617,
+    "event": 19,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 623,
+    "event": 9,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 636,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 640,
+    "event": 1,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 658,
+    "event": 5,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 666,
+    "event": 5,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 671,
+    "event": 16,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 671,
+    "event": 29,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 676,
+    "event": 35,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 678,
+    "event": 5,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 705,
+    "event": 13,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 713,
+    "event": 5,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 742,
+    "event": 19,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 744,
+    "event": 18,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 745,
+    "event": 3,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 746,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 749,
+    "event": 27,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 765,
+    "event": 12,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 770,
+    "event": 28,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 784,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 799,
+    "event": 28,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 806,
+    "event": 27,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 815,
+    "event": 10,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 817,
+    "event": 28,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 826,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 844,
+    "event": 19,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 847,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 874,
+    "event": 13,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 878,
+    "event": 32,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 892,
+    "event": 5,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 900,
+    "event": 23,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 901,
+    "event": 3,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 932,
+    "event": 19,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 940,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 950,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 951,
+    "event": 24,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 955,
+    "event": 27,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 969,
+    "event": 19,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 970,
+    "event": 20,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 974,
+    "event": 9,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 976,
+    "event": 14,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1007,
+    "event": 25,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1021,
+    "event": 3,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1021,
+    "event": 8,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1038,
+    "event": 6,
+    "cell": 9
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1052,
+    "event": 30,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1059,
+    "event": 1,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1074,
+    "event": 33,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1085,
+    "event": 26,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1094,
+    "event": 29,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1095,
+    "event": 18,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1098,
+    "event": 23,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1108,
+    "event": 19,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1115,
+    "event": 23,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1134,
+    "event": 24,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1135,
+    "event": 1,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1183,
+    "event": 16,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1198,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1210,
+    "event": 12,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1225,
+    "event": 5,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1226,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1250,
+    "event": 14,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1252,
+    "event": 27,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1260,
+    "event": 19,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1262,
+    "event": 7,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1263,
+    "event": 18,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1271,
+    "event": 14,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1273,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1282,
+    "event": 1,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1300,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1306,
+    "event": 33,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1317,
+    "event": 24,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1321,
+    "event": 3,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1333,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1334,
+    "event": 3,
+    "cell": 9
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1370,
+    "event": 6,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1400,
+    "event": 3,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1409,
+    "event": 27,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1410,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1421,
+    "event": 14,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1421,
+    "event": 28,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1455,
+    "event": 20,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1456,
+    "event": 5,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1473,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1474,
+    "event": 11,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1479,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1492,
+    "event": 10,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1493,
+    "event": 3,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1502,
+    "event": 6,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1502,
+    "event": 38,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1517,
+    "event": 23,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1530,
+    "event": 14,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1543,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1549,
+    "event": 16,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1556,
+    "event": 9,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1558,
+    "event": 9,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1559,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1560,
+    "event": 20,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1564,
+    "event": 11,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1568,
+    "event": 27,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1570,
+    "event": 9,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1577,
+    "event": 21,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1593,
+    "event": 33,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1620,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1628,
+    "event": 14,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1628,
+    "event": 32,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1670,
+    "event": 16,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1686,
+    "event": 11,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1757,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1760,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1790,
+    "event": 16,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1815,
+    "event": 9,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1818,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1820,
+    "event": 9,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1823,
+    "event": 3,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1844,
+    "event": 5,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1862,
+    "event": 14,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1865,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1870,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1871,
+    "event": 20,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1874,
+    "event": 1,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1882,
+    "event": 14,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1905,
+    "event": 21,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1911,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1930,
+    "event": 37,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1946,
+    "event": 17,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1946,
+    "event": 22,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1955,
+    "event": 25,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1956,
+    "event": 21,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1957,
+    "event": 7,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1962,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1970,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1971,
+    "event": 8,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1976,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1978,
+    "event": 31,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1986,
+    "event": 24,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1988,
+    "event": 25,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1990,
+    "event": 12,
+    "cell": 6
+   }
+  ]
+ },
+ "run_over_reindeer/fixtures/books_super.json": {
+  "rounds": 2000,
+  "grandma_strikes": 8060,
+  "case": 414,
+  "hits": [
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1,
+    "event": 29,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1,
+    "event": 35,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 2,
+    "event": 17,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 16,
+    "event": 15,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 19,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 21,
+    "event": 29,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 22,
+    "event": 28,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 22,
+    "event": 31,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 33,
+    "event": 11,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 34,
+    "event": 35,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 38,
+    "event": 7,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 39,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 44,
+    "event": 4,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 44,
+    "event": 12,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 47,
+    "event": 12,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 50,
+    "event": 22,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 55,
+    "event": 18,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 55,
+    "event": 33,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 57,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 61,
+    "event": 21,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 63,
+    "event": 27,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 65,
+    "event": 4,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 65,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 83,
+    "event": 41,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 96,
+    "event": 23,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 108,
+    "event": 6,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 113,
+    "event": 32,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 125,
+    "event": 32,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 126,
+    "event": 36,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 144,
+    "event": 21,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 150,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 157,
+    "event": 16,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 167,
+    "event": 11,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 171,
+    "event": 14,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 185,
+    "event": 20,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 186,
+    "event": 18,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 191,
+    "event": 9,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 191,
+    "event": 18,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 194,
+    "event": 26,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 200,
+    "event": 1,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 203,
+    "event": 15,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 208,
+    "event": 15,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 228,
+    "event": 43,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 230,
+    "event": 18,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 231,
+    "event": 43,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 234,
+    "event": 11,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 234,
+    "event": 34,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 238,
+    "event": 33,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 241,
+    "event": 12,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 241,
+    "event": 20,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 245,
+    "event": 1,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 249,
+    "event": 15,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 253,
+    "event": 13,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 254,
+    "event": 23,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 254,
+    "event": 25,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 262,
+    "event": 16,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 264,
+    "event": 1,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 269,
+    "event": 34,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 272,
+    "event": 45,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 275,
+    "event": 25,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 278,
+    "event": 23,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 279,
+    "event": 9,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 279,
+    "event": 12,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 284,
+    "event": 41,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 285,
+    "event": 1,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 286,
+    "event": 1,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 287,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 290,
+    "event": 22,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 295,
+    "event": 13,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 298,
+    "event": 13,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 321,
+    "event": 27,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 334,
+    "event": 26,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 335,
+    "event": 18,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 361,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 363,
+    "event": 6,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 368,
+    "event": 35,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 372,
+    "event": 30,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 377,
+    "event": 23,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 382,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 395,
+    "event": 37,
+    "cell": 9
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 400,
+    "event": 9,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 402,
+    "event": 10,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 407,
+    "event": 22,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 413,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 419,
+    "event": 1,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 420,
+    "event": 24,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 421,
+    "event": 16,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 431,
+    "event": 33,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 434,
+    "event": 32,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 436,
+    "event": 23,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 444,
+    "event": 33,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 445,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 446,
+    "event": 7,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 462,
+    "event": 19,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 477,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 483,
+    "event": 25,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 494,
+    "event": 4,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 501,
+    "event": 4,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 506,
+    "event": 21,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 507,
+    "event": 16,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 518,
+    "event": 16,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 525,
+    "event": 32,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 529,
+    "event": 26,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 530,
+    "event": 36,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 549,
+    "event": 6,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 549,
+    "event": 38,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 579,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 584,
+    "event": 10,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 587,
+    "event": 31,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 595,
+    "event": 5,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 605,
+    "event": 30,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 606,
+    "event": 14,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 610,
+    "event": 13,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 613,
+    "event": 7,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 619,
+    "event": 21,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 629,
+    "event": 25,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 645,
+    "event": 4,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 646,
+    "event": 41,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 654,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 658,
+    "event": 4,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 667,
+    "event": 7,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 674,
+    "event": 12,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 676,
+    "event": 47,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 691,
+    "event": 22,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 694,
+    "event": 9,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 717,
+    "event": 25,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 718,
+    "event": 14,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 722,
+    "event": 12,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 726,
+    "event": 29,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 746,
+    "event": 9,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 746,
+    "event": 19,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 756,
+    "event": 15,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 760,
+    "event": 43,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 760,
+    "event": 48,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 765,
+    "event": 12,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 766,
+    "event": 13,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 768,
+    "event": 18,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 778,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 779,
+    "event": 26,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 783,
+    "event": 18,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 784,
+    "event": 29,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 786,
+    "event": 10,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 789,
+    "event": 33,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 791,
+    "event": 17,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 797,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 798,
+    "event": 17,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 809,
+    "event": 20,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 825,
+    "event": 22,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 829,
+    "event": 33,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 830,
+    "event": 18,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 845,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 846,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 852,
+    "event": 1,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 860,
+    "event": 8,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 867,
+    "event": 30,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 875,
+    "event": 17,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 877,
+    "event": 10,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 881,
+    "event": 38,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 883,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 887,
+    "event": 7,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 888,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 889,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 894,
+    "event": 8,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 894,
+    "event": 16,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 896,
+    "event": 26,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 900,
+    "event": 11,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 903,
+    "event": 12,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 910,
+    "event": 4,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 912,
+    "event": 21,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 913,
+    "event": 22,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 915,
+    "event": 4,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 915,
+    "event": 15,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 926,
+    "event": 14,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 927,
+    "event": 5,
+    "cell": 13
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 932,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 940,
+    "event": 12,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 942,
+    "event": 27,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 942,
+    "event": 51,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 947,
+    "event": 29,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 951,
+    "event": 29,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 953,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 954,
+    "event": 30,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 956,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 972,
+    "event": 11,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 973,
+    "event": 34,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 975,
+    "event": 40,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 978,
+    "event": 38,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 979,
+    "event": 15,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 980,
+    "event": 24,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 984,
+    "event": 34,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 990,
+    "event": 15,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 992,
+    "event": 11,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 994,
+    "event": 4,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 996,
+    "event": 10,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 996,
+    "event": 13,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 999,
+    "event": 18,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 999,
+    "event": 20,
+    "cell": 9
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1002,
+    "event": 27,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1013,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1014,
+    "event": 25,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1031,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1043,
+    "event": 9,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1046,
+    "event": 11,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1050,
+    "event": 17,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1050,
+    "event": 31,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1054,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1059,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1061,
+    "event": 11,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1069,
+    "event": 9,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1073,
+    "event": 1,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1079,
+    "event": 33,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1081,
+    "event": 21,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1082,
+    "event": 21,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1083,
+    "event": 24,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1088,
+    "event": 11,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1094,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1097,
+    "event": 7,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1101,
+    "event": 32,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1102,
+    "event": 8,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1102,
+    "event": 46,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1108,
+    "event": 29,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1117,
+    "event": 6,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1118,
+    "event": 11,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1118,
+    "event": 21,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1127,
+    "event": 21,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1127,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1131,
+    "event": 24,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1137,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1144,
+    "event": 41,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1167,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1172,
+    "event": 12,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1174,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1183,
+    "event": 16,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1183,
+    "event": 26,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1189,
+    "event": 1,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1189,
+    "event": 9,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1190,
+    "event": 14,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1191,
+    "event": 37,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1194,
+    "event": 26,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1197,
+    "event": 26,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1198,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1202,
+    "event": 20,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1209,
+    "event": 22,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1210,
+    "event": 9,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1220,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1228,
+    "event": 24,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1234,
+    "event": 44,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1246,
+    "event": 30,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1249,
+    "event": 29,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1251,
+    "event": 9,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1259,
+    "event": 22,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1266,
+    "event": 23,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1269,
+    "event": 12,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1269,
+    "event": 29,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1270,
+    "event": 19,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1282,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1288,
+    "event": 5,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1301,
+    "event": 38,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1304,
+    "event": 18,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1304,
+    "event": 27,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1314,
+    "event": 5,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1314,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1320,
+    "event": 25,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1326,
+    "event": 19,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1336,
+    "event": 25,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1341,
+    "event": 15,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1343,
+    "event": 13,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1343,
+    "event": 18,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1345,
+    "event": 24,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1353,
+    "event": 34,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1359,
+    "event": 20,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1366,
+    "event": 13,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1367,
+    "event": 39,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1368,
+    "event": 31,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1374,
+    "event": 43,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1374,
+    "event": 54,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1383,
+    "event": 31,
+    "cell": 17
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1400,
+    "event": 10,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1400,
+    "event": 26,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1401,
+    "event": 10,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1406,
+    "event": 36,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1408,
+    "event": 10,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1421,
+    "event": 16,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1425,
+    "event": 26,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1427,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1431,
+    "event": 28,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1441,
+    "event": 8,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1447,
+    "event": 13,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1448,
+    "event": 9,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1449,
+    "event": 32,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1450,
+    "event": 10,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1450,
+    "event": 23,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1455,
+    "event": 17,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1456,
+    "event": 13,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1466,
+    "event": 18,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1466,
+    "event": 30,
+    "cell": 13
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1473,
+    "event": 4,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1473,
+    "event": 11,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1477,
+    "event": 11,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1479,
+    "event": 19,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1480,
+    "event": 23,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1483,
+    "event": 14,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1484,
+    "event": 35,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1488,
+    "event": 44,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1504,
+    "event": 20,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1506,
+    "event": 12,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1515,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1518,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1524,
+    "event": 23,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1534,
+    "event": 12,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1539,
+    "event": 26,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1539,
+    "event": 31,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1541,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1545,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1548,
+    "event": 20,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1566,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1566,
+    "event": 24,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1566,
+    "event": 29,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1577,
+    "event": 4,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1579,
+    "event": 41,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1582,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1583,
+    "event": 23,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1595,
+    "event": 29,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1596,
+    "event": 19,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1601,
+    "event": 26,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1604,
+    "event": 9,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1608,
+    "event": 4,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1615,
+    "event": 6,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1615,
+    "event": 15,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1615,
+    "event": 20,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1615,
+    "event": 31,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1618,
+    "event": 29,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1619,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1619,
+    "event": 8,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1622,
+    "event": 12,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1623,
+    "event": 41,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1627,
+    "event": 29,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1628,
+    "event": 23,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1628,
+    "event": 41,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1632,
+    "event": 18,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1632,
+    "event": 46,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1639,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1641,
+    "event": 34,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1641,
+    "event": 39,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1644,
+    "event": 24,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1650,
+    "event": 18,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1658,
+    "event": 14,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1659,
+    "event": 30,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1671,
+    "event": 12,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1672,
+    "event": 10,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1676,
+    "event": 37,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1681,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1687,
+    "event": 45,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1695,
+    "event": 37,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1696,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1715,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1722,
+    "event": 47,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1725,
+    "event": 24,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1726,
+    "event": 8,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1732,
+    "event": 24,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1732,
+    "event": 33,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1733,
+    "event": 13,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1737,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1740,
+    "event": 25,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1740,
+    "event": 35,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1744,
+    "event": 44,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1765,
+    "event": 21,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1767,
+    "event": 9,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1769,
+    "event": 44,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1777,
+    "event": 4,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1782,
+    "event": 7,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1791,
+    "event": 41,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1798,
+    "event": 12,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1806,
+    "event": 16,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1819,
+    "event": 7,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1821,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1826,
+    "event": 22,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1826,
+    "event": 24,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1832,
+    "event": 16,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1834,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1841,
+    "event": 34,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1844,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1846,
+    "event": 15,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1848,
+    "event": 21,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1849,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1850,
+    "event": 23,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1855,
+    "event": 22,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1864,
+    "event": 50,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1867,
+    "event": 39,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1884,
+    "event": 16,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1896,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1898,
+    "event": 16,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1908,
+    "event": 27,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1925,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1932,
+    "event": 35,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1932,
+    "event": 46,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1932,
+    "event": 52,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1932,
+    "event": 57,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1933,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1939,
+    "event": 24,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1945,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1969,
+    "event": 34,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1970,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1974,
+    "event": 30,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1975,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1975,
+    "event": 28,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1978,
+    "event": 34,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1984,
+    "event": 15,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1986,
+    "event": 31,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1988,
+    "event": 12,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1991,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1993,
+    "event": 30,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1998,
+    "event": 13,
+    "cell": 7
+   }
+  ]
+ },
+ "run_over_reindeer/fixtures_2026-11-10a/showcase_books.json": {
+  "rounds": 25,
+  "grandma_strikes": 57,
+  "case": 6,
+  "hits": [
+   {
+    "name": "natural_super",
+    "mode": "base",
+    "sim": 829,
+    "event": 33,
+    "cell": 2
+   },
+   {
+    "name": "floor_top_up_super",
+    "mode": "base",
+    "sim": 734,
+    "event": 7,
+    "cell": 6
+   },
+   {
+    "name": "column_30x",
+    "mode": "bonus",
+    "sim": 3,
+    "event": 3,
+    "cell": 6
+   },
+   {
+    "name": "multi_reel_strikes",
+    "mode": "super",
+    "sim": 1,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": "multi_reel_strikes",
+    "mode": "super",
+    "sim": 1,
+    "event": 28,
+    "cell": 14
+   },
+   {
+    "name": "multi_reel_strikes",
+    "mode": "super",
+    "sim": 1,
+    "event": 33,
+    "cell": 6
+   }
+  ]
+ },
+ "run_over_reindeer/fixtures_2026-11-10a/books_base.json": {
+  "rounds": 2000,
+  "grandma_strikes": 238,
+  "case": 7,
+  "hits": [
+   {
+    "name": null,
+    "mode": null,
+    "sim": 361,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 425,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 734,
+    "event": 7,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 829,
+    "event": 33,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 973,
+    "event": 1,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1428,
+    "event": 1,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1990,
+    "event": 12,
+    "cell": 6
+   }
+  ]
+ },
+ "run_over_reindeer/fixtures_2026-11-10a/books_bonus.json": {
+  "rounds": 2000,
+  "grandma_strikes": 4403,
+  "case": 201,
+  "hits": [
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1,
+    "event": 3,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 3,
+    "event": 3,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 9,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 11,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 29,
+    "event": 29,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 33,
+    "event": 13,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 35,
+    "event": 7,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 51,
+    "event": 22,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 55,
+    "event": 13,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 57,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 65,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 69,
+    "event": 8,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 75,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 86,
+    "event": 9,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 88,
+    "event": 12,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 93,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 106,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 114,
+    "event": 16,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 128,
+    "event": 8,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 129,
+    "event": 3,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 164,
+    "event": 30,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 167,
+    "event": 21,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 185,
+    "event": 22,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 189,
+    "event": 9,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 208,
+    "event": 22,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 217,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 238,
+    "event": 20,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 241,
+    "event": 14,
+    "cell": 9
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 249,
+    "event": 13,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 256,
+    "event": 26,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 273,
+    "event": 9,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 279,
+    "event": 17,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 295,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 299,
+    "event": 21,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 306,
+    "event": 26,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 307,
+    "event": 19,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 311,
+    "event": 3,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 311,
+    "event": 22,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 320,
+    "event": 13,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 326,
+    "event": 13,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 334,
+    "event": 3,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 370,
+    "event": 13,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 379,
+    "event": 24,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 381,
+    "event": 15,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 382,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 388,
+    "event": 25,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 388,
+    "event": 30,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 404,
+    "event": 31,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 441,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 454,
+    "event": 14,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 469,
+    "event": 6,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 474,
+    "event": 8,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 490,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 503,
+    "event": 32,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 509,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 511,
+    "event": 32,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 518,
+    "event": 19,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 528,
+    "event": 3,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 529,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 537,
+    "event": 5,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 539,
+    "event": 3,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 552,
+    "event": 14,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 560,
+    "event": 22,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 564,
+    "event": 5,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 578,
+    "event": 14,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 580,
+    "event": 27,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 590,
+    "event": 11,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 599,
+    "event": 10,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 606,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 613,
+    "event": 20,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 617,
+    "event": 19,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 636,
+    "event": 22,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 640,
+    "event": 1,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 658,
+    "event": 5,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 666,
+    "event": 5,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 671,
+    "event": 18,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 671,
+    "event": 28,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 676,
+    "event": 34,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 678,
+    "event": 5,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 705,
+    "event": 13,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 713,
+    "event": 5,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 742,
+    "event": 18,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 744,
+    "event": 18,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 745,
+    "event": 3,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 749,
+    "event": 27,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 765,
+    "event": 12,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 784,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 799,
+    "event": 28,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 806,
+    "event": 27,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 815,
+    "event": 10,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 826,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 844,
+    "event": 19,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 847,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 874,
+    "event": 13,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 876,
+    "event": 8,
+    "cell": 13
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 878,
+    "event": 32,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 892,
+    "event": 5,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 900,
+    "event": 23,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 901,
+    "event": 3,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 932,
+    "event": 19,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 940,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 950,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 951,
+    "event": 24,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 955,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 969,
+    "event": 19,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 974,
+    "event": 9,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 976,
+    "event": 14,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 980,
+    "event": 21,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1002,
+    "event": 22,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1007,
+    "event": 24,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1020,
+    "event": 14,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1021,
+    "event": 3,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1021,
+    "event": 8,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1038,
+    "event": 6,
+    "cell": 9
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1052,
+    "event": 28,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1059,
+    "event": 1,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1074,
+    "event": 32,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1085,
+    "event": 26,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1094,
+    "event": 28,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1095,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1097,
+    "event": 29,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1098,
+    "event": 23,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1108,
+    "event": 18,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1134,
+    "event": 24,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1174,
+    "event": 17,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1183,
+    "event": 16,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1210,
+    "event": 12,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1225,
+    "event": 5,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1226,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1250,
+    "event": 14,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1252,
+    "event": 25,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1262,
+    "event": 7,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1271,
+    "event": 13,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1273,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1282,
+    "event": 1,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1300,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1306,
+    "event": 31,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1317,
+    "event": 24,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1321,
+    "event": 3,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1333,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1370,
+    "event": 6,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1400,
+    "event": 3,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1401,
+    "event": 32,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1410,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1421,
+    "event": 14,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1421,
+    "event": 28,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1450,
+    "event": 11,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1455,
+    "event": 20,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1456,
+    "event": 5,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1473,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1479,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1502,
+    "event": 6,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1502,
+    "event": 38,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1517,
+    "event": 22,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1530,
+    "event": 14,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1534,
+    "event": 10,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1543,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1558,
+    "event": 9,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1559,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1560,
+    "event": 20,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1564,
+    "event": 11,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1568,
+    "event": 27,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1570,
+    "event": 9,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1577,
+    "event": 21,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1620,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1628,
+    "event": 32,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1670,
+    "event": 14,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1686,
+    "event": 11,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1712,
+    "event": 15,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1760,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1790,
+    "event": 16,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1815,
+    "event": 9,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1818,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1820,
+    "event": 9,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1823,
+    "event": 3,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1844,
+    "event": 5,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1862,
+    "event": 14,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1865,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1867,
+    "event": 20,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1870,
+    "event": 3,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1871,
+    "event": 20,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1874,
+    "event": 1,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1882,
+    "event": 14,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1892,
+    "event": 27,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1893,
+    "event": 23,
+    "cell": 13
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1893,
+    "event": 25,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1893,
+    "event": 32,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1905,
+    "event": 21,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1911,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1930,
+    "event": 35,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1946,
+    "event": 17,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1946,
+    "event": 22,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1955,
+    "event": 24,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1957,
+    "event": 7,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1962,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1970,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1971,
+    "event": 8,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1976,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1978,
+    "event": 30,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1988,
+    "event": 24,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1990,
+    "event": 12,
+    "cell": 6
+   }
+  ]
+ },
+ "run_over_reindeer/fixtures_2026-11-10a/books_super.json": {
+  "rounds": 2000,
+  "grandma_strikes": 8042,
+  "case": 404,
+  "hits": [
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1,
+    "event": 28,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1,
+    "event": 33,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 2,
+    "event": 16,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 16,
+    "event": 15,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 19,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 21,
+    "event": 27,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 22,
+    "event": 28,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 22,
+    "event": 30,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 33,
+    "event": 11,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 34,
+    "event": 31,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 37,
+    "event": 7,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 38,
+    "event": 7,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 39,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 44,
+    "event": 4,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 44,
+    "event": 12,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 47,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 55,
+    "event": 17,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 55,
+    "event": 30,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 57,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 61,
+    "event": 20,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 63,
+    "event": 26,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 65,
+    "event": 4,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 65,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 96,
+    "event": 19,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 108,
+    "event": 6,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 113,
+    "event": 29,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 125,
+    "event": 30,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 126,
+    "event": 31,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 144,
+    "event": 21,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 150,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 157,
+    "event": 16,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 167,
+    "event": 11,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 171,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 185,
+    "event": 19,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 186,
+    "event": 18,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 191,
+    "event": 9,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 191,
+    "event": 18,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 194,
+    "event": 26,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 203,
+    "event": 13,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 208,
+    "event": 15,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 220,
+    "event": 39,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 228,
+    "event": 42,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 230,
+    "event": 17,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 231,
+    "event": 39,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 234,
+    "event": 10,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 234,
+    "event": 32,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 238,
+    "event": 32,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 241,
+    "event": 12,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 241,
+    "event": 19,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 245,
+    "event": 1,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 249,
+    "event": 15,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 253,
+    "event": 12,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 254,
+    "event": 22,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 254,
+    "event": 24,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 262,
+    "event": 14,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 264,
+    "event": 1,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 269,
+    "event": 32,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 272,
+    "event": 41,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 275,
+    "event": 23,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 278,
+    "event": 21,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 278,
+    "event": 30,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 279,
+    "event": 9,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 284,
+    "event": 37,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 285,
+    "event": 1,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 286,
+    "event": 1,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 287,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 290,
+    "event": 21,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 295,
+    "event": 12,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 298,
+    "event": 13,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 321,
+    "event": 24,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 334,
+    "event": 24,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 335,
+    "event": 18,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 361,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 363,
+    "event": 6,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 368,
+    "event": 31,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 372,
+    "event": 27,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 377,
+    "event": 21,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 382,
+    "event": 1,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 395,
+    "event": 35,
+    "cell": 9
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 400,
+    "event": 9,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 402,
+    "event": 9,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 407,
+    "event": 22,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 413,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 419,
+    "event": 1,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 421,
+    "event": 15,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 431,
+    "event": 30,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 434,
+    "event": 29,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 436,
+    "event": 22,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 444,
+    "event": 30,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 445,
+    "event": 24,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 446,
+    "event": 7,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 462,
+    "event": 19,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 477,
+    "event": 19,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 483,
+    "event": 22,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 494,
+    "event": 4,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 501,
+    "event": 4,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 506,
+    "event": 21,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 507,
+    "event": 15,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 518,
+    "event": 15,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 518,
+    "event": 25,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 525,
+    "event": 27,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 529,
+    "event": 24,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 530,
+    "event": 34,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 549,
+    "event": 6,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 549,
+    "event": 35,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 579,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 584,
+    "event": 10,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 587,
+    "event": 29,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 595,
+    "event": 5,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 605,
+    "event": 30,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 606,
+    "event": 14,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 610,
+    "event": 12,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 613,
+    "event": 7,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 619,
+    "event": 20,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 629,
+    "event": 24,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 645,
+    "event": 4,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 646,
+    "event": 38,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 654,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 658,
+    "event": 4,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 665,
+    "event": 21,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 667,
+    "event": 7,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 674,
+    "event": 11,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 676,
+    "event": 41,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 685,
+    "event": 32,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 691,
+    "event": 21,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 694,
+    "event": 8,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 713,
+    "event": 11,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 717,
+    "event": 24,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 718,
+    "event": 16,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 722,
+    "event": 12,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 725,
+    "event": 23,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 726,
+    "event": 26,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 746,
+    "event": 11,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 756,
+    "event": 14,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 763,
+    "event": 24,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 765,
+    "event": 12,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 766,
+    "event": 13,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 768,
+    "event": 18,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 778,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 783,
+    "event": 18,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 784,
+    "event": 26,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 786,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 789,
+    "event": 30,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 791,
+    "event": 16,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 797,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 798,
+    "event": 16,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 809,
+    "event": 20,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 825,
+    "event": 22,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 829,
+    "event": 33,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 830,
+    "event": 17,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 845,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 846,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 852,
+    "event": 1,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 860,
+    "event": 7,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 877,
+    "event": 10,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 881,
+    "event": 34,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 883,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 887,
+    "event": 7,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 888,
+    "event": 9,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 889,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 894,
+    "event": 8,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 894,
+    "event": 16,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 896,
+    "event": 26,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 900,
+    "event": 11,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 903,
+    "event": 14,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 910,
+    "event": 4,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 912,
+    "event": 20,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 913,
+    "event": 22,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 915,
+    "event": 4,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 927,
+    "event": 5,
+    "cell": 13
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 932,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 940,
+    "event": 12,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 947,
+    "event": 28,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 951,
+    "event": 28,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 953,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 954,
+    "event": 30,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 956,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 965,
+    "event": 22,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 972,
+    "event": 11,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 973,
+    "event": 34,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 975,
+    "event": 41,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 979,
+    "event": 14,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 980,
+    "event": 24,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 984,
+    "event": 33,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 990,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 992,
+    "event": 10,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 996,
+    "event": 10,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 996,
+    "event": 12,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 999,
+    "event": 17,
+    "cell": 9
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 999,
+    "event": 19,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1002,
+    "event": 26,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1013,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1014,
+    "event": 25,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1031,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1043,
+    "event": 7,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1046,
+    "event": 11,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1050,
+    "event": 17,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1050,
+    "event": 30,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1054,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1059,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1061,
+    "event": 10,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1069,
+    "event": 9,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1073,
+    "event": 1,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1079,
+    "event": 32,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1081,
+    "event": 19,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1082,
+    "event": 19,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1083,
+    "event": 22,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1088,
+    "event": 10,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1094,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1097,
+    "event": 7,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1101,
+    "event": 30,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1102,
+    "event": 8,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1108,
+    "event": 28,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1117,
+    "event": 6,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1118,
+    "event": 11,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1118,
+    "event": 20,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1127,
+    "event": 21,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1127,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1131,
+    "event": 22,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1137,
+    "event": 26,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1138,
+    "event": 19,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1138,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1144,
+    "event": 37,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1167,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1172,
+    "event": 12,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1174,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1183,
+    "event": 16,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1183,
+    "event": 26,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1189,
+    "event": 1,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1189,
+    "event": 9,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1191,
+    "event": 35,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1194,
+    "event": 26,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1197,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1198,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1202,
+    "event": 19,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1209,
+    "event": 21,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1210,
+    "event": 9,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1220,
+    "event": 9,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1228,
+    "event": 22,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1234,
+    "event": 41,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1246,
+    "event": 29,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1249,
+    "event": 27,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1250,
+    "event": 9,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1251,
+    "event": 9,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1259,
+    "event": 22,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1266,
+    "event": 22,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1269,
+    "event": 12,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1269,
+    "event": 28,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1270,
+    "event": 19,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1282,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1288,
+    "event": 5,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1293,
+    "event": 10,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1301,
+    "event": 35,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1304,
+    "event": 16,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1304,
+    "event": 24,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1314,
+    "event": 5,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1314,
+    "event": 15,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1320,
+    "event": 23,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1326,
+    "event": 18,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1336,
+    "event": 24,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1341,
+    "event": 15,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1343,
+    "event": 12,
+    "cell": 1
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1343,
+    "event": 17,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1353,
+    "event": 33,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1359,
+    "event": 20,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1366,
+    "event": 12,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1367,
+    "event": 36,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1374,
+    "event": 41,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1374,
+    "event": 52,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1383,
+    "event": 30,
+    "cell": 17
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1400,
+    "event": 10,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1400,
+    "event": 24,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1406,
+    "event": 34,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1408,
+    "event": 10,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1421,
+    "event": 15,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1424,
+    "event": 18,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1425,
+    "event": 24,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1427,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1431,
+    "event": 25,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1441,
+    "event": 8,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1447,
+    "event": 12,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1448,
+    "event": 9,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1449,
+    "event": 31,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1450,
+    "event": 9,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1450,
+    "event": 20,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1455,
+    "event": 17,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1456,
+    "event": 12,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1477,
+    "event": 11,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1479,
+    "event": 18,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1480,
+    "event": 22,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1483,
+    "event": 14,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1484,
+    "event": 35,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1488,
+    "event": 41,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1504,
+    "event": 21,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1506,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1515,
+    "event": 23,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1518,
+    "event": 13,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1524,
+    "event": 21,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1534,
+    "event": 13,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1539,
+    "event": 25,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1539,
+    "event": 30,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1541,
+    "event": 24,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1548,
+    "event": 18,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1566,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1566,
+    "event": 24,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1566,
+    "event": 29,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1577,
+    "event": 4,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1579,
+    "event": 39,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1582,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1583,
+    "event": 21,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1595,
+    "event": 29,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1596,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1601,
+    "event": 24,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1604,
+    "event": 9,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1608,
+    "event": 4,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1612,
+    "event": 16,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1615,
+    "event": 6,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1615,
+    "event": 14,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1615,
+    "event": 18,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1615,
+    "event": 29,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1618,
+    "event": 29,
+    "cell": 3
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1619,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1619,
+    "event": 8,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1622,
+    "event": 12,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1623,
+    "event": 41,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1627,
+    "event": 27,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1628,
+    "event": 41,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1632,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1641,
+    "event": 32,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1641,
+    "event": 37,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1644,
+    "event": 22,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1650,
+    "event": 18,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1658,
+    "event": 13,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1659,
+    "event": 29,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1662,
+    "event": 28,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1671,
+    "event": 11,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1672,
+    "event": 10,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1676,
+    "event": 35,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1681,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1687,
+    "event": 41,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1695,
+    "event": 35,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1696,
+    "event": 16,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1698,
+    "event": 8,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1698,
+    "event": 15,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1715,
+    "event": 6,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1722,
+    "event": 37,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1725,
+    "event": 24,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1726,
+    "event": 8,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1732,
+    "event": 22,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1732,
+    "event": 31,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1733,
+    "event": 13,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1737,
+    "event": 1,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1740,
+    "event": 23,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1740,
+    "event": 33,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1744,
+    "event": 43,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1765,
+    "event": 20,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1767,
+    "event": 9,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1769,
+    "event": 42,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1777,
+    "event": 4,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1782,
+    "event": 7,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1791,
+    "event": 39,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1798,
+    "event": 12,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1806,
+    "event": 15,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1819,
+    "event": 7,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1821,
+    "event": 4,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1826,
+    "event": 21,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1826,
+    "event": 23,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1832,
+    "event": 16,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1834,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1841,
+    "event": 33,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1844,
+    "event": 16,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1846,
+    "event": 15,
+    "cell": 19
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1848,
+    "event": 21,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1849,
+    "event": 24,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1850,
+    "event": 21,
+    "cell": 10
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1855,
+    "event": 22,
+    "cell": 5
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1857,
+    "event": 11,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1867,
+    "event": 37,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1873,
+    "event": 15,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1884,
+    "event": 12,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1893,
+    "event": 26,
+    "cell": 13
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1893,
+    "event": 28,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1896,
+    "event": 15,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1898,
+    "event": 15,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1898,
+    "event": 28,
+    "cell": 2
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1908,
+    "event": 27,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1925,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1930,
+    "event": 29,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1933,
+    "event": 4,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1939,
+    "event": 23,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1945,
+    "event": 17,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1969,
+    "event": 33,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1970,
+    "event": 25,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1974,
+    "event": 27,
+    "cell": 18
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1975,
+    "event": 4,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1975,
+    "event": 26,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1978,
+    "event": 34,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1984,
+    "event": 14,
+    "cell": 14
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1986,
+    "event": 27,
+    "cell": 15
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1988,
+    "event": 12,
+    "cell": 7
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1991,
+    "event": 6,
+    "cell": 11
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1993,
+    "event": 27,
+    "cell": 6
+   },
+   {
+    "name": null,
+    "mode": null,
+    "sim": 1998,
+    "event": 13,
+    "cell": 7
+   }
+  ]
+ },
+ "../../web-sdk/apps/run_over_reindeer/src/fixtures/showcaseBooks.ts": {
+  "rounds": 25,
+  "grandma_strikes": 54,
+  "case": 6,
+  "hits": [
+   {
+    "name": "natural_super",
+    "mode": "base",
+    "sim": 829,
+    "event": 33,
+    "cell": 2
+   },
+   {
+    "name": "floor_top_up_super",
+    "mode": "base",
+    "sim": 734,
+    "event": 7,
+    "cell": 6
+   },
+   {
+    "name": "column_30x",
+    "mode": "bonus",
+    "sim": 3,
+    "event": 3,
+    "cell": 6
+   },
+   {
+    "name": "multi_reel_strikes",
+    "mode": "super",
+    "sim": 1,
+    "event": 10,
+    "cell": 7
+   },
+   {
+    "name": "multi_reel_strikes",
+    "mode": "super",
+    "sim": 1,
+    "event": 28,
+    "cell": 14
+   },
+   {
+    "name": "multi_reel_strikes",
+    "mode": "super",
+    "sim": 1,
+    "event": 33,
+    "cell": 6
+   }
+  ]
+ }
+}

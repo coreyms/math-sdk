@@ -1,0 +1,309 @@
+{
+ "base": {
+  "books": 30,
+  "bands": {
+   "20-100": 10,
+   "5-20": 12,
+   "1-5": 8
+  },
+  "share_with_wild_reel_in_sample": 0.5333333333333333,
+  "wild_reels_per_book_sampled": {
+   "0": 14,
+   "1": 15,
+   "2": 1
+  },
+  "start_multipliers": {
+   "2": 2,
+   "3": 1,
+   "4": 4,
+   "5": 2,
+   "6": 3,
+   "7": 1,
+   "10": 1,
+   "12": 2,
+   "18": 1
+  },
+  "reels_landed": {
+   "0": 6,
+   "1": 4,
+   "2": 5,
+   "3": 2
+  }
+ },
+ "bonus": {
+  "books": 60,
+  "bands": {
+   "50-100": 10,
+   "100-200": 10,
+   "200-500": 8,
+   "25-50": 8,
+   "0-10": 6,
+   "10-25": 8,
+   "500-2000": 6,
+   "2000-1000000000.0": 4
+  },
+  "columns_at_end_weighted": {
+   "0": 0.012,
+   "1": 0.18,
+   "2": 0.593,
+   "3": 0.206,
+   "4": 0.009,
+   "5": 0.0
+  },
+  "columns_per_round_weighted_mean": 2.02,
+  "spins_per_round": {
+   "10": 60
+  },
+  "arrival_spin_counts_unweighted": {
+   "1": 15,
+   "2": 17,
+   "3": 20,
+   "4": 14,
+   "5": 16,
+   "6": 12,
+   "7": 12,
+   "8": 13,
+   "9": 7,
+   "10": 6
+  },
+  "first_arrival_weighted": {
+   "0": 0.012,
+   "1": 0.219,
+   "2": 0.225,
+   "3": 0.263,
+   "4": 0.066,
+   "5": 0.142,
+   "6": 0.05,
+   "9": 0.022
+  },
+  "per_spin_by_active_columns_weighted": {
+   "0": {
+    "share_of_spins": 0.207,
+    "pay_rate": 0.098,
+    "mean_win": 0.03
+   },
+   "1": {
+    "share_of_spins": 0.402,
+    "pay_rate": 0.474,
+    "mean_win": 2.69
+   },
+   "2": {
+    "share_of_spins": 0.32,
+    "pay_rate": 0.697,
+    "mean_win": 15.8
+   },
+   "3": {
+    "share_of_spins": 0.07,
+    "pay_rate": 0.91,
+    "mean_win": 54.12
+   },
+   "4": {
+    "share_of_spins": 0.001,
+    "pay_rate": 1.0,
+    "mean_win": 261.86
+   },
+   "5": {
+    "share_of_spins": 0.0,
+    "pay_rate": 1.0,
+    "mean_win": 4920.0
+   }
+  },
+  "new_reel_rate_by_reels_held_weighted": {
+   "0": {
+    "spins_weight": 3.055202,
+    "p_spin_has_new": 0.323,
+    "new_per_spin": 0.356
+   },
+   "1": {
+    "spins_weight": 3.838725,
+    "p_spin_has_new": 0.185,
+    "new_per_spin": 0.193
+   },
+   "2": {
+    "spins_weight": 2.611058,
+    "p_spin_has_new": 0.07,
+    "new_per_spin": 0.07
+   },
+   "3": {
+    "spins_weight": 0.494582,
+    "p_spin_has_new": 0.018,
+    "new_per_spin": 0.018
+   },
+   "4": {
+    "spins_weight": 0.000434,
+    "p_spin_has_new": 0.333,
+    "new_per_spin": 0.333
+   }
+  },
+  "new_reels_per_spin_by_spin_index_weighted": {
+   "1": 0.219,
+   "2": 0.262,
+   "3": 0.327,
+   "4": 0.187,
+   "5": 0.249,
+   "6": 0.143,
+   "7": 0.227,
+   "8": 0.225,
+   "9": 0.115,
+   "10": 0.064
+  },
+  "lines_multiplier_equals_sum_of_reels": "1624/1624",
+  "upgrades_with_win_through_reel": "558/558",
+  "active_reel_in_win_but_not_upgraded": 0,
+  "reel_landed_on_an_active_reel": 0,
+  "end_max_multiplier_weighted_pct": {
+   "0.5": 8,
+   "0.9": 12,
+   "0.99": 20
+  },
+  "line_multiplier_seen_pct_unweighted": {
+   "50": 11.0,
+   "90": 25.0,
+   "99": 48.0
+  },
+  "start_multipliers": {
+   "2": 71,
+   "3": 32,
+   "4": 17,
+   "5": 2,
+   "6": 7,
+   "7": 2,
+   "10": 1
+  },
+  "reels_landed": {
+   "0": 29,
+   "1": 25,
+   "2": 25,
+   "3": 29,
+   "4": 24
+  }
+ },
+ "super_bonus": {
+  "books": 45,
+  "bands": {
+   "300-700": 8,
+   "700-2000": 6,
+   "75-150": 7,
+   "150-300": 8,
+   "25-75": 7,
+   "0-25": 5,
+   "2000-1000000000.0": 4
+  },
+  "columns_at_end_weighted": {
+   "1": 0.15,
+   "2": 0.48,
+   "3": 0.364,
+   "4": 0.007
+  },
+  "columns_per_round_weighted_mean": 2.23,
+  "spins_per_round": {
+   "10": 45
+  },
+  "arrival_spin_counts_unweighted": {
+   "1": 46,
+   "2": 4,
+   "3": 9,
+   "4": 10,
+   "5": 9,
+   "6": 6,
+   "7": 7,
+   "8": 6,
+   "9": 6,
+   "10": 4
+  },
+  "first_arrival_weighted": {
+   "1": 1.0
+  },
+  "per_spin_by_active_columns_weighted": {
+   "1": {
+    "share_of_spins": 0.489,
+    "pay_rate": 0.583,
+    "mean_win": 2.56
+   },
+   "2": {
+    "share_of_spins": 0.389,
+    "pay_rate": 0.776,
+    "mean_win": 34.01
+   },
+   "3": {
+    "share_of_spins": 0.119,
+    "pay_rate": 0.799,
+    "mean_win": 110.2
+   },
+   "4": {
+    "share_of_spins": 0.003,
+    "pay_rate": 1.0,
+    "mean_win": 720.0
+   }
+  },
+  "new_reel_rate_by_reels_held_weighted": {
+   "0": {
+    "spins_weight": 1.0,
+    "p_spin_has_new": 1.0,
+    "new_per_spin": 1.015
+   },
+   "1": {
+    "spins_weight": 4.738017,
+    "p_spin_has_new": 0.176,
+    "new_per_spin": 0.176
+   },
+   "2": {
+    "spins_weight": 3.410582,
+    "p_spin_has_new": 0.109,
+    "new_per_spin": 0.109
+   },
+   "3": {
+    "spins_weight": 0.831308,
+    "p_spin_has_new": 0.008,
+    "new_per_spin": 0.008
+   },
+   "4": {
+    "spins_weight": 0.020093,
+    "p_spin_has_new": 0.0,
+    "new_per_spin": 0.0
+   }
+  },
+  "new_reels_per_spin_by_spin_index_weighted": {
+   "1": 1.015,
+   "2": 0.1,
+   "3": 0.174,
+   "4": 0.165,
+   "5": 0.166,
+   "6": 0.071,
+   "7": 0.161,
+   "8": 0.133,
+   "9": 0.134,
+   "10": 0.11
+  },
+  "lines_multiplier_equals_sum_of_reels": "1852/1852",
+  "upgrades_with_win_through_reel": "572/572",
+  "active_reel_in_win_but_not_upgraded": 0,
+  "reel_landed_on_an_active_reel": 0,
+  "end_max_multiplier_weighted_pct": {
+   "0.5": 12,
+   "0.9": 16,
+   "0.99": 35
+  },
+  "line_multiplier_seen_pct_unweighted": {
+   "50": 12.0,
+   "90": 27.0,
+   "99": 43.0
+  },
+  "start_multipliers": {
+   "2": 55,
+   "3": 27,
+   "4": 15,
+   "5": 4,
+   "6": 3,
+   "8": 1,
+   "10": 2
+  },
+  "reels_landed": {
+   "0": 20,
+   "1": 24,
+   "2": 23,
+   "3": 21,
+   "4": 19
+  }
+ }
+}
