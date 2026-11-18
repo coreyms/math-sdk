@@ -1,0 +1,62 @@
+[
+ {
+  "file": "books_base.jsonl.zst",
+  "bytes": 116495002,
+  "books": 600000,
+  "events": 6042761,
+  "max_events_book": 78,
+  "grandma_strikes": 402722,
+  "path_cases": 0,
+  "under_20": 0,
+  "topups_2000": 0,
+  "winInfo_over_award": 0,
+  "capped_winInfo": 318,
+  "final_mismatch": 0,
+  "off_grid": 0,
+  "criteria": {
+   "basegame": 329700,
+   "0": 150000,
+   "freegame": 72000,
+   "supergame": 48000,
+   "wincap": 300
+  }
+ },
+ {
+  "file": "books_bonus.jsonl.zst",
+  "bytes": 165056609,
+  "books": 240000,
+  "events": 7883351,
+  "max_events_book": 78,
+  "grandma_strikes": 517649,
+  "path_cases": 0,
+  "under_20": 0,
+  "topups_2000": 0,
+  "winInfo_over_award": 0,
+  "capped_winInfo": 102,
+  "final_mismatch": 0,
+  "off_grid": 0,
+  "criteria": {
+   "freegame": 239904,
+   "wincap": 96
+  }
+ },
+ {
+  "file": "books_super.jsonl.zst",
+  "bytes": 167512073,
+  "books": 210000,
+  "events": 8038381,
+  "max_events_book": 89,
+  "grandma_strikes": 824270,
+  "path_cases": 0,
+  "under_20": 0,
+  "topups_2000": 25207,
+  "winInfo_over_award": 0,
+  "capped_winInfo": 387,
+  "final_mismatch": 0,
+  "off_grid": 0,
+  "criteria": {
+   "supergame": 209685,
+   "wincap": 315
+  }
+ }
+]

@@ -63,6 +63,11 @@ Pays are per line, as multiples of the total bet:
 
 A line of Wilds only pays on its own as Grandma's car.
 
+From math 2026.11.18 (same contract, no event or field changed): a line that pays both as
+Wilds only and as a symbol line (for example W W W J with a multiplier Wild on reel 5) pays
+only its highest win, multipliers included; an exact tie pays the symbol line. Its `winInfo`
+entry records the reading that paid (`symbol`, `kind`, `cells`, `multiplier`), as before.
+
 ## A spin, in order
 
 1. `reveal`

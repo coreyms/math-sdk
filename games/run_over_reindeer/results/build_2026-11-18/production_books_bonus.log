@@ -1,0 +1,86 @@
+Run Over Reindeer math 2026.11.18, contract 2026-11-15a
+
+Creating books...
+
+Creating books for run_over_reindeer in bonus
+Batch 1 of 8
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 0.987 RTP. [baseGame: 0.002, freeGame: 0.986]
+Thread 1 finished with 1.035 RTP. [baseGame: 0.002, freeGame: 1.033]
+Thread 2 finished with 1.02 RTP. [baseGame: 0.002, freeGame: 1.018]
+All threads are online.
+Finished joining threads.
+Batch 2 of 8
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 1.008 RTP. [baseGame: 0.002, freeGame: 1.006]
+Thread 2 finished with 1.037 RTP. [baseGame: 0.002, freeGame: 1.035]
+Thread 1 finished with 1.017 RTP. [baseGame: 0.002, freeGame: 1.015]
+All threads are online.
+Finished joining threads.
+Batch 3 of 8
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 1.003 RTP. [baseGame: 0.002, freeGame: 1.002]
+Thread 0 finished with 1.011 RTP. [baseGame: 0.002, freeGame: 1.009]
+Thread 1 finished with 1.034 RTP. [baseGame: 0.002, freeGame: 1.032]
+All threads are online.
+Finished joining threads.
+Batch 4 of 8
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 1 finished with 1.036 RTP. [baseGame: 0.002, freeGame: 1.034]
+Thread 2 finished with 1.06 RTP. [baseGame: 0.002, freeGame: 1.058]
+Thread 0 finished with 1.017 RTP. [baseGame: 0.002, freeGame: 1.015]
+All threads are online.
+Finished joining threads.
+Batch 5 of 8
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 1.004 RTP. [baseGame: 0.002, freeGame: 1.002]
+Thread 0 finished with 1.065 RTP. [baseGame: 0.002, freeGame: 1.063]
+Thread 1 finished with 1.089 RTP. [baseGame: 0.002, freeGame: 1.087]
+All threads are online.
+Finished joining threads.
+Batch 6 of 8
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 1 finished with 1.027 RTP. [baseGame: 0.002, freeGame: 1.025]
+Thread 2 finished with 1.053 RTP. [baseGame: 0.002, freeGame: 1.051]
+Thread 0 finished with 1.026 RTP. [baseGame: 0.002, freeGame: 1.024]
+All threads are online.
+Finished joining threads.
+Batch 7 of 8
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 1.004 RTP. [baseGame: 0.002, freeGame: 1.002]
+Thread 1 finished with 1.017 RTP. [baseGame: 0.002, freeGame: 1.014]
+Thread 0 finished with 1.011 RTP. [baseGame: 0.002, freeGame: 1.009]
+All threads are online.
+Finished joining threads.
+Batch 8 of 8
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 1.029 RTP. [baseGame: 0.002, freeGame: 1.027]
+Thread 2 finished with 1.047 RTP. [baseGame: 0.003, freeGame: 1.044]
+Thread 1 finished with 1.021 RTP. [baseGame: 0.002, freeGame: 1.019]
+All threads are online.
+Finished joining threads.
+Saving books for  run_over_reindeer in bonus
+Saving force files for run_over_reindeer in bonus
+Saving LUTs for run_over_reindeer in bonus
+Wrote verification file: /Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/results/build_2026-11-18/production/games/run_over_reindeer/library/configs/books_bonus.verification.json
+
+Finished creating books in 620.2054579257965 seconds.
+
+books written to /Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/results/build_2026-11-18/production/games/run_over_reindeer/library
+shaped lookup tables missing for ['ante_10', 'ante_2', 'ante_4', 'super']: run tools/shape_lut.py, then run.py --no-sims for the configs and the RGS checks

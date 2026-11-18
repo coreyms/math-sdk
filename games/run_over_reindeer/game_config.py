@@ -1,4 +1,8 @@
-"""Run Over Reindeer: SDK game config (fork of games/0_0_lines), math build 2026-11-15.
+"""Run Over Reindeer: SDK game config (fork of games/0_0_lines), math build 2026-11-18.
+
+Math 2026.11.18 is 2026.11.15 plus one rule (Corey 2026-11-18, M2 option b): a line that pays
+both as Wilds only and as a symbol line pays the higher FINAL win, multipliers included
+(ror_engine.evaluate_lines). Nothing else changed; the contract stays 2026-11-15a.
 
 Rules: variant F + C with the 2026-11-15 changes (Corey's approvals of 2026-11-15), installed by
 variant_f.apply_working() at import: no crossing, option C column starts, the same-reel rule,
@@ -29,7 +33,7 @@ import ror_engine  # noqa: E402
 import ror_rules as R  # noqa: E402
 import variant_f  # noqa: E402
 
-MATH_VERSION = "2026.11.15"
+MATH_VERSION = "2026.11.18"
 CONTRACT = "2026-11-15a"
 TARGET_RTP = 0.9670
 

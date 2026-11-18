@@ -1,0 +1,7 @@
+base     rtp 0.967000 hit 1 in 3.51 max 1 in 2,967,562 sd 24.7 cvar/stake 514 p5k 2.21e-06 etl40 sdk 0.705 (/cost 0.705) eff 274,430 top 1 in 209,868 repeat50 0.0045 offgrid 0 empty []
+ante_2   rtp 0.967000 hit 1 in 3.43 max 1 in 1,435,303 sd 36.9 cvar/stake 423 p5k 4.95e-06 etl40 sdk 1.423 (/cost 0.711) eff 279,250 top 1 in 211,765 repeat50 0.0044 offgrid 0 empty []
+ante_4   rtp 0.967000 hit 1 in 3.32 max 1 in 503,667 sd 56.3 cvar/stake 338 p5k 1.18e-05 etl40 sdk 2.673 (/cost 0.668) eff 286,530 top 1 in 214,681 repeat50 0.0043 offgrid 0 empty []
+ante_10  rtp 0.967000 hit 1 in 3.19 max 1 in 112,697 sd 100.4 cvar/stake 235 p5k 3.82e-05 etl40 sdk 5.801 (/cost 0.580) eff 295,868 top 1 in 218,493 repeat50 0.0041 offgrid 0 empty []
+bonus    rtp 0.967000 hit 1 in 1.01 max 1 in 22,900 sd 247.9 cvar/stake 43 p5k 2.26e-04 etl40 sdk 2.484 (/cost 0.025) eff 239,808 top 1 in 228,897 repeat50 0.0051 offgrid 0 empty []
+super    rtp 0.967000 hit 1 in 1.00 max 1 in 2,906 sd 517.8 cvar/stake 23 p5k 1.41e-03 etl40 sdk 0.000 (/cost 0.000) eff 209,744 top 1 in 209,206 repeat50 0.0058 offgrid 0 empty [[0.1, 1], [1, 2], [2, 5], [5, 10], [10, 20]]
+cross-mode spread (points): {'max_rtp_spread_points': 1.1702613322839284e-06, 'min': 0.9669997882908964, 'max': 0.9669997999935097}

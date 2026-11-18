@@ -93,7 +93,7 @@ def test_no_grandma_strike_runs_down_past_a_sleigh(mode, n):
     assert not bad, f"{mode}: {len(bad)} rounds with a Grandma strike under a Santa sleigh, first {bad[:5]}"
 
 
-@pytest.mark.parametrize("folder_name", ["fixtures_2026-11-15", "fixtures_2026-11-15b"])
+@pytest.mark.parametrize("folder_name", ["fixtures_2026-11-15", "fixtures_2026-11-15b", "fixtures_2026-11-18"])
 def test_new_fixture_books_have_no_case(folder_name):
     folder = os.path.join(GAME, folder_name)
     if not os.path.isdir(folder):

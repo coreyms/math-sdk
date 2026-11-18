@@ -161,10 +161,36 @@ def sleigh_above(board, cell):
     return False
 
 
+def _line_mult(mult, cells, count):
+    """The multiplier of the first `count` cells of a line: values above 1 ADD (or the largest,
+    MULT_COMBINE "max"), at least x1; a plain sleigh (0) adds nothing."""
+    m = 0
+    if ADD:
+        for k in range(count):
+            v = mult[cells[k]]
+            if v > 1:
+                m += v
+    else:
+        for k in range(count):
+            v = mult[cells[k]]
+            if v > m:
+                m = v
+    return m if m >= 1 else 1
+
+
 def evaluate_lines(board, mult, want_wins=False):
-    """SDK Lines.get_lines semantics on a flat board: leading Wilds, then the first other
-    symbol and every match or Wild after it; the better of the Wild-only pay and the symbol
-    pay; multipliers (> 1) of the counted cells ADD, at least x1."""
+    """Line pays on a flat board: leading Wilds, then the first other symbol and every match or
+    Wild after it. Multipliers (> 1) of the counted cells ADD, at least x1.
+
+    Math 2026.11.18 (Corey 2026-11-18, M2 option b, "Change the math to pay the better
+    reading"): a line that qualifies both as Wilds only (3 or more leading Wilds, Grandma's Car
+    pay) and as a symbol line is scored BOTH ways, each reading with its own cells'
+    multipliers, and pays the HIGHER FINAL WIN; an exact tie of final wins goes to the symbol
+    line (the old tie rule). Before 2026.11.18 the two readings were compared on paytable value
+    before multipliers (the SDK's Lines.get_lines rule), which dropped a multiplier Wild after
+    W W W J/10 (the pre-change file is in results/build_2026-11-18/pre_change/). The symbol
+    line's cells include the Wilds-only cells, so the readings can only swap when the Wilds-only
+    pay is the higher paytable value; every other line pays as before."""
     total = 0.0
     maxm = 0
     wins = [] if want_wins else None
@@ -190,23 +216,18 @@ def evaluate_lines(board, mult, want_wins=False):
         wild = WILD_PAY[wm] if wm >= 3 else 0.0
         if base <= 0.0 and wild <= 0.0:
             continue
-        if wild > base:
-            count, pay, psym = wm, wild, R.W
-        else:
+        if base > 0.0:
             count, pay, psym = n, base, sym
-        m = 0
-        if ADD:
-            for k in range(count):
-                v = mult[cells[k]]
-                if v > 1:
-                    m += v
+            m = _line_mult(mult, cells, n)
+            if wild > base:
+                # both readings pay: compare final wins exactly (paytable values are on the
+                # 0.1x grid, so whole cents times whole multipliers), a tie keeps the symbol line
+                mw = _line_mult(mult, cells, wm)
+                if round(wild * 100) * mw > round(base * 100) * m:
+                    count, pay, psym, m = wm, wild, R.W, mw
         else:
-            for k in range(count):
-                v = mult[cells[k]]
-                if v > m:
-                    m = v
-        if m < 1:
-            m = 1
+            count, pay, psym = wm, wild, R.W
+            m = _line_mult(mult, cells, wm)
         win = pay * m
         total += win
         if m > maxm:

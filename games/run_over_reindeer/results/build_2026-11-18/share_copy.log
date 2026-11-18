@@ -1,0 +1,33 @@
+2026-11-18 09:45:12 copy start
+2026-11-18 09:46:11 copy done; read back from the share:
+books_ante_10.jsonl.zst: OK
+books_ante_2.jsonl.zst: OK
+books_ante_4.jsonl.zst: OK
+books_base.jsonl.zst: OK
+books_bonus.jsonl.zst: OK
+books_super.jsonl.zst: OK
+index.json: OK
+lookUpTable_ante_10_0.csv: OK
+lookUpTable_ante_2_0.csv: OK
+lookUpTable_ante_4_0.csv: OK
+lookUpTable_base_0.csv: OK
+lookUpTable_bonus_0.csv: OK
+lookUpTable_super_0.csv: OK
+exit 0
+total 1674880
+drwx------  1 corey  staff      16384 Nov 18 09:46 .
+drwx------  1 corey  staff      16384 Nov 18 09:45 ..
+-rwx------  1 corey  staff  116495002 Nov 18 09:45 books_ante_10.jsonl.zst
+-rwx------  1 corey  staff  116495002 Nov 18 09:45 books_ante_2.jsonl.zst
+-rwx------  1 corey  staff  116495002 Nov 18 09:45 books_ante_4.jsonl.zst
+-rwx------  1 corey  staff  116495002 Nov 18 09:45 books_base.jsonl.zst
+-rwx------  1 corey  staff  165056609 Nov 18 09:45 books_bonus.jsonl.zst
+-rwx------  1 corey  staff  167512073 Nov 18 09:46 books_super.jsonl.zst
+-rwx------  1 corey  staff       1063 Nov 18 09:46 index.json
+-rwx------  1 corey  staff   12232570 Nov 18 09:46 lookUpTable_ante_10_0.csv
+-rwx------  1 corey  staff   12184268 Nov 18 09:46 lookUpTable_ante_2_0.csv
+-rwx------  1 corey  staff   12184268 Nov 18 09:46 lookUpTable_ante_4_0.csv
+-rwx------  1 corey  staff   12078695 Nov 18 09:46 lookUpTable_base_0.csv
+-rwx------  1 corey  staff    5392951 Nov 18 09:46 lookUpTable_bonus_0.csv
+-rwx------  1 corey  staff    4846639 Nov 18 09:46 lookUpTable_super_0.csv
+-rwx------  1 corey  staff       1151 Nov 18 09:46 SHA256SUMS

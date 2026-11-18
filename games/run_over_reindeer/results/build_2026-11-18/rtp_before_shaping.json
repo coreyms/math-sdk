@@ -1,0 +1,200 @@
+{
+ "base": {
+  "rtp_old_build": 0.9669997886943964,
+  "rtp_new_books_old_weights": 0.9672838684726998,
+  "delta_points": 0.028407977830335884,
+  "books_payout_changed": 429,
+  "books_criteria_changed": 0,
+  "kind_means": {
+   "0": {
+    "new": 0.0,
+    "old": 0.0,
+    "books_new": 150000,
+    "books_old": 150000
+   },
+   "basegame": {
+    "new": 1.138391568092205,
+    "old": 1.1381786472550803,
+    "books_new": 329700,
+    "books_old": 329700
+   },
+   "freegame": {
+    "new": 101.05920833333333,
+    "old": 101.02338333333333,
+    "books_new": 72000,
+    "books_old": 72000
+   },
+   "supergame": {
+    "new": 295.9620395833333,
+    "old": 295.8759187499999,
+    "books_new": 48000,
+    "books_old": 48000
+   },
+   "wincap": {
+    "new": 7777.0,
+    "old": 7777.0,
+    "books_new": 300,
+    "books_old": 300
+   }
+  }
+ },
+ "ante_2": {
+  "rtp_old_build": 0.9669997951986191,
+  "rtp_new_books_old_weights": 0.9673068443908603,
+  "delta_points": 0.030704919224122662,
+  "books_payout_changed": 429,
+  "books_criteria_changed": 0,
+  "kind_means": {
+   "0": {
+    "new": 0.0,
+    "old": 0.0,
+    "books_new": 150000,
+    "books_old": 150000
+   },
+   "basegame": {
+    "new": 1.138391568092205,
+    "old": 1.1381786472550803,
+    "books_new": 329700,
+    "books_old": 329700
+   },
+   "freegame": {
+    "new": 101.05920833333333,
+    "old": 101.02338333333333,
+    "books_new": 72000,
+    "books_old": 72000
+   },
+   "supergame": {
+    "new": 295.9620395833333,
+    "old": 295.8759187499999,
+    "books_new": 48000,
+    "books_old": 48000
+   },
+   "wincap": {
+    "new": 7777.0,
+    "old": 7777.0,
+    "books_new": 300,
+    "books_old": 300
+   }
+  }
+ },
+ "ante_4": {
+  "rtp_old_build": 0.9669997979275896,
+  "rtp_new_books_old_weights": 0.9673108593420641,
+  "delta_points": 0.031106141447445612,
+  "books_payout_changed": 429,
+  "books_criteria_changed": 0,
+  "kind_means": {
+   "0": {
+    "new": 0.0,
+    "old": 0.0,
+    "books_new": 150000,
+    "books_old": 150000
+   },
+   "basegame": {
+    "new": 1.138391568092205,
+    "old": 1.1381786472550803,
+    "books_new": 329700,
+    "books_old": 329700
+   },
+   "freegame": {
+    "new": 101.05920833333333,
+    "old": 101.02338333333333,
+    "books_new": 72000,
+    "books_old": 72000
+   },
+   "supergame": {
+    "new": 295.9620395833333,
+    "old": 295.8759187499999,
+    "books_new": 48000,
+    "books_old": 48000
+   },
+   "wincap": {
+    "new": 7777.0,
+    "old": 7777.0,
+    "books_new": 300,
+    "books_old": 300
+   }
+  }
+ },
+ "ante_10": {
+  "rtp_old_build": 0.966999799065027,
+  "rtp_new_books_old_weights": 0.9672905796150502,
+  "delta_points": 0.029078055002318415,
+  "books_payout_changed": 429,
+  "books_criteria_changed": 0,
+  "kind_means": {
+   "0": {
+    "new": 0.0,
+    "old": 0.0,
+    "books_new": 150000,
+    "books_old": 150000
+   },
+   "basegame": {
+    "new": 1.138391568092205,
+    "old": 1.1381786472550803,
+    "books_new": 329700,
+    "books_old": 329700
+   },
+   "freegame": {
+    "new": 101.05920833333333,
+    "old": 101.02338333333333,
+    "books_new": 72000,
+    "books_old": 72000
+   },
+   "supergame": {
+    "new": 295.9620395833333,
+    "old": 295.8759187499999,
+    "books_new": 48000,
+    "books_old": 48000
+   },
+   "wincap": {
+    "new": 7777.0,
+    "old": 7777.0,
+    "books_new": 300,
+    "books_old": 300
+   }
+  }
+ },
+ "bonus": {
+  "rtp_old_build": 0.9669997999915754,
+  "rtp_new_books_old_weights": 0.9672822233894399,
+  "delta_points": 0.028242339786455073,
+  "books_payout_changed": 515,
+  "books_criteria_changed": 0,
+  "kind_means": {
+   "freegame": {
+    "new": 99.67127726090436,
+    "old": 99.6420134720555,
+    "books_new": 239904,
+    "books_old": 239904
+   },
+   "wincap": {
+    "new": 7777.0,
+    "old": 7777.0,
+    "books_new": 96,
+    "books_old": 96
+   }
+  }
+ },
+ "super": {
+  "rtp_old_build": 0.9669997999897034,
+  "rtp_new_books_old_weights": 0.967338563429668,
+  "delta_points": 0.033876343996452896,
+  "books_payout_changed": 1199,
+  "books_criteria_changed": 0,
+  "kind_means": {
+   "supergame": {
+    "new": 289.8341407349119,
+    "old": 289.7326570808594,
+    "books_new": 209685,
+    "books_old": 209685
+   },
+   "wincap": {
+    "new": 7777.0,
+    "old": 7777.0,
+    "books_new": 315,
+    "books_old": 315
+   }
+  }
+ }
+}
