@@ -1,4 +1,5 @@
-"""Run Over Reindeer rule tests (math build 2026-11-15).
+"""Run Over Reindeer rule tests (math build 2026-11-15; minimums redrawn since 2026.11.20, see
+test_redraw.py).
 
 Run from math-sdk/:  PYTHONDONTWRITEBYTECODE=1 nice -n 19 env/bin/python -m pytest games/run_over_reindeer/tests -q
 
@@ -93,7 +94,8 @@ def test_no_grandma_strike_runs_down_past_a_sleigh(mode, n):
     assert not bad, f"{mode}: {len(bad)} rounds with a Grandma strike under a Santa sleigh, first {bad[:5]}"
 
 
-@pytest.mark.parametrize("folder_name", ["fixtures_2026-11-15", "fixtures_2026-11-15b", "fixtures_2026-11-18"])
+@pytest.mark.parametrize("folder_name", ["fixtures_2026-11-15", "fixtures_2026-11-15b", "fixtures_2026-11-18",
+                                         "fixtures_2026-11-20"])
 def test_new_fixture_books_have_no_case(folder_name):
     folder = os.path.join(GAME, folder_name)
     if not os.path.isdir(folder):
@@ -108,8 +110,9 @@ def test_new_fixture_books_have_no_case(folder_name):
 
 # ---------------------------------------------------------------- other 2026-11-15 rules
 def test_bought_super_pays_at_least_20x():
+    # math 2026.11.20: the Super's own spins reach 20x (redrawn, never topped up)
     for out, _ in play("super", 3_000, 21, rec=False):
-        assert out["total"] >= 20.0 - 1e-9
+        assert out["fs"] >= 20.0 - 1e-9 and "topup" not in out
 
 
 def test_natural_and_free_spins_have_no_bought_floor():
@@ -153,8 +156,7 @@ def test_cap_spin_never_shows_more_than_awarded():
             if e["type"] == "winInfo":
                 running += e["totalWin"]
                 assert running <= 777700
-            elif e["type"] == "floorTopUp":
-                running += e["amount"]
+            assert e["type"] != "floorTopUp"
         assert running == book["payoutMultiplier"] == 777700
         assert any(e.get("capped") for e in book["events"] if e["type"] == "winInfo")
 

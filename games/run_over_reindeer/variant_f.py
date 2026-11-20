@@ -235,15 +235,26 @@ def apply(maxwin="none", su_columns=None, fs_columns=None, extra=None, same_reel
     Grandma strike plays; a Grandma car there only makes it the Grandma tier.
     clear_path (Corey 2026-11-15): a Grandma strike never aims at a car with a Santa sleigh
     above it in its reel (ror_engine.sleigh_above).
-    bought_super_floor (Corey 2026-11-15, the spec's 20x): the bought Super's guaranteed
-    minimum, paid as a floorTopUp. Both default off, so every earlier study reproduces.
+    bought_super_floor (Corey 2026-11-15, the spec's 20x): the bought Super's minimum. Since
+    math 2026.11.20 every minimum is met by redrawing a round that falls short, never by a
+    top-up (R.ROUND_MINIMUM, ror_engine.Engine.round). Both default off.
     paytable (2026-11-15, P1): {symbol: {count: pay}} overrides on the original paytable; the
     original is restored first, so a call without it always plays the old pays."""
     variant_e.apply()
     R.PAYTABLE = {sym: dict(p) for sym, p in ORIGINAL_PAYTABLE.items()}
     for sym, over in (paytable or {}).items():
         R.PAYTABLE[sym].update(over)
-    R.TOPUP_BOUGHT = {"super": float(bought_super_floor)} if bought_super_floor else {}
+    # Math 2026.11.20 (Corey 2026-11-20): minimums are met by REDRAWING a short round
+    # (ror_engine.Engine.round), never by a top-up. Natural rounds (mode "base") keep variant E's
+    # 10x Free Spins / 50x Super; the bought Super keeps its 20x; the bought Free Spins has none.
+    # variant_e.apply() still sets R.TOPUP for the old studies' record; the engine no longer
+    # reads it, and it is cleared here so nothing can mistake it for a rule in force.
+    natural = dict(getattr(R, "TOPUP", {}) or {})
+    R.TOPUP = {}
+    R.TOPUP_BOUGHT = {}
+    R.ROUND_MINIMUM = {("base", k): float(v) for k, v in natural.items()}
+    if bought_super_floor:
+        R.ROUND_MINIMUM[("super", "super")] = float(bought_super_floor)
     for mode in ("base", "freespins", "super"):
         R.FEATURE[mode]["santa_first"] = bool(same_reel)
         R.FEATURE[mode]["grandma_clear_path"] = clear_path or False   # ror_engine Params: the options

@@ -1,6 +1,17 @@
-Contract version 2026-11-15a (current, from 2026-11-15; 2026-11-10a plus the three changes below)
+Contract version 2026-11-20a (current, from math 2026.11.20; 2026-11-15a minus `floorTopUp`)
 
 # Run Over Reindeer: book event schema
+
+**Changes in 2026-11-20a** (Corey 2026-11-20, "Yes redraw the math and change the rules, this
+should be invisible to the player"; everything else is 2026-11-15a):
+1. **`floorTopUp` is gone.** No book holds it. A bonus round whose own free spins total less than
+   its minimum (natural Free Spins 10x, natural Super 50x, bought Super 20x; the bought Free
+   Spins has none) is redrawn by the math from the trigger, so every round's `freeSpinEnd` is
+   simply the sum of its own spins' wins. The game shows nothing about a minimum.
+2. Because of that, `setTotalWin` comes only after a paying spin, never after the last free spin
+   on its own.
+
+The 2026-11-15a text below is kept as it was, with the `floorTopUp` lines marked as removed.
 
 **Changes in 2026-11-15a** (Corey's approvals of 2026-11-15; everything else is 2026-11-10a):
 1. **`floorTopUp` also ends a bought Super** that pays under 20x (`floor` 2000). It was natural
@@ -21,8 +32,8 @@ Rules: variant F + C, accepted by Corey 2026-11-10 (`variant_f.py`, `apply_worki
 `fixtures_2026-11-10a/` (see `FIXTURES_2026-11-10a.md`). The previous contract,
 2026-11-09b, is kept below under "Superseded". The old `fixtures/` folder still follows it.
 
-**Rule of the contract:** every strike, target cell, multiplier, column tier and top-up is
-decided in the book. The frontend never rolls, never picks a cell or a character, and never
+**Rule of the contract:** every strike, target cell, multiplier and column tier is decided in
+the book. The frontend never rolls, never picks a cell or a character, and never
 adds a multiplier itself. It plays the events in the written order, one after another.
 
 ## Conventions
@@ -78,9 +89,9 @@ entry records the reading that paid (`symbol`, `kind`, `cells`, `multiplier`), a
 4. base spin only, on 3 or more scatters: `freeSpinTrigger`, then the bonus round. Free spin
    only, on 3 or more scatters: `freeSpinRetrigger`
 
-After the last free spin come `floorTopUp` (natural rounds under their floor only),
-`setTotalWin` (after a top-up), `freeSpinEnd`, `wincap` (if reached) and `finalWin`. A round
-that reaches 7,777x ends at that spin: `wincap`, then `finalWin`.
+After the last free spin come `freeSpinEnd`, `wincap` (if reached) and `finalWin`. A round
+that reaches 7,777x ends at that spin: `wincap`, then `finalWin`. (Until 2026-11-20a a
+`floorTopUp` and a `setTotalWin` could come first; they no longer exist.)
 
 **Same reel, Grandma and Santa** (Corey 2026-11-10): no Grandma strike ever plays in a reel
 that a Santa strike of the same spin turns into a column. A Grandma car in that column is not
@@ -158,7 +169,7 @@ the spin is awarded (the cap minus the round's total before it), which is less t
 `wins[].win`. Show `totalWin`, never the sum.
 
 ### `setTotalWin`
-`amount`: the round's running total after this spin, or after a top-up (never above the cap).
+`amount`: the round's running total after this spin (never above the cap).
 
 ### `freeSpinTrigger`
 `bonusType` is `freespins` (3 scatters) or `super` (4 or 5 scatters); `cells` are the scatter
@@ -169,7 +180,7 @@ one scatter per reel, and never under a held column.
 After a free spin's wins: `cells` (3 or more scatters), `added` 3, `totalFs` the new round
 length.
 
-### `floorTopUp`, natural rounds and the bought Super (2026-11-15a)
+### `floorTopUp`: REMOVED in 2026-11-20a (kept here for the old books only)
 | field | |
 |---|---|
 | `floor` | 1000 (10x, natural Free Spins), 5000 (50x, natural Super) or 2000 (20x, bought Super, since 2026-11-15a) |
@@ -181,7 +192,8 @@ bought Super under 20x. Never in a bought Free Spins round. It comes after the l
 followed by `setTotalWin` and `freeSpinEnd`.
 
 ### `freeSpinEnd`
-`amount`: the bonus round's own total, including any top-up.
+`amount`: the bonus round's own total (the sum of its free spins' wins; since 2026-11-20a never
+a top-up).
 
 ### `wincap`
 `amount` 777700, when the round reaches 7,777x.
@@ -246,7 +258,7 @@ Mode `bonus`, sim 2, payout 0.4x, 26 events.
 {"index": 25, "type": "finalWin", "amount": 40}
 ```
 
-### A natural round ending in a floor top-up
+### A natural round ending in a floor top-up (2026-11-15a only; no longer possible since 2026-11-20a)
 
 Mode `base`, sim 23, payout 10.15x, 32 events.
 

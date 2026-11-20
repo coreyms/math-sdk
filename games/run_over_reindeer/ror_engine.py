@@ -37,6 +37,9 @@ IS_WILD = [False] * len(R.SYMBOLS)
 for _w in R.WILDS:
     IS_WILD[_w] = True
 LOWS = (R.L1, R.L2, R.L3, R.L4, R.L5)
+# Math 2026.11.20: a bonus round under its minimum is redrawn (Engine.round). About 1 natural
+# Free Spins round in 4 and 1 natural Super in 4 are redrawn, so this bound is never reached.
+MAX_ROUND_REDRAWS = 100_000
 
 class Table:
     """A weighted table {value: weight} drawn with one rng.random()."""
@@ -622,18 +625,28 @@ class Engine:
         elif nscat == 3:
             kind = "freespins"
         if kind:
-            fw, bst = self.bonus(rng, kind, cap - win, rec=rec)
-            # What-if 3: natural-trigger floors paid as a top-up (off unless R.TOPUP is set)
-            topup = getattr(R, "TOPUP", None)
-            if topup and mode == "base" and fw < topup.get(kind, 0):
-                out["topup"] = (topup[kind], fw, min(topup[kind], cap - win) - fw)
-                fw = min(topup[kind], cap - win)
-            # 2026-11-15 (Corey's approval): the bought Super's guaranteed minimum (spec: 20x),
-            # paid as the same top-up (off unless R.TOPUP_BOUGHT is set)
-            topup_b = getattr(R, "TOPUP_BOUGHT", None)
-            if topup_b and mode in ("bonus", "super") and fw < topup_b.get(kind, 0):
-                out["topup"] = (topup_b[kind], fw, min(topup_b[kind], cap - win) - fw)
-                fw = min(topup_b[kind], cap - win)
+            # Math 2026.11.20 (Corey 2026-11-20: "Yes redraw the math ... this should be invisible
+            # to the player"): a bonus round whose OWN free spins (retriggered spins included;
+            # the trigger spin's win is not part of it, as with the old featureWin) total less
+            # than its minimum does not exist. The round is redrawn from the trigger, with the
+            # trigger spin kept, until its own spins reach the minimum. Nothing is ever topped
+            # up. Minimums: R.ROUND_MINIMUM[(mode, kind)] (variant_f.apply), bounded by the room
+            # left under the cap so a trigger spin near 7,777x cannot loop forever. A retrigger
+            # only adds spins inside bonus(), so every path ends at this one check.
+            floor = getattr(R, "ROUND_MINIMUM", {}).get((mode, kind), 0.0)
+            need = min(floor, cap - win)
+            redraws = 0
+            while True:
+                part = [] if rec is not None else None
+                fw, bst = self.bonus(rng, kind, cap - win, rec=part)
+                if fw >= need - 1e-9:
+                    break
+                redraws += 1
+                if redraws >= MAX_ROUND_REDRAWS:
+                    raise RuntimeError(f"{mode}/{kind}: no round reached {floor}x in {redraws} draws")
+            if rec is not None:
+                rec.extend(part)
+            out["redraws"] = redraws
             out["fs"] = fw
             out["kind"] = kind
             out["bst"] = bst

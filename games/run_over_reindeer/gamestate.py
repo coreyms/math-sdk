@@ -11,7 +11,7 @@ import random
 import ror_engine
 import ror_rules as R
 from game_events import (
-    EventWriter, cents, COLUMN_WILD, FREE_SPIN_TRIGGER, FREE_SPIN_RETRIGGER, FLOOR_TOP_UP,
+    EventWriter, cents, COLUMN_WILD, FREE_SPIN_TRIGGER, FREE_SPIN_RETRIGGER,
     FREE_SPIN_END, SET_TOTAL_WIN, WINCAP, FINAL_WIN,
 )
 from game_override import GameStateOverride
@@ -56,11 +56,9 @@ class GameState(GameStateOverride):
                            "totalFs": s["totalFs"]})
                 if running >= R.WINCAP:
                     break
-            if out.get("topup"):
-                floor, before, added = out["topup"]
-                w.add({"type": FLOOR_TOP_UP, "floor": cents(floor), "featureWin": cents(before),
-                       "amount": cents(added)})
-                w.add({"type": SET_TOTAL_WIN, "amount": cents(min(out["total"], R.WINCAP))})
+            # math 2026.11.20: no floorTopUp. A round under its minimum is redrawn in the engine,
+            # so the round's own spins always carry its whole win.
+            assert "topup" not in out, "the engine no longer tops a round up"
         total = out["total"]
         if out["kind"]:
             w.add({"type": FREE_SPIN_END, "amount": cents(min(out["fs"], total))})

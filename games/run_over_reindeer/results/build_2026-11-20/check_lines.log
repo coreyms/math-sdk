@@ -1,0 +1,6 @@
+Run Over Reindeer math 2026.11.20, contract 2026-11-20a
+check-lines: 70,196 boards; every line paid identically by ror_engine and SDK Lines.get_lines except 45 lines of the documented 2026.11.18 pattern (Wild-led line paid on its higher final win; 4 of them exact ties, same amount, recorded as the symbol line); self-check: 600 injected differences all caught
+copied the base books and lookup table to ante_2
+copied the base books and lookup table to ante_4
+copied the base books and lookup table to ante_10
+shaped lookup tables missing for ['ante_10', 'ante_2', 'ante_4', 'base', 'bonus', 'super']: run tools/shape_lut.py, then run.py --no-sims for the configs and the RGS checks

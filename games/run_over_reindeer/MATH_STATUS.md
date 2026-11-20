@@ -1,4 +1,10 @@
-# Run Over Reindeer: math status (2026-11-09, updated 2026-11-15)
+# Run Over Reindeer: math status (2026-11-09, updated 2026-11-15, 2026-11-20)
+
+**2026-11-20 (math 2026.11.20, contract 2026-11-20a):** bonus-round minimums are now met by
+REDRAWING a short round from its trigger, never by a top-up (Corey 2026-11-20); `floorTopUp` is
+gone. Books built and checked in `results/build_2026-11-20/`; the lookup tables wait for Corey's
+choice of shaping option (the 2026.11.18 targets cannot all be met). Read
+`REDRAW_2026-11-20.md` first. Mentions of "top-up" below are history.
 
 **Current (2026-11-15):** variant F + C with the 2026-11-15 changes is the working math, played
 by the SDK fork (`game_config.py`, `gamestate_f.py`, `run.py`, six modes), contract 2026-11-15a.

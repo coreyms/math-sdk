@@ -1,4 +1,11 @@
-"""Run Over Reindeer: SDK game config (fork of games/0_0_lines), math build 2026-11-18.
+"""Run Over Reindeer: SDK game config (fork of games/0_0_lines), math build 2026-11-20.
+
+Math 2026.11.20 is 2026.11.18 with one change (Corey 2026-11-20, "Yes redraw the math and change
+the rules, this should be invisible to the player"): a bonus round whose own spins total less
+than its minimum (natural Free Spins 10x, natural Super 50x, bought Super 20x; the bought Free
+Spins has none) is redrawn from the trigger, never topped up (ror_engine.Engine.round). The
+`floorTopUp` event is gone, so the contract is 2026-11-20a. The 2026.11.18 file is kept in
+results/build_2026-11-20/pre_change/game_config.py.
 
 Math 2026.11.18 is 2026.11.15 plus one rule (Corey 2026-11-18, M2 option b): a line that pays
 both as Wilds only and as a symbol line pays the higher FINAL win, multipliers included
@@ -7,7 +14,7 @@ both as Wilds only and as a symbol line pays the higher FINAL win, multipliers i
 Rules: variant F + C with the 2026-11-15 changes (Corey's approvals of 2026-11-15), installed by
 variant_f.apply_working() at import: no crossing, option C column starts, the same-reel rule,
 the clear-path rule (a Grandma strike never runs down past a Santa sleigh), the bought Super's
-20x minimum and the Super trim. Contract 2026-11-15a (EVENT_SCHEMA.md).
+20x minimum (redrawn since 2026.11.20) and the Super trim. Contract 2026-11-15a (EVENT_SCHEMA.md).
 
 Six modes (the app's names, config.ts): base 1x, ante_2 2x, ante_4 4x, ante_10 10x, bonus 100x
 (Free Spins buy), super 300x (Super buy). The antes are the base game with more frequent
@@ -33,8 +40,8 @@ import ror_engine  # noqa: E402
 import ror_rules as R  # noqa: E402
 import variant_f  # noqa: E402
 
-MATH_VERSION = "2026.11.18"
-CONTRACT = "2026-11-15a"
+MATH_VERSION = "2026.11.20"
+CONTRACT = "2026-11-20a"
 TARGET_RTP = 0.9670
 
 # the working rules (variant_f.WORKING)

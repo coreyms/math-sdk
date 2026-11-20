@@ -14,15 +14,16 @@ EVENT_SCHEMA.md is the contract; keep the two in sync. Differences from game_eve
 import ror_rules as R
 from game_events import (  # noqa: F401  (shared constants and helpers)
     cents, board_names, REVEAL, STRIKE, GRANDMA_WILD, COLUMN_WILD, WIN_INFO, SET_TOTAL_WIN,
-    FREE_SPIN_TRIGGER, FREE_SPIN_RETRIGGER, FLOOR_TOP_UP, FREE_SPIN_END, WINCAP, FINAL_WIN,
+    FREE_SPIN_TRIGGER, FREE_SPIN_RETRIGGER, FREE_SPIN_END, WINCAP, FINAL_WIN,
 )
 
 NC = R.NUM_ROWS
 # 2026-11-15a (from 2026-11-10a): on the spin that reaches 7,777x, `winInfo.totalWin` is what
 # that spin is actually awarded (the cap minus the round's total before it) and the event
-# carries `capped: true`; its `wins[]` still list the lines as they paid on the board. The
-# bought Super's 20x minimum is a `floorTopUp` (floor 2000). Nothing else changed.
-CONTRACT = "2026-11-15a"
+# carries `capped: true`; its `wins[]` still list the lines as they paid on the board.
+# 2026-11-20a (math 2026.11.20, Corey 2026-11-20): `floorTopUp` is gone. A bonus round under its
+# minimum is redrawn in the engine, so no book holds a top-up. Nothing else changed.
+CONTRACT = "2026-11-20a"
 
 
 class EventWriterF:

@@ -1,0 +1,35 @@
+[
+ {
+  "deck": "base",
+  "books": 600000,
+  "identical": 569638,
+  "differ_topped_in_old": 30088,
+  "differ_wincap": 274,
+  "differ_unexplained": 0,
+  "unexplained_ids": [],
+  "old_topped": 30088,
+  "old_topped_identical": 0
+ },
+ {
+  "deck": "bonus",
+  "books": 240000,
+  "identical": 240000,
+  "differ_topped_in_old": 0,
+  "differ_wincap": 0,
+  "differ_unexplained": 0,
+  "unexplained_ids": [],
+  "old_topped": 0,
+  "old_topped_identical": 0
+ },
+ {
+  "deck": "super",
+  "books": 210000,
+  "identical": 184513,
+  "differ_topped_in_old": 25207,
+  "differ_wincap": 280,
+  "differ_unexplained": 0,
+  "unexplained_ids": [],
+  "old_topped": 25207,
+  "old_topped_identical": 0
+ }
+]
