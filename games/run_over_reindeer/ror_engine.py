@@ -612,6 +612,7 @@ class Engine:
         elif mode == "super":
             forced = 4
         win, nscat, (g, s, x, tiers) = self.spin(rng, P, {}, {}, forced_scatters=forced, rec=rec)
+        assert nscat <= getattr(R, "MAX_SCATTERS", 5), f"{nscat} scatters on a trigger spin (math 2026.11.20b: at most 4)"
         out = {"base": win, "fs": 0.0, "kind": None, "g0": g, "s0": s, "tiers0": tiers, "bst": None}
         cap = R.WINCAP
         if win >= cap:

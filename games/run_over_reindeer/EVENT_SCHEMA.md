@@ -172,7 +172,7 @@ the spin is awarded (the cap minus the round's total before it), which is less t
 `amount`: the round's running total after this spin (never above the cap).
 
 ### `freeSpinTrigger`
-`bonusType` is `freespins` (3 scatters) or `super` (4 or 5 scatters); `cells` are the scatter
+`bonusType` is `freespins` (exactly 3 scatters) or `super` (exactly 4 scatters; until build 2026-11-20b also 5, never since); `cells` are the scatter
 cells; `totalFs` is 10. A bought round is a base spin forced to that scatter count. At most
 one scatter per reel, and never under a held column.
 

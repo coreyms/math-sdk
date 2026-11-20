@@ -30,7 +30,7 @@ import ror_rules as R  # noqa: E402
 import variant_f as V  # noqa: E402
 
 PUBLISH = os.environ.get("ROR_PUBLISH") or os.path.join(
-    GAME, "results", "build_2026-11-20", "production", "games", "run_over_reindeer", "library", "publish_files")
+    GAME, "results", "build_2026-11-20b", "production", "games", "run_over_reindeer", "library", "publish_files")
 MODES = ["base", "ante_2", "ante_4", "ante_10", "bonus", "super"]
 # minimum in cents, by (deck, bonusType); the antes play the base game's books
 MINIMUM_CENTS = {("base", "freespins"): 1000, ("base", "super"): 5000, ("super", "super"): 2000}

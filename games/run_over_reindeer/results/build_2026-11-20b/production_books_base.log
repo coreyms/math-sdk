@@ -1,0 +1,197 @@
+Run Over Reindeer math 2026.11.20, contract 2026-11-20a
+
+Creating books...
+
+Creating books for run_over_reindeer in base
+Batch 1 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 50.87 RTP. [baseGame: 0.771, freeGame: 50.098]
+Thread 0 finished with 52.803 RTP. [baseGame: 0.726, freeGame: 52.077]
+Thread 1 finished with 50.31 RTP. [baseGame: 0.689, freeGame: 49.621]
+All threads are online.
+Finished joining threads.
+Batch 2 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 47.483 RTP. [baseGame: 0.666, freeGame: 46.817]
+Thread 0 finished with 52.984 RTP. [baseGame: 0.723, freeGame: 52.261]
+Thread 1 finished with 51.762 RTP. [baseGame: 0.595, freeGame: 51.167]
+All threads are online.
+Finished joining threads.
+Batch 3 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 47.403 RTP. [baseGame: 0.583, freeGame: 46.82]
+Thread 1 finished with 49.303 RTP. [baseGame: 0.639, freeGame: 48.665]
+Thread 2 finished with 56.33 RTP. [baseGame: 0.68, freeGame: 55.65]
+All threads are online.
+Finished joining threads.
+Batch 4 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 45.386 RTP. [baseGame: 0.562, freeGame: 44.824]
+Thread 2 finished with 51.401 RTP. [baseGame: 0.885, freeGame: 50.516]
+Thread 1 finished with 50.71 RTP. [baseGame: 0.753, freeGame: 49.957]
+All threads are online.
+Finished joining threads.
+Batch 5 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 49.283 RTP. [baseGame: 0.687, freeGame: 48.595]
+Thread 2 finished with 47.874 RTP. [baseGame: 0.635, freeGame: 47.239]
+Thread 1 finished with 52.09 RTP. [baseGame: 0.611, freeGame: 51.48]
+All threads are online.
+Finished joining threads.
+Batch 6 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 49.813 RTP. [baseGame: 0.718, freeGame: 49.095]
+Thread 2 finished with 51.701 RTP. [baseGame: 0.743, freeGame: 50.958]
+Thread 1 finished with 54.1 RTP. [baseGame: 0.622, freeGame: 53.478]
+All threads are online.
+Finished joining threads.
+Batch 7 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 47.698 RTP. [baseGame: 0.595, freeGame: 47.103]
+Thread 0 finished with 47.944 RTP. [baseGame: 0.613, freeGame: 47.331]
+Thread 1 finished with 53.245 RTP. [baseGame: 0.83, freeGame: 52.414]
+All threads are online.
+Finished joining threads.
+Batch 8 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 47.839 RTP. [baseGame: 0.599, freeGame: 47.24]
+Thread 2 finished with 52.6 RTP. [baseGame: 0.889, freeGame: 51.711]
+Thread 1 finished with 51.151 RTP. [baseGame: 0.642, freeGame: 50.508]
+All threads are online.
+Finished joining threads.
+Batch 9 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 51.698 RTP. [baseGame: 0.613, freeGame: 51.085]
+Thread 0 finished with 49.058 RTP. [baseGame: 0.667, freeGame: 48.39]
+Thread 1 finished with 50.595 RTP. [baseGame: 0.58, freeGame: 50.015]
+All threads are online.
+Finished joining threads.
+Batch 10 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 51.272 RTP. [baseGame: 0.657, freeGame: 50.614]
+Thread 1 finished with 54.984 RTP. [baseGame: 0.603, freeGame: 54.38]
+Thread 0 finished with 57.085 RTP. [baseGame: 0.715, freeGame: 56.369]
+All threads are online.
+Finished joining threads.
+Batch 11 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 47.88 RTP. [baseGame: 0.873, freeGame: 47.007]
+Thread 0 finished with 50.69 RTP. [baseGame: 0.672, freeGame: 50.019]
+Thread 1 finished with 48.675 RTP. [baseGame: 0.65, freeGame: 48.025]
+All threads are online.
+Finished joining threads.
+Batch 12 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 1 finished with 47.929 RTP. [baseGame: 0.675, freeGame: 47.253]
+Thread 0 finished with 52.31 RTP. [baseGame: 0.533, freeGame: 51.777]
+Thread 2 finished with 49.54 RTP. [baseGame: 0.694, freeGame: 48.846]
+All threads are online.
+Finished joining threads.
+Batch 13 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 50.422 RTP. [baseGame: 0.611, freeGame: 49.81]
+Thread 1 finished with 48.917 RTP. [baseGame: 0.678, freeGame: 48.239]
+Thread 2 finished with 49.454 RTP. [baseGame: 0.631, freeGame: 48.823]
+All threads are online.
+Finished joining threads.
+Batch 14 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 2 finished with 56.839 RTP. [baseGame: 0.602, freeGame: 56.237]
+Thread 1 finished with 49.21 RTP. [baseGame: 0.674, freeGame: 48.536]
+Thread 0 finished with 54.958 RTP. [baseGame: 0.639, freeGame: 54.318]
+All threads are online.
+Finished joining threads.
+Batch 15 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 46.803 RTP. [baseGame: 0.815, freeGame: 45.989]
+Thread 2 finished with 49.653 RTP. [baseGame: 0.697, freeGame: 48.956]
+Thread 1 finished with 52.656 RTP. [baseGame: 0.672, freeGame: 51.983]
+All threads are online.
+Finished joining threads.
+Batch 16 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 54.305 RTP. [baseGame: 0.877, freeGame: 53.428]
+Thread 1 finished with 45.993 RTP. [baseGame: 0.645, freeGame: 45.348]
+Thread 2 finished with 53.768 RTP. [baseGame: 0.559, freeGame: 53.21]
+All threads are online.
+Finished joining threads.
+Batch 17 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 1 finished with 49.81 RTP. [baseGame: 0.635, freeGame: 49.175]
+Thread 2 finished with 49.942 RTP. [baseGame: 0.522, freeGame: 49.419]
+Thread 0 finished with 52.51 RTP. [baseGame: 0.558, freeGame: 51.952]
+All threads are online.
+Finished joining threads.
+Batch 18 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 1 finished with 50.883 RTP. [baseGame: 0.643, freeGame: 50.241]
+Thread 0 finished with 52.808 RTP. [baseGame: 0.602, freeGame: 52.206]
+Thread 2 finished with 50.768 RTP. [baseGame: 0.706, freeGame: 50.062]
+All threads are online.
+Finished joining threads.
+Batch 19 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 1 finished with 50.857 RTP. [baseGame: 0.536, freeGame: 50.321]
+Thread 0 finished with 47.955 RTP. [baseGame: 0.636, freeGame: 47.319]
+Thread 2 finished with 48.028 RTP. [baseGame: 0.612, freeGame: 47.416]
+All threads are online.
+Finished joining threads.
+Batch 20 of 20
+Started thread 0
+Started thread 1
+Started thread 2
+Thread 0 finished with 49.242 RTP. [baseGame: 0.625, freeGame: 48.617]
+Thread 2 finished with 51.263 RTP. [baseGame: 0.664, freeGame: 50.599]
+Thread 1 finished with 50.452 RTP. [baseGame: 0.609, freeGame: 49.843]
+All threads are online.
+Finished joining threads.
+Saving books for  run_over_reindeer in base
+Saving force files for run_over_reindeer in base
+Saving LUTs for run_over_reindeer in base
+Wrote verification file: /Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/results/build_2026-11-20b/production/games/run_over_reindeer/library/configs/books_base.verification.json
+
+Finished creating books in 221.33525919914246 seconds.
+
+copied the base books and lookup table to ante_2
+copied the base books and lookup table to ante_4
+copied the base books and lookup table to ante_10
+books written to /Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/results/build_2026-11-20b/production/games/run_over_reindeer/library
+shaped lookup tables missing for ['ante_10', 'ante_2', 'ante_4', 'bonus', 'super']: run tools/shape_lut.py, then run.py --no-sims for the configs and the RGS checks

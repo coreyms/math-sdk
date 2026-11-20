@@ -40,12 +40,15 @@ class GameStateF(GameState):
         """The trigger spin's scatter count for the current criteria (base-type modes only)."""
         if engine_mode != "base":
             return None
-        from game_config import NO_TRIGGER_SCATTERS, SUPER_5_SHARE
+        from game_config import NO_TRIGGER_SCATTERS
         c = self.criteria
         if c == "raw":
             return None   # fixtures and showcase scans: the base game's own scatter draw
         if c in ("wincap", "supergame"):
-            return 5 if random.random() < SUPER_5_SHARE else 4
+            # math 2026.11.20b: a Super trigger is exactly 4 scatters (never 5). The draw that used to pick 5 for
+            # SUPER_5_SHARE of these books is still taken, so every other book's random stream is unchanged.
+            random.random()
+            return 4
         if c == "freegame":
             return 3
         u, acc = random.random(), 0.0

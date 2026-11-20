@@ -1,5 +1,8 @@
 """Run Over Reindeer: SDK game config (fork of games/0_0_lines), math build 2026-11-20.
 
+Math 2026.11.20 (build 2026-11-20b) also has no fifth scatter (Corey 2026-11-20: "Fix the math, to remove the 5th
+scatter, it shouldn't be there"): a Super trigger is exactly 4 scatters, Free Spins exactly 3.
+
 Math 2026.11.20 is 2026.11.18 with one change (Corey 2026-11-20, "Yes redraw the math and change
 the rules, this should be invisible to the player"): a bonus round whose own spins total less
 than its minimum (natural Free Spins 10x, natural Super 50x, bought Super 20x; the bought Free
@@ -63,8 +66,10 @@ SUPER_QUOTAS = {"wincap": 0.0015, "supergame": 0.9985}
 # the 3+ outcomes, renormalised). Used by the `basegame` and `0` criteria.
 _sc = R.FEATURE["base"]["scatter_count"]
 NO_TRIGGER_SCATTERS = {k: v / sum(_sc[j] for j in (0, 1, 2)) for k, v in _sc.items() if k in (0, 1, 2)}
-# a natural Super trigger lands 5 scatters this often (variant E's table)
-SUPER_5_SHARE = _sc[5] / (_sc[4] + _sc[5])
+# a natural Super trigger landed 5 scatters this often until math 2026.11.20b; since then never (variant_f.apply
+# folds the 5 into 4, gamestate_f forces exactly 4). Kept as 0.0 for the record.
+SUPER_5_SHARE = _sc.get(5, 0.0) / (_sc[4] + _sc.get(5, 0.0))
+assert SUPER_5_SHARE == 0.0, "no board holds 5 scatters (math 2026.11.20b)"
 
 
 def write_strip_csv(path: str, strips) -> None:

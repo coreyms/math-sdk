@@ -4,7 +4,8 @@
 REDRAWING a short round from its trigger, never by a top-up (Corey 2026-11-20); `floorTopUp` is
 gone. Shaped with option B (Corey 2026-11-20, "b": every published trigger rate kept, natural rounds
 tilted to the 2026.11.18 natural means). Built, shaped and checked in `results/build_2026-11-20/`;
-not uploaded. Read `REDRAW_2026-11-20.md` first. Mentions of "top-up" below are history.
+not uploaded. **Current set: `results/build_2026-11-20b/`** (no fifth scatter, Corey 2026-11-20: a Super trigger
+is exactly 4). Read `REDRAW_2026-11-20.md` first. Mentions of "top-up" below are history.
 
 **Current (2026-11-15):** variant F + C with the 2026-11-15 changes is the working math, played
 by the SDK fork (`game_config.py`, `gamestate_f.py`, `run.py`, six modes), contract 2026-11-15a.

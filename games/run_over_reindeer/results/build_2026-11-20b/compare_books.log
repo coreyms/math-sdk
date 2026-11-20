@@ -1,0 +1,3 @@
+{"deck": "base", "books": 600000, "identical": 598816, "differ_five_in_old": 1064, "differ_wincap": 120, "differ_unexplained": 0, "unexplained_ids": [], "old_five": 1064, "old_five_identical": 0}
+{"deck": "bonus", "books": 240000, "identical": 240000, "differ_five_in_old": 0, "differ_wincap": 0, "differ_unexplained": 0, "unexplained_ids": [], "old_five": 0, "old_five_identical": 0}
+{"deck": "super", "books": 210000, "identical": 210000, "differ_five_in_old": 0, "differ_wincap": 0, "differ_unexplained": 0, "unexplained_ids": [], "old_five": 0, "old_five_identical": 0}

@@ -269,5 +269,12 @@ def apply(maxwin="none", su_columns=None, fs_columns=None, extra=None, same_reel
     if extra:
         for mode, over in extra.items():
             R.FEATURE[mode].update(over)
+    # Math 2026.11.20b (Corey 2026-11-20: "Fix the math, to remove the 5th scatter, it shouldn't be there"): no board
+    # ever holds 5 scatters. The base game's scatter table drew 5 one spin in 100,000 (variant E's table); that weight
+    # goes to 4, so a Super trigger is exactly 4 scatters and the Super rate is unchanged. Nothing else read a fifth
+    # scatter (scatters pay nothing; 4 and 5 both started the same 10-spin Super). The bonus rounds' tables stop at 3.
+    sc = R.FEATURE["base"]["scatter_count"]
+    sc[4] = sc.get(4, 0.0) + sc.pop(5, 0.0)
+    R.MAX_SCATTERS = 4
     R.VARIANT = "F"
     E.build()
