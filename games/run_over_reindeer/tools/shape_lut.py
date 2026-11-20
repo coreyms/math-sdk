@@ -99,8 +99,12 @@ def shape_mode(mode, crit, x, p_nt_win):
         fs, su = crit == "freegame", crit == "supergame"
         bg, zero = crit == "basegame", crit == "0"
         lift = O.LIFT if mode == "base" else {"freegame": 1.0, "supergame": 1.0}
-        m_fs = float(x[fs].mean()) * lift["freegame"]
-        m_su = float(x[su].mean()) * lift["supergame"]
+        fixed = (getattr(O, "NATURAL_MEAN_TARGETS", None) or {}).get(mode)
+        if fixed:   # math 2026.11.20, option B: the 2026.11.18 natural means, so the rates stay
+            m_fs, m_su = fixed["freegame"], fixed["supergame"]
+        else:
+            m_fs = float(x[fs].mean()) * lift["freegame"]
+            m_su = float(x[su].mean()) * lift["supergame"]
         w_fs, a_fs = tilt(x[fs], m_fs)
         w_su, a_su = tilt(x[su], m_su)
         cap_fs, cap_su = float(w_fs[capped[fs]].sum()), float(w_su[capped[su]].sum())

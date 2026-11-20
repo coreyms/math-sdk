@@ -1,4 +1,5 @@
-"""Run Over Reindeer lookup-table targets (math build 2026-11-15).
+"""Run Over Reindeer lookup-table targets (math build 2026-11-15; natural means fixed since 2026.11.20,
+NATURAL_MEAN_TARGETS).
 
 House convention (Angry Mantis, Manticore): the SDK's Rust optimizer is not part of the flow.
 tools/shape_lut.py shapes every published lookup table directly from the books, by the method
@@ -34,6 +35,17 @@ import ror_rules as R
 WINCAP = R.WINCAP
 LIFT = {"freegame": 105.0 / 99.9, "supergame": 306.8 / 286.6}   # the study's richer natural mix
 SUPER_PER_FS_BASE = 10.0
+# Math 2026.11.20, option B (Corey 2026-11-20, "b"): the redrawn natural rounds (no round under its
+# minimum) average far more than the 2026.11.18 deck, so instead of the deck mean x LIFT the
+# natural kinds are tilted to these FIXED means: the 2026.11.18 build's own targets
+# (results/build_2026-11-18/production_shape.json, full precision). With the base spins' books
+# unchanged, every published trigger rate then comes out as in 2026.11.18. None = the old rule.
+NATURAL_MEAN_TARGETS = {
+    "base": {"freegame": 106.21838713713711, "supergame": 316.8218902448243},
+    "ante_2": {"freegame": 101.05920833333333, "supergame": 295.9620395833333},
+    "ante_4": {"freegame": 101.05920833333333, "supergame": 295.9620395833333},
+    "ante_10": {"freegame": 101.05920833333333, "supergame": 295.9620395833333},
+}
 ANTE_SUPER_1_IN = {"ante_2": 1000.0, "ante_4": 250.0, "ante_10": 40.0}
 # P(a base spin that does not trigger pays something), measured on the working rules with no
 # trigger (results/build_2026-11-15/calibration.json). The shaper reads the value from there

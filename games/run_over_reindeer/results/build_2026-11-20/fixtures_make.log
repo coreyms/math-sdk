@@ -1,0 +1,57 @@
+
+Creating books...
+
+Creating books for run_over_reindeer in base
+Batch 1 of 1
+Thread 0 finished with 45.921 RTP. [baseGame: 0.507, freeGame: 45.414]
+Saving books for  run_over_reindeer in base
+Saving force files for run_over_reindeer in base
+Saving LUTs for run_over_reindeer in base
+Wrote verification file: /Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/results/build_2026-11-20/fixtures_scratch/run_over_reindeer/library/configs/books_base.verification.json
+
+Creating books for run_over_reindeer in bonus
+Batch 1 of 1
+Thread 0 finished with 0.966 RTP. [baseGame: 0.002, freeGame: 0.965]
+Saving books for  run_over_reindeer in bonus
+Saving force files for run_over_reindeer in bonus
+Saving LUTs for run_over_reindeer in bonus
+Wrote verification file: /Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/results/build_2026-11-20/fixtures_scratch/run_over_reindeer/library/configs/books_bonus.verification.json
+
+Creating books for run_over_reindeer in super
+Batch 1 of 1
+Thread 0 finished with 1.178 RTP. [baseGame: 0.0, freeGame: 1.178]
+Saving books for  run_over_reindeer in super
+Saving force files for run_over_reindeer in super
+Saving LUTs for run_over_reindeer in super
+Wrote verification file: /Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/results/build_2026-11-20/fixtures_scratch/run_over_reindeer/library/configs/books_super.verification.json
+
+Finished creating books in 13.060190916061401 seconds.
+
+plain_line_win base 101 2.0
+base_one_column base 11 7.5
+base_two_columns base 382 102.6
+base_three_columns base 10977 233.4
+tier_reindeer base 11 7.5
+tier_santa base 335 0.1
+tier_grandma base 4413 4.0
+base_grandma_strike base 14 8.0
+grandma_3x bonus 0 103.6
+grandma_25x bonus 0 103.6
+grandma_100x bonus 26 22.1
+natural_free_spins base 730 45.7
+natural_super base 829 734.2
+natural_small_free_spins base 13792 10.8
+natural_small_super base 734 68.0
+retrigger bonus 8 35.6
+three_columns_free_spins bonus 10 587.4
+super_typical super 1 252.8
+column_30x bonus 3 434.8
+column_50x bonus 4 8.2
+grandma_red_box bonus 2 0.5
+multi_reel_strikes super 125 424.5
+wild_line_three_columns_scatter super 1034 6593.3
+wild_line_then_scatter bonus 1034 1003.0
+super_small super 19 24.5
+grandma_strike_sleigh_on_reel bonus 30 865.3
+max_win super 1473 7777.0
+fixtures written to /Users/corey/Projects/stake-engine/math-sdk/games/run_over_reindeer/fixtures_2026-11-20
