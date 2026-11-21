@@ -1,0 +1,6 @@
+library /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/library
+== base: cost 1x  books 300000  RTP 0.9669898  hit 1 in 2.85  cap 1 in 3,000,003
+   tail P(>=5k) 0.0000026 (scaled 0.0000026 / 0.010)   P(>=10k) 0.0000003 (scaled 0.0000003 / 0.005)
+   books walked 300,000: payout!=LUT 0, final/total mismatch 0, rows with weight 0 2 (0.00%)
+cross-mode RTP spread 0.00e+00 (spec B limit 0.005)
+exit 0

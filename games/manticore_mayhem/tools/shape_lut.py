@@ -155,24 +155,49 @@ CAP_CRITERIA = {"wincap", "freegame", "supergame", "epicgame"}
 DRIBBLE_SHARE_OF_BASEGAME = 0.58  # reshape 2026-10-16: was 0.55 (base hit 28% -> 44%)
 DRIBBLE_MEAN = 0.33  # the floor these bands can reach is 0.29 (the smallest payout is 0.2x)
 
+# BASE (1x) HAS ITS OWN BAND TABLES (math 2026.11.21, base game shape option B). Corey played trial B on a
+# local server on 2026-11-21: "Okay, I think the Frequency of B feels much better"; asked "Make B the real
+# base-game math for Manticore, exactly as you played it?" he answered "Yes". The tables above stay SHARED by
+# Ante and Super Ante, whose tables do not move; only the base mode reads the BASE_* tables below. The bands are
+# cut finer than the shared ones (10x-15x / 15x-20x and 20x-25x / 25x-50x / 50x-100x / 100x-200x / 200x-500x) so
+# the shaper can hold the trial model's split. The values are trial B's exactly
+# (trials_2026-11-21/B/tools/shape_lut.py, written there by trials_2026-11-21/tools/apply_targets.py from the
+# model in ~/Desktop/Manticore Mayhem/feedback/base_game_shape_2026-11-21/), so this shaper rebuilds trial B's
+# lookUpTable_base_0.csv byte for byte. Was: the shared tables and DRIBBLE_SHARE_OF_BASEGAME 0.58 (with those and
+# the old TARGETS["base"] this code rebuilds the 2026.11.02 base table byte for byte; mathB-20261121/evidence).
+# Shares are normalised inside each group, as above. What a player feels in Base (trial B, measured): 35.1% of
+# spins pay (was 44.2%), a base-only 15x+ about 1 spin in 150 (was 308), 50x+ 1 in 800 (was 2,381); the sub-1x
+# dribble keeps its 24.4% of spins and the features keep their odds.
+BASE_DRIBBLE_SHARE_OF_BASEGAME = 0.74944017  # was 0.58 (shared)
+BASE_DRIBBLE = [((0, 0.5), 0.70000000), ((0.5, 1), 0.30000000)]  # same shares as the shared DRIBBLE
+BASE_BASEWIN = [((1, 2), 0.82672466), ((2, 5), 0.17327534)]  # was 0.92 / 0.08
+BASE_MIDWIN = [((5, 10), 0.60696704), ((10, 15), 0.24701596), ((15, 20), 0.14601701)]  # was 5-10 0.70, 10-20 0.30
+BASE_BIGWIN = [((20, 25), 0.37114855), ((25, 50), 0.31439721), ((50, 100), 0.25151777), ((100, 200), 0.06287944),
+               ((200, 500), 0.00005703)]  # was 20-50 0.86, 50-100 0.105, 100-500 0.035
+
 
 def _spin_groups(mode):
     """The seven groups every spin mode is shaped into. Probabilities and means come from
     game_optimization.TARGETS, so this file never re-states a target."""
     t = TARGETS[mode]["criteria"]
     p_basegame = t["basegame"][0]
+    # math 2026.11.21 (option B, Corey 2026-11-21 "Yes"): base reads its own tables, Ante and Super Ante the
+    # shared ones
+    own = mode == "base"
+    dribble_share = BASE_DRIBBLE_SHARE_OF_BASEGAME if own else DRIBBLE_SHARE_OF_BASEGAME
     # the `basegame` criteria's probability is split between the dribble (<1x) and the 1-5x
     # win; the dribble share is what keeps sub-1x wins a small slice of RTP (Angry Mantis
     # shipped 4.7% and that is the reference)
-    dribble_p = round(p_basegame * DRIBBLE_SHARE_OF_BASEGAME, 8)
+    dribble_p = round(p_basegame * dribble_share, 8)
     groups = [
         {"name": "zero", "criteria": BASE_SPIN_CRITERIA, "bands": ZERO, "p": "residual"},
-        {"name": "dribble", "criteria": {"basegame"}, "bands": DRIBBLE, "p": dribble_p, "mean": DRIBBLE_MEAN},
-        {"name": "basewin", "criteria": {"basegame"}, "bands": BASEWIN,
+        {"name": "dribble", "criteria": {"basegame"}, "bands": BASE_DRIBBLE if own else DRIBBLE,
+         "p": dribble_p, "mean": DRIBBLE_MEAN},
+        {"name": "basewin", "criteria": {"basegame"}, "bands": BASE_BASEWIN if own else BASEWIN,
          "p": round(p_basegame - dribble_p, 8), "mean": "residual"},
-        {"name": "midwin", "criteria": {"basegame", "basegame_mid"}, "bands": MIDWIN,
+        {"name": "midwin", "criteria": {"basegame", "basegame_mid"}, "bands": BASE_MIDWIN if own else MIDWIN,
          "p": t["basegame_mid"][0], "mean": t["basegame_mid"][1]},
-        {"name": "bigwin", "criteria": {"basegame", "basegame_high"}, "bands": BIGWIN,
+        {"name": "bigwin", "criteria": {"basegame", "basegame_high"}, "bands": BASE_BIGWIN if own else BIGWIN,
          "p": t["basegame_high"][0], "mean": t["basegame_high"][1]},
         {"name": "super", "criteria": {"supergame"}, "bands": SUPER_BANDS,
          "p": t["supergame"][0], "mean": t["supergame"][1]},

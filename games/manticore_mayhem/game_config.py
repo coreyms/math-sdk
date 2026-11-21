@@ -44,7 +44,11 @@ WINCAP = 10000.0  # spec B: max win 10,000x base bet (Corey 2026-09-20)
 # The Mystery diversity pass of the same day (Mystery re-dealt, no rule changed) keeps the label.
 # Math fix 2026-10-18 (harsh review 2026-10-17): the scatter-sting stand-in may never be part of a visible
 # 5+ group (game_calculations.placeholder_symbol), the spin modes re-simulated at 300,000 books, Mystery re-dealt.
-MATH_VERSION = "2026.11.02"  # wilds survive the swipe (Corey 2026-11-02: "they should persist the claw swipe ... What I was looking for is for it to keep the wilds"); was 2026.10.18 (math fix)
+# Math 2026.11.21 (base game shape option B; Corey 2026-11-21 after playing trial B: "Okay, I think the Frequency
+# of B feels much better", then "Yes" to making it the real base-game math): Base's lookup table re-shaped, no book
+# re-simulated, every other table byte for byte the same. Was 2026.11.02 (wilds survive the swipe).
+MATH_VERSION = "2026.11.21"
+# 2026.11.02: wilds survive the swipe (Corey 2026-11-02: "they should persist the claw swipe ... What I was looking for is for it to keep the wilds"); was 2026.10.18 (math fix)
 
 ANTE_COST = 3.0
 SUPER_ANTE_COST = 10.0

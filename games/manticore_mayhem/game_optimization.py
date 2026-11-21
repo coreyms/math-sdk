@@ -86,9 +86,15 @@ TARGETS = {
             "epicgame": (1 / 14_000, EPIC_MEAN),  # was 1 / 12,000
             "supergame": (1 / 2_600, SUPER_MEAN),  # was 1 / 2,000
             "freegame": (1 / 360, BONUS_MEAN),  # was 1 / 300
-            "basegame_high": (0.0030, HIGH_MEAN),  # was 0.0042
-            "basegame_mid": (0.0160, MID_MEAN),  # was 0.0180
-            "basegame": (0.4200, "residual"),  # was 0.2550
+            # MATH 2026.11.21, BASE GAME SHAPE OPTION B (Corey 2026-11-21, after playing trial B on a local server:
+            # "Okay, I think the Frequency of B feels much better"; "Make B the real base-game math for Manticore,
+            # exactly as you played it?" "Yes"). Fewer 1x-5x wins, more and bigger 5x-500x base wins; features, the
+            # max win and RTP untouched. Values are trial B's exactly (trials_2026-11-21/B/game_optimization.py);
+            # Base's own band tables are in tools/shape_lut.py (BASE_*). Before: (0.0030, HIGH_MEAN 30x),
+            # (0.0160, MID_MEAN 7.5x), 0.4200.
+            "basegame_high": (0.00397586, 43.232548),  # was (0.0030, HIGH_MEAN); 2026-10-16 was 0.0042
+            "basegame_mid": (0.01845240, 8.795744),  # was (0.0160, MID_MEAN); 2026-10-16 was 0.0180
+            "basegame": (0.32504261, "residual"),  # was 0.4200; 2026-10-16 was 0.2550
             "0": ("residual", 0.0),
         },
     },

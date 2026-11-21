@@ -1,0 +1,17 @@
+library /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/library
+
+== base: cap-hit spin index (weight-weighted, 12 distinct indices)
+   free spin 1      0.03%   cumulative   0.03%
+   free spin 2      1.34%   cumulative   1.37%
+   free spin 3      3.61%   cumulative   4.98%
+   free spin 4      5.84%   cumulative  10.82%
+   free spin 5      7.60%   cumulative  18.42%
+   free spin 6      8.47%   cumulative  26.89%
+   free spin 7     10.56%   cumulative  37.45%
+   free spin 8     12.44%   cumulative  49.89%
+   free spin 9     14.08%   cumulative  63.98%
+   free spin 10    15.70%   cumulative  79.68%
+   free spin 11    11.07%   cumulative  90.75%
+   free spin 12     9.25%   cumulative 100.00%
+   mean spin 8.16   median spin 9   share landing on spins 5-12: 89.2%
+exit 0

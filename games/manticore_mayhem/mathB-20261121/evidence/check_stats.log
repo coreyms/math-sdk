@@ -1,0 +1,11 @@
+library /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/library
+mode          cost     rtp     std      hit      maxHR    p5k*   p10k*  etl40 etl10k   cvar/c   cvarAbs
+base             1  0.9670   19.31 1/  2.85 1/ 3000003  0.0000  0.0000  0.506  0.003    322.8       323
+ante             3  0.9670   14.54 1/  2.65 1/ 1000000  0.0000  0.0000  0.556  0.003    295.2       886
+super_ante      10  0.9670   11.38 1/  2.41 1/  500000  0.0001  0.0000  0.582  0.002    268.8      2688
+bonus          100  0.9670    1.82 1/  1.00 1/   25000  0.0003  0.0000  0.019  0.004     36.8      3680
+super          250  0.9670    1.66 1/  1.00 1/    8000  0.0010  0.0001  0.005  0.005     30.0      7493
+epic           500  0.9670    1.34 1/  1.00 1/    3000  0.0020  0.0002  0.000  0.007     19.3      9651
+mystery        250  0.9670    2.65 1/  1.68 1/    8623  0.0032  0.0001  0.005  0.005     36.6      9141
+p5k*/p10k* are already scaled by get_prob_scale(cost). Limits 2*/3*: p5k .010/.050  p10k .005/.010  etl40 .8/.9  etl10k .6/.8  cvar/cost <=700  cvarAbs <=20k/50k  base std 0.6-50/60
+exit 0

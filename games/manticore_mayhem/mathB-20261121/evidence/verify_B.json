@@ -1,0 +1,270 @@
+{
+ "books": 300000,
+ "book_vs_table_payout_mismatches": 0,
+ "before": {
+  "total_weight": 1000000029154,
+  "rtp": 0.9669898019057793,
+  "hit_rate": 0.44223413626110597,
+  "max_win_x": 10000.0,
+  "max_win_1_in": 3000003.087465087,
+  "free_spins_1_in": 361.111276324972,
+  "super_1_in": 2544.912264620499,
+  "epic_1_in": 13891.860608435694,
+  "any_feature_1_in": 309.1997798507526,
+  "zero_weight_books": 2,
+  "zero_weight_ids": [
+   165727,
+   176561
+  ],
+  "std_cost_units": 19.11203335309457,
+  "base_only_ge1x_1_in": 5.1177074497655815,
+  "base_only_ge2x_1_in": 30.20053462980494,
+  "base_only_ge5x_1_in": 52.63158228788378,
+  "base_only_ge10x_1_in": 128.20514200199318,
+  "base_only_ge15x_1_in": 308.4552397924857,
+  "base_only_ge25x_1_in": 1029.1976215680038,
+  "base_only_ge50x_1_in": 2380.9524957181425,
+  "base_only_ge100x_1_in": 9523.809620060769,
+  "base_only_ge200x_1_in": 4410279.607987898,
+  "base_only_bands": {
+   "under 1x": {
+    "share_of_spins": 0.24359998827908594,
+    "1_in": 4.10509050950498,
+    "share_of_rtp": 0.0831322066918769
+   },
+   "1x-2x": {
+    "share_of_spins": 0.16228799642665576,
+    "1_in": 6.161885179548315,
+    "share_of_rtp": 0.21949259423992226
+   },
+   "2x-5x": {
+    "share_of_spins": 0.014111997806578815,
+    "1_in": 70.86168901853245,
+    "share_of_rtp": 0.04373423097390826
+   },
+   "5x-10x": {
+    "share_of_spins": 0.01119999963347521,
+    "1_in": 89.28571720762757,
+    "share_of_rtp": 0.06708732290024777
+   },
+   "10x-15x": {
+    "share_of_spins": 0.004558037699114969,
+    "1_in": 219.3926566676202,
+    "share_of_rtp": 0.052872249510990454
+   },
+   "15x-25x": {
+    "share_of_spins": 0.002270330766810777,
+    "1_in": 440.46445329406316,
+    "share_of_rtp": 0.049672524748230175
+   },
+   "25x-50x": {
+    "share_of_spins": 0.0005516307149177581,
+    "1_in": 1812.806961173452,
+    "share_of_rtp": 0.01647844754974827
+   },
+   "50x-100x": {
+    "share_of_spins": 0.0003149999808164906,
+    "1_in": 3174.6033679366146,
+    "share_of_rtp": 0.018617720710657974
+   },
+   "100x-200x": {
+    "share_of_spins": 0.00010477325594544051,
+    "1_in": 9544.420386446125,
+    "share_of_rtp": 0.012387230153489292
+   },
+   "200x+": {
+    "share_of_spins": 2.2674299338953476e-07,
+    "1_in": 4410279.607987898,
+    "share_of_rtp": 5.327279522144635e-05
+   }
+  },
+  "feature_rtp_share": 0.4364721997257071
+ },
+ "after": {
+  "total_weight": 1000000031757,
+  "rtp": 0.9669898268156041,
+  "hit_rate": 0.350705010619661,
+  "max_win_x": 10000.0,
+  "max_win_1_in": 3000003.0952740954,
+  "free_spins_1_in": 361.11127726494465,
+  "super_1_in": 2544.9122712449052,
+  "epic_1_in": 13891.860644596203,
+  "any_feature_1_in": 309.19978065559957,
+  "zero_weight_books": 2,
+  "zero_weight_ids": [
+   165727,
+   176561
+  ],
+  "std_cost_units": 19.307492201928536,
+  "base_only_ge1x_1_in": 9.62733739350859,
+  "base_only_ge2x_1_in": 27.367075126701298,
+  "base_only_ge5x_1_in": 44.58660808189093,
+  "base_only_ge10x_1_in": 89.06098282386817,
+  "base_only_ge15x_1_in": 149.92000126667406,
+  "base_only_ge25x_1_in": 399.9639498732669,
+  "base_only_ge50x_1_in": 799.8553769996862,
+  "base_only_ge100x_1_in": 3996.3778421229226,
+  "base_only_ge200x_1_in": 4410279.619467855,
+  "base_only_bands": {
+   "under 1x": {
+    "share_of_spins": 0.24359997641299555,
+    "1_in": 4.105090709469593,
+    "share_of_rtp": 0.08313220200221168
+   },
+   "1x-2x": {
+    "share_of_spins": 0.06733062074278148,
+    "1_in": 14.852083479524582,
+    "share_of_rtp": 0.09106394152793598
+   },
+   "2x-5x": {
+    "share_of_spins": 0.014111999382845235,
+    "1_in": 70.86168110350228,
+    "share_of_rtp": 0.04373430094165932
+   },
+   "5x-10x": {
+    "share_of_spins": 0.011199997686321675,
+    "1_in": 89.28573273022005,
+    "share_of_rtp": 0.06826194977007939
+   },
+   "10x-15x": {
+    "share_of_spins": 0.004558037385250407,
+    "1_in": 219.39267177490746,
+    "share_of_rtp": 0.053306248155870296
+   },
+   "15x-25x": {
+    "share_of_spins": 0.004169998729573351,
+    "1_in": 239.80822653687332,
+    "share_of_rtp": 0.0801084751568383
+   },
+   "25x-50x": {
+    "share_of_spins": 0.0012499993193037717,
+    "1_in": 800.0004356458234,
+    "share_of_rtp": 0.04331889834164817
+   },
+   "50x-100x": {
+    "share_of_spins": 0.0009999994242430184,
+    "1_in": 1000.0005757573131,
+    "share_of_rtp": 0.06742300416895698
+   },
+   "100x-200x": {
+    "share_of_spins": 0.0002499998470607549,
+    "1_in": 4000.0024470294184,
+    "share_of_rtp": 0.03312058350611518
+   },
+   "200x+": {
+    "share_of_spins": 2.267429927993228e-07,
+    "1_in": 4410279.619467855,
+    "share_of_rtp": 5.8209082713761057e-05
+   }
+  },
+  "feature_rtp_share": 0.43647218734597093
+ },
+ "feature_weights_identical": {
+  "free_spins": true,
+  "super": true,
+  "epic": true
+ },
+ "cap_weights_identical": true,
+ "newly_zero_ids": [],
+ "pinned": {
+  "1": {
+   "pays_x": 0.0,
+   "feature": 0,
+   "weight_before": 5312056,
+   "weight_after": 6183762,
+   "1_in_after": 161713.86152264592
+  },
+  "4": {
+   "pays_x": 0.4,
+   "feature": 0,
+   "weight_before": 807764,
+   "weight_after": 807764,
+   "1_in_after": 1237985.3914720141
+  },
+  "209": {
+   "pays_x": 1.0,
+   "feature": 0,
+   "weight_before": 6369306,
+   "weight_after": 2642507,
+   "1_in_after": 378428.52706047706
+  },
+  "1708": {
+   "pays_x": 6.6,
+   "feature": 0,
+   "weight_before": 374294,
+   "weight_after": 414649,
+   "1_in_after": 2411678.3876411133
+  },
+  "3662": {
+   "pays_x": 1649.4,
+   "feature": 3,
+   "weight_before": 42403,
+   "weight_after": 42403,
+   "1_in_after": 23583237.7840483
+  },
+  "5082": {
+   "pays_x": 3.3,
+   "feature": 0,
+   "weight_before": 428902,
+   "weight_after": 428903,
+   "1_in_after": 2331529.5807140544
+  },
+  "6688": {
+   "pays_x": 5.2,
+   "feature": 0,
+   "weight_before": 1726957,
+   "weight_after": 1592378,
+   "1_in_after": 627991.6149036221
+  },
+  "14259": {
+   "pays_x": 5985.0,
+   "feature": 3,
+   "weight_before": 2890,
+   "weight_after": 2890,
+   "1_in_after": 346020772.234256
+  },
+  "26793": {
+   "pays_x": 1078.5,
+   "feature": 3,
+   "weight_before": 97753,
+   "weight_after": 97753,
+   "1_in_after": 10229865.392949577
+  },
+  "27599": {
+   "pays_x": 1411.4,
+   "feature": 3,
+   "weight_before": 62921,
+   "weight_after": 62921,
+   "1_in_after": 15892945.626372753
+  },
+  "31732": {
+   "pays_x": 0.5,
+   "feature": 0,
+   "weight_before": 4056780,
+   "weight_after": 4056780,
+   "1_in_after": 246500.92727655923
+  },
+  "34160": {
+   "pays_x": 12.0,
+   "feature": 0,
+   "weight_before": 78091,
+   "weight_after": 82331,
+   "1_in_after": 12146093.59484277
+  },
+  "264658": {
+   "pays_x": 3949.0,
+   "feature": 3,
+   "weight_before": 5711,
+   "weight_after": 5711,
+   "1_in_after": 175100688.45333567
+  },
+  "285123": {
+   "pays_x": 183.5,
+   "feature": 1,
+   "weight_before": 167724,
+   "weight_after": 167724,
+   "1_in_after": 5962176.145077627
+  }
+ },
+ "pinned_with_zero_weight_after": []
+}

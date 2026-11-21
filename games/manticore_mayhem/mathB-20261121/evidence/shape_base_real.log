@@ -1,0 +1,22 @@
+== base: cost 1x  books 300000  RTP 0.9669898  std 19.31 (cost units)  hit 1 in 2.85
+   2 books fit no group and get weight 0 (e.g. [(165727, 'basegame', 580.1), (176561, 'basegame', 665.0)])
+   group                  p         1 in  mean x bet  RTP share    tilt  books
+   cap          0.000000333  3,000,003.1    10000.00     0.34%  +0.000  3578
+   zero         0.649294989          1.5        0.00     0.00%  +0.000  105000
+   dribble      0.243599976          4.1        0.33     8.31%  -3.944  67460
+   basewin      0.081442620         12.3        1.60    13.48%  -1.272  54142
+   midwin       0.018452399         54.2        8.80    16.78%  -5.644  47664
+   bigwin       0.003975860        251.5       43.23    17.78%  -0.066  8932
+   bonus        0.002777778        360.0       96.70    27.78%  -1.976  8877
+   super        0.000384615      2,600.0      241.75     9.62%  -4.320  3128
+   epic         0.000071429     14,000.0      800.00     5.91%  -1.638  1217
+   base-spin cascade steps (step preference 0.7): 2+ 8.31%  3+ 2.549% (1 in 39)
+   RTP share: <1x 8.31%  5x+ 78.2%  20x+ 60.8%  200x+ 25.6%
+   spins paying 5x+ 2.5662%  20x+ 0.6818%  100x+ 0.1315%
+   tail: P(>=5,000x) 0.0000026 (scaled 0.0000026 / 0.010 2*)   P(>=10,000x) 0.0000003 (scaled 0.0000003 / 0.005 2*)   cap 1 in 3,000,003
+   ETL>40x cost 0.5233 (limit 0.9)   ETL>10,000x cost 0.0034 (limit 0.8)   CVaR(0.1%) 323x bet (limit 20,000) = 323.2 per stake (limit 700)
+   diversity: effective books 158,218   top book 1 in 24,496   half of all rounds from 69,196 books   ceiling none
+   wrote /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/library/publish_files/lookUpTable_base_0.csv
+
+cross-mode RTP spread 0.00e+00 (limit 0.005); target 0.9669900
+REAL base table byte-identical to trial B

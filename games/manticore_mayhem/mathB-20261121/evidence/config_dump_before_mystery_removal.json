@@ -1,0 +1,11312 @@
+{
+ "bet_mode_names": [
+  "base",
+  "ante",
+  "super_ante",
+  "bonus",
+  "super",
+  "epic",
+  "mystery"
+ ],
+ "bet_modes": {
+  "ante": {
+   "__class__": "BetMode",
+   "_auto_close_disabled": false,
+   "_cost": "3.0",
+   "_distributions": [
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": true,
+      "reel_weights": {
+       "basegame": {
+        "BA": 1
+       },
+       "freegame": {
+        "FR": 1,
+        "WCAP": 6
+       }
+      },
+      "scatter_triggers": {
+       "6": 1
+      }
+     },
+     "_criteria": "wincap",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.002",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": "10000.0"
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "6": "0.9",
+       "8": "0.1"
+      }
+     },
+     "_criteria": "epicgame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.014",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "5": 1
+      }
+     },
+     "_criteria": "supergame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.03",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "4": 1
+      }
+     },
+     "_criteria": "freegame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.1",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "win_range": [
+       "5.0",
+       "20.0"
+      ]
+     },
+     "_criteria": "basegame_mid",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.06",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "win_range": [
+       "20.0",
+       "5000.0"
+      ]
+     },
+     "_criteria": "basegame_high",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.012",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      }
+     },
+     "_criteria": "0",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.3",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": "0.0"
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      }
+     },
+     "_criteria": "basegame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.482",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    }
+   ],
+   "_force_keys": [],
+   "_is_buybonus": false,
+   "_is_feature": true,
+   "_name": "ante",
+   "_rtp": "0.96699",
+   "_wincap": "10000.0"
+  },
+  "base": {
+   "__class__": "BetMode",
+   "_auto_close_disabled": false,
+   "_cost": "1.0",
+   "_distributions": [
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": true,
+      "reel_weights": {
+       "basegame": {
+        "BR": 1
+       },
+       "freegame": {
+        "FR": 1,
+        "WCAP": 6
+       }
+      },
+      "scatter_triggers": {
+       "6": 1
+      }
+     },
+     "_criteria": "wincap",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.002",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": "10000.0"
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BR": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "6": "0.9",
+       "8": "0.1"
+      }
+     },
+     "_criteria": "epicgame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.012",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BR": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "5": 1
+      }
+     },
+     "_criteria": "supergame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.012",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BR": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "4": 1
+      }
+     },
+     "_criteria": "freegame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.03",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BR": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "win_range": [
+       "5.0",
+       "20.0"
+      ]
+     },
+     "_criteria": "basegame_mid",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.06",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BR": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "win_range": [
+       "20.0",
+       "5000.0"
+      ]
+     },
+     "_criteria": "basegame_high",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.012",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BR": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      }
+     },
+     "_criteria": "0",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.35",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": "0.0"
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BR": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      }
+     },
+     "_criteria": "basegame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.522",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    }
+   ],
+   "_force_keys": [],
+   "_is_buybonus": false,
+   "_is_feature": true,
+   "_name": "base",
+   "_rtp": "0.96699",
+   "_wincap": "10000.0"
+  },
+  "bonus": {
+   "__class__": "BetMode",
+   "_auto_close_disabled": false,
+   "_cost": "100.0",
+   "_distributions": [
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "early_reject": true,
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "4": 1
+      },
+      "win_range": [
+       "10.0",
+       "25.0"
+      ]
+     },
+     "_criteria": "freegame_low",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.12403100775193798",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "early_reject": true,
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "4": 1
+      },
+      "win_range": [
+       "25.0",
+       "50.0"
+      ]
+     },
+     "_criteria": "freegame_mid",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.15503875968992248",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "early_reject": true,
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "4": 1
+      },
+      "win_range": [
+       "50.0",
+       "100.0"
+      ]
+     },
+     "_criteria": "freegame_m2",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.09302325581395349",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": true,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1,
+        "WCAP": 6
+       }
+      },
+      "scatter_triggers": {
+       "4": 1
+      }
+     },
+     "_criteria": "wincap",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.004031007751937985",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": "10000.0"
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "4": 1
+      }
+     },
+     "_criteria": "freegame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.623875969",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    }
+   ],
+   "_force_keys": [],
+   "_is_buybonus": true,
+   "_is_feature": false,
+   "_name": "bonus",
+   "_rtp": "0.96699",
+   "_wincap": "10000.0"
+  },
+  "epic": {
+   "__class__": "BetMode",
+   "_auto_close_disabled": false,
+   "_cost": "500.0",
+   "_distributions": [
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "early_reject": true,
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "6": 1
+      },
+      "win_range": [
+       "200.0",
+       "400.0"
+      ]
+     },
+     "_criteria": "epicgame_body",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.4740740740740741",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "early_reject": true,
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "6": 1
+      },
+      "win_range": [
+       "400.0",
+       "1000.0"
+      ]
+     },
+     "_criteria": "epicgame_mid",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.23703703703703705",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "early_reject": true,
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "6": "0.95",
+       "8": "0.05"
+      },
+      "win_range": [
+       "1000.0",
+       "10000.0"
+      ]
+     },
+     "_criteria": "epicgame_upper",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.2222222222222222",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": true,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1,
+        "WCAP": 6
+       }
+      },
+      "scatter_triggers": {
+       "6": 1
+      }
+     },
+     "_criteria": "wincap",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.001851851851851852",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": "10000.0"
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "6": "0.95",
+       "8": "0.05"
+      }
+     },
+     "_criteria": "epicgame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.064814815",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    }
+   ],
+   "_force_keys": [],
+   "_is_buybonus": true,
+   "_is_feature": false,
+   "_name": "epic",
+   "_rtp": "0.96699",
+   "_wincap": "10000.0"
+  },
+  "super": {
+   "__class__": "BetMode",
+   "_auto_close_disabled": false,
+   "_cost": "250.0",
+   "_distributions": [
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "early_reject": true,
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "5": 1
+      },
+      "win_range": [
+       "25.0",
+       "60.0"
+      ]
+     },
+     "_criteria": "supergame_low",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.09523809523809523",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "early_reject": true,
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "5": 1
+      },
+      "win_range": [
+       "60.0",
+       "120.0"
+      ]
+     },
+     "_criteria": "supergame_lowmid",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.10582010582010581",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "early_reject": true,
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "5": 1
+      },
+      "win_range": [
+       "120.0",
+       "500.0"
+      ]
+     },
+     "_criteria": "supergame_mid",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.31746031746031744",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": true,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1,
+        "WCAP": 6
+       }
+      },
+      "scatter_triggers": {
+       "5": 1
+      }
+     },
+     "_criteria": "wincap",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.0015873015873015873",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": "10000.0"
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "BRB": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "5": 1
+      }
+     },
+     "_criteria": "supergame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.47989418",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    }
+   ],
+   "_force_keys": [],
+   "_is_buybonus": true,
+   "_is_feature": false,
+   "_name": "super",
+   "_rtp": "0.96699",
+   "_wincap": "10000.0"
+  },
+  "super_ante": {
+   "__class__": "BetMode",
+   "_auto_close_disabled": false,
+   "_cost": "10.0",
+   "_distributions": [
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": true,
+      "reel_weights": {
+       "basegame": {
+        "SA": 1
+       },
+       "freegame": {
+        "FR": 1,
+        "WCAP": 6
+       }
+      },
+      "scatter_triggers": {
+       "6": 1
+      }
+     },
+     "_criteria": "wincap",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.002",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": "10000.0"
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "SA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "6": "0.9",
+       "8": "0.1"
+      }
+     },
+     "_criteria": "epicgame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.034",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": true,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "SA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "scatter_triggers": {
+       "4": 3,
+       "5": 1
+      }
+     },
+     "_criteria": "supergame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.1",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "SA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "win_range": [
+       "5.0",
+       "20.0"
+      ]
+     },
+     "_criteria": "basegame_mid",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.06",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "SA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      },
+      "win_range": [
+       "20.0",
+       "5000.0"
+      ]
+     },
+     "_criteria": "basegame_high",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.012",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "SA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      }
+     },
+     "_criteria": "0",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.3",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": "0.0"
+    },
+    {
+     "__class__": "Distribution",
+     "_conditions": {
+      "force_freegame": false,
+      "force_wincap": false,
+      "reel_weights": {
+       "basegame": {
+        "SA": 1
+       },
+       "freegame": {
+        "FR": 1
+       }
+      }
+     },
+     "_criteria": "basegame",
+     "_default_distribution_conditions": {
+      "force_freegame": false,
+      "force_wincap": false
+     },
+     "_fixed_amt": null,
+     "_quota": "0.492",
+     "_required_distribution_conditions": [
+      "reel_weights"
+     ],
+     "_win_criteria": null
+    }
+   ],
+   "_force_keys": [],
+   "_is_buybonus": false,
+   "_is_feature": true,
+   "_name": "super_ante",
+   "_rtp": "0.96699",
+   "_wincap": "10000.0"
+  }
+ },
+ "config": {
+  "_initialized": true,
+  "all_valid_sym_names": [],
+  "anticipation_triggers": {
+   "basegame": 3,
+   "freegame": 9
+  },
+  "basegame_type": "basegame",
+  "epic8_min_win": "2500.0",
+  "epic8_share": {
+   "ante": "0.1",
+   "base": "0.1",
+   "epic": "0.05",
+   "super_ante": "0.1"
+  },
+  "epic_min_win": "200.0",
+  "feature_min_win": {
+   "bonus": "10.0",
+   "epic": "200.0",
+   "super": "25.0"
+  },
+  "freegame_type": "freegame",
+  "freespin_triggers": {
+   "basegame": {
+    "4": 8,
+    "5": 10,
+    "6": 12
+   },
+   "freegame": {}
+  },
+  "fs_spins": {
+   "bonus": 8,
+   "epic": 12,
+   "super": 10
+  },
+  "full_board_scatters": 8,
+  "game_id": "manticore_mayhem",
+  "game_name": "manticore_mayhem",
+  "include_padding": false,
+  "library_path": "/Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/library",
+  "low_symbols": [
+   "L1",
+   "L2",
+   "L3",
+   "L4"
+  ],
+  "max_trigger_scatters": 6,
+  "maximum_board_mult": 128,
+  "min_cluster": 5,
+  "min_denomination": "0.1",
+  "num_reels": 8,
+  "num_rows": [
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8
+  ],
+  "opt_params": {
+   "None": null
+  },
+  "output_regular_json": true,
+  "padding_reels": {},
+  "paying_symbol_names": [],
+  "paying_symbols": [
+   "L1",
+   "L2",
+   "L3",
+   "L4",
+   "M1",
+   "M2",
+   "M3",
+   "H1"
+  ],
+  "paytable": {
+   "(10, 'H1')": "25.0",
+   "(10, 'L1')": "2.0",
+   "(10, 'L2')": "2.5",
+   "(10, 'L3')": "3.0",
+   "(10, 'L4')": "4.0",
+   "(10, 'M1')": "6.0",
+   "(10, 'M2')": "8.0",
+   "(10, 'M3')": "12.0",
+   "(11, 'H1')": "25.0",
+   "(11, 'L1')": "2.0",
+   "(11, 'L2')": "2.5",
+   "(11, 'L3')": "3.0",
+   "(11, 'L4')": "4.0",
+   "(11, 'M1')": "6.0",
+   "(11, 'M2')": "8.0",
+   "(11, 'M3')": "12.0",
+   "(12, 'H1')": "25.0",
+   "(12, 'L1')": "2.0",
+   "(12, 'L2')": "2.5",
+   "(12, 'L3')": "3.0",
+   "(12, 'L4')": "4.0",
+   "(12, 'M1')": "6.0",
+   "(12, 'M2')": "8.0",
+   "(12, 'M3')": "12.0",
+   "(13, 'H1')": "25.0",
+   "(13, 'L1')": "2.0",
+   "(13, 'L2')": "2.5",
+   "(13, 'L3')": "3.0",
+   "(13, 'L4')": "4.0",
+   "(13, 'M1')": "6.0",
+   "(13, 'M2')": "8.0",
+   "(13, 'M3')": "12.0",
+   "(14, 'H1')": "25.0",
+   "(14, 'L1')": "2.0",
+   "(14, 'L2')": "2.5",
+   "(14, 'L3')": "3.0",
+   "(14, 'L4')": "4.0",
+   "(14, 'M1')": "6.0",
+   "(14, 'M2')": "8.0",
+   "(14, 'M3')": "12.0",
+   "(15, 'H1')": "100.0",
+   "(15, 'L1')": "8.0",
+   "(15, 'L2')": "10.0",
+   "(15, 'L3')": "12.0",
+   "(15, 'L4')": "15.0",
+   "(15, 'M1')": "25.0",
+   "(15, 'M2')": "35.0",
+   "(15, 'M3')": "50.0",
+   "(16, 'H1')": "100.0",
+   "(16, 'L1')": "8.0",
+   "(16, 'L2')": "10.0",
+   "(16, 'L3')": "12.0",
+   "(16, 'L4')": "15.0",
+   "(16, 'M1')": "25.0",
+   "(16, 'M2')": "35.0",
+   "(16, 'M3')": "50.0",
+   "(17, 'H1')": "100.0",
+   "(17, 'L1')": "8.0",
+   "(17, 'L2')": "10.0",
+   "(17, 'L3')": "12.0",
+   "(17, 'L4')": "15.0",
+   "(17, 'M1')": "25.0",
+   "(17, 'M2')": "35.0",
+   "(17, 'M3')": "50.0",
+   "(18, 'H1')": "100.0",
+   "(18, 'L1')": "8.0",
+   "(18, 'L2')": "10.0",
+   "(18, 'L3')": "12.0",
+   "(18, 'L4')": "15.0",
+   "(18, 'M1')": "25.0",
+   "(18, 'M2')": "35.0",
+   "(18, 'M3')": "50.0",
+   "(19, 'H1')": "100.0",
+   "(19, 'L1')": "8.0",
+   "(19, 'L2')": "10.0",
+   "(19, 'L3')": "12.0",
+   "(19, 'L4')": "15.0",
+   "(19, 'M1')": "25.0",
+   "(19, 'M2')": "35.0",
+   "(19, 'M3')": "50.0",
+   "(20, 'H1')": "100.0",
+   "(20, 'L1')": "8.0",
+   "(20, 'L2')": "10.0",
+   "(20, 'L3')": "12.0",
+   "(20, 'L4')": "15.0",
+   "(20, 'M1')": "25.0",
+   "(20, 'M2')": "35.0",
+   "(20, 'M3')": "50.0",
+   "(21, 'H1')": "100.0",
+   "(21, 'L1')": "8.0",
+   "(21, 'L2')": "10.0",
+   "(21, 'L3')": "12.0",
+   "(21, 'L4')": "15.0",
+   "(21, 'M1')": "25.0",
+   "(21, 'M2')": "35.0",
+   "(21, 'M3')": "50.0",
+   "(22, 'H1')": "100.0",
+   "(22, 'L1')": "8.0",
+   "(22, 'L2')": "10.0",
+   "(22, 'L3')": "12.0",
+   "(22, 'L4')": "15.0",
+   "(22, 'M1')": "25.0",
+   "(22, 'M2')": "35.0",
+   "(22, 'M3')": "50.0",
+   "(23, 'H1')": "100.0",
+   "(23, 'L1')": "8.0",
+   "(23, 'L2')": "10.0",
+   "(23, 'L3')": "12.0",
+   "(23, 'L4')": "15.0",
+   "(23, 'M1')": "25.0",
+   "(23, 'M2')": "35.0",
+   "(23, 'M3')": "50.0",
+   "(24, 'H1')": "100.0",
+   "(24, 'L1')": "8.0",
+   "(24, 'L2')": "10.0",
+   "(24, 'L3')": "12.0",
+   "(24, 'L4')": "15.0",
+   "(24, 'M1')": "25.0",
+   "(24, 'M2')": "35.0",
+   "(24, 'M3')": "50.0",
+   "(25, 'H1')": "100.0",
+   "(25, 'L1')": "8.0",
+   "(25, 'L2')": "10.0",
+   "(25, 'L3')": "12.0",
+   "(25, 'L4')": "15.0",
+   "(25, 'M1')": "25.0",
+   "(25, 'M2')": "35.0",
+   "(25, 'M3')": "50.0",
+   "(26, 'H1')": "100.0",
+   "(26, 'L1')": "8.0",
+   "(26, 'L2')": "10.0",
+   "(26, 'L3')": "12.0",
+   "(26, 'L4')": "15.0",
+   "(26, 'M1')": "25.0",
+   "(26, 'M2')": "35.0",
+   "(26, 'M3')": "50.0",
+   "(27, 'H1')": "100.0",
+   "(27, 'L1')": "8.0",
+   "(27, 'L2')": "10.0",
+   "(27, 'L3')": "12.0",
+   "(27, 'L4')": "15.0",
+   "(27, 'M1')": "25.0",
+   "(27, 'M2')": "35.0",
+   "(27, 'M3')": "50.0",
+   "(28, 'H1')": "100.0",
+   "(28, 'L1')": "8.0",
+   "(28, 'L2')": "10.0",
+   "(28, 'L3')": "12.0",
+   "(28, 'L4')": "15.0",
+   "(28, 'M1')": "25.0",
+   "(28, 'M2')": "35.0",
+   "(28, 'M3')": "50.0",
+   "(29, 'H1')": "100.0",
+   "(29, 'L1')": "8.0",
+   "(29, 'L2')": "10.0",
+   "(29, 'L3')": "12.0",
+   "(29, 'L4')": "15.0",
+   "(29, 'M1')": "25.0",
+   "(29, 'M2')": "35.0",
+   "(29, 'M3')": "50.0",
+   "(30, 'H1')": "100.0",
+   "(30, 'L1')": "8.0",
+   "(30, 'L2')": "10.0",
+   "(30, 'L3')": "12.0",
+   "(30, 'L4')": "15.0",
+   "(30, 'M1')": "25.0",
+   "(30, 'M2')": "35.0",
+   "(30, 'M3')": "50.0",
+   "(31, 'H1')": "100.0",
+   "(31, 'L1')": "8.0",
+   "(31, 'L2')": "10.0",
+   "(31, 'L3')": "12.0",
+   "(31, 'L4')": "15.0",
+   "(31, 'M1')": "25.0",
+   "(31, 'M2')": "35.0",
+   "(31, 'M3')": "50.0",
+   "(32, 'H1')": "100.0",
+   "(32, 'L1')": "8.0",
+   "(32, 'L2')": "10.0",
+   "(32, 'L3')": "12.0",
+   "(32, 'L4')": "15.0",
+   "(32, 'M1')": "25.0",
+   "(32, 'M2')": "35.0",
+   "(32, 'M3')": "50.0",
+   "(33, 'H1')": "100.0",
+   "(33, 'L1')": "8.0",
+   "(33, 'L2')": "10.0",
+   "(33, 'L3')": "12.0",
+   "(33, 'L4')": "15.0",
+   "(33, 'M1')": "25.0",
+   "(33, 'M2')": "35.0",
+   "(33, 'M3')": "50.0",
+   "(34, 'H1')": "100.0",
+   "(34, 'L1')": "8.0",
+   "(34, 'L2')": "10.0",
+   "(34, 'L3')": "12.0",
+   "(34, 'L4')": "15.0",
+   "(34, 'M1')": "25.0",
+   "(34, 'M2')": "35.0",
+   "(34, 'M3')": "50.0",
+   "(35, 'H1')": "100.0",
+   "(35, 'L1')": "8.0",
+   "(35, 'L2')": "10.0",
+   "(35, 'L3')": "12.0",
+   "(35, 'L4')": "15.0",
+   "(35, 'M1')": "25.0",
+   "(35, 'M2')": "35.0",
+   "(35, 'M3')": "50.0",
+   "(36, 'H1')": "100.0",
+   "(36, 'L1')": "8.0",
+   "(36, 'L2')": "10.0",
+   "(36, 'L3')": "12.0",
+   "(36, 'L4')": "15.0",
+   "(36, 'M1')": "25.0",
+   "(36, 'M2')": "35.0",
+   "(36, 'M3')": "50.0",
+   "(37, 'H1')": "100.0",
+   "(37, 'L1')": "8.0",
+   "(37, 'L2')": "10.0",
+   "(37, 'L3')": "12.0",
+   "(37, 'L4')": "15.0",
+   "(37, 'M1')": "25.0",
+   "(37, 'M2')": "35.0",
+   "(37, 'M3')": "50.0",
+   "(38, 'H1')": "100.0",
+   "(38, 'L1')": "8.0",
+   "(38, 'L2')": "10.0",
+   "(38, 'L3')": "12.0",
+   "(38, 'L4')": "15.0",
+   "(38, 'M1')": "25.0",
+   "(38, 'M2')": "35.0",
+   "(38, 'M3')": "50.0",
+   "(39, 'H1')": "100.0",
+   "(39, 'L1')": "8.0",
+   "(39, 'L2')": "10.0",
+   "(39, 'L3')": "12.0",
+   "(39, 'L4')": "15.0",
+   "(39, 'M1')": "25.0",
+   "(39, 'M2')": "35.0",
+   "(39, 'M3')": "50.0",
+   "(40, 'H1')": "100.0",
+   "(40, 'L1')": "8.0",
+   "(40, 'L2')": "10.0",
+   "(40, 'L3')": "12.0",
+   "(40, 'L4')": "15.0",
+   "(40, 'M1')": "25.0",
+   "(40, 'M2')": "35.0",
+   "(40, 'M3')": "50.0",
+   "(41, 'H1')": "100.0",
+   "(41, 'L1')": "8.0",
+   "(41, 'L2')": "10.0",
+   "(41, 'L3')": "12.0",
+   "(41, 'L4')": "15.0",
+   "(41, 'M1')": "25.0",
+   "(41, 'M2')": "35.0",
+   "(41, 'M3')": "50.0",
+   "(42, 'H1')": "100.0",
+   "(42, 'L1')": "8.0",
+   "(42, 'L2')": "10.0",
+   "(42, 'L3')": "12.0",
+   "(42, 'L4')": "15.0",
+   "(42, 'M1')": "25.0",
+   "(42, 'M2')": "35.0",
+   "(42, 'M3')": "50.0",
+   "(43, 'H1')": "100.0",
+   "(43, 'L1')": "8.0",
+   "(43, 'L2')": "10.0",
+   "(43, 'L3')": "12.0",
+   "(43, 'L4')": "15.0",
+   "(43, 'M1')": "25.0",
+   "(43, 'M2')": "35.0",
+   "(43, 'M3')": "50.0",
+   "(44, 'H1')": "100.0",
+   "(44, 'L1')": "8.0",
+   "(44, 'L2')": "10.0",
+   "(44, 'L3')": "12.0",
+   "(44, 'L4')": "15.0",
+   "(44, 'M1')": "25.0",
+   "(44, 'M2')": "35.0",
+   "(44, 'M3')": "50.0",
+   "(45, 'H1')": "100.0",
+   "(45, 'L1')": "8.0",
+   "(45, 'L2')": "10.0",
+   "(45, 'L3')": "12.0",
+   "(45, 'L4')": "15.0",
+   "(45, 'M1')": "25.0",
+   "(45, 'M2')": "35.0",
+   "(45, 'M3')": "50.0",
+   "(46, 'H1')": "100.0",
+   "(46, 'L1')": "8.0",
+   "(46, 'L2')": "10.0",
+   "(46, 'L3')": "12.0",
+   "(46, 'L4')": "15.0",
+   "(46, 'M1')": "25.0",
+   "(46, 'M2')": "35.0",
+   "(46, 'M3')": "50.0",
+   "(47, 'H1')": "100.0",
+   "(47, 'L1')": "8.0",
+   "(47, 'L2')": "10.0",
+   "(47, 'L3')": "12.0",
+   "(47, 'L4')": "15.0",
+   "(47, 'M1')": "25.0",
+   "(47, 'M2')": "35.0",
+   "(47, 'M3')": "50.0",
+   "(48, 'H1')": "100.0",
+   "(48, 'L1')": "8.0",
+   "(48, 'L2')": "10.0",
+   "(48, 'L3')": "12.0",
+   "(48, 'L4')": "15.0",
+   "(48, 'M1')": "25.0",
+   "(48, 'M2')": "35.0",
+   "(48, 'M3')": "50.0",
+   "(49, 'H1')": "100.0",
+   "(49, 'L1')": "8.0",
+   "(49, 'L2')": "10.0",
+   "(49, 'L3')": "12.0",
+   "(49, 'L4')": "15.0",
+   "(49, 'M1')": "25.0",
+   "(49, 'M2')": "35.0",
+   "(49, 'M3')": "50.0",
+   "(5, 'H1')": "2.0",
+   "(5, 'L1')": "0.2",
+   "(5, 'L2')": "0.3",
+   "(5, 'L3')": "0.4",
+   "(5, 'L4')": "0.5",
+   "(5, 'M1')": "0.6",
+   "(5, 'M2')": "0.8",
+   "(5, 'M3')": "1.0",
+   "(50, 'H1')": "100.0",
+   "(50, 'L1')": "8.0",
+   "(50, 'L2')": "10.0",
+   "(50, 'L3')": "12.0",
+   "(50, 'L4')": "15.0",
+   "(50, 'M1')": "25.0",
+   "(50, 'M2')": "35.0",
+   "(50, 'M3')": "50.0",
+   "(51, 'H1')": "100.0",
+   "(51, 'L1')": "8.0",
+   "(51, 'L2')": "10.0",
+   "(51, 'L3')": "12.0",
+   "(51, 'L4')": "15.0",
+   "(51, 'M1')": "25.0",
+   "(51, 'M2')": "35.0",
+   "(51, 'M3')": "50.0",
+   "(52, 'H1')": "100.0",
+   "(52, 'L1')": "8.0",
+   "(52, 'L2')": "10.0",
+   "(52, 'L3')": "12.0",
+   "(52, 'L4')": "15.0",
+   "(52, 'M1')": "25.0",
+   "(52, 'M2')": "35.0",
+   "(52, 'M3')": "50.0",
+   "(53, 'H1')": "100.0",
+   "(53, 'L1')": "8.0",
+   "(53, 'L2')": "10.0",
+   "(53, 'L3')": "12.0",
+   "(53, 'L4')": "15.0",
+   "(53, 'M1')": "25.0",
+   "(53, 'M2')": "35.0",
+   "(53, 'M3')": "50.0",
+   "(54, 'H1')": "100.0",
+   "(54, 'L1')": "8.0",
+   "(54, 'L2')": "10.0",
+   "(54, 'L3')": "12.0",
+   "(54, 'L4')": "15.0",
+   "(54, 'M1')": "25.0",
+   "(54, 'M2')": "35.0",
+   "(54, 'M3')": "50.0",
+   "(55, 'H1')": "100.0",
+   "(55, 'L1')": "8.0",
+   "(55, 'L2')": "10.0",
+   "(55, 'L3')": "12.0",
+   "(55, 'L4')": "15.0",
+   "(55, 'M1')": "25.0",
+   "(55, 'M2')": "35.0",
+   "(55, 'M3')": "50.0",
+   "(56, 'H1')": "100.0",
+   "(56, 'L1')": "8.0",
+   "(56, 'L2')": "10.0",
+   "(56, 'L3')": "12.0",
+   "(56, 'L4')": "15.0",
+   "(56, 'M1')": "25.0",
+   "(56, 'M2')": "35.0",
+   "(56, 'M3')": "50.0",
+   "(57, 'H1')": "100.0",
+   "(57, 'L1')": "8.0",
+   "(57, 'L2')": "10.0",
+   "(57, 'L3')": "12.0",
+   "(57, 'L4')": "15.0",
+   "(57, 'M1')": "25.0",
+   "(57, 'M2')": "35.0",
+   "(57, 'M3')": "50.0",
+   "(58, 'H1')": "100.0",
+   "(58, 'L1')": "8.0",
+   "(58, 'L2')": "10.0",
+   "(58, 'L3')": "12.0",
+   "(58, 'L4')": "15.0",
+   "(58, 'M1')": "25.0",
+   "(58, 'M2')": "35.0",
+   "(58, 'M3')": "50.0",
+   "(59, 'H1')": "100.0",
+   "(59, 'L1')": "8.0",
+   "(59, 'L2')": "10.0",
+   "(59, 'L3')": "12.0",
+   "(59, 'L4')": "15.0",
+   "(59, 'M1')": "25.0",
+   "(59, 'M2')": "35.0",
+   "(59, 'M3')": "50.0",
+   "(6, 'H1')": "4.0",
+   "(6, 'L1')": "0.4",
+   "(6, 'L2')": "0.5",
+   "(6, 'L3')": "0.6",
+   "(6, 'L4')": "0.8",
+   "(6, 'M1')": "1.2",
+   "(6, 'M2')": "1.6",
+   "(6, 'M3')": "2.0",
+   "(60, 'H1')": "100.0",
+   "(60, 'L1')": "8.0",
+   "(60, 'L2')": "10.0",
+   "(60, 'L3')": "12.0",
+   "(60, 'L4')": "15.0",
+   "(60, 'M1')": "25.0",
+   "(60, 'M2')": "35.0",
+   "(60, 'M3')": "50.0",
+   "(61, 'H1')": "100.0",
+   "(61, 'L1')": "8.0",
+   "(61, 'L2')": "10.0",
+   "(61, 'L3')": "12.0",
+   "(61, 'L4')": "15.0",
+   "(61, 'M1')": "25.0",
+   "(61, 'M2')": "35.0",
+   "(61, 'M3')": "50.0",
+   "(62, 'H1')": "100.0",
+   "(62, 'L1')": "8.0",
+   "(62, 'L2')": "10.0",
+   "(62, 'L3')": "12.0",
+   "(62, 'L4')": "15.0",
+   "(62, 'M1')": "25.0",
+   "(62, 'M2')": "35.0",
+   "(62, 'M3')": "50.0",
+   "(63, 'H1')": "100.0",
+   "(63, 'L1')": "8.0",
+   "(63, 'L2')": "10.0",
+   "(63, 'L3')": "12.0",
+   "(63, 'L4')": "15.0",
+   "(63, 'M1')": "25.0",
+   "(63, 'M2')": "35.0",
+   "(63, 'M3')": "50.0",
+   "(64, 'H1')": "100.0",
+   "(64, 'L1')": "8.0",
+   "(64, 'L2')": "10.0",
+   "(64, 'L3')": "12.0",
+   "(64, 'L4')": "15.0",
+   "(64, 'M1')": "25.0",
+   "(64, 'M2')": "35.0",
+   "(64, 'M3')": "50.0",
+   "(7, 'H1')": "4.0",
+   "(7, 'L1')": "0.4",
+   "(7, 'L2')": "0.5",
+   "(7, 'L3')": "0.6",
+   "(7, 'L4')": "0.8",
+   "(7, 'M1')": "1.2",
+   "(7, 'M2')": "1.6",
+   "(7, 'M3')": "2.0",
+   "(8, 'H1')": "10.0",
+   "(8, 'L1')": "0.8",
+   "(8, 'L2')": "1.0",
+   "(8, 'L3')": "1.2",
+   "(8, 'L4')": "1.6",
+   "(8, 'M1')": "2.5",
+   "(8, 'M2')": "3.5",
+   "(8, 'M3')": "5.0",
+   "(9, 'H1')": "10.0",
+   "(9, 'L1')": "0.8",
+   "(9, 'L2')": "1.0",
+   "(9, 'L3')": "1.2",
+   "(9, 'L4')": "1.6",
+   "(9, 'M1')": "2.5",
+   "(9, 'M2')": "3.5",
+   "(9, 'M3')": "5.0"
+  },
+  "provider_name": "polymath_games",
+  "provider_number": 0,
+  "publish_path": "/Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/library/publish_files",
+  "reel_location": "",
+  "reels": {
+   "BA": [
+    [
+     "M2",
+     "L2",
+     "L1",
+     "M2",
+     "L4",
+     "M2",
+     "M1",
+     "L3",
+     "L4",
+     "L1",
+     "M2",
+     "L4",
+     "L2",
+     "M1",
+     "L3",
+     "L2",
+     "M3",
+     "L3",
+     "H1",
+     "M1",
+     "L2",
+     "W",
+     "L2",
+     "L2",
+     "L3",
+     "L4",
+     "M3",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "L3",
+     "L1",
+     "S",
+     "M2",
+     "M2",
+     "L4",
+     "M3",
+     "L1",
+     "M3",
+     "M3",
+     "L3",
+     "L4",
+     "W",
+     "L1",
+     "L4",
+     "L1",
+     "L1",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "W",
+     "L2",
+     "M1",
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "H1",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "L3",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "L3",
+     "L2",
+     "L4",
+     "L4",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "L1",
+     "M3",
+     "M2",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "L4",
+     "L1",
+     "L3",
+     "M2",
+     "L4",
+     "H1",
+     "L2",
+     "M1",
+     "M2",
+     "M1",
+     "H1",
+     "L1",
+     "L2",
+     "M1",
+     "M1",
+     "L1",
+     "L4",
+     "L3",
+     "L1",
+     "L4",
+     "M1",
+     "S",
+     "L3",
+     "L1",
+     "H1",
+     "L2",
+     "L1",
+     "L2",
+     "L3",
+     "L3",
+     "L4",
+     "L4",
+     "W",
+     "L3",
+     "L1",
+     "L1",
+     "L3",
+     "L2",
+     "L2",
+     "L3",
+     "M1",
+     "L4",
+     "L2",
+     "M1",
+     "L4",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L4",
+     "L2",
+     "L4",
+     "L3",
+     "M3"
+    ],
+    [
+     "L4",
+     "L3",
+     "L4",
+     "L1",
+     "L4",
+     "L3",
+     "L3",
+     "M3",
+     "M3",
+     "L2",
+     "L3",
+     "L2",
+     "H1",
+     "L4",
+     "M2",
+     "L2",
+     "L4",
+     "L4",
+     "H1",
+     "M1",
+     "L2",
+     "M2",
+     "L3",
+     "L1",
+     "L4",
+     "M3",
+     "M2",
+     "L4",
+     "L3",
+     "L1",
+     "L4",
+     "L3",
+     "L1",
+     "H1",
+     "L4",
+     "M2",
+     "M2",
+     "L1",
+     "L3",
+     "L1",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "W",
+     "L3",
+     "M1",
+     "L3",
+     "M1",
+     "L1",
+     "S",
+     "M2",
+     "M1",
+     "L1",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "L4",
+     "M1",
+     "L2",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "M1",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "L1",
+     "L4",
+     "L2",
+     "L4",
+     "W",
+     "L1",
+     "L3",
+     "L3",
+     "L2",
+     "L3",
+     "M3",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L2",
+     "M1",
+     "L1",
+     "L3",
+     "H1",
+     "L1",
+     "L3",
+     "L1",
+     "L1",
+     "L4",
+     "L1",
+     "L1",
+     "L4",
+     "L4",
+     "M2",
+     "M1",
+     "L1",
+     "L2",
+     "M3",
+     "L1",
+     "M2",
+     "M1",
+     "M1",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "M3",
+     "L1",
+     "L3",
+     "L2",
+     "S",
+     "L4",
+     "L2",
+     "W",
+     "M3",
+     "H1",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "L2",
+     "L1",
+     "L2",
+     "L3",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "L4",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L3",
+     "M2",
+     "W"
+    ],
+    [
+     "L3",
+     "L4",
+     "L1",
+     "L4",
+     "H1",
+     "L3",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "M1",
+     "L3",
+     "L4",
+     "L4",
+     "L2",
+     "L2",
+     "L3",
+     "L3",
+     "W",
+     "L1",
+     "L2",
+     "L1",
+     "L3",
+     "L2",
+     "H1",
+     "L3",
+     "L3",
+     "L4",
+     "L1",
+     "M2",
+     "L1",
+     "M1",
+     "M1",
+     "L2",
+     "M1",
+     "L1",
+     "L3",
+     "M3",
+     "M3",
+     "L2",
+     "L2",
+     "L4",
+     "S",
+     "L2",
+     "L2",
+     "L1",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "L1",
+     "L4",
+     "L4",
+     "H1",
+     "L1",
+     "L4",
+     "L3",
+     "W",
+     "L4",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "L4",
+     "L2",
+     "M2",
+     "L4",
+     "M1",
+     "L4",
+     "L2",
+     "L3",
+     "M3",
+     "L2",
+     "L4",
+     "L1",
+     "L1",
+     "L3",
+     "L3",
+     "L4",
+     "L2",
+     "L1",
+     "M3",
+     "L1",
+     "M1",
+     "M3",
+     "L3",
+     "M2",
+     "L3",
+     "L2",
+     "L1",
+     "M1",
+     "L1",
+     "L1",
+     "L3",
+     "L2",
+     "L3",
+     "L4",
+     "L3",
+     "L4",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "L1",
+     "L3",
+     "W",
+     "L1",
+     "H1",
+     "L2",
+     "M2",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "S",
+     "L3",
+     "L1",
+     "M1",
+     "L2",
+     "L1",
+     "L4",
+     "L1",
+     "L3",
+     "M2",
+     "L1",
+     "W",
+     "L2",
+     "L3",
+     "L2",
+     "L4",
+     "M1",
+     "L4",
+     "M3",
+     "L4",
+     "M1",
+     "M2",
+     "M2",
+     "L1",
+     "M2",
+     "L3",
+     "L1",
+     "M3",
+     "L1",
+     "L3",
+     "L2",
+     "M2",
+     "L2",
+     "M1",
+     "L4",
+     "H1"
+    ],
+    [
+     "L3",
+     "L3",
+     "L1",
+     "L4",
+     "M3",
+     "L1",
+     "L1",
+     "M1",
+     "L1",
+     "L4",
+     "H1",
+     "M2",
+     "M2",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "M1",
+     "L2",
+     "M1",
+     "M1",
+     "L3",
+     "L4",
+     "L3",
+     "L4",
+     "M2",
+     "L2",
+     "M3",
+     "L4",
+     "L1",
+     "L3",
+     "L2",
+     "L4",
+     "L1",
+     "M1",
+     "H1",
+     "L3",
+     "M1",
+     "L1",
+     "L2",
+     "L2",
+     "L1",
+     "S",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "L4",
+     "W",
+     "L3",
+     "M3",
+     "L2",
+     "M1",
+     "L3",
+     "L4",
+     "L4",
+     "L2",
+     "L3",
+     "W",
+     "M2",
+     "L3",
+     "M1",
+     "L3",
+     "L1",
+     "M2",
+     "L4",
+     "L1",
+     "M1",
+     "L1",
+     "M3",
+     "L4",
+     "L2",
+     "L2",
+     "M1",
+     "L2",
+     "M3",
+     "M3",
+     "L2",
+     "L3",
+     "L4",
+     "M2",
+     "L3",
+     "L1",
+     "S",
+     "L3",
+     "L4",
+     "W",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "L2",
+     "L2",
+     "L4",
+     "M2",
+     "L1",
+     "L2",
+     "L1",
+     "L3",
+     "L3",
+     "L1",
+     "L2",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L3",
+     "M1",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "M2",
+     "L2",
+     "L3",
+     "L3",
+     "L2",
+     "W",
+     "L2",
+     "H1",
+     "L4",
+     "L4",
+     "L2",
+     "H1",
+     "L2",
+     "M3",
+     "L1",
+     "M2",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "L1",
+     "L4",
+     "H1",
+     "L4",
+     "L2",
+     "L4"
+    ],
+    [
+     "L2",
+     "M2",
+     "L4",
+     "L1",
+     "L1",
+     "S",
+     "M1",
+     "M1",
+     "L4",
+     "L1",
+     "L3",
+     "M3",
+     "M2",
+     "L1",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "M2",
+     "L4",
+     "H1",
+     "L2",
+     "L2",
+     "L1",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "L4",
+     "L2",
+     "M1",
+     "L2",
+     "L4",
+     "L2",
+     "L3",
+     "L4",
+     "W",
+     "L1",
+     "L3",
+     "L2",
+     "M1",
+     "L2",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "W",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "M2",
+     "M3",
+     "L2",
+     "L2",
+     "M3",
+     "M3",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "L2",
+     "W",
+     "L2",
+     "L3",
+     "L2",
+     "L2",
+     "L3",
+     "L4",
+     "M3",
+     "L3",
+     "M3",
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "L4",
+     "H1",
+     "L4",
+     "L1",
+     "L4",
+     "L3",
+     "L3",
+     "L4",
+     "L1",
+     "L1",
+     "M1",
+     "L4",
+     "L2",
+     "M2",
+     "L3",
+     "M1",
+     "M2",
+     "M1",
+     "L4",
+     "L1",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "W",
+     "L1",
+     "L3",
+     "L3",
+     "L1",
+     "L2",
+     "H1",
+     "L1",
+     "H1",
+     "L3",
+     "L1",
+     "L4",
+     "L4",
+     "M1",
+     "L1",
+     "L3",
+     "M1",
+     "L1",
+     "M2",
+     "H1",
+     "L2",
+     "L4",
+     "M1",
+     "L1",
+     "S",
+     "L4",
+     "L2",
+     "L1",
+     "M2",
+     "M3",
+     "L4",
+     "L3",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "M1",
+     "L3",
+     "L1",
+     "L2",
+     "L3"
+    ],
+    [
+     "M1",
+     "L1",
+     "L2",
+     "L1",
+     "L3",
+     "S",
+     "L2",
+     "L2",
+     "L3",
+     "L1",
+     "M1",
+     "M1",
+     "L3",
+     "M2",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "W",
+     "L2",
+     "L2",
+     "L3",
+     "M1",
+     "L1",
+     "L2",
+     "L4",
+     "L2",
+     "L3",
+     "M1",
+     "M2",
+     "L4",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "M1",
+     "L4",
+     "L2",
+     "L4",
+     "L3",
+     "L3",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "L4",
+     "L4",
+     "L3",
+     "L3",
+     "M2",
+     "L2",
+     "L1",
+     "H1",
+     "L1",
+     "M3",
+     "L3",
+     "L2",
+     "L4",
+     "L2",
+     "L4",
+     "M1",
+     "L4",
+     "M3",
+     "L3",
+     "L2",
+     "M3",
+     "L1",
+     "M1",
+     "L4",
+     "M1",
+     "L4",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "L3",
+     "M2",
+     "W",
+     "L4",
+     "L2",
+     "L2",
+     "L4",
+     "L4",
+     "L3",
+     "M2",
+     "L4",
+     "H1",
+     "L4",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "M3",
+     "M3",
+     "L4",
+     "H1",
+     "L2",
+     "L1",
+     "L2",
+     "W",
+     "L2",
+     "L3",
+     "L1",
+     "M3",
+     "L1",
+     "H1",
+     "L2",
+     "L1",
+     "M3",
+     "L1",
+     "M1",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L4",
+     "M1",
+     "L1",
+     "M2",
+     "L3",
+     "L4",
+     "L1",
+     "L1",
+     "L3",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L4",
+     "L2",
+     "L3",
+     "S",
+     "L4",
+     "H1",
+     "L1",
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "M2",
+     "M2",
+     "L1",
+     "L3",
+     "W"
+    ],
+    [
+     "L1",
+     "M1",
+     "L3",
+     "L3",
+     "L1",
+     "S",
+     "L4",
+     "L1",
+     "H1",
+     "L1",
+     "L2",
+     "L4",
+     "L2",
+     "L3",
+     "W",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "H1",
+     "L1",
+     "M2",
+     "M1",
+     "L1",
+     "L3",
+     "M3",
+     "M2",
+     "L2",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "M2",
+     "L1",
+     "M1",
+     "M1",
+     "L2",
+     "W",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "L4",
+     "L3",
+     "M1",
+     "L2",
+     "L1",
+     "L4",
+     "L1",
+     "L2",
+     "M2",
+     "L1",
+     "L1",
+     "L2",
+     "L4",
+     "L1",
+     "L2",
+     "L4",
+     "M3",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "M3",
+     "L3",
+     "L2",
+     "L3",
+     "W",
+     "M2",
+     "L1",
+     "L4",
+     "L3",
+     "L4",
+     "L4",
+     "L3",
+     "M3",
+     "M3",
+     "L4",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L3",
+     "L4",
+     "L2",
+     "L4",
+     "M3",
+     "L2",
+     "L4",
+     "L1",
+     "L3",
+     "L3",
+     "L4",
+     "L2",
+     "M1",
+     "L2",
+     "L2",
+     "H1",
+     "L4",
+     "L3",
+     "H1",
+     "M2",
+     "M2",
+     "L1",
+     "L1",
+     "H1",
+     "M1",
+     "L1",
+     "L4",
+     "L1",
+     "L4",
+     "L1",
+     "L3",
+     "M2",
+     "L2",
+     "S",
+     "L3",
+     "L3",
+     "M1",
+     "L2",
+     "L2",
+     "L4",
+     "L1",
+     "L2",
+     "L4",
+     "M3",
+     "L1",
+     "L1",
+     "L3",
+     "W",
+     "L4",
+     "L1",
+     "L2",
+     "L3",
+     "L4",
+     "L1",
+     "L3",
+     "L2",
+     "M1",
+     "L2",
+     "L3",
+     "L2",
+     "M1",
+     "L4",
+     "L1",
+     "M2"
+    ],
+    [
+     "H1",
+     "L1",
+     "L4",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "L2",
+     "L1",
+     "M3",
+     "M2",
+     "L4",
+     "W",
+     "S",
+     "L3",
+     "W",
+     "L4",
+     "L3",
+     "M2",
+     "L1",
+     "M1",
+     "L4",
+     "M1",
+     "L1",
+     "M3",
+     "L2",
+     "M1",
+     "L1",
+     "M3",
+     "M3",
+     "L1",
+     "L2",
+     "H1",
+     "L1",
+     "L2",
+     "W",
+     "L1",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "L3",
+     "H1",
+     "L1",
+     "L1",
+     "L3",
+     "H1",
+     "M1",
+     "L3",
+     "L4",
+     "M3",
+     "L3",
+     "L3",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "L4",
+     "L3",
+     "L1",
+     "L1",
+     "L3",
+     "L2",
+     "M2",
+     "L1",
+     "L4",
+     "M1",
+     "M1",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "W",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "M2",
+     "L3",
+     "L3",
+     "H1",
+     "L1",
+     "L2",
+     "M1",
+     "L2",
+     "L1",
+     "M2",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "L2",
+     "M2",
+     "L4",
+     "L1",
+     "M1",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "L1",
+     "L3",
+     "L2",
+     "M2",
+     "M2",
+     "L1",
+     "L4",
+     "L2",
+     "L3",
+     "L3",
+     "L4",
+     "L2",
+     "L4",
+     "L1",
+     "M3",
+     "L2",
+     "L1",
+     "S",
+     "L4",
+     "L2",
+     "L4",
+     "L4",
+     "L3",
+     "M1",
+     "L2",
+     "M2",
+     "L3",
+     "L2",
+     "L2",
+     "M3",
+     "L2",
+     "L3",
+     "L4",
+     "L2",
+     "L3",
+     "L4",
+     "L4",
+     "L2",
+     "L4",
+     "L1",
+     "M1"
+    ]
+   ],
+   "BR": [
+    [
+     "L1",
+     "L2",
+     "M1",
+     "L2",
+     "M2",
+     "L1",
+     "M3",
+     "M1",
+     "M2",
+     "M2",
+     "M1",
+     "L3",
+     "M3",
+     "L1",
+     "M3",
+     "M2",
+     "L2",
+     "L4",
+     "L3",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "M1",
+     "L1",
+     "W",
+     "L3",
+     "L1",
+     "L2",
+     "L1",
+     "M3",
+     "M3",
+     "L2",
+     "L2",
+     "H1",
+     "L4",
+     "L2",
+     "S",
+     "L3",
+     "L1",
+     "L4",
+     "L3",
+     "L2",
+     "L2",
+     "L4",
+     "L3",
+     "M3",
+     "L1",
+     "L1",
+     "L4",
+     "L2",
+     "H1",
+     "M3",
+     "M2",
+     "L2",
+     "L3",
+     "L3",
+     "L1",
+     "M2",
+     "L1",
+     "L2",
+     "L4",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "M1",
+     "M2",
+     "L3",
+     "L3",
+     "L1",
+     "L1",
+     "L4",
+     "L2",
+     "L3",
+     "L4",
+     "L2",
+     "L3",
+     "L2",
+     "W",
+     "L1",
+     "L3",
+     "H1",
+     "L4",
+     "L4",
+     "L1",
+     "L2",
+     "L1",
+     "M2",
+     "M1",
+     "L1",
+     "L2",
+     "M2",
+     "L3",
+     "M1",
+     "L1",
+     "M1",
+     "L4",
+     "L1",
+     "L4",
+     "L2",
+     "H1",
+     "L2",
+     "W",
+     "M1",
+     "L4",
+     "L1",
+     "L4",
+     "L3",
+     "L2",
+     "M1",
+     "M1",
+     "L3",
+     "W",
+     "L3",
+     "H1",
+     "L1",
+     "L3"
+    ],
+    [
+     "L2",
+     "L3",
+     "L3",
+     "L2",
+     "L3",
+     "L4",
+     "L2",
+     "L1",
+     "M3",
+     "L1",
+     "L2",
+     "L1",
+     "L2",
+     "M2",
+     "M2",
+     "M3",
+     "M2",
+     "M1",
+     "L4",
+     "L1",
+     "L1",
+     "L3",
+     "L3",
+     "M1",
+     "L4",
+     "L4",
+     "M2",
+     "M3",
+     "M3",
+     "L2",
+     "L2",
+     "L4",
+     "L1",
+     "H1",
+     "L4",
+     "M3",
+     "L2",
+     "L4",
+     "L2",
+     "M2",
+     "M3",
+     "L3",
+     "L1",
+     "W",
+     "L3",
+     "L2",
+     "H1",
+     "L3",
+     "L2",
+     "L2",
+     "H1",
+     "M2",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "M1",
+     "L2",
+     "L3",
+     "L4",
+     "L1",
+     "L3",
+     "L4",
+     "L3",
+     "W",
+     "L4",
+     "L1",
+     "H1",
+     "L1",
+     "L3",
+     "L1",
+     "M2",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "L4",
+     "L1",
+     "M1",
+     "L3",
+     "L1",
+     "M2",
+     "L3",
+     "L2",
+     "L4",
+     "L1",
+     "L2",
+     "H1",
+     "M1",
+     "L2",
+     "M2",
+     "L1",
+     "M1",
+     "L3",
+     "W",
+     "L1",
+     "L2",
+     "L4",
+     "L4",
+     "M1",
+     "M1",
+     "L1",
+     "L3",
+     "M1",
+     "M3",
+     "L3",
+     "M1",
+     "S",
+     "L1",
+     "L1",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "W",
+     "L1",
+     "L3"
+    ],
+    [
+     "W",
+     "L2",
+     "M3",
+     "L4",
+     "M1",
+     "M1",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "M2",
+     "L1",
+     "L1",
+     "M3",
+     "L3",
+     "L3",
+     "L4",
+     "L2",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "H1",
+     "L3",
+     "L2",
+     "H1",
+     "L1",
+     "L2",
+     "L1",
+     "M1",
+     "L3",
+     "L2",
+     "L1",
+     "M2",
+     "M2",
+     "L1",
+     "L4",
+     "H1",
+     "L2",
+     "L2",
+     "L3",
+     "M1",
+     "L1",
+     "L3",
+     "M2",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "M2",
+     "L1",
+     "H1",
+     "L1",
+     "L3",
+     "M1",
+     "L4",
+     "L1",
+     "L2",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "M3",
+     "M1",
+     "L2",
+     "M1",
+     "L1",
+     "L2",
+     "L3",
+     "M3",
+     "L4",
+     "L3",
+     "W",
+     "M2",
+     "L2",
+     "L1",
+     "L4",
+     "L4",
+     "M2",
+     "L2",
+     "W",
+     "L4",
+     "M3",
+     "M3",
+     "L1",
+     "L4",
+     "L3",
+     "L4",
+     "L4",
+     "L3",
+     "M3",
+     "L3",
+     "L4",
+     "W",
+     "L2",
+     "L1",
+     "M1",
+     "L1",
+     "L4",
+     "L1",
+     "M1",
+     "H1",
+     "S",
+     "L4",
+     "L2",
+     "L2",
+     "L1",
+     "M1",
+     "L2",
+     "L1",
+     "L1",
+     "L2",
+     "M2",
+     "L1",
+     "L3",
+     "L3",
+     "M2"
+    ],
+    [
+     "L1",
+     "M2",
+     "L1",
+     "L3",
+     "S",
+     "M3",
+     "L4",
+     "L3",
+     "M1",
+     "L4",
+     "L3",
+     "M2",
+     "M2",
+     "L3",
+     "H1",
+     "L2",
+     "L4",
+     "L1",
+     "M1",
+     "W",
+     "L4",
+     "M1",
+     "H1",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "M2",
+     "L2",
+     "L1",
+     "L4",
+     "M1",
+     "L2",
+     "L1",
+     "L4",
+     "M3",
+     "L3",
+     "M1",
+     "H1",
+     "L1",
+     "M1",
+     "L2",
+     "L1",
+     "M2",
+     "L2",
+     "L4",
+     "L2",
+     "M3",
+     "L1",
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "M2",
+     "L1",
+     "M2",
+     "L2",
+     "W",
+     "L3",
+     "L3",
+     "M1",
+     "L4",
+     "L2",
+     "M1",
+     "M1",
+     "L3",
+     "L2",
+     "L3",
+     "L2",
+     "L3",
+     "L3",
+     "M2",
+     "L4",
+     "L2",
+     "M3",
+     "L1",
+     "L1",
+     "L4",
+     "L4",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "L2",
+     "L1",
+     "H1",
+     "L3",
+     "L1",
+     "M3",
+     "M3",
+     "L4",
+     "L2",
+     "M2",
+     "L4",
+     "L3",
+     "L2",
+     "M3",
+     "W",
+     "L1",
+     "M1",
+     "L4",
+     "W",
+     "L1",
+     "H1",
+     "L1",
+     "L2",
+     "L2",
+     "M1",
+     "L4",
+     "L4"
+    ],
+    [
+     "L2",
+     "M3",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "M3",
+     "M1",
+     "L2",
+     "L1",
+     "M2",
+     "M3",
+     "L4",
+     "L2",
+     "L4",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "L1",
+     "M1",
+     "W",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "M2",
+     "M2",
+     "L3",
+     "M1",
+     "L3",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L1",
+     "L4",
+     "L2",
+     "L2",
+     "H1",
+     "M1",
+     "M1",
+     "L3",
+     "W",
+     "M2",
+     "H1",
+     "L4",
+     "L4",
+     "S",
+     "L1",
+     "L2",
+     "L1",
+     "M1",
+     "M3",
+     "L3",
+     "L4",
+     "L1",
+     "L3",
+     "L1",
+     "H1",
+     "M2",
+     "L4",
+     "L4",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "W",
+     "L3",
+     "L3",
+     "L2",
+     "H1",
+     "L3",
+     "W",
+     "L1",
+     "L4",
+     "H1",
+     "M1",
+     "L2",
+     "M1",
+     "L2",
+     "L2",
+     "L4",
+     "L1",
+     "M1",
+     "M2",
+     "L1",
+     "M1",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "L2",
+     "L4",
+     "L2",
+     "L4",
+     "L1",
+     "L4",
+     "M3",
+     "M3",
+     "L1",
+     "L3",
+     "L4",
+     "M1",
+     "L2",
+     "L3",
+     "M2",
+     "L2",
+     "M3",
+     "M2",
+     "L1",
+     "L1",
+     "L2",
+     "L1",
+     "L2"
+    ],
+    [
+     "M1",
+     "M1",
+     "L3",
+     "L3",
+     "M3",
+     "L2",
+     "L1",
+     "M1",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "M2",
+     "L4",
+     "M2",
+     "L2",
+     "L2",
+     "L1",
+     "M1",
+     "L3",
+     "W",
+     "L1",
+     "M2",
+     "L1",
+     "L2",
+     "L1",
+     "M1",
+     "L3",
+     "S",
+     "L4",
+     "L1",
+     "M1",
+     "H1",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "M2",
+     "L1",
+     "L3",
+     "L4",
+     "L2",
+     "M3",
+     "L3",
+     "H1",
+     "L1",
+     "L4",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "M3",
+     "L4",
+     "L4",
+     "M2",
+     "L3",
+     "L2",
+     "L4",
+     "H1",
+     "L2",
+     "L1",
+     "M3",
+     "M3",
+     "L1",
+     "L4",
+     "L1",
+     "L2",
+     "L4",
+     "M1",
+     "L2",
+     "M2",
+     "L4",
+     "L2",
+     "L4",
+     "L1",
+     "L3",
+     "H1",
+     "L2",
+     "L4",
+     "L4",
+     "L2",
+     "L1",
+     "M2",
+     "L3",
+     "L2",
+     "M2",
+     "M2",
+     "L2",
+     "L2",
+     "L3",
+     "W",
+     "L4",
+     "L3",
+     "L1",
+     "M3",
+     "L1",
+     "L2",
+     "L4",
+     "W",
+     "L3",
+     "L3",
+     "H1",
+     "L3",
+     "W",
+     "M1",
+     "L2",
+     "L3",
+     "M1",
+     "L1",
+     "L1",
+     "M3",
+     "L2",
+     "L1",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L4",
+     "M1",
+     "L2"
+    ],
+    [
+     "L1",
+     "L3",
+     "L2",
+     "M3",
+     "L3",
+     "L3",
+     "L4",
+     "L2",
+     "L3",
+     "L1",
+     "S",
+     "H1",
+     "L4",
+     "M2",
+     "L1",
+     "M1",
+     "L2",
+     "L1",
+     "M3",
+     "L2",
+     "M1",
+     "L1",
+     "L3",
+     "L1",
+     "M2",
+     "L4",
+     "H1",
+     "L1",
+     "L2",
+     "M1",
+     "L3",
+     "L1",
+     "L4",
+     "M1",
+     "M2",
+     "M2",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "L4",
+     "M1",
+     "M1",
+     "L1",
+     "L1",
+     "L3",
+     "L1",
+     "W",
+     "H1",
+     "L4",
+     "L4",
+     "L2",
+     "L3",
+     "M1",
+     "L3",
+     "L2",
+     "H1",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "M1",
+     "L4",
+     "L4",
+     "L3",
+     "L4",
+     "L2",
+     "L2",
+     "L1",
+     "L4",
+     "W",
+     "L3",
+     "L2",
+     "L4",
+     "M3",
+     "W",
+     "L2",
+     "L1",
+     "L3",
+     "L4",
+     "M1",
+     "L3",
+     "L3",
+     "M3",
+     "L3",
+     "L2",
+     "L1",
+     "M2",
+     "L1",
+     "L3",
+     "L2",
+     "M2",
+     "L1",
+     "L3",
+     "M3",
+     "M3",
+     "M2",
+     "L2",
+     "L1",
+     "L3",
+     "L4",
+     "M1",
+     "L1",
+     "L2",
+     "L2",
+     "M2",
+     "M1",
+     "L2",
+     "L1",
+     "W",
+     "L2",
+     "L1",
+     "L4",
+     "L1",
+     "L2",
+     "M3",
+     "L2",
+     "H1",
+     "M2",
+     "L1"
+    ],
+    [
+     "L2",
+     "L3",
+     "L4",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "L4",
+     "M3",
+     "L1",
+     "L4",
+     "L2",
+     "M3",
+     "M1",
+     "M1",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "L1",
+     "L2",
+     "L4",
+     "M2",
+     "L3",
+     "L1",
+     "L4",
+     "W",
+     "L1",
+     "H1",
+     "L4",
+     "L4",
+     "L1",
+     "L4",
+     "M3",
+     "M1",
+     "L3",
+     "L3",
+     "L4",
+     "L3",
+     "M2",
+     "L2",
+     "L1",
+     "H1",
+     "M2",
+     "L2",
+     "M1",
+     "L4",
+     "L3",
+     "M1",
+     "S",
+     "L1",
+     "M3",
+     "L2",
+     "M1",
+     "L1",
+     "W",
+     "H1",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "W",
+     "L3",
+     "L3",
+     "L2",
+     "L2",
+     "L1",
+     "L4",
+     "M1",
+     "M3",
+     "M3",
+     "L2",
+     "L2",
+     "L4",
+     "L2",
+     "M2",
+     "M2",
+     "L2",
+     "L3",
+     "M3",
+     "L4",
+     "M1",
+     "L2",
+     "M1",
+     "W",
+     "L1",
+     "M1",
+     "L3",
+     "L1",
+     "M2",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "L3",
+     "M2",
+     "L3",
+     "H1",
+     "M2",
+     "L1",
+     "M1",
+     "L1",
+     "L2",
+     "L4",
+     "L1",
+     "M2",
+     "H1",
+     "L2",
+     "L4",
+     "L1",
+     "L1",
+     "L4",
+     "L2",
+     "L3",
+     "L1"
+    ]
+   ],
+   "BRB": [
+    [
+     "L3",
+     "L1",
+     "L4",
+     "L3",
+     "M3",
+     "M2",
+     "L3",
+     "M3",
+     "L1",
+     "M1",
+     "L4",
+     "L1",
+     "M3",
+     "L4",
+     "L2",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L3",
+     "W",
+     "L1",
+     "L3",
+     "L2",
+     "L3",
+     "L2",
+     "M3",
+     "L2",
+     "L1",
+     "L3",
+     "L4",
+     "L2",
+     "L1",
+     "L4",
+     "L1",
+     "M1",
+     "S",
+     "L2",
+     "M3",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "L3",
+     "M2",
+     "M3",
+     "L1",
+     "L2",
+     "M1",
+     "M2",
+     "L1",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "L3",
+     "L4",
+     "M1",
+     "L1",
+     "L3",
+     "L4",
+     "M2",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "H1",
+     "L4",
+     "M2",
+     "L3",
+     "L1",
+     "L2",
+     "L1",
+     "L2",
+     "W",
+     "L3",
+     "L4",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "H1",
+     "L2",
+     "L1",
+     "M1",
+     "L4",
+     "L1",
+     "L2",
+     "M3",
+     "L4",
+     "L1",
+     "L3",
+     "M1",
+     "L1",
+     "M2",
+     "M1",
+     "L1",
+     "M1",
+     "M2",
+     "W",
+     "L1",
+     "H1",
+     "M1",
+     "L2",
+     "M2",
+     "L1",
+     "L2",
+     "H1",
+     "L2",
+     "L3",
+     "L2",
+     "M1",
+     "L1",
+     "L4",
+     "W",
+     "L4",
+     "H1",
+     "M1",
+     "L4"
+    ],
+    [
+     "M1",
+     "L4",
+     "M1",
+     "L4",
+     "M3",
+     "L2",
+     "L3",
+     "M3",
+     "L2",
+     "L1",
+     "L2",
+     "L1",
+     "M3",
+     "M1",
+     "L1",
+     "M2",
+     "L4",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "L2",
+     "L3",
+     "L2",
+     "H1",
+     "L3",
+     "L4",
+     "L2",
+     "L4",
+     "L2",
+     "L4",
+     "L1",
+     "L1",
+     "W",
+     "L1",
+     "H1",
+     "L1",
+     "L2",
+     "M1",
+     "M3",
+     "M1",
+     "L3",
+     "H1",
+     "L3",
+     "L4",
+     "L2",
+     "L1",
+     "M2",
+     "L1",
+     "L3",
+     "M2",
+     "L3",
+     "L4",
+     "S",
+     "L1",
+     "L4",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "W",
+     "L1",
+     "L2",
+     "M1",
+     "L1",
+     "L3",
+     "L1",
+     "H1",
+     "M3",
+     "M2",
+     "L3",
+     "M3",
+     "L2",
+     "L4",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L1",
+     "L3",
+     "M1",
+     "M2",
+     "L2",
+     "H1",
+     "L3",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L2",
+     "W",
+     "L1",
+     "L2",
+     "M1",
+     "L4",
+     "M1",
+     "L4",
+     "L3",
+     "L1",
+     "L4",
+     "L2",
+     "L3",
+     "M2",
+     "M3",
+     "L3",
+     "L2",
+     "L1",
+     "L4",
+     "M2",
+     "M1",
+     "L2",
+     "L4",
+     "W",
+     "L1",
+     "L3"
+    ],
+    [
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "M3",
+     "L4",
+     "L2",
+     "M3",
+     "L2",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "H1",
+     "M3",
+     "L3",
+     "H1",
+     "L3",
+     "L1",
+     "L2",
+     "M2",
+     "L1",
+     "M1",
+     "L2",
+     "L1",
+     "M1",
+     "H1",
+     "L1",
+     "L3",
+     "M1",
+     "L1",
+     "W",
+     "M2",
+     "L3",
+     "L2",
+     "L3",
+     "W",
+     "L4",
+     "L3",
+     "L1",
+     "L4",
+     "L2",
+     "W",
+     "L1",
+     "M2",
+     "M1",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "L1",
+     "L4",
+     "L3",
+     "M2",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "L4",
+     "L2",
+     "W",
+     "M2",
+     "L2",
+     "L3",
+     "L1",
+     "M1",
+     "L1",
+     "L3",
+     "M1",
+     "S",
+     "L3",
+     "M2",
+     "L2",
+     "M1",
+     "L4",
+     "H1",
+     "M2",
+     "L3",
+     "M1",
+     "L2",
+     "L2",
+     "H1",
+     "L3",
+     "L2",
+     "M3",
+     "L2",
+     "L1",
+     "L3",
+     "M1",
+     "L2",
+     "M2",
+     "L4",
+     "M3",
+     "L4",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "L3",
+     "M2",
+     "L4",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "M3",
+     "L4",
+     "M1",
+     "L4",
+     "M1",
+     "L4",
+     "L1",
+     "L3",
+     "L1",
+     "M3",
+     "L2"
+    ],
+    [
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "L1",
+     "L4",
+     "L2",
+     "M2",
+     "L3",
+     "M3",
+     "M1",
+     "L2",
+     "M3",
+     "S",
+     "M2",
+     "L4",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "H1",
+     "L1",
+     "H1",
+     "L1",
+     "L4",
+     "L1",
+     "L4",
+     "M1",
+     "L1",
+     "L2",
+     "L1",
+     "M2",
+     "M3",
+     "L4",
+     "M2",
+     "W",
+     "L2",
+     "L1",
+     "M1",
+     "L1",
+     "L2",
+     "M1",
+     "L2",
+     "M1",
+     "H1",
+     "M2",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "M1",
+     "L4",
+     "M2",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "L2",
+     "L3",
+     "L2",
+     "L2",
+     "M2",
+     "M1",
+     "L1",
+     "M1",
+     "L4",
+     "L3",
+     "L4",
+     "H1",
+     "L1",
+     "L2",
+     "L4",
+     "L1",
+     "L3",
+     "L2",
+     "M3",
+     "L4",
+     "L1",
+     "L3",
+     "M3",
+     "L1",
+     "L4",
+     "L2",
+     "L3",
+     "M1",
+     "L3",
+     "W",
+     "L4",
+     "L1",
+     "L4",
+     "W",
+     "L3",
+     "L1",
+     "L2",
+     "H1",
+     "M1",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "M3",
+     "M2",
+     "M3",
+     "L1",
+     "L2",
+     "W",
+     "L3",
+     "L4",
+     "L3",
+     "L4",
+     "L3",
+     "M2",
+     "M1"
+    ],
+    [
+     "W",
+     "L3",
+     "M1",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "M3",
+     "L3",
+     "M2",
+     "M3",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "M1",
+     "L2",
+     "L4",
+     "L3",
+     "M1",
+     "L4",
+     "L1",
+     "L4",
+     "L2",
+     "M2",
+     "L2",
+     "W",
+     "L1",
+     "L4",
+     "L1",
+     "H1",
+     "L4",
+     "H1",
+     "L4",
+     "M3",
+     "L4",
+     "L1",
+     "M2",
+     "L3",
+     "L2",
+     "H1",
+     "L1",
+     "M1",
+     "L2",
+     "L4",
+     "L2",
+     "M3",
+     "L4",
+     "L1",
+     "L4",
+     "L1",
+     "L3",
+     "L4",
+     "M1",
+     "H1",
+     "L4",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "M3",
+     "L1",
+     "H1",
+     "W",
+     "L1",
+     "L2",
+     "L1",
+     "S",
+     "L2",
+     "M1",
+     "L1",
+     "L4",
+     "M2",
+     "L2",
+     "M2",
+     "L3",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "M1",
+     "L2",
+     "M2",
+     "L4",
+     "L3",
+     "L2",
+     "M2",
+     "M1",
+     "L2",
+     "M1",
+     "L2",
+     "L3",
+     "M1",
+     "L3",
+     "W",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "L3",
+     "L2",
+     "L3",
+     "M3",
+     "M1",
+     "M2",
+     "L1",
+     "L2",
+     "L3",
+     "M3",
+     "M2",
+     "L1",
+     "L2"
+    ],
+    [
+     "L3",
+     "L2",
+     "L1",
+     "M1",
+     "L1",
+     "H1",
+     "L4",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L4",
+     "M2",
+     "H1",
+     "M1",
+     "L2",
+     "L1",
+     "L4",
+     "M1",
+     "H1",
+     "L4",
+     "L1",
+     "M1",
+     "L2",
+     "L4",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "M3",
+     "L2",
+     "L2",
+     "L4",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "M1",
+     "L2",
+     "W",
+     "M2",
+     "L3",
+     "M1",
+     "W",
+     "L2",
+     "M3",
+     "L1",
+     "L3",
+     "L2",
+     "L4",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L4",
+     "L1",
+     "L2",
+     "L4",
+     "M3",
+     "L1",
+     "L4",
+     "M3",
+     "M1",
+     "L4",
+     "L1",
+     "M2",
+     "L2",
+     "L3",
+     "W",
+     "L1",
+     "M1",
+     "L4",
+     "L3",
+     "L1",
+     "S",
+     "M2",
+     "M3",
+     "M2",
+     "L1",
+     "M2",
+     "L2",
+     "M2",
+     "L2",
+     "M1",
+     "L3",
+     "L2",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "L3",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "M3",
+     "M1",
+     "W",
+     "L2",
+     "M3",
+     "L4",
+     "L2",
+     "L3",
+     "M1",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "L2",
+     "H1",
+     "L2",
+     "L1",
+     "L2",
+     "M2",
+     "L3",
+     "H1",
+     "L3"
+    ],
+    [
+     "L4",
+     "L2",
+     "L1",
+     "L3",
+     "L2",
+     "L4",
+     "M2",
+     "L2",
+     "L4",
+     "L3",
+     "M2",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "L1",
+     "L4",
+     "H1",
+     "L4",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "M3",
+     "L2",
+     "M1",
+     "L1",
+     "M2",
+     "L2",
+     "M3",
+     "M2",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "S",
+     "L2",
+     "M3",
+     "L1",
+     "M2",
+     "L1",
+     "L2",
+     "L4",
+     "M1",
+     "H1",
+     "L4",
+     "M1",
+     "L1",
+     "L2",
+     "M1",
+     "H1",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "M1",
+     "L4",
+     "L3",
+     "M1",
+     "L2",
+     "M3",
+     "L4",
+     "L1",
+     "M2",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "M3",
+     "M1",
+     "L3",
+     "L4",
+     "W",
+     "M1",
+     "L2",
+     "L1",
+     "L2",
+     "L1",
+     "M3",
+     "W",
+     "L1",
+     "L3",
+     "M1",
+     "M2",
+     "L2",
+     "M1",
+     "L3",
+     "H1",
+     "M2",
+     "L1",
+     "L3",
+     "L4",
+     "L3",
+     "H1",
+     "L1",
+     "L4",
+     "L3",
+     "L4",
+     "W",
+     "L2",
+     "L4",
+     "L2",
+     "L4",
+     "L3",
+     "M2",
+     "L1",
+     "W",
+     "M3"
+    ],
+    [
+     "L2",
+     "H1",
+     "L3",
+     "M2",
+     "H1",
+     "L3",
+     "L2",
+     "M1",
+     "M2",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "M1",
+     "L1",
+     "M2",
+     "L1",
+     "L4",
+     "H1",
+     "M1",
+     "L2",
+     "H1",
+     "M3",
+     "M1",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L4",
+     "M1",
+     "L2",
+     "M3",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "M2",
+     "L1",
+     "L4",
+     "M3",
+     "L4",
+     "L2",
+     "L3",
+     "L4",
+     "L1",
+     "L3",
+     "W",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "M2",
+     "M1",
+     "L2",
+     "L4",
+     "L1",
+     "L2",
+     "M3",
+     "L4",
+     "L3",
+     "M1",
+     "L1",
+     "L4",
+     "L1",
+     "H1",
+     "L1",
+     "W",
+     "M3",
+     "L1",
+     "L2",
+     "M3",
+     "L1",
+     "M1",
+     "L2",
+     "M2",
+     "L1",
+     "M1",
+     "M2",
+     "L3",
+     "L4",
+     "W",
+     "L2",
+     "L4",
+     "M1",
+     "L2",
+     "L1",
+     "M2",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "S",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "L3",
+     "L4",
+     "L3",
+     "L4",
+     "W",
+     "L2",
+     "L3",
+     "M2",
+     "M1",
+     "L3",
+     "L2",
+     "M3"
+    ]
+   ],
+   "FR": [
+    [
+     "L4",
+     "L2",
+     "L3",
+     "L4",
+     "L2",
+     "M1",
+     "L2",
+     "M2",
+     "L1",
+     "M1",
+     "H1",
+     "L3",
+     "W",
+     "L2",
+     "M2",
+     "L1",
+     "M3",
+     "L3",
+     "W",
+     "M1",
+     "L2",
+     "L1",
+     "L3",
+     "W",
+     "M1",
+     "L2",
+     "L4",
+     "M3",
+     "L2",
+     "L1",
+     "M1",
+     "W",
+     "L3",
+     "L2",
+     "W",
+     "L4",
+     "L1",
+     "W",
+     "L1",
+     "M2",
+     "W",
+     "L3",
+     "M2",
+     "L1",
+     "L2",
+     "L4",
+     "H1",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "M1",
+     "L3",
+     "H1",
+     "L2",
+     "H1",
+     "L3",
+     "L4",
+     "M1",
+     "L3",
+     "L2",
+     "L1",
+     "M3",
+     "W",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "M1",
+     "L1",
+     "M1",
+     "L3",
+     "L2",
+     "L1",
+     "M2",
+     "L1",
+     "L2",
+     "M1",
+     "L2",
+     "L4",
+     "L1",
+     "L4",
+     "M2",
+     "L3",
+     "M2",
+     "L3",
+     "L1",
+     "L2",
+     "M3",
+     "L1",
+     "L2",
+     "L3",
+     "M2",
+     "L4",
+     "L3",
+     "L4",
+     "M2",
+     "L1",
+     "M3",
+     "L2",
+     "L4",
+     "M3",
+     "L2",
+     "L1",
+     "L4",
+     "L1",
+     "H1",
+     "M3",
+     "M1",
+     "L1"
+    ],
+    [
+     "L3",
+     "M3",
+     "L2",
+     "M2",
+     "W",
+     "L2",
+     "M1",
+     "L4",
+     "L1",
+     "L4",
+     "L3",
+     "L1",
+     "W",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "M3",
+     "L2",
+     "L3",
+     "L2",
+     "M2",
+     "L3",
+     "L1",
+     "M2",
+     "M1",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "M1",
+     "L4",
+     "M2",
+     "M1",
+     "W",
+     "L4",
+     "L1",
+     "L2",
+     "M1",
+     "W",
+     "L1",
+     "L3",
+     "M3",
+     "H1",
+     "L1",
+     "L4",
+     "L1",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "L3",
+     "M1",
+     "L1",
+     "M3",
+     "M1",
+     "L1",
+     "L4",
+     "L2",
+     "L4",
+     "M3",
+     "L4",
+     "L2",
+     "H1",
+     "L4",
+     "L3",
+     "L1",
+     "L4",
+     "L2",
+     "M2",
+     "L3",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "M2",
+     "M3",
+     "M2",
+     "L2",
+     "M3",
+     "L1",
+     "W",
+     "H1",
+     "L1",
+     "M1",
+     "W",
+     "L4",
+     "L2",
+     "L4",
+     "L1",
+     "L3",
+     "M1",
+     "L3",
+     "W",
+     "L1",
+     "H1",
+     "L3",
+     "L1",
+     "M2",
+     "W",
+     "M1",
+     "M2",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "H1",
+     "L3"
+    ],
+    [
+     "M1",
+     "L2",
+     "L1",
+     "L2",
+     "M1",
+     "L4",
+     "L3",
+     "L2",
+     "L1",
+     "M1",
+     "H1",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "M3",
+     "L2",
+     "W",
+     "L1",
+     "M2",
+     "L2",
+     "W",
+     "L3",
+     "L2",
+     "L4",
+     "L1",
+     "L3",
+     "W",
+     "L1",
+     "L2",
+     "L4",
+     "M2",
+     "L3",
+     "L2",
+     "L1",
+     "W",
+     "M1",
+     "L2",
+     "M3",
+     "L3",
+     "M2",
+     "L1",
+     "L3",
+     "M2",
+     "H1",
+     "L1",
+     "L4",
+     "M1",
+     "M2",
+     "L2",
+     "L1",
+     "L1",
+     "L4",
+     "L1",
+     "M1",
+     "L1",
+     "H1",
+     "L4",
+     "M3",
+     "W",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L3",
+     "L4",
+     "M3",
+     "W",
+     "L2",
+     "L3",
+     "M2",
+     "L4",
+     "L3",
+     "L4",
+     "M1",
+     "L1",
+     "M2",
+     "L4",
+     "M1",
+     "L4",
+     "L2",
+     "L3",
+     "L1",
+     "M1",
+     "W",
+     "L2",
+     "M3",
+     "L1",
+     "L3",
+     "L4",
+     "L2",
+     "L4",
+     "L3",
+     "W",
+     "L1",
+     "M3",
+     "L3",
+     "H1",
+     "L1",
+     "L2",
+     "M1",
+     "L1",
+     "L3",
+     "M2",
+     "M1",
+     "M2",
+     "L2",
+     "H1",
+     "L1",
+     "M3"
+    ],
+    [
+     "L2",
+     "W",
+     "L1",
+     "L4",
+     "L1",
+     "M1",
+     "L1",
+     "L4",
+     "H1",
+     "M2",
+     "L1",
+     "M1",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L1",
+     "L3",
+     "M2",
+     "M3",
+     "L4",
+     "L1",
+     "M3",
+     "L2",
+     "L3",
+     "L2",
+     "L3",
+     "L4",
+     "M2",
+     "M3",
+     "L1",
+     "L4",
+     "H1",
+     "L2",
+     "M2",
+     "L1",
+     "L4",
+     "L1",
+     "H1",
+     "L4",
+     "L2",
+     "L1",
+     "L2",
+     "M3",
+     "L2",
+     "L4",
+     "L2",
+     "W",
+     "L1",
+     "L3",
+     "H1",
+     "M1",
+     "L2",
+     "M1",
+     "L4",
+     "L3",
+     "W",
+     "M3",
+     "H1",
+     "L3",
+     "M1",
+     "L3",
+     "M3",
+     "L3",
+     "M2",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "M1",
+     "L1",
+     "W",
+     "M1",
+     "M2",
+     "L1",
+     "L4",
+     "M1",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "M3",
+     "M2",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "W",
+     "L3",
+     "L1",
+     "M2",
+     "M1",
+     "L2",
+     "W",
+     "L3",
+     "L4",
+     "W",
+     "M1",
+     "W",
+     "L4",
+     "M1"
+    ],
+    [
+     "L1",
+     "M1",
+     "L3",
+     "L4",
+     "M3",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "M2",
+     "L3",
+     "L1",
+     "W",
+     "L4",
+     "L1",
+     "L2",
+     "M1",
+     "M2",
+     "L3",
+     "M1",
+     "M3",
+     "L1",
+     "L3",
+     "L2",
+     "W",
+     "L2",
+     "M1",
+     "L1",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "M1",
+     "M2",
+     "L1",
+     "L2",
+     "L1",
+     "L4",
+     "M3",
+     "L3",
+     "L2",
+     "L4",
+     "M1",
+     "L3",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "W",
+     "M3",
+     "L1",
+     "M1",
+     "L4",
+     "L2",
+     "M2",
+     "H1",
+     "L4",
+     "W",
+     "L4",
+     "M2",
+     "W",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "M2",
+     "L4",
+     "L1",
+     "L3",
+     "M1",
+     "L1",
+     "H1",
+     "M2",
+     "W",
+     "L2",
+     "L3",
+     "L4",
+     "L1",
+     "M1",
+     "L4",
+     "M3",
+     "H1",
+     "L4",
+     "L1",
+     "M3",
+     "L4",
+     "M2",
+     "L3",
+     "M1",
+     "L1",
+     "L2",
+     "H1",
+     "L2",
+     "W",
+     "L1",
+     "L3",
+     "L2",
+     "L3",
+     "M1",
+     "L2",
+     "L1",
+     "L3",
+     "H1",
+     "M2",
+     "L3",
+     "M3",
+     "L2",
+     "L1",
+     "W",
+     "L2"
+    ],
+    [
+     "L1",
+     "H1",
+     "L1",
+     "L4",
+     "L3",
+     "L4",
+     "M2",
+     "L2",
+     "L1",
+     "L3",
+     "M2",
+     "W",
+     "M2",
+     "H1",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "L3",
+     "L4",
+     "M2",
+     "L4",
+     "W",
+     "L4",
+     "L1",
+     "M2",
+     "L3",
+     "L2",
+     "M1",
+     "M3",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "M1",
+     "M2",
+     "M1",
+     "L3",
+     "L4",
+     "W",
+     "L2",
+     "M1",
+     "L4",
+     "W",
+     "L2",
+     "L1",
+     "L2",
+     "L1",
+     "L3",
+     "W",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "M3",
+     "L2",
+     "L3",
+     "M3",
+     "L4",
+     "M3",
+     "M2",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "M1",
+     "L4",
+     "L1",
+     "M3",
+     "L1",
+     "M2",
+     "L3",
+     "L1",
+     "M1",
+     "L1",
+     "W",
+     "L2",
+     "L3",
+     "L2",
+     "L4",
+     "L1",
+     "L3",
+     "H1",
+     "M3",
+     "L4",
+     "M1",
+     "M2",
+     "L1",
+     "M1",
+     "M3",
+     "L1",
+     "L3",
+     "M1",
+     "L2",
+     "W",
+     "L3",
+     "L1",
+     "L3",
+     "M1",
+     "W",
+     "L2",
+     "H1",
+     "L1",
+     "H1",
+     "M1",
+     "L2"
+    ],
+    [
+     "W",
+     "M2",
+     "L2",
+     "L3",
+     "M1",
+     "L1",
+     "L3",
+     "H1",
+     "L2",
+     "L1",
+     "H1",
+     "L1",
+     "W",
+     "L4",
+     "M1",
+     "L1",
+     "L4",
+     "M3",
+     "L2",
+     "M3",
+     "W",
+     "M1",
+     "L4",
+     "M1",
+     "L1",
+     "L3",
+     "L2",
+     "L4",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "L1",
+     "H1",
+     "M3",
+     "M1",
+     "L1",
+     "W",
+     "M3",
+     "L3",
+     "L2",
+     "M1",
+     "M2",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "M2",
+     "L3",
+     "M1",
+     "M3",
+     "L2",
+     "M1",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "W",
+     "M2",
+     "M1",
+     "L1",
+     "M2",
+     "L3",
+     "L1",
+     "L3",
+     "M2",
+     "W",
+     "L3",
+     "L1",
+     "L2",
+     "M2",
+     "L3",
+     "L1",
+     "W",
+     "L4",
+     "L2",
+     "H1",
+     "M1",
+     "L3",
+     "L1",
+     "M2",
+     "M3",
+     "L4",
+     "W",
+     "M1",
+     "L2",
+     "L1",
+     "L4",
+     "M3",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "L2",
+     "H1",
+     "M2",
+     "L2",
+     "L1",
+     "L4",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "L1"
+    ],
+    [
+     "M2",
+     "L1",
+     "W",
+     "L1",
+     "L2",
+     "M3",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "M1",
+     "L4",
+     "L1",
+     "M2",
+     "M3",
+     "M1",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L1",
+     "L3",
+     "M1",
+     "L3",
+     "M2",
+     "L3",
+     "M1",
+     "L1",
+     "W",
+     "L2",
+     "M3",
+     "L2",
+     "L4",
+     "M2",
+     "L1",
+     "L2",
+     "M1",
+     "W",
+     "L2",
+     "L4",
+     "M1",
+     "M3",
+     "M1",
+     "H1",
+     "L2",
+     "L3",
+     "M1",
+     "L3",
+     "L4",
+     "L1",
+     "L4",
+     "L1",
+     "L3",
+     "M2",
+     "L1",
+     "L2",
+     "L4",
+     "M2",
+     "H1",
+     "W",
+     "L3",
+     "L1",
+     "L4",
+     "L2",
+     "L3",
+     "L4",
+     "L2",
+     "L3",
+     "W",
+     "M2",
+     "L4",
+     "M2",
+     "W",
+     "L1",
+     "L3",
+     "H1",
+     "L2",
+     "L3",
+     "L4",
+     "L2",
+     "H1",
+     "M1",
+     "M3",
+     "L2",
+     "L4",
+     "L1",
+     "W",
+     "L1",
+     "L2",
+     "L4",
+     "L1",
+     "W",
+     "M1",
+     "L1",
+     "H1",
+     "L2",
+     "L4",
+     "L1",
+     "L2",
+     "M3",
+     "L2",
+     "M1",
+     "L2",
+     "M3",
+     "L4"
+    ]
+   ],
+   "SA": [
+    [
+     "L3",
+     "M1",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "L1",
+     "M2",
+     "L1",
+     "L3",
+     "L4",
+     "L2",
+     "M3",
+     "L4",
+     "L2",
+     "L1",
+     "L2",
+     "H1",
+     "M3",
+     "S",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "L3",
+     "L2",
+     "L3",
+     "L2",
+     "L3",
+     "M2",
+     "L1",
+     "L2",
+     "M1",
+     "L1",
+     "L1",
+     "L2",
+     "L2",
+     "L4",
+     "M2",
+     "L1",
+     "L3",
+     "L4",
+     "L4",
+     "H1",
+     "L4",
+     "L3",
+     "S",
+     "L4",
+     "M1",
+     "L2",
+     "L1",
+     "M3",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "L1",
+     "L4",
+     "L1",
+     "M2",
+     "M2",
+     "L3",
+     "M2",
+     "L1",
+     "H1",
+     "M1",
+     "L1",
+     "L4",
+     "L4",
+     "L3",
+     "M1",
+     "M1",
+     "L4",
+     "M1",
+     "L1",
+     "M1",
+     "L3",
+     "W",
+     "L3",
+     "L3",
+     "M2",
+     "L4",
+     "L3",
+     "L2",
+     "H1",
+     "L3",
+     "L3",
+     "L2",
+     "L1",
+     "L3",
+     "L4",
+     "W",
+     "L1",
+     "M3",
+     "L3",
+     "L2",
+     "L4",
+     "W",
+     "M3",
+     "M3",
+     "L3",
+     "L1",
+     "W",
+     "M2",
+     "L2",
+     "L4",
+     "L1",
+     "L2",
+     "S",
+     "L4",
+     "M2",
+     "M1",
+     "L1",
+     "L2",
+     "L1",
+     "L2",
+     "M1",
+     "L2",
+     "L2",
+     "H1",
+     "M3",
+     "W",
+     "M1",
+     "L2",
+     "L1",
+     "L1"
+    ],
+    [
+     "M2",
+     "L1",
+     "W",
+     "L2",
+     "W",
+     "H1",
+     "L4",
+     "M1",
+     "L2",
+     "L1",
+     "S",
+     "L3",
+     "L2",
+     "L3",
+     "L1",
+     "W",
+     "L2",
+     "L4",
+     "W",
+     "L2",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L4",
+     "L4",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "M3",
+     "M3",
+     "L3",
+     "L1",
+     "M3",
+     "L4",
+     "L2",
+     "H1",
+     "L4",
+     "M1",
+     "L1",
+     "L2",
+     "L4",
+     "H1",
+     "L3",
+     "L4",
+     "W",
+     "L4",
+     "M3",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "H1",
+     "L3",
+     "M2",
+     "M1",
+     "L1",
+     "M1",
+     "L1",
+     "S",
+     "L3",
+     "L2",
+     "L2",
+     "L3",
+     "L4",
+     "M2",
+     "L1",
+     "L2",
+     "M3",
+     "L1",
+     "L3",
+     "L1",
+     "L1",
+     "M1",
+     "L3",
+     "L3",
+     "M3",
+     "M2",
+     "M2",
+     "L4",
+     "L2",
+     "M2",
+     "M1",
+     "L2",
+     "M1",
+     "M1",
+     "S",
+     "L3",
+     "M1",
+     "L1",
+     "L4",
+     "M2",
+     "M1",
+     "L2",
+     "L3",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "M1",
+     "L2",
+     "H1",
+     "L1",
+     "L1",
+     "L4",
+     "M2",
+     "L3",
+     "L1",
+     "L2",
+     "L4",
+     "L2",
+     "L2",
+     "L1",
+     "L3",
+     "L3",
+     "L4",
+     "L3",
+     "L1",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "M3"
+    ],
+    [
+     "W",
+     "M1",
+     "L1",
+     "L1",
+     "L2",
+     "M2",
+     "M2",
+     "L1",
+     "L4",
+     "L3",
+     "L2",
+     "L1",
+     "L1",
+     "M1",
+     "L2",
+     "M1",
+     "L1",
+     "L4",
+     "L1",
+     "L3",
+     "M2",
+     "L2",
+     "L1",
+     "L3",
+     "S",
+     "L3",
+     "M2",
+     "L2",
+     "L4",
+     "M1",
+     "M1",
+     "L4",
+     "M1",
+     "L2",
+     "L3",
+     "L4",
+     "L2",
+     "L1",
+     "M2",
+     "L4",
+     "L3",
+     "L1",
+     "L2",
+     "L1",
+     "L3",
+     "M3",
+     "L3",
+     "M2",
+     "W",
+     "L3",
+     "S",
+     "M3",
+     "L2",
+     "L4",
+     "M1",
+     "L3",
+     "H1",
+     "M1",
+     "L1",
+     "W",
+     "H1",
+     "L3",
+     "H1",
+     "L2",
+     "L4",
+     "L4",
+     "L2",
+     "L1",
+     "L3",
+     "M2",
+     "L3",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L2",
+     "L1",
+     "M1",
+     "L4",
+     "L1",
+     "L2",
+     "L1",
+     "L4",
+     "M1",
+     "L1",
+     "L4",
+     "M3",
+     "M3",
+     "L4",
+     "H1",
+     "L3",
+     "L2",
+     "L2",
+     "M3",
+     "M2",
+     "L4",
+     "L3",
+     "M3",
+     "S",
+     "M2",
+     "L3",
+     "W",
+     "L1",
+     "L3",
+     "L4",
+     "L4",
+     "L2",
+     "M1",
+     "L2",
+     "H1",
+     "L2",
+     "L4",
+     "L1",
+     "L4",
+     "L1",
+     "L1",
+     "L2",
+     "L1",
+     "L2",
+     "M3",
+     "L1",
+     "L2",
+     "W",
+     "L3",
+     "L4",
+     "L2",
+     "L1",
+     "L3",
+     "L1"
+    ],
+    [
+     "L3",
+     "M2",
+     "H1",
+     "M2",
+     "L4",
+     "L4",
+     "H1",
+     "L4",
+     "L4",
+     "L3",
+     "M1",
+     "L1",
+     "M1",
+     "L2",
+     "L1",
+     "S",
+     "L2",
+     "L1",
+     "L1",
+     "L2",
+     "W",
+     "L1",
+     "L1",
+     "L2",
+     "L2",
+     "M3",
+     "M3",
+     "W",
+     "L3",
+     "L1",
+     "L4",
+     "L2",
+     "M1",
+     "M1",
+     "L2",
+     "L4",
+     "L2",
+     "L3",
+     "L4",
+     "L1",
+     "M3",
+     "L2",
+     "L1",
+     "L2",
+     "M1",
+     "L4",
+     "L1",
+     "M1",
+     "L3",
+     "L1",
+     "L4",
+     "M3",
+     "L4",
+     "L3",
+     "L3",
+     "L2",
+     "L3",
+     "L2",
+     "L3",
+     "M3",
+     "L4",
+     "W",
+     "L1",
+     "L3",
+     "L2",
+     "S",
+     "L3",
+     "M2",
+     "L2",
+     "L4",
+     "L3",
+     "L3",
+     "W",
+     "L4",
+     "L1",
+     "M1",
+     "L2",
+     "L3",
+     "L1",
+     "L2",
+     "L2",
+     "M1",
+     "L1",
+     "L1",
+     "H1",
+     "L2",
+     "M2",
+     "H1",
+     "L4",
+     "L1",
+     "M2",
+     "M2",
+     "L1",
+     "M2",
+     "L1",
+     "S",
+     "L3",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "L4",
+     "H1",
+     "W",
+     "L3",
+     "L1",
+     "L2",
+     "M3",
+     "L2",
+     "L1",
+     "M2",
+     "L1",
+     "L4",
+     "L1",
+     "L3",
+     "L4",
+     "L3",
+     "L1",
+     "M2",
+     "L2",
+     "M3",
+     "L2",
+     "L3",
+     "M1",
+     "L1",
+     "M1",
+     "L4",
+     "L3",
+     "L1",
+     "M1"
+    ],
+    [
+     "M3",
+     "S",
+     "L1",
+     "L4",
+     "L4",
+     "L2",
+     "L3",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "W",
+     "L4",
+     "H1",
+     "L3",
+     "L1",
+     "L4",
+     "L1",
+     "L1",
+     "M3",
+     "L2",
+     "L1",
+     "L3",
+     "M1",
+     "L3",
+     "L1",
+     "M1",
+     "L1",
+     "L4",
+     "M1",
+     "L4",
+     "L2",
+     "L2",
+     "L1",
+     "L2",
+     "M2",
+     "L2",
+     "M3",
+     "W",
+     "L3",
+     "M1",
+     "M2",
+     "M2",
+     "L1",
+     "L2",
+     "H1",
+     "L1",
+     "M1",
+     "M1",
+     "M2",
+     "M1",
+     "L4",
+     "L2",
+     "L4",
+     "S",
+     "L2",
+     "L1",
+     "L2",
+     "L3",
+     "L1",
+     "M1",
+     "L3",
+     "L4",
+     "L3",
+     "L1",
+     "H1",
+     "M1",
+     "L2",
+     "M2",
+     "L1",
+     "L1",
+     "L3",
+     "L3",
+     "L1",
+     "M3",
+     "L3",
+     "L2",
+     "L1",
+     "M3",
+     "L3",
+     "H1",
+     "L1",
+     "L4",
+     "M3",
+     "M3",
+     "M2",
+     "L2",
+     "L4",
+     "L1",
+     "L2",
+     "S",
+     "L3",
+     "M2",
+     "L2",
+     "M1",
+     "L3",
+     "W",
+     "L3",
+     "L4",
+     "L1",
+     "L2",
+     "L4",
+     "L3",
+     "L2",
+     "L3",
+     "W",
+     "L4",
+     "L1",
+     "W",
+     "L4",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "L2",
+     "L2",
+     "M2",
+     "L1",
+     "M1",
+     "L2",
+     "M2",
+     "L2",
+     "L3",
+     "L3",
+     "H1",
+     "L1",
+     "L1",
+     "L3",
+     "L4",
+     "L4"
+    ],
+    [
+     "H1",
+     "L2",
+     "L1",
+     "L3",
+     "H1",
+     "L2",
+     "L1",
+     "H1",
+     "L3",
+     "L2",
+     "L4",
+     "L2",
+     "S",
+     "L1",
+     "M1",
+     "M2",
+     "L3",
+     "L4",
+     "L2",
+     "L1",
+     "L4",
+     "L3",
+     "H1",
+     "L2",
+     "L2",
+     "L1",
+     "L1",
+     "L4",
+     "M3",
+     "L1",
+     "L2",
+     "L1",
+     "M1",
+     "L2",
+     "L4",
+     "M1",
+     "M1",
+     "L3",
+     "L4",
+     "M1",
+     "L1",
+     "L2",
+     "W",
+     "M3",
+     "L4",
+     "L2",
+     "M1",
+     "L3",
+     "L2",
+     "L1",
+     "L3",
+     "L1",
+     "L4",
+     "L3",
+     "L3",
+     "L1",
+     "M2",
+     "M1",
+     "L3",
+     "L1",
+     "L2",
+     "L3",
+     "W",
+     "L1",
+     "H1",
+     "M1",
+     "M2",
+     "L2",
+     "M2",
+     "L2",
+     "M3",
+     "L3",
+     "L2",
+     "W",
+     "S",
+     "L4",
+     "L4",
+     "L3",
+     "L4",
+     "L4",
+     "L1",
+     "L2",
+     "L1",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "M2",
+     "L1",
+     "L4",
+     "M1",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L4",
+     "L3",
+     "L1",
+     "S",
+     "L2",
+     "L4",
+     "W",
+     "L1",
+     "W",
+     "L4",
+     "L3",
+     "M3",
+     "L4",
+     "M2",
+     "M3",
+     "L1",
+     "M3",
+     "M3",
+     "L3",
+     "M2",
+     "L3",
+     "L3",
+     "M2",
+     "M2",
+     "L4",
+     "L1",
+     "L1",
+     "L3",
+     "M1",
+     "L2",
+     "L2",
+     "L3",
+     "M1",
+     "L1",
+     "L2"
+    ],
+    [
+     "L2",
+     "L2",
+     "L1",
+     "L3",
+     "H1",
+     "L2",
+     "L2",
+     "L3",
+     "L3",
+     "W",
+     "L3",
+     "L4",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "M3",
+     "M3",
+     "L4",
+     "M2",
+     "H1",
+     "L2",
+     "L4",
+     "W",
+     "L1",
+     "S",
+     "M1",
+     "L1",
+     "L2",
+     "M3",
+     "L3",
+     "W",
+     "L2",
+     "L1",
+     "L2",
+     "M2",
+     "L2",
+     "L4",
+     "L4",
+     "M3",
+     "M1",
+     "L3",
+     "L2",
+     "M2",
+     "M1",
+     "L4",
+     "L4",
+     "L1",
+     "H1",
+     "L4",
+     "L1",
+     "L3",
+     "L4",
+     "L3",
+     "L2",
+     "L1",
+     "M2",
+     "L3",
+     "L4",
+     "L2",
+     "L3",
+     "L1",
+     "M1",
+     "L1",
+     "M2",
+     "L1",
+     "M2",
+     "M2",
+     "L1",
+     "L3",
+     "M1",
+     "M2",
+     "L3",
+     "L4",
+     "L2",
+     "S",
+     "W",
+     "L1",
+     "L2",
+     "L1",
+     "L3",
+     "M1",
+     "L4",
+     "H1",
+     "M3",
+     "L1",
+     "L1",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "L3",
+     "S",
+     "L4",
+     "L1",
+     "L4",
+     "M1",
+     "M1",
+     "W",
+     "M3",
+     "L2",
+     "L1",
+     "M1",
+     "M2",
+     "L3",
+     "L1",
+     "M1",
+     "L2",
+     "L4",
+     "L2",
+     "M3",
+     "H1",
+     "L4",
+     "L3",
+     "L1",
+     "M1",
+     "L1",
+     "L1",
+     "L3",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "L3",
+     "L3",
+     "L2",
+     "L3",
+     "L4",
+     "L1",
+     "L2"
+    ],
+    [
+     "M3",
+     "L4",
+     "L4",
+     "L3",
+     "M2",
+     "L1",
+     "M2",
+     "L3",
+     "L1",
+     "L4",
+     "M1",
+     "M1",
+     "M3",
+     "L2",
+     "L3",
+     "L2",
+     "M3",
+     "M1",
+     "M3",
+     "L4",
+     "L2",
+     "M1",
+     "L1",
+     "M3",
+     "M3",
+     "L4",
+     "L4",
+     "L1",
+     "M1",
+     "L2",
+     "L3",
+     "M2",
+     "S",
+     "L2",
+     "W",
+     "L1",
+     "M2",
+     "M1",
+     "L4",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "S",
+     "L3",
+     "M1",
+     "W",
+     "L2",
+     "M2",
+     "L3",
+     "L2",
+     "L3",
+     "L3",
+     "M1",
+     "L4",
+     "L1",
+     "L4",
+     "M2",
+     "M2",
+     "M3",
+     "L4",
+     "H1",
+     "L2",
+     "H1",
+     "L4",
+     "L1",
+     "H1",
+     "W",
+     "L4",
+     "L2",
+     "L3",
+     "L1",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "L3",
+     "L4",
+     "L3",
+     "L1",
+     "H1",
+     "L1",
+     "L3",
+     "M2",
+     "L4",
+     "L2",
+     "M1",
+     "L2",
+     "L2",
+     "L1",
+     "L4",
+     "L2",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "W",
+     "L3",
+     "L2",
+     "L2",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "L3",
+     "L3",
+     "L1",
+     "S",
+     "L1",
+     "L3",
+     "M1",
+     "L1",
+     "L2",
+     "L1",
+     "L4",
+     "L3",
+     "W",
+     "L2",
+     "M2",
+     "L1",
+     "L3",
+     "L4",
+     "H1",
+     "L1",
+     "L1",
+     "M1",
+     "L1",
+     "L2",
+     "L4",
+     "L1"
+    ]
+   ],
+   "WCAP": [
+    [
+     "L3",
+     "L2",
+     "L3",
+     "W",
+     "M2",
+     "L1",
+     "L4",
+     "L2",
+     "L2",
+     "M3",
+     "W",
+     "L3",
+     "W",
+     "H1",
+     "L1",
+     "L4",
+     "W",
+     "L3",
+     "W",
+     "L1",
+     "L4",
+     "W",
+     "M1",
+     "M2",
+     "H1",
+     "L1",
+     "L4",
+     "H1",
+     "W",
+     "L3",
+     "L4",
+     "L2",
+     "H1",
+     "W",
+     "L3",
+     "H1",
+     "M1",
+     "W",
+     "H1",
+     "L2",
+     "L3",
+     "L1",
+     "W",
+     "H1",
+     "L4",
+     "W",
+     "L2",
+     "W",
+     "M3",
+     "W",
+     "M3",
+     "M2",
+     "W",
+     "H1",
+     "L4",
+     "L2",
+     "L1",
+     "H1",
+     "L1",
+     "W",
+     "L1",
+     "L4",
+     "L3",
+     "M3",
+     "L2",
+     "L4",
+     "W",
+     "L1",
+     "W",
+     "H1",
+     "M1",
+     "L1",
+     "L4",
+     "M3",
+     "H1",
+     "L3",
+     "L2",
+     "W",
+     "L3",
+     "W",
+     "L3",
+     "W",
+     "M2",
+     "W",
+     "L4",
+     "W",
+     "L2",
+     "W",
+     "L3",
+     "M1",
+     "M2",
+     "M1",
+     "W",
+     "H1",
+     "M3",
+     "H1",
+     "L1",
+     "W",
+     "H1",
+     "M3",
+     "L2",
+     "L1",
+     "M3",
+     "M1",
+     "L2",
+     "W",
+     "L2",
+     "L1",
+     "L4",
+     "M2"
+    ],
+    [
+     "W",
+     "L4",
+     "L1",
+     "L4",
+     "W",
+     "M2",
+     "W",
+     "M3",
+     "L1",
+     "L3",
+     "L4",
+     "W",
+     "M2",
+     "W",
+     "L4",
+     "H1",
+     "M3",
+     "W",
+     "L1",
+     "L3",
+     "W",
+     "L3",
+     "W",
+     "M3",
+     "L2",
+     "W",
+     "H1",
+     "L2",
+     "W",
+     "L1",
+     "L2",
+     "M3",
+     "L4",
+     "L3",
+     "H1",
+     "M1",
+     "L3",
+     "W",
+     "M2",
+     "M1",
+     "L1",
+     "L2",
+     "M2",
+     "W",
+     "L3",
+     "L4",
+     "H1",
+     "M2",
+     "H1",
+     "M3",
+     "L3",
+     "H1",
+     "M2",
+     "L4",
+     "L2",
+     "W",
+     "L1",
+     "L2",
+     "L3",
+     "L2",
+     "W",
+     "L3",
+     "W",
+     "L4",
+     "H1",
+     "W",
+     "H1",
+     "W",
+     "L4",
+     "W",
+     "L2",
+     "L3",
+     "W",
+     "H1",
+     "M1",
+     "W",
+     "M1",
+     "L2",
+     "W",
+     "L4",
+     "M3",
+     "L4",
+     "M1",
+     "L3",
+     "L1",
+     "L2",
+     "M3",
+     "W",
+     "L3",
+     "W",
+     "L2",
+     "L1",
+     "L2",
+     "H1",
+     "W",
+     "L1",
+     "M1",
+     "L1",
+     "H1",
+     "W",
+     "H1",
+     "L2",
+     "H1",
+     "L1",
+     "M3",
+     "L1",
+     "W",
+     "L4",
+     "L1",
+     "H1"
+    ],
+    [
+     "M2",
+     "L3",
+     "W",
+     "L4",
+     "W",
+     "L2",
+     "M1",
+     "L3",
+     "M2",
+     "H1",
+     "L3",
+     "M3",
+     "W",
+     "L4",
+     "H1",
+     "L2",
+     "W",
+     "H1",
+     "L4",
+     "M1",
+     "L3",
+     "W",
+     "L1",
+     "W",
+     "M3",
+     "L4",
+     "H1",
+     "L3",
+     "H1",
+     "L4",
+     "H1",
+     "W",
+     "L2",
+     "L1",
+     "L3",
+     "M2",
+     "L2",
+     "L1",
+     "L2",
+     "W",
+     "W",
+     "L2",
+     "M3",
+     "L4",
+     "H1",
+     "L2",
+     "M3",
+     "W",
+     "L1",
+     "M1",
+     "L3",
+     "W",
+     "L2",
+     "L4",
+     "M3",
+     "W",
+     "H1",
+     "L3",
+     "M2",
+     "L1",
+     "M1",
+     "L2",
+     "L1",
+     "H1",
+     "W",
+     "W",
+     "L2",
+     "M1",
+     "L3",
+     "L1",
+     "W",
+     "M3",
+     "L2",
+     "W",
+     "H1",
+     "L1",
+     "H1",
+     "W",
+     "L1",
+     "L3",
+     "L4",
+     "H1",
+     "W",
+     "M2",
+     "L1",
+     "M2",
+     "L2",
+     "W",
+     "L1",
+     "L4",
+     "M3",
+     "L3",
+     "W",
+     "L4",
+     "L2",
+     "W",
+     "L4",
+     "L1",
+     "W",
+     "H1",
+     "W",
+     "M1",
+     "W",
+     "L1",
+     "W",
+     "M3",
+     "L3",
+     "W",
+     "L4",
+     "H1"
+    ],
+    [
+     "W",
+     "L3",
+     "H1",
+     "L1",
+     "W",
+     "M3",
+     "H1",
+     "L2",
+     "L3",
+     "L4",
+     "W",
+     "M1",
+     "L4",
+     "W",
+     "M1",
+     "L3",
+     "W",
+     "W",
+     "L3",
+     "L2",
+     "H1",
+     "L1",
+     "L3",
+     "W",
+     "M2",
+     "W",
+     "M3",
+     "L2",
+     "M3",
+     "L1",
+     "W",
+     "M2",
+     "L2",
+     "L4",
+     "L1",
+     "H1",
+     "L3",
+     "W",
+     "L4",
+     "L1",
+     "W",
+     "L4",
+     "M1",
+     "L4",
+     "H1",
+     "L4",
+     "W",
+     "H1",
+     "M1",
+     "L1",
+     "W",
+     "L1",
+     "W",
+     "L4",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "W",
+     "L1",
+     "L2",
+     "W",
+     "M1",
+     "M3",
+     "H1",
+     "M3",
+     "L1",
+     "L2",
+     "M2",
+     "W",
+     "L3",
+     "M3",
+     "H1",
+     "L2",
+     "W",
+     "L2",
+     "M2",
+     "W",
+     "H1",
+     "W",
+     "L1",
+     "H1",
+     "L2",
+     "L3",
+     "L1",
+     "W",
+     "H1",
+     "H1",
+     "L4",
+     "W",
+     "L3",
+     "W",
+     "M2",
+     "L1",
+     "L3",
+     "L2",
+     "M3",
+     "L2",
+     "M3",
+     "L2",
+     "L4",
+     "H1",
+     "L4",
+     "W",
+     "M2",
+     "W",
+     "H1",
+     "M1",
+     "W",
+     "L4"
+    ],
+    [
+     "L4",
+     "W",
+     "L1",
+     "L3",
+     "W",
+     "M2",
+     "M1",
+     "H1",
+     "M3",
+     "W",
+     "M3",
+     "W",
+     "L3",
+     "L1",
+     "L2",
+     "H1",
+     "L4",
+     "W",
+     "L4",
+     "M3",
+     "L1",
+     "W",
+     "M1",
+     "L3",
+     "M1",
+     "L2",
+     "L1",
+     "W",
+     "H1",
+     "L1",
+     "M3",
+     "L2",
+     "L1",
+     "L4",
+     "W",
+     "M2",
+     "L3",
+     "L1",
+     "L3",
+     "L2",
+     "W",
+     "L3",
+     "L4",
+     "M2",
+     "W",
+     "L2",
+     "L3",
+     "W",
+     "L2",
+     "M1",
+     "L4",
+     "L2",
+     "L1",
+     "H1",
+     "L2",
+     "W",
+     "L4",
+     "L3",
+     "H1",
+     "L2",
+     "W",
+     "L1",
+     "L3",
+     "L4",
+     "W",
+     "L1",
+     "H1",
+     "W",
+     "L3",
+     "W",
+     "M2",
+     "W",
+     "H1",
+     "L2",
+     "L1",
+     "L2",
+     "L4",
+     "W",
+     "H1",
+     "M3",
+     "M2",
+     "W",
+     "H1",
+     "L2",
+     "W",
+     "L4",
+     "H1",
+     "W",
+     "L1",
+     "M2",
+     "H1",
+     "L3",
+     "W",
+     "L4",
+     "M3",
+     "L4",
+     "W",
+     "M3",
+     "L2",
+     "L1",
+     "H1",
+     "M1",
+     "H1",
+     "W",
+     "L3",
+     "W",
+     "H1",
+     "M3",
+     "W",
+     "M1"
+    ],
+    [
+     "M1",
+     "H1",
+     "M2",
+     "W",
+     "L4",
+     "M3",
+     "L4",
+     "L2",
+     "L1",
+     "L4",
+     "M2",
+     "W",
+     "H1",
+     "L4",
+     "H1",
+     "W",
+     "L3",
+     "W",
+     "M3",
+     "W",
+     "M3",
+     "W",
+     "M3",
+     "L1",
+     "W",
+     "M2",
+     "L2",
+     "L4",
+     "L1",
+     "M3",
+     "W",
+     "M1",
+     "M3",
+     "M2",
+     "H1",
+     "W",
+     "L3",
+     "L1",
+     "L3",
+     "L1",
+     "W",
+     "L2",
+     "H1",
+     "W",
+     "H1",
+     "W",
+     "M3",
+     "L1",
+     "W",
+     "L4",
+     "L2",
+     "M1",
+     "L2",
+     "L3",
+     "W",
+     "H1",
+     "W",
+     "L4",
+     "L3",
+     "H1",
+     "L2",
+     "W",
+     "L2",
+     "W",
+     "H1",
+     "W",
+     "L4",
+     "L3",
+     "L1",
+     "W",
+     "W",
+     "L4",
+     "L3",
+     "M1",
+     "W",
+     "L3",
+     "L4",
+     "L2",
+     "W",
+     "M1",
+     "L4",
+     "H1",
+     "L2",
+     "H1",
+     "W",
+     "H1",
+     "L4",
+     "L1",
+     "M1",
+     "L2",
+     "L1",
+     "H1",
+     "M2",
+     "L2",
+     "L3",
+     "L1",
+     "M2",
+     "L1",
+     "W",
+     "L2",
+     "L1",
+     "M3",
+     "W",
+     "L3",
+     "W",
+     "L3",
+     "L2",
+     "H1",
+     "L3",
+     "L1"
+    ],
+    [
+     "H1",
+     "L1",
+     "H1",
+     "L4",
+     "W",
+     "L1",
+     "L3",
+     "L4",
+     "H1",
+     "L3",
+     "H1",
+     "W",
+     "M1",
+     "M3",
+     "L4",
+     "L1",
+     "L2",
+     "L3",
+     "H1",
+     "L1",
+     "L4",
+     "L3",
+     "M2",
+     "L2",
+     "H1",
+     "L4",
+     "M1",
+     "L1",
+     "W",
+     "H1",
+     "W",
+     "H1",
+     "L3",
+     "W",
+     "M3",
+     "L4",
+     "L3",
+     "W",
+     "L2",
+     "L3",
+     "M1",
+     "L2",
+     "W",
+     "L4",
+     "M1",
+     "W",
+     "L2",
+     "L4",
+     "L2",
+     "L1",
+     "L4",
+     "W",
+     "M1",
+     "W",
+     "L4",
+     "W",
+     "M3",
+     "H1",
+     "L4",
+     "L2",
+     "W",
+     "L4",
+     "L1",
+     "M3",
+     "L1",
+     "L2",
+     "W",
+     "L2",
+     "W",
+     "L1",
+     "W",
+     "L3",
+     "L1",
+     "W",
+     "L2",
+     "M3",
+     "W",
+     "M3",
+     "L3",
+     "H1",
+     "M2",
+     "W",
+     "H1",
+     "M1",
+     "M3",
+     "M2",
+     "W",
+     "M2",
+     "L2",
+     "L1",
+     "W",
+     "L2",
+     "H1",
+     "M3",
+     "L2",
+     "W",
+     "L3",
+     "W",
+     "H1",
+     "W",
+     "M2",
+     "L1",
+     "M2",
+     "L3",
+     "L1",
+     "W",
+     "L3",
+     "W",
+     "H1",
+     "W"
+    ],
+    [
+     "W",
+     "M1",
+     "L3",
+     "L4",
+     "L1",
+     "H1",
+     "L1",
+     "L3",
+     "L2",
+     "L1",
+     "H1",
+     "M3",
+     "L1",
+     "W",
+     "L1",
+     "M2",
+     "L4",
+     "L1",
+     "L3",
+     "L4",
+     "L3",
+     "H1",
+     "M3",
+     "W",
+     "M3",
+     "H1",
+     "W",
+     "L1",
+     "L2",
+     "L1",
+     "M1",
+     "L1",
+     "W",
+     "L4",
+     "L3",
+     "W",
+     "L4",
+     "W",
+     "H1",
+     "L2",
+     "M2",
+     "H1",
+     "W",
+     "L3",
+     "M1",
+     "W",
+     "H1",
+     "W",
+     "L3",
+     "M2",
+     "L4",
+     "W",
+     "H1",
+     "L2",
+     "L3",
+     "L4",
+     "L2",
+     "L4",
+     "L2",
+     "W",
+     "L2",
+     "W",
+     "M1",
+     "W",
+     "L2",
+     "M3",
+     "W",
+     "L2",
+     "H1",
+     "W",
+     "L2",
+     "M1",
+     "H1",
+     "W",
+     "L2",
+     "H1",
+     "W",
+     "L4",
+     "W",
+     "M2",
+     "L1",
+     "M2",
+     "M1",
+     "W",
+     "H1",
+     "W",
+     "L4",
+     "M3",
+     "W",
+     "L2",
+     "W",
+     "H1",
+     "L3",
+     "W",
+     "L2",
+     "H1",
+     "L1",
+     "W",
+     "L1",
+     "L3",
+     "M3",
+     "M2",
+     "L4",
+     "W",
+     "M3",
+     "L3",
+     "L1",
+     "L4",
+     "L3",
+     "M3"
+    ]
+   ]
+  },
+  "reels_path": "/Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/reels",
+  "roar_chance": {
+   "base": "0.0",
+   "bonus": "0.0",
+   "epic": "0.08",
+   "super": "0.1"
+  },
+  "row": 3,
+  "rtp": "0.96699",
+  "scatter_sting_count_weights": {
+   "1": 50,
+   "2": 30,
+   "3": 15,
+   "4": 5,
+   "5": 3,
+   "6": 2
+  },
+  "scatter_sting_modes": [
+   "base",
+   "ante",
+   "super_ante"
+  ],
+  "scatter_sting_share": "0.15",
+  "special_sybol_names": [],
+  "special_symbols": {
+   "scatter": [
+    "S"
+   ],
+   "wild": [
+    "W"
+   ]
+  },
+  "sting_big_chance": {
+   "base": "0.0",
+   "bonus": "0.25",
+   "epic": "0.15",
+   "super": "0.2"
+  },
+  "sting_big_offsets": [
+   [
+    0,
+    0
+   ],
+   [
+    -1,
+    0
+   ],
+   [
+    0,
+    -1
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    0
+   ]
+  ],
+  "sting_chance": {
+   "base": "0.15",
+   "bonus": "0.2",
+   "epic": "0.4",
+   "super": "0.22"
+  },
+  "sting_finisher_max_tries": 36,
+  "sting_max_per_spin": 5,
+  "sting_must_win": {
+   "base": true,
+   "bonus": true,
+   "epic": true,
+   "super": true
+  },
+  "sting_normal_counts": {
+   "base": {
+    "1": 30,
+    "2": 28,
+    "3": 22,
+    "4": 13,
+    "5": 7
+   },
+   "bonus": {
+    "1": 26,
+    "2": 27,
+    "3": 23,
+    "4": 15,
+    "5": 9
+   },
+   "epic": {
+    "1": 20,
+    "2": 24,
+    "3": 26,
+    "4": 18,
+    "5": 12
+   },
+   "super": {
+    "1": 22,
+    "2": 26,
+    "3": 25,
+    "4": 17,
+    "5": 10
+   }
+  },
+  "sting_normal_counts_before_finisher": {
+   "base": {
+    "0": 30,
+    "1": 28,
+    "2": 22,
+    "3": 13,
+    "4": 7
+   },
+   "bonus": {
+    "0": 30,
+    "1": 28,
+    "2": 22,
+    "3": 13,
+    "4": 7
+   },
+   "epic": {
+    "0": 26,
+    "1": 27,
+    "2": 24,
+    "3": 15,
+    "4": 8
+   },
+   "super": {
+    "0": 28,
+    "1": 28,
+    "2": 23,
+    "3": 14,
+    "4": 7
+   }
+  },
+  "sting_super_chance": {
+   "base": "0.0",
+   "bonus": "0.0",
+   "epic": "0.5",
+   "super": "0.18"
+  },
+  "sting_super_offsets": [
+   [
+    -1,
+    -1
+   ],
+   [
+    -1,
+    0
+   ],
+   [
+    -1,
+    1
+   ],
+   [
+    0,
+    -1
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    -1
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    1,
+    1
+   ]
+  ],
+  "swipe_band_rows": 3,
+  "swipe_band_starts": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "swipe_chance": {
+   "base": "0.35",
+   "bonus": "0.12",
+   "epic": "0.12",
+   "super": "0.12"
+  },
+  "swipe_chance_dead": {
+   "bonus": "0.9",
+   "epic": "0.9",
+   "super": "0.9"
+  },
+  "swipe_max_per_spin": 2,
+  "swipe_must_win": {
+   "base": true,
+   "bonus": true,
+   "epic": true,
+   "super": true
+  },
+  "swipe_seeds_empty_tiles": {
+   "base": true,
+   "bonus": true,
+   "epic": true,
+   "super": true
+  },
+  "tile_cap": {
+   "base": 64,
+   "bonus": 64,
+   "epic": 128,
+   "super": 128
+  },
+  "tile_grow_min_cluster": {
+   "base": 5,
+   "bonus": 5,
+   "epic": 5,
+   "super": 5
+  },
+  "tile_seed": 2,
+  "tile_seed_min_cluster": {
+   "base": 5,
+   "bonus": 5,
+   "epic": 5,
+   "super": 5
+  },
+  "win_type": "cluster",
+  "wincap": "10000.0",
+  "working_name": "Manticore Mayhem",
+  "write_event_list": true
+ },
+ "game_config_constants": {
+  "ANTE_COST": "3.0",
+  "BONUS_BUY_SLICES": {
+   "freegame_low": [
+    "0.12403100775193798",
+    [
+     "10.0",
+     "25.0"
+    ],
+    {
+     "4": 1
+    }
+   ],
+   "freegame_m2": [
+    "0.09302325581395349",
+    [
+     "50.0",
+     "100.0"
+    ],
+    {
+     "4": 1
+    }
+   ],
+   "freegame_mid": [
+    "0.15503875968992248",
+    [
+     "25.0",
+     "50.0"
+    ],
+    {
+     "4": 1
+    }
+   ]
+  },
+  "BONUS_BUY_WINCAP_QUOTA": "0.004031007751937985",
+  "BONUS_COST": "100.0",
+  "BONUS_MIN_WIN": "10.0",
+  "BUY_STRIP": "BRB",
+  "DIVERSITY_BONUS_BOOKS": 129000,
+  "DIVERSITY_EPIC_BOOKS": 135000,
+  "DIVERSITY_SUPER_BOOKS": 189000,
+  "EPIC8_MIN_WIN": "2500.0",
+  "EPIC8_SHARE": {
+   "ante": "0.1",
+   "base": "0.1",
+   "epic": "0.05",
+   "super_ante": "0.1"
+  },
+  "EPIC8_SHARE_EPIC_BUY": "0.05",
+  "EPIC8_SHARE_SPIN": "0.1",
+  "EPIC_BUY_SLICES": {
+   "epicgame_body": [
+    "0.4740740740740741",
+    [
+     "200.0",
+     "400.0"
+    ],
+    {
+     "6": 1
+    }
+   ],
+   "epicgame_mid": [
+    "0.23703703703703705",
+    [
+     "400.0",
+     "1000.0"
+    ],
+    {
+     "6": 1
+    }
+   ],
+   "epicgame_upper": [
+    "0.2222222222222222",
+    [
+     "1000.0",
+     "10000.0"
+    ],
+    {
+     "6": "0.95",
+     "8": "0.05"
+    }
+   ]
+  },
+  "EPIC_BUY_WINCAP_QUOTA": "0.001851851851851852",
+  "EPIC_COST": "500.0",
+  "EPIC_MIN_WIN": "200.0",
+  "FEATURE_MIN_WIN": {
+   "bonus": "10.0",
+   "epic": "200.0",
+   "super": "25.0"
+  },
+  "FS_SPINS": {
+   "bonus": 8,
+   "epic": 12,
+   "super": 10
+  },
+  "FULL_BOARD_SCATTERS": 8,
+  "LOW_SYMBOLS": [
+   "L1",
+   "L2",
+   "L3",
+   "L4"
+  ],
+  "MATH_VERSION": "2026.11.02",
+  "MAX_TRIGGER_SCATTERS": 6,
+  "MIN_CLUSTER": 5,
+  "NUM_REELS": 8,
+  "NUM_ROWS": 8,
+  "ROAR_CHANCE": {
+   "base": "0.0",
+   "bonus": "0.0",
+   "epic": "0.08",
+   "super": "0.1"
+  },
+  "SCATTER_STING_COUNT_WEIGHTS": {
+   "1": 50,
+   "2": 30,
+   "3": 15,
+   "4": 5,
+   "5": 3,
+   "6": 2
+  },
+  "SCATTER_STING_MODES": [
+   "base",
+   "ante",
+   "super_ante"
+  ],
+  "SCATTER_STING_SHARE": "0.15",
+  "STING_BIG_CHANCE": {
+   "base": "0.0",
+   "bonus": "0.25",
+   "epic": "0.15",
+   "super": "0.2"
+  },
+  "STING_BIG_OFFSETS": [
+   [
+    0,
+    0
+   ],
+   [
+    -1,
+    0
+   ],
+   [
+    0,
+    -1
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    0
+   ]
+  ],
+  "STING_CHANCE": {
+   "base": "0.15",
+   "bonus": "0.2",
+   "epic": "0.4",
+   "super": "0.22"
+  },
+  "STING_FINISHER_MAX_TRIES": 36,
+  "STING_MAX_PER_SPIN": 5,
+  "STING_MUST_WIN": {
+   "base": true,
+   "bonus": true,
+   "epic": true,
+   "super": true
+  },
+  "STING_NORMAL_COUNTS": {
+   "base": {
+    "1": 30,
+    "2": 28,
+    "3": 22,
+    "4": 13,
+    "5": 7
+   },
+   "bonus": {
+    "1": 26,
+    "2": 27,
+    "3": 23,
+    "4": 15,
+    "5": 9
+   },
+   "epic": {
+    "1": 20,
+    "2": 24,
+    "3": 26,
+    "4": 18,
+    "5": 12
+   },
+   "super": {
+    "1": 22,
+    "2": 26,
+    "3": 25,
+    "4": 17,
+    "5": 10
+   }
+  },
+  "STING_NORMAL_COUNTS_BEFORE_FINISHER": {
+   "base": {
+    "0": 30,
+    "1": 28,
+    "2": 22,
+    "3": 13,
+    "4": 7
+   },
+   "bonus": {
+    "0": 30,
+    "1": 28,
+    "2": 22,
+    "3": 13,
+    "4": 7
+   },
+   "epic": {
+    "0": 26,
+    "1": 27,
+    "2": 24,
+    "3": 15,
+    "4": 8
+   },
+   "super": {
+    "0": 28,
+    "1": 28,
+    "2": 23,
+    "3": 14,
+    "4": 7
+   }
+  },
+  "STING_SUPER_CHANCE": {
+   "base": "0.0",
+   "bonus": "0.0",
+   "epic": "0.5",
+   "super": "0.18"
+  },
+  "STING_SUPER_OFFSETS": [
+   [
+    -1,
+    -1
+   ],
+   [
+    -1,
+    0
+   ],
+   [
+    -1,
+    1
+   ],
+   [
+    0,
+    -1
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    -1
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    1,
+    1
+   ]
+  ],
+  "SUPER_ANTE_COST": "10.0",
+  "SUPER_BUY_SLICES": {
+   "supergame_low": [
+    "0.09523809523809523",
+    [
+     "25.0",
+     "60.0"
+    ],
+    {
+     "5": 1
+    }
+   ],
+   "supergame_lowmid": [
+    "0.10582010582010581",
+    [
+     "60.0",
+     "120.0"
+    ],
+    {
+     "5": 1
+    }
+   ],
+   "supergame_mid": [
+    "0.31746031746031744",
+    [
+     "120.0",
+     "500.0"
+    ],
+    {
+     "5": 1
+    }
+   ]
+  },
+  "SUPER_BUY_WINCAP_QUOTA": "0.0015873015873015873",
+  "SUPER_COST": "250.0",
+  "SUPER_MIN_WIN": "25.0",
+  "SWIPE_BAND_ROWS": 3,
+  "SWIPE_BAND_STARTS": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "SWIPE_CHANCE": {
+   "base": "0.35",
+   "bonus": "0.12",
+   "epic": "0.12",
+   "super": "0.12"
+  },
+  "SWIPE_CHANCE_DEAD": {
+   "bonus": "0.9",
+   "epic": "0.9",
+   "super": "0.9"
+  },
+  "SWIPE_MAX_PER_SPIN": 2,
+  "SWIPE_MUST_WIN": {
+   "base": true,
+   "bonus": true,
+   "epic": true,
+   "super": true
+  },
+  "SWIPE_SEEDS_EMPTY_TILES": {
+   "base": true,
+   "bonus": true,
+   "epic": true,
+   "super": true
+  },
+  "TARGET_RTP": "0.96699",
+  "TILE_CAP": {
+   "base": 64,
+   "bonus": 64,
+   "epic": 128,
+   "super": 128
+  },
+  "TILE_CAP_HIGH": 128,
+  "TILE_CAP_STANDARD": 64,
+  "TILE_GROW_MIN_CLUSTER": {
+   "base": 5,
+   "bonus": 5,
+   "epic": 5,
+   "super": 5
+  },
+  "TILE_SEED": 2,
+  "TILE_SEED_MIN_CLUSTER": {
+   "base": 5,
+   "bonus": 5,
+   "epic": 5,
+   "super": 5
+  },
+  "WINCAP": "10000.0",
+  "_EPIC_BUY_BOARD": {
+   "6": "0.95",
+   "8": "0.05"
+  }
+ },
+ "game_optimization_constants": {
+  "ANTE_COST": "3.0",
+  "BONUS_COST": "100.0",
+  "BONUS_MEAN": "96.699",
+  "DRIBBLE_MEAN": "0.3",
+  "EPIC_COST": "500.0",
+  "EPIC_MEAN": "800.0",
+  "HIGH_MEAN": "30.0",
+  "MID_MEAN": "7.5",
+  "SUPER_ANTE_COST": "10.0",
+  "SUPER_COST": "250.0",
+  "SUPER_MEAN": "241.7475",
+  "TARGET_RTP": "0.96699",
+  "WINCAP": "10000.0",
+  "_PARAMS": {
+   "max_mean_to_median": 8,
+   "max_trial_dist": 15,
+   "min_mean_to_median": 4,
+   "num_pigs_per_fence": 10000,
+   "num_show_pigs": 5000,
+   "pmb_rtp": "1.0",
+   "score_type": "rtp",
+   "simulation_trials": 5000,
+   "test_spins": [
+    50,
+    100,
+    200
+   ],
+   "test_spins_weights": [
+    "0.3",
+    "0.4",
+    "0.3"
+   ]
+  },
+  "_SCALING": [
+   {
+    "criteria": "basegame",
+    "probability": "1.0",
+    "scale_factor": "1.0",
+    "win_range": [
+     1,
+     2
+    ]
+   }
+  ],
+  "_SCATTERS": {
+   "epicgame": 6,
+   "freegame": 4,
+   "supergame": 5
+  }
+ },
+ "hit_rate": {
+  "ante": "2.6516476222949352",
+  "base": "2.851399120410419",
+  "bonus": "1.0",
+  "epic": "1.0",
+  "super": "1.0",
+  "super_ante": "2.4059557051237794"
+ },
+ "mystery_only_attrs_present": [
+  "mystery_anticipation",
+  "mystery_epic_min_win",
+  "mystery_outcome",
+  "mystery_scatter_reels",
+  "mystery_sting_count",
+  "mystery_sting_reels"
+ ],
+ "opt_conditions": {
+  "ante": {
+   "0": {
+    "av_win": 0,
+    "force_search": {},
+    "rtp": 0,
+    "search_range": [
+     0,
+     0
+    ]
+   },
+   "basegame": {
+    "force_search": {},
+    "hr": "3.0303",
+    "rtp": "0.080270423",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "basegame_high": {
+    "force_search": {},
+    "hr": "300.0",
+    "rtp": "0.04",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "basegame_mid": {
+    "force_search": {},
+    "hr": "40.0",
+    "rtp": "0.075",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "epicgame": {
+    "force_search": {
+     "kind": "6",
+     "symbol": "scatter"
+    },
+    "hr": "2400.0",
+    "rtp": "0.111111111",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "freegame": {
+    "force_search": {
+     "kind": "4",
+     "symbol": "scatter"
+    },
+    "hr": "63.0",
+    "rtp": "0.465608466",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "supergame": {
+    "force_search": {
+     "kind": "5",
+     "symbol": "scatter"
+    },
+    "hr": "400.0",
+    "rtp": "0.191666667",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "wincap": {
+    "av_win": "10000.0",
+    "force_search": {},
+    "rtp": "0.003333333",
+    "search_range": [
+     "10000.0",
+     "10000.0"
+    ]
+   }
+  },
+  "base": {
+   "0": {
+    "av_win": 0,
+    "force_search": {},
+    "rtp": 0,
+    "search_range": [
+     0,
+     0
+    ]
+   },
+   "basegame": {
+    "force_search": {},
+    "hr": "3.07652",
+    "rtp": "0.210736524",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "basegame_high": {
+    "force_search": {},
+    "hr": "251.51791",
+    "rtp": "0.171886558",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "basegame_mid": {
+    "force_search": {},
+    "hr": "54.19349",
+    "rtp": "0.162302587",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "epicgame": {
+    "force_search": {
+     "kind": "6",
+     "symbol": "scatter"
+    },
+    "hr": "14000.0",
+    "rtp": "0.057142857",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "freegame": {
+    "force_search": {
+     "kind": "4",
+     "symbol": "scatter"
+    },
+    "hr": "360.0",
+    "rtp": "0.268608333",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "supergame": {
+    "force_search": {
+     "kind": "5",
+     "symbol": "scatter"
+    },
+    "hr": "2600.0",
+    "rtp": "0.092979808",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "wincap": {
+    "av_win": "10000.0",
+    "force_search": {},
+    "rtp": "0.003333333",
+    "search_range": [
+     "10000.0",
+     "10000.0"
+    ]
+   }
+  },
+  "bonus": {
+   "freegame": {
+    "force_search": {
+     "kind": "4",
+     "symbol": "scatter"
+    },
+    "hr": "1.00004",
+    "rtp": "0.95999",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "freegame_low": {
+    "force_search": {},
+    "hr": "x",
+    "rtp": "0.001",
+    "search_range": [
+     "10.0",
+     "25.0"
+    ]
+   },
+   "freegame_m2": {
+    "force_search": {},
+    "hr": "x",
+    "rtp": "0.001",
+    "search_range": [
+     "50.0",
+     "100.0"
+    ]
+   },
+   "freegame_mid": {
+    "force_search": {},
+    "hr": "x",
+    "rtp": "0.001",
+    "search_range": [
+     "25.0",
+     "50.0"
+    ]
+   },
+   "wincap": {
+    "av_win": "10000.0",
+    "force_search": {},
+    "rtp": "0.004",
+    "search_range": [
+     "10000.0",
+     "10000.0"
+    ]
+   }
+  },
+  "epic": {
+   "epicgame": {
+    "force_search": {
+     "kind": "6",
+     "symbol": "scatter"
+    },
+    "hr": "1.00033",
+    "rtp": "0.957323333",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "epicgame_body": {
+    "force_search": {},
+    "hr": "x",
+    "rtp": "0.001",
+    "search_range": [
+     "200.0",
+     "400.0"
+    ]
+   },
+   "epicgame_mid": {
+    "force_search": {},
+    "hr": "x",
+    "rtp": "0.001",
+    "search_range": [
+     "400.0",
+     "1000.0"
+    ]
+   },
+   "epicgame_upper": {
+    "force_search": {},
+    "hr": "x",
+    "rtp": "0.001",
+    "search_range": [
+     "1000.0",
+     "10000.0"
+    ]
+   },
+   "wincap": {
+    "av_win": "10000.0",
+    "force_search": {},
+    "rtp": "0.006666667",
+    "search_range": [
+     "10000.0",
+     "10000.0"
+    ]
+   }
+  },
+  "super": {
+   "supergame": {
+    "force_search": {
+     "kind": "5",
+     "symbol": "scatter"
+    },
+    "hr": "1.00013",
+    "rtp": "0.95899",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "supergame_low": {
+    "force_search": {},
+    "hr": "x",
+    "rtp": "0.001",
+    "search_range": [
+     "25.0",
+     "60.0"
+    ]
+   },
+   "supergame_lowmid": {
+    "force_search": {},
+    "hr": "x",
+    "rtp": "0.001",
+    "search_range": [
+     "60.0",
+     "120.0"
+    ]
+   },
+   "supergame_mid": {
+    "force_search": {},
+    "hr": "x",
+    "rtp": "0.001",
+    "search_range": [
+     "120.0",
+     "500.0"
+    ]
+   },
+   "wincap": {
+    "av_win": "10000.0",
+    "force_search": {},
+    "rtp": "0.005",
+    "search_range": [
+     "10000.0",
+     "10000.0"
+    ]
+   }
+  },
+  "super_ante": {
+   "0": {
+    "av_win": 0,
+    "force_search": {},
+    "rtp": 0,
+    "search_range": [
+     0,
+     0
+    ]
+   },
+   "basegame": {
+    "force_search": {},
+    "hr": "2.7027",
+    "rtp": "0.031877501",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "basegame_high": {
+    "force_search": {},
+    "hr": "666.66667",
+    "rtp": "0.0045",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "basegame_mid": {
+    "force_search": {},
+    "hr": "66.66667",
+    "rtp": "0.01125",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "epicgame": {
+    "force_search": {
+     "kind": "6",
+     "symbol": "scatter"
+    },
+    "hr": "262.0",
+    "rtp": "0.305343511",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "supergame": {
+    "force_search": {
+     "kind": "5",
+     "symbol": "scatter"
+    },
+    "hr": "39.5",
+    "rtp": "0.612018988",
+    "search_range": [
+     -1,
+     -1
+    ]
+   },
+   "wincap": {
+    "av_win": "10000.0",
+    "force_search": {},
+    "rtp": "0.002",
+    "search_range": [
+     "10000.0",
+     "10000.0"
+    ]
+   }
+  }
+ },
+ "rtp_split": {
+  "ante": {
+   "0": [
+    "0.6228759841269841",
+    "0.0",
+    "0.0"
+   ],
+   "basegame": [
+    "0.33",
+    "0.7297311207311201",
+    "0.08027042328042322"
+   ],
+   "basegame_high": [
+    "0.0033333333333333335",
+    "36.0",
+    "0.04"
+   ],
+   "basegame_mid": [
+    "0.025",
+    "9.0",
+    "0.075"
+   ],
+   "epicgame": [
+    "0.0004166666666666667",
+    "800.0",
+    "0.11111111111111112"
+   ],
+   "freegame": [
+    "0.015873015873015872",
+    "88.0",
+    "0.4656084656084656"
+   ],
+   "supergame": [
+    "0.0025",
+    "230.0",
+    "0.19166666666666668"
+   ],
+   "wincap": [
+    "1e-06",
+    "10000.0",
+    "0.0033333333333333335"
+   ]
+  },
+  "base": {
+   "0": [
+    "0.6492949749328449",
+    "0.0",
+    "0.0"
+   ],
+   "basegame": [
+    "0.32504261",
+    "0.6483350709658912",
+    "0.2107365236212885"
+   ],
+   "basegame_high": [
+    "0.00397586",
+    "43.232548",
+    "0.17188655829128002"
+   ],
+   "basegame_mid": [
+    "0.0184524",
+    "8.795744",
+    "0.16230258658559998"
+   ],
+   "epicgame": [
+    "7.142857142857143e-05",
+    "800.0",
+    "0.05714285714285715"
+   ],
+   "freegame": [
+    "0.002777777777777778",
+    "96.699",
+    "0.26860833333333334"
+   ],
+   "supergame": [
+    "0.0003846153846153846",
+    "241.7475",
+    "0.0929798076923077"
+   ],
+   "wincap": [
+    "3.3333333333333335e-07",
+    "10000.0",
+    "0.0033333333333333335"
+   ]
+  },
+  "bonus": {
+   "freegame": [
+    "0.99996",
+    "96.30285211408456",
+    "0.9629899999999999"
+   ],
+   "wincap": [
+    "4e-05",
+    "10000.0",
+    "0.004"
+   ]
+  },
+  "epic": {
+   "epicgame": [
+    "0.9996666666666667",
+    "480.32177392464155",
+    "0.9603233333333334"
+   ],
+   "wincap": [
+    "0.0003333333333333333",
+    "10000.0",
+    "0.006666666666666666"
+   ]
+  },
+  "super": {
+   "supergame": [
+    "0.999875",
+    "240.52756594574322",
+    "0.96199"
+   ],
+   "wincap": [
+    "0.000125",
+    "10000.0",
+    "0.005"
+   ]
+  },
+  "super_ante": {
+   "0": [
+    "0.5843647504106677",
+    "0.0",
+    "0.0"
+   ],
+   "basegame": [
+    "0.37",
+    "0.861554086698549",
+    "0.03187750120784631"
+   ],
+   "basegame_high": [
+    "0.0015",
+    "30.0",
+    "0.0045"
+   ],
+   "basegame_mid": [
+    "0.015",
+    "7.5",
+    "0.01125"
+   ],
+   "epicgame": [
+    "0.003816793893129771",
+    "800.0",
+    "0.30534351145038163"
+   ],
+   "supergame": [
+    "0.02531645569620253",
+    "241.7475",
+    "0.6120189873417721"
+   ],
+   "wincap": [
+    "2e-06",
+    "10000.0",
+    "0.002"
+   ]
+  }
+ },
+ "shape_lut_constants": {
+  "BASEWIN": [
+   [
+    [
+     1,
+     2
+    ],
+    "0.92"
+   ],
+   [
+    [
+     2,
+     5
+    ],
+    "0.08"
+   ]
+  ],
+  "BASE_BASEWIN": [
+   [
+    [
+     1,
+     2
+    ],
+    "0.82672466"
+   ],
+   [
+    [
+     2,
+     5
+    ],
+    "0.17327534"
+   ]
+  ],
+  "BASE_BIGWIN": [
+   [
+    [
+     20,
+     25
+    ],
+    "0.37114855"
+   ],
+   [
+    [
+     25,
+     50
+    ],
+    "0.31439721"
+   ],
+   [
+    [
+     50,
+     100
+    ],
+    "0.25151777"
+   ],
+   [
+    [
+     100,
+     200
+    ],
+    "0.06287944"
+   ],
+   [
+    [
+     200,
+     500
+    ],
+    "5.703e-05"
+   ]
+  ],
+  "BASE_DRIBBLE": [
+   [
+    [
+     0,
+     "0.5"
+    ],
+    "0.7"
+   ],
+   [
+    [
+     "0.5",
+     1
+    ],
+    "0.3"
+   ]
+  ],
+  "BASE_DRIBBLE_SHARE_OF_BASEGAME": "0.74944017",
+  "BASE_MIDWIN": [
+   [
+    [
+     5,
+     10
+    ],
+    "0.60696704"
+   ],
+   [
+    [
+     10,
+     15
+    ],
+    "0.24701596"
+   ],
+   [
+    [
+     15,
+     20
+    ],
+    "0.14601701"
+   ]
+  ],
+  "BASE_SPIN_CRITERIA": [
+   "0",
+   "basegame",
+   "basegame_high",
+   "basegame_mid"
+  ],
+  "BIGWIN": [
+   [
+    [
+     20,
+     50
+    ],
+    "0.86"
+   ],
+   [
+    [
+     50,
+     100
+    ],
+    "0.105"
+   ],
+   [
+    [
+     100,
+     500
+    ],
+    "0.035"
+   ]
+  ],
+  "BONUS_BANDS": [
+   [
+    [
+     "10.0",
+     25
+    ],
+    "0.19"
+   ],
+   [
+    [
+     25,
+     50
+    ],
+    "0.24"
+   ],
+   [
+    [
+     50,
+     100
+    ],
+    "0.23"
+   ],
+   [
+    [
+     100,
+     200
+    ],
+    "0.15"
+   ],
+   [
+    [
+     200,
+     500
+    ],
+    "0.085"
+   ],
+   [
+    [
+     500,
+     1500
+    ],
+    "0.014"
+   ],
+   [
+    [
+     1500,
+     5000
+    ],
+    "0.0018"
+   ],
+   [
+    [
+     5000,
+     "10000.0"
+    ],
+    "0.0002"
+   ]
+  ],
+  "BONUS_BUY_SLICES": {
+   "freegame_low": [
+    "0.12403100775193798",
+    [
+     "10.0",
+     "25.0"
+    ],
+    {
+     "4": 1
+    }
+   ],
+   "freegame_m2": [
+    "0.09302325581395349",
+    [
+     "50.0",
+     "100.0"
+    ],
+    {
+     "4": 1
+    }
+   ],
+   "freegame_mid": [
+    "0.15503875968992248",
+    [
+     "25.0",
+     "50.0"
+    ],
+    {
+     "4": 1
+    }
+   ]
+  },
+  "BONUS_MIN_WIN": "10.0",
+  "CAP": "cap",
+  "CAP_CRITERIA": [
+   "epicgame",
+   "freegame",
+   "supergame",
+   "wincap"
+  ],
+  "DRIBBLE": [
+   [
+    [
+     0,
+     "0.5"
+    ],
+    "0.7"
+   ],
+   [
+    [
+     "0.5",
+     1
+    ],
+    "0.3"
+   ]
+  ],
+  "DRIBBLE_MEAN": "0.33",
+  "DRIBBLE_SHARE_OF_BASEGAME": "0.58",
+  "EPIC_BUY_BANDS": [
+   [
+    [
+     200,
+     300
+    ],
+    "0.52"
+   ],
+   [
+    [
+     300,
+     400
+    ],
+    "0.2"
+   ],
+   [
+    [
+     400,
+     600
+    ],
+    "0.14"
+   ],
+   [
+    [
+     600,
+     1000
+    ],
+    "0.08"
+   ],
+   [
+    [
+     1000,
+     2000
+    ],
+    "0.04"
+   ],
+   [
+    [
+     2000,
+     5000
+    ],
+    "0.016"
+   ],
+   [
+    [
+     5000,
+     "10000.0"
+    ],
+    "0.0036"
+   ]
+  ],
+  "EPIC_BUY_SLICES": {
+   "epicgame_body": [
+    "0.4740740740740741",
+    [
+     "200.0",
+     "400.0"
+    ],
+    {
+     "6": 1
+    }
+   ],
+   "epicgame_mid": [
+    "0.23703703703703705",
+    [
+     "400.0",
+     "1000.0"
+    ],
+    {
+     "6": 1
+    }
+   ],
+   "epicgame_upper": [
+    "0.2222222222222222",
+    [
+     "1000.0",
+     "10000.0"
+    ],
+    {
+     "6": "0.95",
+     "8": "0.05"
+    }
+   ]
+  },
+  "EPIC_NAT_BANDS": [
+   [
+    [
+     200,
+     300
+    ],
+    "0.38"
+   ],
+   [
+    [
+     300,
+     500
+    ],
+    "0.22"
+   ],
+   [
+    [
+     500,
+     800
+    ],
+    "0.15"
+   ],
+   [
+    [
+     800,
+     1500
+    ],
+    "0.13"
+   ],
+   [
+    [
+     1500,
+     3000
+    ],
+    "0.08"
+   ],
+   [
+    [
+     3000,
+     6000
+    ],
+    "0.03"
+   ],
+   [
+    [
+     6000,
+     "10000.0"
+    ],
+    "0.01"
+   ]
+  ],
+  "GAME": "/Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem",
+  "HERE": "/Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/tools",
+  "LIB": "/Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/library",
+  "MATERIAL_SLICES": {
+   "bonus": {
+    "freegame_low": [
+     "0.12403100775193798",
+     [
+      "10.0",
+      "25.0"
+     ],
+     {
+      "4": 1
+     }
+    ],
+    "freegame_m2": [
+     "0.09302325581395349",
+     [
+      "50.0",
+      "100.0"
+     ],
+     {
+      "4": 1
+     }
+    ],
+    "freegame_mid": [
+     "0.15503875968992248",
+     [
+      "25.0",
+      "50.0"
+     ],
+     {
+      "4": 1
+     }
+    ]
+   },
+   "epic": {
+    "epicgame_body": [
+     "0.4740740740740741",
+     [
+      "200.0",
+      "400.0"
+     ],
+     {
+      "6": 1
+     }
+    ],
+    "epicgame_mid": [
+     "0.23703703703703705",
+     [
+      "400.0",
+      "1000.0"
+     ],
+     {
+      "6": 1
+     }
+    ],
+    "epicgame_upper": [
+     "0.2222222222222222",
+     [
+      "1000.0",
+      "10000.0"
+     ],
+     {
+      "6": "0.95",
+      "8": "0.05"
+     }
+    ]
+   },
+   "super": {
+    "supergame_low": [
+     "0.09523809523809523",
+     [
+      "25.0",
+      "60.0"
+     ],
+     {
+      "5": 1
+     }
+    ],
+    "supergame_lowmid": [
+     "0.10582010582010581",
+     [
+      "60.0",
+      "120.0"
+     ],
+     {
+      "5": 1
+     }
+    ],
+    "supergame_mid": [
+     "0.31746031746031744",
+     [
+      "120.0",
+      "500.0"
+     ],
+     {
+      "5": 1
+     }
+    ]
+   }
+  },
+  "MIDWIN": [
+   [
+    [
+     5,
+     10
+    ],
+    "0.7"
+   ],
+   [
+    [
+     10,
+     20
+    ],
+    "0.3"
+   ]
+  ],
+  "PAYOUT_SCALE": 100,
+  "PER_BOOK_CEILING": {
+   "bonus": "2e-05",
+   "epic": "2e-05",
+   "mystery": "2e-05",
+   "super": "2e-05"
+  },
+  "STEP_CAP": 4,
+  "STEP_GROUPS": [
+   "basewin",
+   "bigwin",
+   "dribble",
+   "midwin"
+  ],
+  "STEP_PREFERENCE": "0.7",
+  "SUPER_BANDS": [
+   [
+    [
+     "25.0",
+     60
+    ],
+    "0.18"
+   ],
+   [
+    [
+     60,
+     120
+    ],
+    "0.22"
+   ],
+   [
+    [
+     120,
+     250
+    ],
+    "0.24"
+   ],
+   [
+    [
+     250,
+     500
+    ],
+    "0.15"
+   ],
+   [
+    [
+     500,
+     1000
+    ],
+    "0.075"
+   ],
+   [
+    [
+     1000,
+     2500
+    ],
+    "0.028"
+   ],
+   [
+    [
+     2500,
+     6000
+    ],
+    "0.006"
+   ],
+   [
+    [
+     6000,
+     "10000.0"
+    ],
+    "0.0009"
+   ]
+  ],
+  "SUPER_BUY_SLICES": {
+   "supergame_low": [
+    "0.09523809523809523",
+    [
+     "25.0",
+     "60.0"
+    ],
+    {
+     "5": 1
+    }
+   ],
+   "supergame_lowmid": [
+    "0.10582010582010581",
+    [
+     "60.0",
+     "120.0"
+    ],
+    {
+     "5": 1
+    }
+   ],
+   "supergame_mid": [
+    "0.31746031746031744",
+    [
+     "120.0",
+     "500.0"
+    ],
+    {
+     "5": 1
+    }
+   ]
+  },
+  "SUPER_MIN_WIN": "25.0",
+  "TARGETS": {
+   "ante": {
+    "cost": "3.0",
+    "criteria": {
+     "0": [
+      "residual",
+      "0.0"
+     ],
+     "basegame": [
+      "0.33",
+      "residual"
+     ],
+     "basegame_high": [
+      "0.0033333333333333335",
+      "36.0"
+     ],
+     "basegame_mid": [
+      "0.025",
+      "9.0"
+     ],
+     "epicgame": [
+      "0.0004166666666666667",
+      "800.0"
+     ],
+     "freegame": [
+      "0.015873015873015872",
+      "88.0"
+     ],
+     "supergame": [
+      "0.0025",
+      "230.0"
+     ],
+     "wincap": [
+      "1e-06",
+      "10000.0"
+     ]
+    }
+   },
+   "base": {
+    "cost": "1.0",
+    "criteria": {
+     "0": [
+      "residual",
+      "0.0"
+     ],
+     "basegame": [
+      "0.32504261",
+      "residual"
+     ],
+     "basegame_high": [
+      "0.00397586",
+      "43.232548"
+     ],
+     "basegame_mid": [
+      "0.0184524",
+      "8.795744"
+     ],
+     "epicgame": [
+      "7.142857142857143e-05",
+      "800.0"
+     ],
+     "freegame": [
+      "0.002777777777777778",
+      "96.699"
+     ],
+     "supergame": [
+      "0.0003846153846153846",
+      "241.7475"
+     ],
+     "wincap": [
+      "3.3333333333333335e-07",
+      "10000.0"
+     ]
+    }
+   },
+   "bonus": {
+    "cost": "100.0",
+    "criteria": {
+     "freegame": [
+      "residual",
+      "residual"
+     ],
+     "wincap": [
+      "4e-05",
+      "10000.0"
+     ]
+    }
+   },
+   "epic": {
+    "cost": "500.0",
+    "criteria": {
+     "epicgame": [
+      "residual",
+      "residual"
+     ],
+     "wincap": [
+      "0.0003333333333333333",
+      "10000.0"
+     ]
+    }
+   },
+   "mystery": {
+    "cost": "250.0",
+    "criteria": {
+     "epicgame": [
+      "0.1",
+      "residual"
+     ],
+     "mystery_nothing": [
+      "residual",
+      "0.2"
+     ],
+     "supergame": [
+      "0.4",
+      "241.7475"
+     ]
+    }
+   },
+   "super": {
+    "cost": "250.0",
+    "criteria": {
+     "supergame": [
+      "residual",
+      "residual"
+     ],
+     "wincap": [
+      "0.000125",
+      "10000.0"
+     ]
+    }
+   },
+   "super_ante": {
+    "cost": "10.0",
+    "criteria": {
+     "0": [
+      "residual",
+      "0.0"
+     ],
+     "basegame": [
+      "0.37",
+      "residual"
+     ],
+     "basegame_high": [
+      "0.0015",
+      "30.0"
+     ],
+     "basegame_mid": [
+      "0.015",
+      "7.5"
+     ],
+     "epicgame": [
+      "0.003816793893129771",
+      "800.0"
+     ],
+     "supergame": [
+      "0.02531645569620253",
+      "241.7475"
+     ],
+     "wincap": [
+      "2e-06",
+      "10000.0"
+     ]
+    }
+   }
+  },
+  "TARGET_RTP": "0.96699",
+  "TOTAL_WEIGHT": 1000000000000,
+  "WINCAP": "10000.0",
+  "ZERO": [
+   [
+    [
+     0,
+     0
+    ],
+    "1.0"
+   ]
+  ]
+ },
+ "shaper_ceiling": {
+  "ante": "None",
+  "base": "None",
+  "bonus": "2e-05",
+  "epic": "2e-05",
+  "super": "2e-05",
+  "super_ante": "None"
+ },
+ "shaper_groups": {
+  "ante": [
+   {
+    "bands": [
+     [
+      "cap",
+      "1.0"
+     ]
+    ],
+    "criteria": [
+     "epicgame",
+     "freegame",
+     "supergame",
+     "wincap"
+    ],
+    "name": "cap",
+    "p": "1e-06"
+   },
+   {
+    "bands": [
+     [
+      [
+       0,
+       0
+      ],
+      "1.0"
+     ]
+    ],
+    "criteria": [
+     "0",
+     "basegame",
+     "basegame_high",
+     "basegame_mid"
+    ],
+    "name": "zero",
+    "p": "residual"
+   },
+   {
+    "bands": [
+     [
+      [
+       0,
+       "0.5"
+      ],
+      "0.7"
+     ],
+     [
+      [
+       "0.5",
+       1
+      ],
+      "0.3"
+     ]
+    ],
+    "criteria": [
+     "basegame"
+    ],
+    "mean": "0.33",
+    "name": "dribble",
+    "p": "0.1914"
+   },
+   {
+    "bands": [
+     [
+      [
+       1,
+       2
+      ],
+      "0.92"
+     ],
+     [
+      [
+       2,
+       5
+      ],
+      "0.08"
+     ]
+    ],
+    "criteria": [
+     "basegame"
+    ],
+    "mean": "residual",
+    "name": "basewin",
+    "p": "0.1386"
+   },
+   {
+    "bands": [
+     [
+      [
+       5,
+       10
+      ],
+      "0.7"
+     ],
+     [
+      [
+       10,
+       20
+      ],
+      "0.3"
+     ]
+    ],
+    "criteria": [
+     "basegame",
+     "basegame_mid"
+    ],
+    "mean": "9.0",
+    "name": "midwin",
+    "p": "0.025"
+   },
+   {
+    "bands": [
+     [
+      [
+       20,
+       50
+      ],
+      "0.86"
+     ],
+     [
+      [
+       50,
+       100
+      ],
+      "0.105"
+     ],
+     [
+      [
+       100,
+       500
+      ],
+      "0.035"
+     ]
+    ],
+    "criteria": [
+     "basegame",
+     "basegame_high"
+    ],
+    "mean": "36.0",
+    "name": "bigwin",
+    "p": "0.0033333333333333335"
+   },
+   {
+    "bands": [
+     [
+      [
+       "10.0",
+       25
+      ],
+      "0.19"
+     ],
+     [
+      [
+       25,
+       50
+      ],
+      "0.24"
+     ],
+     [
+      [
+       50,
+       100
+      ],
+      "0.23"
+     ],
+     [
+      [
+       100,
+       200
+      ],
+      "0.15"
+     ],
+     [
+      [
+       200,
+       500
+      ],
+      "0.085"
+     ],
+     [
+      [
+       500,
+       1500
+      ],
+      "0.014"
+     ],
+     [
+      [
+       1500,
+       5000
+      ],
+      "0.0018"
+     ],
+     [
+      [
+       5000,
+       "10000.0"
+      ],
+      "0.0002"
+     ]
+    ],
+    "criteria": [
+     "freegame"
+    ],
+    "mean": "88.0",
+    "name": "bonus",
+    "p": "0.015873015873015872"
+   },
+   {
+    "bands": [
+     [
+      [
+       "25.0",
+       60
+      ],
+      "0.18"
+     ],
+     [
+      [
+       60,
+       120
+      ],
+      "0.22"
+     ],
+     [
+      [
+       120,
+       250
+      ],
+      "0.24"
+     ],
+     [
+      [
+       250,
+       500
+      ],
+      "0.15"
+     ],
+     [
+      [
+       500,
+       1000
+      ],
+      "0.075"
+     ],
+     [
+      [
+       1000,
+       2500
+      ],
+      "0.028"
+     ],
+     [
+      [
+       2500,
+       6000
+      ],
+      "0.006"
+     ],
+     [
+      [
+       6000,
+       "10000.0"
+      ],
+      "0.0009"
+     ]
+    ],
+    "criteria": [
+     "supergame"
+    ],
+    "mean": "230.0",
+    "name": "super",
+    "p": "0.0025"
+   },
+   {
+    "bands": [
+     [
+      [
+       200,
+       300
+      ],
+      "0.38"
+     ],
+     [
+      [
+       300,
+       500
+      ],
+      "0.22"
+     ],
+     [
+      [
+       500,
+       800
+      ],
+      "0.15"
+     ],
+     [
+      [
+       800,
+       1500
+      ],
+      "0.13"
+     ],
+     [
+      [
+       1500,
+       3000
+      ],
+      "0.08"
+     ],
+     [
+      [
+       3000,
+       6000
+      ],
+      "0.03"
+     ],
+     [
+      [
+       6000,
+       "10000.0"
+      ],
+      "0.01"
+     ]
+    ],
+    "criteria": [
+     "epicgame"
+    ],
+    "mean": "800.0",
+    "name": "epic",
+    "p": "0.0004166666666666667"
+   }
+  ],
+  "base": [
+   {
+    "bands": [
+     [
+      "cap",
+      "1.0"
+     ]
+    ],
+    "criteria": [
+     "epicgame",
+     "freegame",
+     "supergame",
+     "wincap"
+    ],
+    "name": "cap",
+    "p": "3.3333333333333335e-07"
+   },
+   {
+    "bands": [
+     [
+      [
+       0,
+       0
+      ],
+      "1.0"
+     ]
+    ],
+    "criteria": [
+     "0",
+     "basegame",
+     "basegame_high",
+     "basegame_mid"
+    ],
+    "name": "zero",
+    "p": "residual"
+   },
+   {
+    "bands": [
+     [
+      [
+       0,
+       "0.5"
+      ],
+      "0.7"
+     ],
+     [
+      [
+       "0.5",
+       1
+      ],
+      "0.3"
+     ]
+    ],
+    "criteria": [
+     "basegame"
+    ],
+    "mean": "0.33",
+    "name": "dribble",
+    "p": "0.24359999"
+   },
+   {
+    "bands": [
+     [
+      [
+       1,
+       2
+      ],
+      "0.82672466"
+     ],
+     [
+      [
+       2,
+       5
+      ],
+      "0.17327534"
+     ]
+    ],
+    "criteria": [
+     "basegame"
+    ],
+    "mean": "residual",
+    "name": "basewin",
+    "p": "0.08144262"
+   },
+   {
+    "bands": [
+     [
+      [
+       5,
+       10
+      ],
+      "0.60696704"
+     ],
+     [
+      [
+       10,
+       15
+      ],
+      "0.24701596"
+     ],
+     [
+      [
+       15,
+       20
+      ],
+      "0.14601701"
+     ]
+    ],
+    "criteria": [
+     "basegame",
+     "basegame_mid"
+    ],
+    "mean": "8.795744",
+    "name": "midwin",
+    "p": "0.0184524"
+   },
+   {
+    "bands": [
+     [
+      [
+       20,
+       25
+      ],
+      "0.37114855"
+     ],
+     [
+      [
+       25,
+       50
+      ],
+      "0.31439721"
+     ],
+     [
+      [
+       50,
+       100
+      ],
+      "0.25151777"
+     ],
+     [
+      [
+       100,
+       200
+      ],
+      "0.06287944"
+     ],
+     [
+      [
+       200,
+       500
+      ],
+      "5.703e-05"
+     ]
+    ],
+    "criteria": [
+     "basegame",
+     "basegame_high"
+    ],
+    "mean": "43.232548",
+    "name": "bigwin",
+    "p": "0.00397586"
+   },
+   {
+    "bands": [
+     [
+      [
+       "10.0",
+       25
+      ],
+      "0.19"
+     ],
+     [
+      [
+       25,
+       50
+      ],
+      "0.24"
+     ],
+     [
+      [
+       50,
+       100
+      ],
+      "0.23"
+     ],
+     [
+      [
+       100,
+       200
+      ],
+      "0.15"
+     ],
+     [
+      [
+       200,
+       500
+      ],
+      "0.085"
+     ],
+     [
+      [
+       500,
+       1500
+      ],
+      "0.014"
+     ],
+     [
+      [
+       1500,
+       5000
+      ],
+      "0.0018"
+     ],
+     [
+      [
+       5000,
+       "10000.0"
+      ],
+      "0.0002"
+     ]
+    ],
+    "criteria": [
+     "freegame"
+    ],
+    "mean": "96.699",
+    "name": "bonus",
+    "p": "0.002777777777777778"
+   },
+   {
+    "bands": [
+     [
+      [
+       "25.0",
+       60
+      ],
+      "0.18"
+     ],
+     [
+      [
+       60,
+       120
+      ],
+      "0.22"
+     ],
+     [
+      [
+       120,
+       250
+      ],
+      "0.24"
+     ],
+     [
+      [
+       250,
+       500
+      ],
+      "0.15"
+     ],
+     [
+      [
+       500,
+       1000
+      ],
+      "0.075"
+     ],
+     [
+      [
+       1000,
+       2500
+      ],
+      "0.028"
+     ],
+     [
+      [
+       2500,
+       6000
+      ],
+      "0.006"
+     ],
+     [
+      [
+       6000,
+       "10000.0"
+      ],
+      "0.0009"
+     ]
+    ],
+    "criteria": [
+     "supergame"
+    ],
+    "mean": "241.7475",
+    "name": "super",
+    "p": "0.0003846153846153846"
+   },
+   {
+    "bands": [
+     [
+      [
+       200,
+       300
+      ],
+      "0.38"
+     ],
+     [
+      [
+       300,
+       500
+      ],
+      "0.22"
+     ],
+     [
+      [
+       500,
+       800
+      ],
+      "0.15"
+     ],
+     [
+      [
+       800,
+       1500
+      ],
+      "0.13"
+     ],
+     [
+      [
+       1500,
+       3000
+      ],
+      "0.08"
+     ],
+     [
+      [
+       3000,
+       6000
+      ],
+      "0.03"
+     ],
+     [
+      [
+       6000,
+       "10000.0"
+      ],
+      "0.01"
+     ]
+    ],
+    "criteria": [
+     "epicgame"
+    ],
+    "mean": "800.0",
+    "name": "epic",
+    "p": "7.142857142857143e-05"
+   }
+  ],
+  "bonus": [
+   {
+    "bands": [
+     [
+      "cap",
+      "1.0"
+     ]
+    ],
+    "criteria": [
+     "epicgame",
+     "freegame",
+     "supergame",
+     "wincap"
+    ],
+    "name": "cap",
+    "p": "4e-05"
+   },
+   {
+    "bands": [
+     [
+      [
+       "10.0",
+       25
+      ],
+      "0.19"
+     ],
+     [
+      [
+       25,
+       50
+      ],
+      "0.24"
+     ],
+     [
+      [
+       50,
+       100
+      ],
+      "0.23"
+     ],
+     [
+      [
+       100,
+       200
+      ],
+      "0.15"
+     ],
+     [
+      [
+       200,
+       500
+      ],
+      "0.085"
+     ],
+     [
+      [
+       500,
+       1500
+      ],
+      "0.014"
+     ],
+     [
+      [
+       1500,
+       5000
+      ],
+      "0.0018"
+     ],
+     [
+      [
+       5000,
+       "10000.0"
+      ],
+      "0.0002"
+     ]
+    ],
+    "criteria": [
+     "freegame",
+     "freegame_low",
+     "freegame_m2",
+     "freegame_mid"
+    ],
+    "mean": "residual",
+    "name": "freegame",
+    "p": "residual"
+   }
+  ],
+  "epic": [
+   {
+    "bands": [
+     [
+      "cap",
+      "1.0"
+     ]
+    ],
+    "criteria": [
+     "epicgame",
+     "freegame",
+     "supergame",
+     "wincap"
+    ],
+    "name": "cap",
+    "p": "0.0003333333333333333"
+   },
+   {
+    "bands": [
+     [
+      [
+       200,
+       300
+      ],
+      "0.52"
+     ],
+     [
+      [
+       300,
+       400
+      ],
+      "0.2"
+     ],
+     [
+      [
+       400,
+       600
+      ],
+      "0.14"
+     ],
+     [
+      [
+       600,
+       1000
+      ],
+      "0.08"
+     ],
+     [
+      [
+       1000,
+       2000
+      ],
+      "0.04"
+     ],
+     [
+      [
+       2000,
+       5000
+      ],
+      "0.016"
+     ],
+     [
+      [
+       5000,
+       "10000.0"
+      ],
+      "0.0036"
+     ]
+    ],
+    "criteria": [
+     "epicgame",
+     "epicgame_body",
+     "epicgame_mid",
+     "epicgame_upper"
+    ],
+    "mean": "residual",
+    "name": "epicgame",
+    "p": "residual"
+   }
+  ],
+  "super": [
+   {
+    "bands": [
+     [
+      "cap",
+      "1.0"
+     ]
+    ],
+    "criteria": [
+     "epicgame",
+     "freegame",
+     "supergame",
+     "wincap"
+    ],
+    "name": "cap",
+    "p": "0.000125"
+   },
+   {
+    "bands": [
+     [
+      [
+       "25.0",
+       60
+      ],
+      "0.18"
+     ],
+     [
+      [
+       60,
+       120
+      ],
+      "0.22"
+     ],
+     [
+      [
+       120,
+       250
+      ],
+      "0.24"
+     ],
+     [
+      [
+       250,
+       500
+      ],
+      "0.15"
+     ],
+     [
+      [
+       500,
+       1000
+      ],
+      "0.075"
+     ],
+     [
+      [
+       1000,
+       2500
+      ],
+      "0.028"
+     ],
+     [
+      [
+       2500,
+       6000
+      ],
+      "0.006"
+     ],
+     [
+      [
+       6000,
+       "10000.0"
+      ],
+      "0.0009"
+     ]
+    ],
+    "criteria": [
+     "supergame",
+     "supergame_low",
+     "supergame_lowmid",
+     "supergame_mid"
+    ],
+    "mean": "residual",
+    "name": "supergame",
+    "p": "residual"
+   }
+  ],
+  "super_ante": [
+   {
+    "bands": [
+     [
+      "cap",
+      "1.0"
+     ]
+    ],
+    "criteria": [
+     "epicgame",
+     "freegame",
+     "supergame",
+     "wincap"
+    ],
+    "name": "cap",
+    "p": "2e-06"
+   },
+   {
+    "bands": [
+     [
+      [
+       0,
+       0
+      ],
+      "1.0"
+     ]
+    ],
+    "criteria": [
+     "0",
+     "basegame",
+     "basegame_high",
+     "basegame_mid"
+    ],
+    "name": "zero",
+    "p": "residual"
+   },
+   {
+    "bands": [
+     [
+      [
+       0,
+       "0.5"
+      ],
+      "0.7"
+     ],
+     [
+      [
+       "0.5",
+       1
+      ],
+      "0.3"
+     ]
+    ],
+    "criteria": [
+     "basegame"
+    ],
+    "mean": "0.33",
+    "name": "dribble",
+    "p": "0.2146"
+   },
+   {
+    "bands": [
+     [
+      [
+       1,
+       2
+      ],
+      "0.92"
+     ],
+     [
+      [
+       2,
+       5
+      ],
+      "0.08"
+     ]
+    ],
+    "criteria": [
+     "basegame"
+    ],
+    "mean": "residual",
+    "name": "basewin",
+    "p": "0.1554"
+   },
+   {
+    "bands": [
+     [
+      [
+       5,
+       10
+      ],
+      "0.7"
+     ],
+     [
+      [
+       10,
+       20
+      ],
+      "0.3"
+     ]
+    ],
+    "criteria": [
+     "basegame",
+     "basegame_mid"
+    ],
+    "mean": "7.5",
+    "name": "midwin",
+    "p": "0.015"
+   },
+   {
+    "bands": [
+     [
+      [
+       20,
+       50
+      ],
+      "0.86"
+     ],
+     [
+      [
+       50,
+       100
+      ],
+      "0.105"
+     ],
+     [
+      [
+       100,
+       500
+      ],
+      "0.035"
+     ]
+    ],
+    "criteria": [
+     "basegame",
+     "basegame_high"
+    ],
+    "mean": "30.0",
+    "name": "bigwin",
+    "p": "0.0015"
+   },
+   {
+    "bands": [
+     [
+      [
+       "25.0",
+       60
+      ],
+      "0.18"
+     ],
+     [
+      [
+       60,
+       120
+      ],
+      "0.22"
+     ],
+     [
+      [
+       120,
+       250
+      ],
+      "0.24"
+     ],
+     [
+      [
+       250,
+       500
+      ],
+      "0.15"
+     ],
+     [
+      [
+       500,
+       1000
+      ],
+      "0.075"
+     ],
+     [
+      [
+       1000,
+       2500
+      ],
+      "0.028"
+     ],
+     [
+      [
+       2500,
+       6000
+      ],
+      "0.006"
+     ],
+     [
+      [
+       6000,
+       "10000.0"
+      ],
+      "0.0009"
+     ]
+    ],
+    "criteria": [
+     "supergame"
+    ],
+    "mean": "241.7475",
+    "name": "super",
+    "p": "0.02531645569620253"
+   },
+   {
+    "bands": [
+     [
+      [
+       200,
+       300
+      ],
+      "0.38"
+     ],
+     [
+      [
+       300,
+       500
+      ],
+      "0.22"
+     ],
+     [
+      [
+       500,
+       800
+      ],
+      "0.15"
+     ],
+     [
+      [
+       800,
+       1500
+      ],
+      "0.13"
+     ],
+     [
+      [
+       1500,
+       3000
+      ],
+      "0.08"
+     ],
+     [
+      [
+       3000,
+       6000
+      ],
+      "0.03"
+     ],
+     [
+      [
+       6000,
+       "10000.0"
+      ],
+      "0.01"
+     ]
+    ],
+    "criteria": [
+     "epicgame"
+    ],
+    "mean": "800.0",
+    "name": "epic",
+    "p": "0.003816793893129771"
+   }
+  ]
+ },
+ "shaper_material": {
+  "ante": null,
+  "base": null,
+  "bonus": {
+   "freegame_low": [
+    "0.12403100775193798",
+    [
+     "10.0",
+     "25.0"
+    ],
+    {
+     "4": 1
+    }
+   ],
+   "freegame_m2": [
+    "0.09302325581395349",
+    [
+     "50.0",
+     "100.0"
+    ],
+    {
+     "4": 1
+    }
+   ],
+   "freegame_mid": [
+    "0.15503875968992248",
+    [
+     "25.0",
+     "50.0"
+    ],
+    {
+     "4": 1
+    }
+   ]
+  },
+  "epic": {
+   "epicgame_body": [
+    "0.4740740740740741",
+    [
+     "200.0",
+     "400.0"
+    ],
+    {
+     "6": 1
+    }
+   ],
+   "epicgame_mid": [
+    "0.23703703703703705",
+    [
+     "400.0",
+     "1000.0"
+    ],
+    {
+     "6": 1
+    }
+   ],
+   "epicgame_upper": [
+    "0.2222222222222222",
+    [
+     "1000.0",
+     "10000.0"
+    ],
+    {
+     "6": "0.95",
+     "8": "0.05"
+    }
+   ]
+  },
+  "super": {
+   "supergame_low": [
+    "0.09523809523809523",
+    [
+     "25.0",
+     "60.0"
+    ],
+    {
+     "5": 1
+    }
+   ],
+   "supergame_lowmid": [
+    "0.10582010582010581",
+    [
+     "60.0",
+     "120.0"
+    ],
+    {
+     "5": 1
+    }
+   ],
+   "supergame_mid": [
+    "0.31746031746031744",
+    [
+     "120.0",
+     "500.0"
+    ],
+    {
+     "5": 1
+    }
+   ]
+  },
+  "super_ante": null
+ },
+ "targets": {
+  "ante": {
+   "cost": "3.0",
+   "criteria": {
+    "0": [
+     "residual",
+     "0.0"
+    ],
+    "basegame": [
+     "0.33",
+     "residual"
+    ],
+    "basegame_high": [
+     "0.0033333333333333335",
+     "36.0"
+    ],
+    "basegame_mid": [
+     "0.025",
+     "9.0"
+    ],
+    "epicgame": [
+     "0.0004166666666666667",
+     "800.0"
+    ],
+    "freegame": [
+     "0.015873015873015872",
+     "88.0"
+    ],
+    "supergame": [
+     "0.0025",
+     "230.0"
+    ],
+    "wincap": [
+     "1e-06",
+     "10000.0"
+    ]
+   }
+  },
+  "base": {
+   "cost": "1.0",
+   "criteria": {
+    "0": [
+     "residual",
+     "0.0"
+    ],
+    "basegame": [
+     "0.32504261",
+     "residual"
+    ],
+    "basegame_high": [
+     "0.00397586",
+     "43.232548"
+    ],
+    "basegame_mid": [
+     "0.0184524",
+     "8.795744"
+    ],
+    "epicgame": [
+     "7.142857142857143e-05",
+     "800.0"
+    ],
+    "freegame": [
+     "0.002777777777777778",
+     "96.699"
+    ],
+    "supergame": [
+     "0.0003846153846153846",
+     "241.7475"
+    ],
+    "wincap": [
+     "3.3333333333333335e-07",
+     "10000.0"
+    ]
+   }
+  },
+  "bonus": {
+   "cost": "100.0",
+   "criteria": {
+    "freegame": [
+     "residual",
+     "residual"
+    ],
+    "wincap": [
+     "4e-05",
+     "10000.0"
+    ]
+   }
+  },
+  "epic": {
+   "cost": "500.0",
+   "criteria": {
+    "epicgame": [
+     "residual",
+     "residual"
+    ],
+    "wincap": [
+     "0.0003333333333333333",
+     "10000.0"
+    ]
+   }
+  },
+  "super": {
+   "cost": "250.0",
+   "criteria": {
+    "supergame": [
+     "residual",
+     "residual"
+    ],
+    "wincap": [
+     "0.000125",
+     "10000.0"
+    ]
+   }
+  },
+  "super_ante": {
+   "cost": "10.0",
+   "criteria": {
+    "0": [
+     "residual",
+     "0.0"
+    ],
+    "basegame": [
+     "0.37",
+     "residual"
+    ],
+    "basegame_high": [
+     "0.0015",
+     "30.0"
+    ],
+    "basegame_mid": [
+     "0.015",
+     "7.5"
+    ],
+    "epicgame": [
+     "0.003816793893129771",
+     "800.0"
+    ],
+    "supergame": [
+     "0.02531645569620253",
+     "241.7475"
+    ],
+    "wincap": [
+     "2e-06",
+     "10000.0"
+    ]
+   }
+  }
+ }
+}

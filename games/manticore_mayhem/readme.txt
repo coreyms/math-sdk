@@ -4,7 +4,14 @@ tumbling refill, doubling multiplier tiles. Max win 10,000x. Target RTP 96.7% ev
 Game id: manticore_mayhem. Spec: ~/Projects/manticore/docs/manticore-spec.md (blocks B/C/D).
 Forked from the SDK's 0_0_cluster sample; conventions follow games/angry_mantis.
 
-STATUS 2026-11-02 (wilds survive the swipe, PROMOTED 2026-11-03 on Corey's "Yes", CURRENT; old set in library-pre-wildpersist-20261102/): Corey 2026-11-02, option P of
+STATUS 2026-11-21 (math 2026.11.21, base game shape option B, IN library/, CURRENT): Corey 2026-11-21, after playing trial
+B on a local mock: "Okay, I think the Frequency of B feels much better"; asked "Make B the real base-game math for Manticore,
+exactly as you played it?" he answered "Yes". Only Base's lookup table changed (re-shaped, no book re-simulated); it is byte
+for byte trial B's (trials_2026-11-21/B). Every other table, every book and every book id is unchanged. The upload set is
+library/publish_files_5modes_2026-11-21/ (five modes, hard links to library/publish_files). Backup of everything changed:
+library/_backup_before_B_2026-11-21/ (README there). See "Math 2026.11.21" at the bottom; evidence in mathB-20261121/.
+
+STATUS 2026-11-02 (wilds survive the swipe, PROMOTED 2026-11-03 on Corey's "Yes", superseded for Base by 2026.11.21; old set in library-pre-wildpersist-20261102/): Corey 2026-11-02, option P of
 docs/reviews/manticore-math-wild-swipe-research-2026-11-02.md ("they should persist the claw swipe ... What I was looking
 for is for it to keep the wilds"; "Yes to all three"). wildpersist-candidate-20261102/games/manticore_mayhem/library holds
 MATH_VERSION 2026.11.02, every mode re-simulated at the shipped book counts and shaped to 0.96699; every gate passed. library/
@@ -1834,3 +1841,33 @@ HOW IT WAS RUN  wildpersist-rehearsal-20261102/run_rehearsal.sh (10,000 books, E
   tests, phantom_walk). Logs in wildpersist-candidate-20261102/evidence. 2026-11-02 13:09 to 2026-11-03 06:49.
 TO PROMOTE (Corey's word, mock stopped first): move library/ aside, put the candidate's library in its place, restart the
 mock, set the frontend's mathVersion to 2026.11.02.
+
+-------------------------------------------------------------------------------------------
+Math 2026.11.21 - BASE GAME SHAPE OPTION B (in library/, CURRENT)
+-------------------------------------------------------------------------------------------
+Corey 2026-11-21, after playing three versions on local mocks (today on 8444, trial B on 8451, trial C20 on 8452):
+"Okay, I think the Frequency of B feels much better"; "Make B the real base-game math for Manticore, exactly as you
+played it?" "Yes". Analysis and trial: ~/Desktop/Manticore Mayhem/feedback/base_game_shape_2026-11-21/ (REPORT.md
+option B, TRIALS.md); the trial tree is trials_2026-11-21/ (untracked).
+  game_optimization.py  TARGETS["base"] only: basegame_high (0.0030, 30x) -> (0.00397586, 43.232548), basegame_mid
+                        (0.0160, 7.5x) -> (0.01845240, 8.795744), basegame 0.4200 -> 0.32504261. Ante and Super Ante
+                        untouched.
+  tools/shape_lut.py    Base gets its own band tables (BASE_DRIBBLE / BASE_BASEWIN / BASE_MIDWIN / BASE_BIGWIN) and
+                        dribble share (BASE_DRIBBLE_SHARE_OF_BASEGAME 0.58 -> 0.74944017), trial B's values exactly;
+                        Ante and Super Ante keep the shared tables. With the shared values and the old targets the new
+                        code rebuilds the 2026.11.02 base table byte for byte (mathB-20261121/evidence/proofA_*.log).
+  game_config.py        MATH_VERSION 2026.11.02 -> 2026.11.21 (label only).
+HOW IT WAS RUN  shape_lut.py base (no simulation). The table it wrote (sha256 88d433f1...) is byte-identical to trial
+  B's; ante / super_ante / bonus / super / epic / mystery tables untouched (same sha256 as before).
+RESULT (Base 1x, before -> after; mathB-20261121/evidence/verify_B.json)
+  RTP 0.9669898 -> 0.9669898; hit rate 44.22% -> 35.07% (1 in 2.26 -> 2.85); std 19.11 -> 19.31
+  base-only 10x+ 1 in 128 -> 89, 15x+ 308 -> 150, 25x+ 1,029 -> 400, 50x+ 2,381 -> 800, 100x+ 9,524 -> 3,996
+  Free Spins / Super / Epic 1 in 361.1 / 2,544.9 / 13,891.9, weights identical book for book; any feature 1 in 309.2
+  max win 10,000x 1 in 3,000,003, cap weights identical; zero-weight books 2 (165727, 176561), the same 2 as before
+  every probe-pinned base book id keeps a weight; feature RTP share 43.6% unchanged
+GATES  check_stats (all limits pass), verify_math base (300,000 books, 0 payout or final/total mismatches),
+  scatter_scan base PASS, cap_spin_index base, the SDK RGS checks (execute_all_tests, stats_summary.json rewritten: only
+  base's lines moved), configs/ and configs_5modes_2026-11-21/ config.json (base sha256, std) and math_config.json
+  (base fences) re-written with the SDK's own functions. Logs in mathB-20261121/evidence/.
+MOCK  tools/mock_rgs.py caches weights keyed on the books file only: move tools/.rgs-cache/manticore_mayhem/
+  books_base.sqlite3 aside and restart 8444 before it serves the new table.
