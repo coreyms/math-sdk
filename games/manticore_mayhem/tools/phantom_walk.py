@@ -286,7 +286,12 @@ def process(bk, nline):
             rows = e["rows"]
             if len(rows) != 3 or rows != list(range(rows[0], rows[0] + 3)) or not (0 <= rows[0] <= 5): err("swipe_rows")
             band = sorted(r * 8 + w for r in range(8) for w in rows if b[r * 8 + w] != "S")
-            if sorted(e["removed"]) != band: err("swipe_removed_ne_band_minus_scatters")
+            # math 2026.11.02: the paw clears the band minus its scatters AND its wilds ("they should persist
+            # the claw swipe ... What I was looking for is for it to keep the wilds", Corey 2026-11-02);
+            # the tiles still step on the whole band minus scatters, the kept wild's cell included
+            cleared = [c for c in band if b[c] != "W"]
+            if sorted(e["removed"]) != cleared: err("swipe_removed_ne_band_minus_scatters_and_wilds")
+            if any(b[c] == "W" for c in e["removed"]): err("swipe_removed_a_wild")
             exp = step(tiles, band, cap)
             got = {c: v for c, v in e["tiles"]}
             if got != exp: err("swipe_tiles_ne_ladder")

@@ -118,16 +118,25 @@ class GameExecutables(GameCalculations):
         board before they were counted - a 500x Epic buy could resolve to a Bonus, and a base
         spin could have its fourth scatter swiped away in front of the player. The paw now
         clears everything in the band except a scatter, which stays where it is.
+
+        WILDS SURVIVE THE SWIPE TOO (Corey, 2026-11-02: "they should persist the claw swipe ...
+        What I was looking for is for it to keep the wilds"). A Wild standing in the band is not
+        cleared and not listed in `removed`; its tile still steps with the rest of the band, so
+        the kept Wild sits on a lit cell and joins whatever cluster the refill forms.
         """
         rows = tuple(rows) if rows is not None else self.pick_swipe_rows()
-        positions = [
+        # the whole band minus scatters: every one of these cells has its tile stepped
+        band = [
             (reel, row)
             for reel in range(self.config.num_reels)
             for row in rows
             if not self.board[reel][row].check_attribute("scatter")
         ]
+        # the cells the paw clears: the band minus its wilds ("they should persist the claw
+        # swipe ... What I was looking for is for it to keep the wilds", Corey 2026-11-02)
+        positions = [(reel, row) for reel, row in band if not self.board[reel][row].check_attribute("wild")]
         tile_changes = self.double_tiles(
-            positions, seed_empty=self.config.swipe_seeds_empty_tiles[self.context]
+            band, seed_empty=self.config.swipe_seeds_empty_tiles[self.context]  # the kept wild's tile steps too (Corey 2026-11-02: "keep the wilds")
         )
         removed = sorted(cell(reel, row) for reel, row in positions)
         self.remove_and_refill(positions)
@@ -146,7 +155,7 @@ class GameExecutables(GameCalculations):
         """A swipe that always completes a winning cluster (reshape 2026-10-16).
 
         The six bands are tried in random order. Each try is the ordinary swipe (tiles in the band
-        stepped up, the band cleared except scatters, the board refilled off the strip); if the
+        stepped up, the band cleared except scatters and wilds, the board refilled off the strip); if the
         refilled board holds a paying cluster that try is kept and its `swipe` event emitted, which
         is byte for byte the event do_swipe writes. Otherwise the board, the tile grid, the reel
         positions and the tumble bookkeeping are put back exactly as they were and the next band
@@ -162,14 +171,20 @@ class GameExecutables(GameCalculations):
             snap_positions = list(self.reel_positions)
             snap_before = getattr(self, "board_before_tumble", None)
             snap_new = [list(column) for column in self.new_symbols_from_tumble]
-            positions = [
+            # the whole band minus scatters: every one of these cells has its tile stepped
+            band = [
                 (reel, row)
                 for reel in range(self.config.num_reels)
                 for row in rows
                 if not self.board[reel][row].check_attribute("scatter")
             ]
+            # the cells the paw clears: the band minus its wilds, which stay where they stand
+            # ("they should persist the claw swipe ... What I was looking for is for it to keep
+            # the wilds", Corey 2026-11-02); the must-win test below is unchanged, a kept Wild
+            # simply helps the refilled band form a cluster
+            positions = [(reel, row) for reel, row in band if not self.board[reel][row].check_attribute("wild")]
             tile_changes = self.double_tiles(
-                positions, seed_empty=self.config.swipe_seeds_empty_tiles[self.context]
+                band, seed_empty=self.config.swipe_seeds_empty_tiles[self.context]  # the kept wild's tile steps too (Corey 2026-11-02: "keep the wilds")
             )
             self.remove_and_refill(positions)
             if self.board_has_win():

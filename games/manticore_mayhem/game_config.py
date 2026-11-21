@@ -44,7 +44,7 @@ WINCAP = 10000.0  # spec B: max win 10,000x base bet (Corey 2026-09-20)
 # The Mystery diversity pass of the same day (Mystery re-dealt, no rule changed) keeps the label.
 # Math fix 2026-10-18 (harsh review 2026-10-17): the scatter-sting stand-in may never be part of a visible
 # 5+ group (game_calculations.placeholder_symbol), the spin modes re-simulated at 300,000 books, Mystery re-dealt.
-MATH_VERSION = "2026.10.18"  # math fix (Corey 2026-10-17 22:54 "go ahead and run it"); was 2026.10.16 (math reshape)
+MATH_VERSION = "2026.11.02"  # wilds survive the swipe (Corey 2026-11-02: "they should persist the claw swipe ... What I was looking for is for it to keep the wilds"); was 2026.10.18 (math fix)
 
 ANTE_COST = 3.0
 SUPER_ANTE_COST = 10.0
@@ -393,9 +393,13 @@ SUPER_BUY_WINCAP_QUOTA = 300 / DIVERSITY_SUPER_BOOKS
 _EPIC_BUY_BOARD = {6: 1 - EPIC8_SHARE_EPIC_BUY, 8: EPIC8_SHARE_EPIC_BUY}
 EPIC_BUY_SLICES = {
     # 200x-400x: 70% of every Epic buy, 1.2% of raw Epic draws (84 draws per book)
-    "epicgame_body": (56_000 / DIVERSITY_EPIC_BOOKS, (200.0, 400.0), {6: 1}),
+    # MATH 2026.11.02 (wilds survive the swipe; Corey 2026-11-02: "What I was looking for is for it to keep the wilds"):
+    # 56,000 -> 64,000 books, taken from epicgame_mid, total unchanged. A kept Wild makes the Epic richer, so only 42%
+    # of this slice lands at 200x-300x (was 47%) and the 56,000-book deck held 23,652 books there, under the 26,001
+    # the shaper needs to give the band its 52% at the 1 in 50,000 per-book ceiling.
+    "epicgame_body": (64_000 / DIVERSITY_EPIC_BOOKS, (200.0, 400.0), {6: 1}),
     # 400x-1,000x: 21% of every Epic buy, 3.4% of raw Epic draws (30 draws per book)
-    "epicgame_mid": (40_000 / DIVERSITY_EPIC_BOOKS, (400.0, 1000.0), {6: 1}),
+    "epicgame_mid": (32_000 / DIVERSITY_EPIC_BOOKS, (400.0, 1000.0), {6: 1}),  # 40,000 -> 32,000 (math 2026.11.02, see the body slice)
     # 1,000x up to (not including) the max win: the upper bands without the natural caps. The
     # only slice that can hold an 8-scatter round (2,500x or more), so it opens on 8 at the
     # owner's share exactly like the natural `epicgame` criteria.

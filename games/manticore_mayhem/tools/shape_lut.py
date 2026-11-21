@@ -132,6 +132,8 @@ MYSTERY_SUPER_BANDS = SUPER_BANDS + [(CAP, 0.00008)]
 # (0,0) band MUST come first, because in_band((0,0.5), 0) would otherwise swallow the zeros.
 # Measured over 20,000 raw `mystery_nothing` rounds (2026-09-23): 80.7% pay nothing, mean
 # 0.203x the base bet, biggest seen 51.8x.
+# KEPT (Corey 2026-11-03, on keeping Mystery's 59.65% hit rate: "yes"); the math 2026.11.02 raw deck measures 68.7% zeros,
+# mean 1.023x, but the shipped slice stays shaped to the 2026-09-23 shares below.
 MYSTERY_NOTHING_BANDS = [((0, 0), 0.8071), ((0, 0.5), 0.0958), ((0.5, 1), 0.0538),
                          ((1, 2), 0.0179), ((2, 5), 0.0193), ((5, 20), 0.0061),
                          ((20, WINCAP), 0.0002)]

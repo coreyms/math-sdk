@@ -268,18 +268,21 @@ def _():
     seen = set()
     for _ in range(200):
         gs.reset_tiles()
-        scatter_rows_before = [
-            row for reel in range(8) for row in range(8) if gs.board[reel][row].check_attribute("scatter")
+        # math 2026.11.02: a wild in the band survives the paw too ("they should persist the claw
+        # swipe ... What I was looking for is for it to keep the wilds", Corey 2026-11-02)
+        kept_rows_before = [
+            row for reel in range(8) for row in range(8) if gs.board[reel][row].check_attribute("scatter", "wild")
         ]
         gs.do_swipe()
         event = gs.book.events[-1]
         rows = event["rows"]
         assert rows == list(range(rows[0], rows[0] + 3)) and rows[0] in range(6), rows
         assert all(c % 8 in rows for c in event["removed"]), (rows, event["removed"])
-        # the refill comes off the real BR strip, so a scatter may sit in the band by the
-        # time the next swipe fires and the paw skips it: 24 minus the surviving scatters
-        survivors = sum(1 for row in scatter_rows_before if row in rows)
+        # the refill comes off the real BR strip, so a scatter or a wild may sit in the band by
+        # the time the next swipe fires and the paw skips it: 24 minus the surviving scatters and wilds
+        survivors = sum(1 for row in kept_rows_before if row in rows)
         assert len(event["removed"]) == 24 - survivors, (rows, event["removed"])
+        assert sum(len(f) for f in event["fill"]) == 24 - survivors, "the fill is shorter by the kept cells"
         seen.add(rows[0])
     assert seen == {0, 1, 2, 3, 4, 5}, seen
 
@@ -307,6 +310,83 @@ def _():
     event = gs.book.events[-1]
     assert len(event["removed"]) == 18, event["removed"]
     assert all(c not in event["removed"] for c in (cell(r, 4) for r in range(6)))
+
+
+@check("swipe: wilds survive the paw, their tiles step, the fill is shorter (math 2026.11.02)")
+def _():
+    """Corey 2026-11-02: "they should persist the claw swipe ... What I was looking for is for it
+    to keep the wilds". Three wilds in the band: not in `removed`, still on the board after the
+    refill, their tiles stepped like the rest of the band, the fill 21 cells not 24."""
+    gs = new_state()
+    gs.criteria = "basegame"
+    set_board(gs, ["M1 M2 M3 H1 M1 M2 M3 H1"] * 8)
+    gs.reelstrip = gs.config.reels["BR"]
+    gs.reelstrip_id = "BR"
+    gs.reel_positions = [0] * 8
+    for reel in range(8):
+        for row in SWIPE_TEST_ROWS:
+            gs.board[reel][row] = gs.create_symbol("H1")
+    wild_cells = [(1, 3), (4, 4), (7, 5)]
+    for reel, row in wild_cells:
+        gs.board[reel][row] = gs.create_symbol("W")
+    gs.board[2][4] = gs.create_symbol("S")  # and one scatter, which still survives as before
+    gs.get_special_symbols_on_board()
+    gs.reset_tiles()
+    gs.tile_grid[4][4] = 8  # a lit tile under one of the wilds
+
+    gs.do_swipe(SWIPE_TEST_ROWS)
+    gs.get_special_symbols_on_board()
+
+    event = gs.book.events[-1]
+    assert event["type"] == "swipe" and event["rows"] == [3, 4, 5]
+    kept = {cell(r, w) for r, w in wild_cells} | {cell(2, 4)}
+    assert len(event["removed"]) == 24 - 4, event["removed"]
+    assert not (kept & set(event["removed"])), "the paw removed a wild or a scatter"
+    assert sum(len(f) for f in event["fill"]) == 24 - 4, "the fill must be shorter by the kept cells"
+    # a kept wild falls with the refill like a kept scatter does (the cleared cells under it are
+    # filled from above), so it is in the same column, at its row or lower, never gone
+    for reel, row in wild_cells:
+        landed = [w for w in range(8) if gs.board[reel][w].check_attribute("wild")]
+        assert landed and min(landed) >= row, f"the wild at {(reel, row)} did not survive the swipe: {landed}"
+    assert gs.board[2][5].check_attribute("scatter"), "the scatter fell to the bottom of the cleared span"
+    assert gs.count_special_symbols("wild") == 3, "a kept wild must not be duplicated or dropped"
+    # the tiles step on the whole band minus scatters, the kept wilds' cells included
+    tiles = {c: v for c, v in event["tiles"]}
+    assert len(tiles) == 24 - 1, tiles
+    assert tiles[cell(4, 4)] == 16 and gs.tile_grid[4][4] == 16, "the lit tile under a kept wild did not double"
+    assert tiles[cell(1, 3)] == 2 and tiles[cell(7, 5)] == 2, "the cold tiles under kept wilds did not light"
+    assert cell(2, 4) not in tiles, "a scatter's tile must not step"
+    # the engine path too: a sampled must-win swipe never lists a wild cell in `removed`
+    gs2 = GameState(GameConfig())
+    swipes = wilds_kept = 0
+    for mode, criteria, sim, events in sample_books(gs2, (("base", "basegame", 120), ("bonus", "freegame", 20))):
+        board = None
+        for e in events:
+            if e["type"] == "reveal":
+                board = [list(col) for col in e["board"]]
+            elif e["type"] in ("cascade", "swipe"):
+                if e["type"] == "swipe":
+                    swipes += 1
+                    in_band = [(r, w) for r in range(8) for w in e["rows"]]
+                    assert all(board[r][w] != "W" for r, w in in_band if cell(r, w) in e["removed"]), (mode, sim, e)
+                    wilds_kept += sum(1 for r, w in in_band if board[r][w] == "W")
+                for c in e["removed"]:
+                    board[c // 8][c % 8] = None
+                for r in range(8):
+                    col = [s for s in board[r] if s is not None]
+                    board[r] = list(e["fill"][r]) + col
+                    assert len(board[r]) == 8, (mode, sim, e["type"])
+            elif e["type"] == "sting":
+                for c in e["cells"]:
+                    board[c // 8][c % 8] = e["symbol"]
+            elif e["type"] == "roar":
+                for c in e["removed"]:
+                    board[c // 8][c % 8] = None
+                for r in range(8):
+                    col = [s for s in board[r] if s is not None]
+                    board[r] = list(e["fill"][r]) + col
+    assert swipes > 20 and wilds_kept > 0, (swipes, wilds_kept)
+    gs2.reset_redraw_counts()
 
 
 @check("swipe: seeds cold cells in EVERY context (rule pass 2: the lever is on everywhere)")
@@ -1025,7 +1105,7 @@ def _():
     assert EPIC8_MIN_WIN == 2500.0 and EPIC8_SHARE_SPIN == 0.10 and EPIC8_SHARE_EPIC_BUY == 0.05
     assert EPIC8_SHARE == {"base": 0.10, "ante": 0.10, "super_ante": 0.10, "epic": 0.05}, EPIC8_SHARE
     assert (MAX_TRIGGER_SCATTERS, FULL_BOARD_SCATTERS) == (6, 8)
-    assert MATH_VERSION == "2026.10.18", MATH_VERSION  # math fix; 2026.10.16 reshape, 2026.10.15 diversity, 2026.10.13 rule pass 3
+    assert MATH_VERSION == "2026.11.02", MATH_VERSION  # wilds survive the swipe; 2026.10.18 math fix, 2026.10.16 reshape, 2026.10.15 diversity
 
     cfg = GameConfig()
     forced = {}

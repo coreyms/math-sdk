@@ -4,7 +4,14 @@ tumbling refill, doubling multiplier tiles. Max win 10,000x. Target RTP 96.7% ev
 Game id: manticore_mayhem. Spec: ~/Projects/manticore/docs/manticore-spec.md (blocks B/C/D).
 Forked from the SDK's 0_0_cluster sample; conventions follow games/angry_mantis.
 
-STATUS 2026-10-18 (math fix, PROMOTED, CURRENT): Corey's go 2026-10-18 08:02 ("1. Yes"); he moved library/ to
+STATUS 2026-11-02 (wilds survive the swipe, PROMOTED 2026-11-03 on Corey's "Yes", CURRENT; old set in library-pre-wildpersist-20261102/): Corey 2026-11-02, option P of
+docs/reviews/manticore-math-wild-swipe-research-2026-11-02.md ("they should persist the claw swipe ... What I was looking
+for is for it to keep the wilds"; "Yes to all three"). wildpersist-candidate-20261102/games/manticore_mayhem/library holds
+MATH_VERSION 2026.11.02, every mode re-simulated at the shipped book counts and shaped to 0.96699; every gate passed. library/
+still serves 2026.10.18 (its copy: library-pre-wildpersist-20261102/). See "Wilds survive the swipe, 2026-11-02" at the bottom
+and docs/reviews/manticore-math-wildpersist-2026-11-02.md.
+
+STATUS 2026-10-18 (math fix, superseded 2026-11-03): Corey's go 2026-10-18 08:02 ("1. Yes"); he moved library/ to
 library-pre-fix-20261018/ and copied the candidate in himself (the publish files' sha256 match the candidate's). fix-candidate-20261018/games/
 manticore_mayhem/library holds MATH_VERSION 2026.10.18: the scatter-sting stand-in can no longer be part of a visible 5+
 group (harsh review 2026-10-17, Mystery book 1050), base / ante / super_ante re-simulated at exactly 300,000 books each
@@ -1802,3 +1809,28 @@ GATES ON THE CANDIDATE (all PASS)
 TO PROMOTE (on Corey's word, mock stopped first): move library/ aside as library-pre-fix-20261018, put $L in its
 place, set the frontend's mathVersion to 2026.10.18, restart the mock, then verify_math.py and scatter_scan.py.
 Staging needs books_base / ante / super_ante / mystery and all seven tables plus index.json.
+
+-------------------------------------------------------------------------------------------
+Wilds survive the swipe, 2026-11-02 - THE PAW KEEPS THE WILDS (candidate set, NOT promoted)
+-------------------------------------------------------------------------------------------
+Corey 2026-11-02: "they should persist the claw swipe ... What I was looking for is for it to keep the wilds" (option P,
+"Yes to all three"). Full write-up: docs/reviews/manticore-math-wildpersist-2026-11-02.md.
+  game_executables.py   do_swipe / do_swipe_must_win: the tiles step on the band minus scatters (the kept Wild's cell too);
+                        the paw clears the band minus scatters AND wilds. Must-win and the refill rules unchanged.
+  EVENT_SCHEMA.md       swipe: `removed` omits wilds, `fill` shorter by the kept cells.
+  game_config.py        MATH_VERSION 2026.11.02; EPIC_BUY_SLICES body 56,000 -> 64,000, mid 40,000 -> 32,000 (total 135,000)
+                        because the first Epic deck held 23,652 books at 200x-300x, under the 26,001 the shaper needs.
+  game_optimization.py, tools/shape_lut.py  the Mystery nothing constants KEPT at 0.20 / .1933 / the 2026-09-23 bands
+                        (re-measured 1.02x / .3130 on the new deck, put back on Corey's "yes" of 2026-11-03 to keep
+                        Mystery's 59.65% hit rate; Mystery re-shaped, RTP .9669901).
+  tools/phantom_walk.py the swipe check expects the band minus scatters and wilds; flags a W in `removed`.
+  tests/test_math.py    50 checks (new: wilds survive the paw).
+  basegame_mid          kept at 0.016: raising it LOWERS the shipped paw share (8.32 / 8.15 / 7.98 / 7.81% at
+                        .014 / .016 / .018 / .020 on the real base deck).
+HOW IT WAS RUN  wildpersist-rehearsal-20261102/run_rehearsal.sh (10,000 books, Epic 5,000), then
+  wildpersist-candidate-20261102/run_full.sh (5 processes, nice 10, run.py --out), run_epic2.sh (the Epic again after the
+  slice re-split; the first Epic deck is in epic-first-deck-20261103/), gates.sh (shape, configs + RGS checks,
+  check_stats, verify_math, scatter_scan, cap_spin_index, analyze_books, redraw_summary, evidence/scripts/wild_walk.py,
+  tests, phantom_walk). Logs in wildpersist-candidate-20261102/evidence. 2026-11-02 13:09 to 2026-11-03 06:49.
+TO PROMOTE (Corey's word, mock stopped first): move library/ aside, put the candidate's library in its place, restart the
+mock, set the frontend's mathVersion to 2026.11.02.

@@ -54,7 +54,9 @@ SUPER_MEAN = SUPER_COST * TARGET_RTP  # 241.75x
 # its own. MEASURED off the raw deck (see readme.txt's rule-pass-2 log); it is stated as a
 # constant rather than a residual because the Epic slice is already the residual, and the two
 # cannot both float. Re-measure and update it if the base-game levers ever move again.
-MYSTERY_NOTHING_MEAN = 0.20  # measured: 0.203x over 20,000 raw `mystery_nothing` rounds
+MYSTERY_NOTHING_MEAN = 0.20  # measured: 0.203x over 20,000 raw `mystery_nothing` rounds (2026-09-23). KEPT on purpose
+# (Corey 2026-11-03, on keeping Mystery's 59.65% hit rate: "yes"): the math 2026.11.02 deck's raw slice averages 1.023x
+# and pays 31.3% of the time, but the shipped slice stays shaped to these 2026-09-23 numbers.
 
 EPIC_MEAN = 800.0  # above 0.967 x 500 = 483.5: the bought Epic's own mean is pulled down by its
 # 200x floor sitting right under it, while a NATURALLY won Epic is a pure upside event.
@@ -184,7 +186,7 @@ def mode_rtp_split(mode: str) -> dict:
 # Measured share of `mystery_nothing` rounds that pay anything at all (20,000 raw rounds,
 # 2026-09-23). Only used to report Mystery's hit rate honestly - the slice is a real spin, so
 # unlike the `0` criteria it is not uniformly a loss.
-MYSTERY_NOTHING_HIT = 0.1933
+MYSTERY_NOTHING_HIT = 0.1933  # kept (Corey 2026-11-03 "yes" to Mystery's 59.65% hit rate); the 2026.11.02 raw deck pays 0.3130
 
 
 def hit_rate(mode: str) -> float:

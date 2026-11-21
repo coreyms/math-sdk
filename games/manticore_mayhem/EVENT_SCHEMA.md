@@ -57,9 +57,9 @@ The client never has to reconstruct an intermediate board.
 | field | |
 |---|---|
 | `rows` | the ACTUAL band of this swipe: 3 contiguous rows `[s, s+1, s+2]` with `s` drawn uniformly from 0..5 per swipe, in every mode (config `SWIPE_BAND_ROWS` / `SWIPE_BAND_STARTS`, 2026-10-06; was always `[3,4,5]`) |
-| `removed[]` | the cleared cells in those rows - **up to 24, fewer when a scatter is in the band**. Scatters survive the paw: they are not cleared and not listed |
-| `tiles[]` | tiles stepped up in those rows. Rule pass 2 (2026-09-23): the swipe SEEDS cold cells to 2x as well as doubling lit ones, in EVERY context including the persistent features (`SWIPE_SEEDS_EMPTY_TILES` is True everywhere), so this is normally the whole band minus any capped cells |
-| `fill[8][]` | refill, top-down |
+| `removed[]` | the cleared cells in those rows - **up to 24, fewer when a scatter or a wild is in the band**. Scatters and wilds survive the paw: they are not cleared and not listed (wilds since math 2026.11.02; Corey 2026-11-02: "they should persist the claw swipe ... What I was looking for is for it to keep the wilds") |
+| `tiles[]` | tiles stepped up in those rows. Rule pass 2 (2026-09-23): the swipe SEEDS cold cells to 2x as well as doubling lit ones, in EVERY context including the persistent features (`SWIPE_SEEDS_EMPTY_TILES` is True everywhere), so this is normally the whole band minus any capped cells. The cell under a kept wild steps like its neighbours (it is in `tiles` but not in `removed`) |
+| `fill[8][]` | refill, top-down; a column's list is shorter by the scatters and wilds that stayed in the band |
 
 Fires only after a spin has run out of clusters, and at most `SWIPE_MAX_PER_SPIN` (2) times.
 Cascading resumes after it.
