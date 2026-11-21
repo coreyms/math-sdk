@@ -33,7 +33,7 @@ STING = "sting"
 ROAR = "roar"
 BONUS_START = "bonusStart"
 BONUS_END = "bonusEnd"
-MYSTERY = "mystery"
+# MYSTERY ("mystery") and mystery_event: removed 2026-11-21 with the Mystery mode.
 
 
 def cell(reel: int, row: int) -> int:
@@ -138,7 +138,7 @@ def sting_event(gamestate, kind: str, center: int, cells: list, symbol: str) -> 
     """One sting (rule pass 2, 2026-09-23). No refill: the new symbol REPLACES what was there.
 
     `kind` is `normal` (1 cell), `big` (a plus of 5), `super` (a 3x3 block of 9) or `scatter`
-    (1 cell, the natural-trigger and Mystery tease). `cells` is EVERY cell the shape covers,
+    (1 cell, the natural-trigger tease). `cells` is EVERY cell the shape covers,
     centre first then ascending cell index, and `symbol` is what all of them become - the
     client applies exactly that and never re-derives the shape. The old boolean `super` field
     is gone; the rig animation is picked from `kind`.
@@ -195,15 +195,3 @@ def bonus_end_event(gamestate) -> None:
         }
     )
 
-
-def mystery_event(gamestate, outcome: str) -> None:
-    """Mystery buy result, always the FIRST event of the book. Rule pass 2 (2026-09-23): every
-    outcome including `nothing` is a real spin, so a `mystery` event is always followed by a
-    `reveal`; the outcome only decides how many scatter stings land on it."""
-    gamestate.book.add_event(
-        {
-            "index": len(gamestate.book.events),
-            "type": MYSTERY,
-            "outcome": outcome,
-        }
-    )

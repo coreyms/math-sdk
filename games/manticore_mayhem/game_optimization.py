@@ -38,7 +38,6 @@ from game_config import (
     ANTE_COST,
     BONUS_COST,
     EPIC_COST,
-    MYSTERY_COST,
     SUPER_ANTE_COST,
     SUPER_COST,
     TARGET_RTP,
@@ -50,19 +49,10 @@ from game_config import (
 # the SAME feature, so it carries the same mean wherever it is triggered from.
 BONUS_MEAN = BONUS_COST * TARGET_RTP  # 96.7x
 SUPER_MEAN = SUPER_COST * TARGET_RTP  # 241.75x
-# RULE PASS 2 (2026-09-23): the Mystery `nothing` slice is a real spin, so it carries a mean of
-# its own. MEASURED off the raw deck (see readme.txt's rule-pass-2 log); it is stated as a
-# constant rather than a residual because the Epic slice is already the residual, and the two
-# cannot both float. Re-measure and update it if the base-game levers ever move again.
-MYSTERY_NOTHING_MEAN = 0.20  # measured: 0.203x over 20,000 raw `mystery_nothing` rounds (2026-09-23). KEPT on purpose
-# (Corey 2026-11-03, on keeping Mystery's 59.65% hit rate: "yes"): the math 2026.11.02 deck's raw slice averages 1.023x
-# and pays 31.3% of the time, but the shipped slice stays shaped to these 2026-09-23 numbers.
+# MYSTERY_NOTHING_MEAN: removed 2026-11-21 with the Mystery mode (Corey 2026-11-21: "You can get rid of the Mystery Source.")
 
 EPIC_MEAN = 800.0  # above 0.967 x 500 = 483.5: the bought Epic's own mean is pulled down by its
 # 200x floor sitting right under it, while a NATURALLY won Epic is a pure upside event.
-# The Mystery Epic's mean is NOT a free constant: it is whatever the 50/40/10 split leaves
-# after the Mystery Super takes its 241.75x and the nothing slice its 0.20x, i.e. 1,449.5x. It is derived in TARGETS as a residual
-# so the split and the mean can never drift apart.
 
 # ---- Base-game payout groups, shared shape across the three spin modes -------------------
 # (probability per spin, mean x base bet). `basegame` carries the dribble (<1x) and the 1-5x
@@ -149,18 +139,7 @@ TARGETS = {
             "epicgame": ("residual", "residual"),
         },
     },
-    "mystery": {
-        "cost": MYSTERY_COST,
-        # Corey's split, 50 / 40 / 10 (see MYSTERY_SPLIT in game_config.py). The Epic slice
-        # carries the residual mean; with the rule-pass-2 `nothing` slice now paying its own
-        # small mean and the 96.7% target, that residual resolves to 1,449.5x over its 500x
-        # floor.
-        "criteria": {
-            "supergame": (0.40, SUPER_MEAN),
-            "epicgame": (0.10, "residual"),
-            "mystery_nothing": ("residual", MYSTERY_NOTHING_MEAN),
-        },
-    },
+    # "mystery": removed 2026-11-21 with the Mystery mode (Corey 2026-11-21: "You can get rid of the Mystery Source.")
 }
 
 
@@ -189,22 +168,19 @@ def mode_rtp_split(mode: str) -> dict:
     return out
 
 
-# Measured share of `mystery_nothing` rounds that pay anything at all (20,000 raw rounds,
-# 2026-09-23). Only used to report Mystery's hit rate honestly - the slice is a real spin, so
-# unlike the `0` criteria it is not uniformly a loss.
-MYSTERY_NOTHING_HIT = 0.1933  # kept (Corey 2026-11-03 "yes" to Mystery's 59.65% hit rate); the 2026.11.02 raw deck pays 0.3130
+# MYSTERY_NOTHING_HIT: removed 2026-11-21 with the Mystery mode (Corey 2026-11-21: "You can get rid of the Mystery Source.")
 
 
 def hit_rate(mode: str) -> float:
     """1 in N rounds of `mode` pay something. Every criteria except `0` is a paying round by
-    construction (game_override.check_repeat re-draws a zero one); `mystery_nothing` is the
-    exception - it is a real spin that pays only MYSTERY_NOTHING_HIT of the time."""
+    construction (game_override.check_repeat re-draws a zero one). (Mystery's `mystery_nothing`, a
+    real spin that could pay nothing, left with the Mystery mode on 2026-11-21.)"""
     split = mode_rtp_split(mode)
     paying = 0.0
     for criteria, (p, _, _) in split.items():
         if criteria == "0":
             continue
-        paying += p * (MYSTERY_NOTHING_HIT if criteria == "mystery_nothing" else 1.0)
+        paying += p
     return 1 / paying
 
 
@@ -213,13 +189,11 @@ _SCATTERS = {"freegame": 4, "supergame": 5, "epicgame": 6}
 
 def _material_slices(mode: str) -> dict:
     """criteria -> (win_range, parent criteria) of a buy's material slices (diversity pass,
-    2026-10-15). Empty for every mode but the Super, Epic and Mystery buys. The parent is the
-    criteria whose target the slice's books serve: the buy's own criteria, or for Mystery the
-    outcome the slice plays (game_config MYSTERY_SLICES)."""
-    from game_config import BONUS_BUY_SLICES, EPIC_BUY_SLICES, MYSTERY_SLICES, SUPER_BUY_SLICES
+    2026-10-15). Empty for every mode but the Bonus, Super and Epic buys. The parent is the
+    criteria whose target the slice's books serve: the buy's own criteria. (Mystery's slices left
+    with the Mystery mode on 2026-11-21.)"""
+    from game_config import BONUS_BUY_SLICES, EPIC_BUY_SLICES, SUPER_BUY_SLICES
 
-    if mode == "mystery":
-        return {name: (win_range, parent) for name, (_, win_range, parent) in MYSTERY_SLICES.items()}
     # reshape 2026-10-16: the Bonus buy has material slices too
     parent = {"bonus": "freegame", "super": "supergame", "epic": "epicgame"}.get(mode)
     slices = {"bonus": BONUS_BUY_SLICES, "super": SUPER_BUY_SLICES, "epic": EPIC_BUY_SLICES}.get(mode, {})
@@ -236,15 +210,10 @@ def _conditions(mode: str) -> dict:
             conds[criteria] = ConstructConditions(
                 rtp=round(rtp, 9), av_win=WINCAP, search_conditions=WINCAP
             ).return_dict()
-        elif criteria in _SCATTERS and mode != "mystery":
+        elif criteria in _SCATTERS:
             conds[criteria] = ConstructConditions(
                 rtp=round(rtp, 9), hr=round(1 / p, 5),
                 search_conditions={"symbol": "scatter", "kind": str(_SCATTERS[criteria])},
-            ).return_dict()
-        elif criteria in _SCATTERS:  # mystery: the award is not a scatter board
-            conds[criteria] = ConstructConditions(
-                rtp=round(rtp, 9), hr=round(1 / p, 5),
-                search_conditions={"bonusType": criteria[:-4]},
             ).return_dict()
         else:
             conds[criteria] = ConstructConditions(rtp=round(rtp, 9), hr=round(1 / p, 5)).return_dict()
@@ -254,8 +223,7 @@ def _conditions(mode: str) -> dict:
     # weight. run.py's setup needs one condition per criteria, so each slice gets a TOKEN RTP
     # share taken from its parent criteria and is identified by its payout range (house
     # convention from Angry Mantis's farmed `freegame_big` slices). Nothing reads these numbers:
-    # the Rust optimiser is not part of the flow. Mystery's slices (2026-10-15, MYSTERY_SLICES)
-    # take their token from the outcome criteria they copy.
+    # the Rust optimiser is not part of the flow.
     for name, (win_range, parent) in _material_slices(mode).items():
         token = 0.001
         conds[parent]["rtp"] = round(conds[parent]["rtp"] - token, 9)

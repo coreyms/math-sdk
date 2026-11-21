@@ -1,0 +1,7 @@
+phantom_walk before vs after the Mystery edit, on the 200-book sample decks
+base walk output identical | errors: {}
+ante walk output identical | errors: {}
+super_ante walk output identical | errors: {}
+bonus walk output identical | errors: {}
+super walk output identical | errors: {}
+epic walk output identical | errors: {}

@@ -32,7 +32,7 @@ LIB = os.environ.get("MANTICORE_LIB") or os.path.join(GAME, "library")
 PUB = os.path.join(LIB, "publish_files")
 CAP = 1_000_000  # 10,000x in payout units (hundredths of the base bet)
 
-ALL_MODES = ["base", "ante", "super_ante", "bonus", "super", "epic", "mystery"]
+ALL_MODES = ["base", "ante", "super_ante", "bonus", "super", "epic"]  # mystery left 2026-11-21
 
 
 def lut(mode):
@@ -88,9 +88,8 @@ def main(modes):
                 last_total = next((e["amount"] for e in reversed(ev) if e["type"] == "setTotalWin"), None)
                 fin = next((e["amount"] for e in reversed(ev) if e["type"] == "finalWin"), None)
                 # Manticore emits setTotalWin only on a spin that PAID, so a zero round has
-                # none and that is correct, not a mismatch. The one exception is the Mystery
-                # `nothing` book, which emits an explicit setTotalWin(0) so the client can
-                # resolve the round without a board (EVENT_SCHEMA.md).
+                # none and that is correct, not a mismatch. (The Mystery `nothing` book's explicit
+                # setTotalWin(0) left with the Mystery mode on 2026-11-21.)
                 ok_total = last_total == b["payoutMultiplier"] or (
                     last_total is None and b["payoutMultiplier"] == 0
                 )

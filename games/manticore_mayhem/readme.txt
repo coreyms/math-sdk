@@ -1871,3 +1871,26 @@ GATES  check_stats (all limits pass), verify_math base (300,000 books, 0 payout 
   (base fences) re-written with the SDK's own functions. Logs in mathB-20261121/evidence/.
 MOCK  tools/mock_rgs.py caches weights keyed on the books file only: move tools/.rgs-cache/manticore_mayhem/
   books_base.sqlite3 aside and restart 8444 before it serves the new table.
+MYSTERY SOURCE REMOVED (same day, no number of any other mode changed). Corey 2026-11-21, after the Mystery buy and the
+  Epic buy left the game: "You can get rid of the Mystery Source." Gone from the source: the `mystery` bet mode and
+  its distributions, MYSTERY_COST, the MYSTERY SPIN-IN constants, MYSTERY_EPIC_MIN_WIN, the Mystery split, material
+  quotas and slices, MYSTERY_OUTCOME, the config attributes that only the Mystery round read, TARGETS["mystery"],
+  MYSTERY_NOTHING_MEAN / _HIT, the shaper's Mystery band tables, slices and ceiling, gamestate.run_mystery_round, the
+  Mystery Epic's 500x round-total floor, draw_mystery_board, mystery_event, block_new_scatters, emit_reveal's
+  anticipation override, `mystery_nothing` in ZERO_WIN_CRITERIA, "mystery" in every tool's mode list (run.py,
+  verify_math, scatter_scan, phantom_walk, phantom_walk_summary, cap_spin_index) and the Mystery-only checks of the
+  walkers and the tests (test_math 50 -> 44 checks, all pass; the phantom stand-in fixture of Mystery book 1050 now
+  runs as a natural scatter sting, the same stand-in draws). EVENT_SCHEMA.md marks the `mystery` event retired.
+  The Mystery books and table stay on disk in library/ (unpublished, not in publish_files_5modes_2026-11-21); the last
+  source that built them is commit e8b10a0.
+  PROOF (mathB-20261121/evidence): config_dump_diff.txt, every built object of the other six modes (bet modes and
+  distributions, every config attribute, TARGETS, rtp splits, hit rates, opt_params conditions, shaper groups, bands,
+  ceilings and material slices, every module constant) identical before and after except the removed Mystery keys;
+  engine_equivalence_sample_sim.txt, a 200-book sample of all six modes (run.py --out to a scratch folder, same seeds)
+  byte-identical before and after; phantom_walk_equivalence_sample.txt, the old and new walker agree on those decks;
+  scatter_scan base output identical; proofC_after_mystery_removal.txt, the shaper with the new source rebuilds the
+  shipped base, ante, super_ante, bonus, super and epic tables byte for byte. Nothing in library/ was re-simulated.
+  THE EPIC BUY STAYS IN THE SOURCE (not named by Corey). Its BetMode, EPIC_COST, EPIC_BUY_SLICES and the shaper's
+  EPIC_BUY_BANDS could go cleanly, but EPIC8_SHARE / EPIC8_SHARE_EPIC_BUY, the rule pass 3 tests and
+  test_scatter8_samples use the Epic buy as their Epic sample, so removing it means rewriting those checks against the
+  natural Epic. Its books are unpublished either way.

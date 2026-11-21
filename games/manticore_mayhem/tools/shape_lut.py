@@ -18,7 +18,7 @@ What it does
   * inside a group, weight is proportional to payout^t with t solved by bisection so the group
     lands on its target mean; one group per mode carries the residual mean so the mode's RTP is
     exactly TARGET_RTP (0.9670000 since Corey's 2026-09-23 call)
-  * the Epic floor (200x, 500x through Mystery) is a property of the BOOKS, not of the weights:
+  * the Epic floor (200x) is a property of the BOOKS, not of the weights:
     the engine re-draws under it, so no epic-group band starts below the floor.
 
 Reads   library/lookup_tables/lookUpTable_<mode>.csv  +  lookUpTableSegmented_<mode>.csv
@@ -38,7 +38,6 @@ from game_config import (  # noqa: E402
     BONUS_BUY_SLICES,
     BONUS_MIN_WIN,
     EPIC_BUY_SLICES,
-    MYSTERY_SLICES,
     SUPER_BUY_SLICES,
     SUPER_MIN_WIN,
     TARGET_RTP,
@@ -48,13 +47,8 @@ from game_optimization import TARGETS  # noqa: E402
 
 # Reshape 2026-10-16: the Bonus buy has material slices too.
 MATERIAL_SLICES = {"bonus": BONUS_BUY_SLICES, "super": SUPER_BUY_SLICES, "epic": EPIC_BUY_SLICES}
-# Mystery diversity pass (2026-10-15): Mystery's slices, by the outcome criteria they copy. A
-# slice's books join that outcome's group (and its bands); they are never a group of their own.
-MYSTERY_SLICE_PARENT = {name: parent for name, (_, _, parent) in MYSTERY_SLICES.items()}
-
-
-def _mystery_criteria(parent):
-    return {parent} | {name for name, p in MYSTERY_SLICE_PARENT.items() if p == parent}
+# Mystery's slices (MYSTERY_SLICE_PARENT, _mystery_criteria): removed 2026-11-21 with the Mystery mode
+# (Corey 2026-11-21: "You can get rid of the Mystery Source.")
 
 # PER-BOOK WEIGHT CEILING (diversity pass, 2026-10-15). Inside a band the shaper tilts weight
 # by payout^t, and when a band's mean has to come DOWN (every buy is naturally richer than its
@@ -66,10 +60,9 @@ def _mystery_criteria(parent):
 # code is never entered for them).
 # 1 in 50,000: binds only on the Super buy's lowest-paying books (the tilt piles the 0-25x
 # band onto them); the Epic buy's densest book lands near 1 in 76,000 without it.
-# Mystery (Mystery diversity pass, 2026-10-15): the same 1 in 50,000. It binds on the Mystery
-# Super's lowest payers exactly as on the bought Super's (the two share SUPER_BANDS and mean).
 # Reshape 2026-10-16: the Bonus buy joins them (its 10x floor puts about 21% of all buys in 10x-25x).
-PER_BOOK_CEILING = {"bonus": 1 / 50_000, "super": 1 / 50_000, "epic": 1 / 50_000, "mystery": 1 / 50_000}
+# (Mystery's 1 in 50,000 entry left with the Mystery mode on 2026-11-21.)
+PER_BOOK_CEILING = {"bonus": 1 / 50_000, "super": 1 / 50_000, "epic": 1 / 50_000}
 # REHEARSALS ONLY (reshape 2026-10-16): a 10,000-book rehearsal deck cannot meet a 1 in 50,000
 # ceiling by construction, so MANTICORE_REHEARSAL_CEILING=N shapes it under 1 in N instead and the
 # printout says so. Never set for a real deck: the published tables are shaped at 1 in 50,000.
@@ -124,26 +117,8 @@ EPIC_BUY_BANDS = [((200, 300), 0.52), ((300, 400), 0.20), ((400, 600), 0.14), ((
 # carries the richer 800x mean the spin modes' budgets need.
 EPIC_NAT_BANDS = [((200, 300), 0.38), ((300, 500), 0.22), ((500, 800), 0.15), ((800, 1500), 0.13),
                   ((1500, 3000), 0.08), ((3000, 6000), 0.03), ((6000, WINCAP), 0.01)]
-# Mystery's slices carry their own cap share (Mystery has no forced-wincap criteria: its max
-# wins have to come out of the Super and Epic books themselves).
-MYSTERY_SUPER_BANDS = SUPER_BANDS + [(CAP, 0.00008)]
-# RULE PASS 2 (2026-09-23): the Mystery `nothing` slice is a real base-strip spin, so it has a
-# payout distribution instead of being a single zero. Shares measured off the raw deck; the
-# (0,0) band MUST come first, because in_band((0,0.5), 0) would otherwise swallow the zeros.
-# Measured over 20,000 raw `mystery_nothing` rounds (2026-09-23): 80.7% pay nothing, mean
-# 0.203x the base bet, biggest seen 51.8x.
-# KEPT (Corey 2026-11-03, on keeping Mystery's 59.65% hit rate: "yes"); the math 2026.11.02 raw deck measures 68.7% zeros,
-# mean 1.023x, but the shipped slice stays shaped to the 2026-09-23 shares below.
-MYSTERY_NOTHING_BANDS = [((0, 0), 0.8071), ((0, 0.5), 0.0958), ((0.5, 1), 0.0538),
-                         ((1, 2), 0.0179), ((2, 5), 0.0193), ((5, 20), 0.0061),
-                         ((20, WINCAP), 0.0002)]
-# Corey's 50/40/10 split (2026-09-20) makes the Mystery Epic the mode's whole upside: with the
-# Mystery Super on a bought Super's 241.75x mean, a 10% Epic slice has to average 1,449.5x over its
-# 500x floor. So this table is deliberately tail-weighted - roughly half the slice is still a
-# 500-1,000x round, but a third of it is 1,500x or better and 1 in ~1,250 of them caps.
-MYSTERY_EPIC_BANDS = [((500, 700), 0.30), ((700, 1000), 0.24), ((1000, 1500), 0.19),
-                      ((1500, 2500), 0.14), ((2500, 4000), 0.075), ((4000, 7000), 0.035),
-                      ((7000, WINCAP), 0.014), (CAP, 0.0008)]
+# MYSTERY_SUPER_BANDS / MYSTERY_NOTHING_BANDS / MYSTERY_EPIC_BANDS: removed 2026-11-21 with the Mystery mode
+# (Corey 2026-11-21: "You can get rid of the Mystery Source.")
 
 BASE_SPIN_CRITERIA = {"basegame", "basegame_mid", "basegame_high", "0"}
 # Any criteria whose books can legitimately be a 10,000x round. Listing the feature criteria
@@ -233,16 +208,6 @@ def groups_for(mode):
         return _buy_groups(mode, "supergame", SUPER_BANDS)
     if mode == "epic":
         return _buy_groups(mode, "epicgame", EPIC_BUY_BANDS)
-    if mode == "mystery":
-        t = TARGETS["mystery"]["criteria"]
-        return [
-            {"name": "nothing", "criteria": {"mystery_nothing"}, "bands": MYSTERY_NOTHING_BANDS,
-             "p": "residual", "mean": t["mystery_nothing"][1]},
-            {"name": "super", "criteria": _mystery_criteria("supergame"), "bands": MYSTERY_SUPER_BANDS,
-             "p": t["supergame"][0], "mean": t["supergame"][1]},
-            {"name": "epic", "criteria": _mystery_criteria("epicgame"), "bands": MYSTERY_EPIC_BANDS,
-             "p": t["epicgame"][0], "mean": "residual"},
-        ]
     raise KeyError(mode)
 
 

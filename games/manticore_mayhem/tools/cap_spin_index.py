@@ -76,4 +76,4 @@ def main(modes):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:] or ["epic", "super", "bonus", "mystery"])
+    main(sys.argv[1:] or ["epic", "super", "bonus"])  # mystery left 2026-11-21

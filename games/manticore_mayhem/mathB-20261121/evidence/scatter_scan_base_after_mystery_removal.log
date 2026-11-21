@@ -1,0 +1,19 @@
+scatter scan of /Users/corey/Projects/stake-engine/math-sdk/games/manticore_mayhem/library
+
+== base: 300,000 books walked, 0 break the rule
+   epicgame     trigger on  6: 3,312  8: 288
+                first board 6: 3,312  8: 288
+   freegame     trigger on  4: 8,523  5: 448  6: 29
+                first board 4: 9,000
+   supergame    trigger on  5: 3,481  6: 119
+                first board 5: 3,600
+   wincap       trigger on  6: 600
+                first board 6: 600
+   7 scatters: 0 books   8 scatters: 288 books (0 of them stray)   natural triggers played as a scatter sting: 2,492
+   free spins: 146,940 boards, 0 scatters on them or dropped in; scatter-sting reveals show at most 3 scatters (0: 141  1: 309  2: 682  3: 1,360)
+   8-scatter books: lowest payout 2,535.4x, raw mean 8,724x, 203 at the cap, 45 stung in, lowest free-spin total 2,535.4x
+   as shipped (shaped table): 8 scatters 1 round in 2,436,707 (0.410 per million), on 9.1% of the Epic's 2,500x-and-over rounds, average 4,560x, 4.6% of them a max win
+
+1 modes, 300,000 books: 0 trigger on 7, 288 on 8, 0 books break the rule
+SCATTER SCAN PASS
+exit 0

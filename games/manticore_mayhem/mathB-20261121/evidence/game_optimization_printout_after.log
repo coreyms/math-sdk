@@ -1,0 +1,41 @@
+
+== base (cost 1x)  hit 1 in 2.85
+   freegame        p 0.00277778  1 in        360.0  mean      96.70x  rtp 0.26861
+   basegame        p 0.32504261  1 in          3.1  mean       0.65x  rtp 0.21074
+   basegame_high   p 0.00397586  1 in        251.5  mean      43.23x  rtp 0.17189
+   basegame_mid    p 0.01845240  1 in         54.2  mean       8.80x  rtp 0.16230
+   supergame       p 0.00038462  1 in      2,600.0  mean     241.75x  rtp 0.09298
+   epicgame        p 0.00007143  1 in     14,000.0  mean     800.00x  rtp 0.05714
+   wincap          p 0.00000033  1 in  3,000,000.0  mean   10000.00x  rtp 0.00333
+   0               p 0.64929497  1 in          1.5  mean       0.00x  rtp 0.00000
+
+== ante (cost 3x)  hit 1 in 2.65
+   freegame        p 0.01587302  1 in         63.0  mean      88.00x  rtp 0.46561
+   supergame       p 0.00250000  1 in        400.0  mean     230.00x  rtp 0.19167
+   epicgame        p 0.00041667  1 in      2,400.0  mean     800.00x  rtp 0.11111
+   basegame        p 0.33000000  1 in          3.0  mean       0.73x  rtp 0.08027
+   basegame_mid    p 0.02500000  1 in         40.0  mean       9.00x  rtp 0.07500
+   basegame_high   p 0.00333333  1 in        300.0  mean      36.00x  rtp 0.04000
+   wincap          p 0.00000100  1 in  1,000,000.0  mean   10000.00x  rtp 0.00333
+   0               p 0.62287598  1 in          1.6  mean       0.00x  rtp 0.00000
+
+== super_ante (cost 10x)  hit 1 in 2.41
+   supergame       p 0.02531646  1 in         39.5  mean     241.75x  rtp 0.61202
+   epicgame        p 0.00381679  1 in        262.0  mean     800.00x  rtp 0.30534
+   basegame        p 0.37000000  1 in          2.7  mean       0.86x  rtp 0.03188
+   basegame_mid    p 0.01500000  1 in         66.7  mean       7.50x  rtp 0.01125
+   basegame_high   p 0.00150000  1 in        666.7  mean      30.00x  rtp 0.00450
+   wincap          p 0.00000200  1 in    500,000.0  mean   10000.00x  rtp 0.00200
+   0               p 0.58436475  1 in          1.7  mean       0.00x  rtp 0.00000
+
+== bonus (cost 100x)  hit 1 in 1.00
+   freegame        p 0.99996000  1 in          1.0  mean      96.30x  rtp 0.96299
+   wincap          p 0.00004000  1 in     25,000.0  mean   10000.00x  rtp 0.00400
+
+== super (cost 250x)  hit 1 in 1.00
+   supergame       p 0.99987500  1 in          1.0  mean     240.53x  rtp 0.96199
+   wincap          p 0.00012500  1 in      8,000.0  mean   10000.00x  rtp 0.00500
+
+== epic (cost 500x)  hit 1 in 1.00
+   epicgame        p 0.99966667  1 in          1.0  mean     480.32x  rtp 0.96032
+   wincap          p 0.00033333  1 in      3,000.0  mean   10000.00x  rtp 0.00667

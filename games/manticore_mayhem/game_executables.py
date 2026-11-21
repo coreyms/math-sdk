@@ -58,8 +58,9 @@ class GameExecutables(GameCalculations):
         STING drops its wilds onto whatever is on the board (a sting before a roar would
         mostly be swept away by the refill, which is not what the tail feature is for).
 
-        `allow_wild_sting` is False on the two reveals that already carry a scatter sting - a
-        natural trigger played as a scatter-sting book, and the Mystery spin-in. A wild sting
+        `allow_wild_sting` is False on a reveal that already carries a scatter sting (a natural
+        trigger played as a scatter-sting book; the Mystery spin-in was the other, until the
+        Mystery mode left on 2026-11-21). A wild sting
         and a scatter sting never share a reveal (rule pass 2, 2026-09-23).
         """
         ctx = self.context

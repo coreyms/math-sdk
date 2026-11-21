@@ -26,7 +26,7 @@ What it does, in order:
   3. THE 8 BOARD ON ITS OWN. Every `epicgame` draw of the four modes forced to 8 scatters, to
      measure how often such a round reaches the floor and what it pays when it does.
   4. BOOK FOR BOOK against the rollback copy (library-pre-scatter8-20261013): the Bonus buy,
-     the Super buy and Mystery regenerated with today's code under the 100,000-book deal. They
+     the Super buy and (until 2026-11-21) Mystery regenerated with today's code under the 100,000-book deal. They
      must be the old books exactly, except the Bonus and Super ids that triggered on 7.
      Skipped with a note when the rollback copy is not there.
   5. ESTIMATES. How often 8 will land as shipped (the shaper's own band arithmetic applied to
@@ -292,7 +292,7 @@ def run_identity(gs, out, scale):
     identity_lib = os.path.join(out, "identity_sample")
     os.makedirs(os.path.join(identity_lib, "publish_files"), exist_ok=True)
     result = {}
-    for mode in ("bonus", "super", "mystery", "epic"):
+    for mode in ("bonus", "super", "epic"):  # mystery left 2026-11-21 (Corey: "You can get rid of the Mystery Source.")
         gs.betmode = mode
         gs.reset_redraw_counts()
         deal = assign_sim_criteria(get_sim_splits(gs, FULL_RUN_BOOKS, mode), FULL_RUN_BOOKS)
@@ -322,11 +322,6 @@ def run_identity(gs, out, scale):
                  f"{same} identical, {len(changed)} changed -> {verdict}")
             if changed != sevens:
                 fail(f"{mode}: changed ids {changed[:10]} are not the old 7-scatter ids {sevens[:10]}")
-        elif mode == "mystery":
-            verdict = "the code as it stands deals the published Mystery books exactly" if not changed else "MYSTERY MOVED"
-            note(f"   {mode:8s} {len(ids):4d} ids: {same} identical, {len(changed)} changed -> {verdict}")
-            if changed:
-                fail(f"mystery: ids {changed[:10]} differ from the published set, the engine moved Mystery")
         else:
             # not a gate: the Epic buy's quotas did not change either, so every book whose
             # draws never rolled the 8 board and never ran into a 7 is still the old book

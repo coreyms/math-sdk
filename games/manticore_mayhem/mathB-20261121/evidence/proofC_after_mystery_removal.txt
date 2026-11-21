@@ -1,0 +1,6 @@
+after the Mystery removal the shaper still rebuilds the shipped base table byte for byte
+after the Mystery removal the shaper still rebuilds the shipped ante table byte for byte
+after the Mystery removal the shaper still rebuilds the shipped super_ante table byte for byte
+after the Mystery removal the shaper still rebuilds the shipped bonus table byte for byte
+after the Mystery removal the shaper still rebuilds the shipped super table byte for byte
+after the Mystery removal the shaper still rebuilds the shipped epic table byte for byte

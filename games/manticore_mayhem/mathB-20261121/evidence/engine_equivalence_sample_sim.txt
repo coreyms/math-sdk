@@ -1,0 +1,13 @@
+Sample simulation, 200 books per mode, run.py --out to scratch, before and after the Mystery source removal (same seeds)
+base: books byte-identical (200 books)
+base: lookUpTable identical
+ante: books byte-identical (200 books)
+ante: lookUpTable identical
+super_ante: books byte-identical (200 books)
+super_ante: lookUpTable identical
+bonus: books byte-identical (200 books)
+bonus: lookUpTable identical
+super: books byte-identical (200 books)
+super: lookUpTable identical
+epic: books byte-identical (200 books)
+epic: lookUpTable identical

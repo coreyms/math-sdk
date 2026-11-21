@@ -1,0 +1,36 @@
+8,9c8
+<   "epic",
+<   "mystery"
+---
+>   "epic"
+8496,8503c8495
+<  "mystery_only_attrs_present": [
+<   "mystery_anticipation",
+<   "mystery_epic_min_win",
+<   "mystery_outcome",
+<   "mystery_scatter_reels",
+<   "mystery_sting_count",
+<   "mystery_sting_reels"
+<  ],
+---
+>  "mystery_only_attrs_present": [],
+9564d9555
+<    "mystery": "2e-05",
+9764,9780d9754
+<      ]
+<     }
+<    },
+<    "mystery": {
+<     "cost": "250.0",
+<     "criteria": {
+<      "epicgame": [
+<       "0.1",
+<       "residual"
+<      ],
+<      "mystery_nothing": [
+<       "residual",
+<       "0.2"
+<      ],
+<      "supergame": [
+<       "0.4",
+<       "241.7475"

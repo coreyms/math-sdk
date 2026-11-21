@@ -140,7 +140,11 @@ There is no tile field here: the carried grid is already on the board the player
 ### `bonusEnd`
 `bonus`, `totalSessionWin`, `spinsPlayed`. Emitted just before `freeSpinEnd`.
 
-### `mystery` - the 250x Mystery buy, first event of the book
+### `mystery` - the 250x Mystery buy, first event of the book (RETIRED 2026-11-21)
+**Retired.** The Mystery buy left the game on 2026-11-21 and its mode left the math source the same day
+(Corey: "You can get rid of the Mystery Source."). No published book carries this event; the text below is kept as
+the record of what the old Mystery books (still on disk in library/, unpublished) contain.
+
 `outcome` is `nothing` / `super` / `epic`. **Never a regular bonus.**
 
 RULE PASS 2 (2026-09-23): **a Mystery round is a real spin.** The `mystery` event is still the
@@ -183,7 +187,7 @@ finalWin
 # natural trigger played as a scatter sting (base / ante / super_ante only)
 reveal (sting kind=scatter){m} (cascade)* ... bonusStart ...
 
-# mystery buy (every outcome)
+# mystery buy (every outcome; RETIRED 2026-11-21, no published book has this shape)
 mystery reveal (sting kind=scatter){0|2|3} (cascade)* ( swipe (cascade)* ){0,2} [setTotalWin]
   [ bonusStart { ...feature spins... } bonusEnd freeSpinEnd ]
 [wincap] finalWin

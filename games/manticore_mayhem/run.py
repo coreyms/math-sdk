@@ -40,7 +40,8 @@ from src.state.run_sims import create_books
 from src.write_data.write_configs import generate_configs
 from utils.rgs_verification import execute_all_tests
 
-ALL_MODES = ["base", "ante", "super_ante", "bonus", "super", "epic", "mystery"]
+# "mystery" left 2026-11-21 (Corey: "You can get rid of the Mystery Source.")
+ALL_MODES = ["base", "ante", "super_ante", "bonus", "super", "epic"]
 DEFAULT_SIMS = {m: int(2e4) for m in ALL_MODES}
 
 

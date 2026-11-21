@@ -20,7 +20,8 @@ PUB = os.path.join(os.environ.get("MANTICORE_LIB", os.path.join(os.path.dirname(
 HERE = os.environ.get("WALK_OUT", os.getcwd())
 mode = sys.argv[1]
 limit = int(sys.argv[2]) if len(sys.argv) > 2 else None
-COST = {"base": 1, "ante": 3, "super_ante": 10, "bonus": 100, "super": 250, "epic": 500, "mystery": 250}[mode]
+# (the Mystery mode's checks left with it on 2026-11-21: "You can get rid of the Mystery Source.")
+COST = {"base": 1, "ante": 3, "super_ante": 10, "bonus": 100, "super": 250, "epic": 500}[mode]
 CAP = 1_000_000
 LOWS = {"L1", "L2", "L3", "L4"}
 BANDS = {  # config.ts / game_config.py, cents of the base bet
@@ -128,7 +129,7 @@ def process(bk, nline):
     # ------------------------------------------------------------ replay
     b = None; tiles = {}; cap = 64
     round_total = 0; fg_total = 0; feature = None; trigger_tot_fs = 0; fg_spins = 0
-    spin = None; mystery_outcome = None; wincap_at = None; after_cap = []
+    spin = None; wincap_at = None; after_cap = []
     bonus_types = []; scatter_sting_book = False; max_fg_s = 0; max_visible_sting_reveal = None
     spins = []
     def end_spin():
@@ -139,9 +140,6 @@ def process(bk, nline):
         spins.append(spin)
         spin = None
     i = 0
-    if mode == "mystery":
-        if ev[0]["type"] != "mystery": err("mystery_first_event")
-        mystery_outcome = ev[0]["outcome"]; i = 1
     while i < len(ev):
         e = ev[i]; t = e["type"]
         if spin is not None and spin.get("ss_visible_board") and not spin.get("ss_checked") and t != "sting":
@@ -173,9 +171,6 @@ def process(bk, nline):
                 tiles = {}; cap = 64
                 if e.get("tiles"): err("basegame_reveal_has_tiles")
                 spin["visible_S"] = nS
-                if mode == "mystery":
-                    if [ns_col[0], ns_col[1], ns_col[2]] != [1, 1, 1] or sum(ns_col[3:]) != 0: err("mystery_reveal_not_3_in_cols_012")
-                    if e.get("anticipation") != [0, 0, 0, 1, 1, 1, 1, 1]: err("mystery_anticipation")
             else:
                 fg_spins += 1
                 max_fg_s = max(max_fg_s, nS)
@@ -208,11 +203,10 @@ def process(bk, nline):
                 for c in cells:
                     if b[c] == "S": err("scatter_sting_on_scatter")
                     b[c] = "S"
-                if mode != "mystery": scatter_sting_book = True
+                scatter_sting_book = True
                 i += 1; continue
             # wild stings
             if e["symbol"] != "W": err("wild_sting_symbol")
-            if mode == "mystery" and spin["gt"] == "basegame": err("wild_sting_on_mystery_spin")
             if "scatter" in spin["kinds"]: err("scatter_and_wild_sting_mixed")
             r0, w0 = divmod(cen, 8)
             if k == "normal":
@@ -277,9 +271,6 @@ def process(bk, nline):
                 C["capping_step_lists_more_than_paid"] += 1
             apply_fill(b, e["removed"], e["fill"], err, "cascade")
             if spin["gt"] == "freegame" and any(b[c] == "S" for c in range(64)): err("scatter_entered_freegame")
-            if mode == "mystery" and spin["gt"] == "basegame":
-                if sum(1 for c in range(64) if b[c] == "S") != spin.get("mys_S", sum(1 for c in range(64) if b[c] == "S")):
-                    err("mystery_scatter_added_by_cascade")
             i += 1; continue
         if t == "swipe":
             if clusters(b): err("swipe_while_clusters_on_board")
@@ -318,9 +309,6 @@ def process(bk, nline):
             n = len(sc)
             if n == 7 or n < 4 or n > 8: err("bonusStart_bad_count")
             exp_type = "epic" if n >= 6 else "super" if n == 5 else ("super" if mode == "super_ante" else "bonus")
-            if mode == "mystery":
-                exp_type = mystery_outcome
-                if n != {"super": 5, "epic": 6}.get(mystery_outcome): err("mystery_scatter_count_ne_outcome")
             if e["bonus"] != exp_type: err("bonusStart_type_ne_count_rule")
             if n == 8 and (mode not in ("base", "ante", "super_ante", "epic") or e["bonus"] != "epic"): err("eight_scatters_where_not_allowed")
             if e["totalFs"] != FS[e["bonus"]] or e["tileCap"] != TCAP[e["bonus"]]: err("bonusStart_fs_or_cap")
@@ -340,7 +328,7 @@ def process(bk, nline):
             if e["amount"] != CAP: err("wincap_amount")
             wincap_at = i
             i += 1; continue
-        if t in ("freeSpinEnd", "finalWin", "mystery"):
+        if t in ("freeSpinEnd", "finalWin"):
             end_spin()
             i += 1; continue
         err("unknown_event_" + t); i += 1
@@ -358,11 +346,11 @@ def process(bk, nline):
     elif pay == CAP: err("payout_cap_without_wincap_event")
     if wincap_at is None and round_total != pay: err("round_total_ne_payout")
     base_spins = [s for s in spins if s["gt"] == "basegame"]
-    if mode != "mystery" and len(base_spins) != 1: err("not_exactly_one_base_spin")
+    if len(base_spins) != 1: err("not_exactly_one_base_spin")
     # trigger completeness: a base spin ending with 4+ scatters must trigger
     if base_spins and not bonus_types:
         nS_end = sum(1 for c in range(64) if b[c] == "S") if not any(s["gt"] == "freegame" for s in spins) else None
-        if nS_end is not None and nS_end >= 4 and mode != "mystery": err("four_plus_scatters_no_trigger")
+        if nS_end is not None and nS_end >= 4: err("four_plus_scatters_no_trigger")
     if mode in ("bonus", "super", "epic") and not bonus_types: err("buy_without_feature")
     # scatter sting: visible board pays exactly what the real board pays
     for s in base_spins:
@@ -378,21 +366,10 @@ def process(bk, nline):
         P[f"feat_{ft}_on_{n}"] += pw
         C["feat_" + ft] += 1
     if scatter_sting_book: P["scatter_sting_round"] += pw
-    if mode == "mystery":
-        P["mys_" + mystery_outcome] += pw
-        if mystery_outcome == "nothing" and pay == 0: P["mys_nothing_zero"] += pw
-        if mystery_outcome != "nothing" and bonus_types and bonus_types[0][0] != mystery_outcome: err("mystery_outcome_ne_feature")
-        if mystery_outcome == "nothing" and bonus_types: err("mystery_nothing_with_feature")
     if bonus_types and wincap_at is None:
         ft = bonus_types[0][0]
         fl = FLOOR[ft]
-        if mode == "mystery" and ft == "epic":
-            if pay < 50000: err("mystery_epic_round_under_500x")
-            setmin("mystery_epic_round_total", pay, bid)
-            setmin("mystery_epic_freespins_total", fg_total, bid)
-            if fg_total < 20000: C["mystery_epic_freespins_under_200x"] += 1; P["mystery_epic_fs_under_200"] += pw
-        else:
-            if fg_total < fl: err(f"{ft}_floor_broken")
+        if fg_total < fl: err(f"{ft}_floor_broken")
         setmin(f"{ft}_freespins_total", fg_total, bid)
         setmin(f"{ft}_round_total", pay, bid)
         trig_win = round_total - fg_total

@@ -2,7 +2,7 @@
 folder that holds the walk_<mode>.json files tools/phantom_walk.py wrote."""
 """READ-ONLY. One table of the walk results (walk_<mode>.json) for the report."""
 import json
-MODES = ["base", "ante", "super_ante", "bonus", "super", "epic", "mystery"]
+MODES = ["base", "ante", "super_ante", "bonus", "super", "epic"]  # mystery left 2026-11-21
 D = {m: json.load(open(f"walk_{m}.json")) for m in MODES}
 print("books walked:", sum(D[m]["books"] for m in MODES), {m: D[m]["books"] for m in MODES})
 print("missing LUT rows:", {m: D[m]["missing_lut_rows"] for m in MODES})
@@ -25,7 +25,7 @@ for m in ("base", "ante", "super_ante"):
     print(f"  {m:10s} hit {w['hit']*100:.2f}%  wins under 1x / all wins {w['win_under_1x']/w['hit']*100:.1f}%  3+ cascade steps 1 in {1/w['b_3plus_steps']:.0f}"
           f"  swipe spins {w['b_swipe_spin']*100:.2f}%  sting runs {w['b_sting_run']*100:.2f}%")
 print("\nfree spins (per free spin, weighted):")
-for m in ("base", "ante", "super_ante", "bonus", "super", "epic", "mystery"):
+for m in ("base", "ante", "super_ante", "bonus", "super", "epic"):
     w = D[m]["weighted"]
     for ft in ("bonus", "super", "epic"):
         k = f"f_{ft}_spins"
@@ -57,4 +57,4 @@ for m in MODES:
         print(f"  {m:10s} scatter-sting reveals {c['scatter_sting_reveals']}, visible S max {c.get('scatter_sting_visible_S_max')}, "
               f"phantom {c.get('ss_mismatch_phantom',0)} larger {c.get('ss_mismatch_larger',0)}; weighted share of all rounds: phantom {w.get('ss_mismatch_phantom',0)*100:.4f}% larger {w.get('ss_mismatch_larger',0)*100:.4f}%")
 print("\ncap books, capping step listing more than paid:", {m: (D[m]["counts"].get("cap_books"), D[m]["counts"].get("capping_step_lists_more_than_paid"), D[m]["counts"].get("cap_with_unplayed_spins")) for m in MODES})
-print("mystery: nothing that pays 0, share of all Mysteries:", D["mystery"]["weighted"]["mys_nothing_zero"], " split", {k: D["mystery"]["weighted"][k] for k in ("mys_nothing", "mys_super", "mys_epic")})
+# (the Mystery split line left with the Mystery mode on 2026-11-21)

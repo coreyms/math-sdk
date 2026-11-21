@@ -1,9 +1,9 @@
-"""Manticore Mayhem round flow: base-game spin, feature session, Mystery buy."""
+"""Manticore Mayhem round flow: base-game spin and feature session. (The Mystery buy's round left with the
+Mystery mode on 2026-11-21; Corey: "You can get rid of the Mystery Source.")"""
 
 import random
 
 from game_override import GameStateOverride, REDRAW_EPIC8_FLOOR
-from game_events import mystery_event
 
 
 class GameState(GameStateOverride):
@@ -15,45 +15,42 @@ class GameState(GameStateOverride):
         while self.repeat:
             self.reset_book()
 
-            if self.in_mode("mystery"):
-                self.run_mystery_round()
-            else:
-                # Tiles reset every spin in Base/Ante/Super Ante, and also on the triggering
-                # base spin of a bought feature (the buy IS the scatter board, spec C).
-                # Whatever this spin finishes with is what the feature starts on.
-                self.reset_tiles()
-                # The reveal is emitted HERE, not by draw_board: a scatter-sting book shows a
-                # different board from the one it is evaluated on (rule pass 2, 2026-09-23).
-                self.draw_board(emit_event=False)
-                # Rule pass 3 (2026-10-13): what the FIRST board really holds, read before a
-                # scatter sting hides any of it. 8 here can only be the forced `epicgame` draw.
-                self.reveal_scatters = self.count_special_symbols("scatter")
-                sting_cells = self.plan_scatter_sting()
-                self.emit_reveal(sting_cells)
-                self.play_spin(allow_wild_sting=not sting_cells)
-                self.win_manager.update_gametype_wins(self.gametype)
+            # Tiles reset every spin in Base/Ante/Super Ante, and also on the triggering
+            # base spin of a bought feature (the buy IS the scatter board, spec C).
+            # Whatever this spin finishes with is what the feature starts on.
+            self.reset_tiles()
+            # The reveal is emitted HERE, not by draw_board: a scatter-sting book shows a
+            # different board from the one it is evaluated on (rule pass 2, 2026-09-23).
+            self.draw_board(emit_event=False)
+            # Rule pass 3 (2026-10-13): what the FIRST board really holds, read before a
+            # scatter sting hides any of it. 8 here can only be the forced `epicgame` draw.
+            self.reveal_scatters = self.count_special_symbols("scatter")
+            sting_cells = self.plan_scatter_sting()
+            self.emit_reveal(sting_cells)
+            self.play_spin(allow_wild_sting=not sting_cells)
+            self.win_manager.update_gametype_wins(self.gametype)
 
-                if self.check_fs_condition() and self.check_freespin_entry():
-                    self.run_freespin_from_base()
-                    # RULE PASS 3 (Corey, 2026-10-13): 7 SCATTERS NEVER TRIGGER, AND 8 ONLY WHEN
-                    # THE FIRST BOARD WAS THE FORCED 8. Any other round is thrown away here.
-                    #
-                    # The check is made AFTER the feature has been played, on purpose. A draw
-                    # that is going to be thrown away still consumes exactly the random numbers
-                    # it consumed before this rule existed, and a re-draw continues the same
-                    # stream (reset_seed runs once per book, above the loop). So in a mode
-                    # whose quotas did not change - the Bonus buy and the Super buy - every
-                    # book comes out byte for byte as it was, EXCEPT the ids that used to be
-                    # accepted on a 7. That is what lets the re-simulation be checked book
-                    # against book. The price is playing out a feature that is then discarded:
-                    # about 2% more draws in the Epic buy, far less everywhere else.
-                    #
-                    # A draw is counted under one reason only: the scatter count first, then
-                    # (inside enforce_feature_floor) the 8-scatter floor, then the Epic floor.
-                    if self.trigger_count_allowed():
-                        self.enforce_feature_floor()
-                    else:
-                        self.reject_trigger_count()
+            if self.check_fs_condition() and self.check_freespin_entry():
+                self.run_freespin_from_base()
+                # RULE PASS 3 (Corey, 2026-10-13): 7 SCATTERS NEVER TRIGGER, AND 8 ONLY WHEN
+                # THE FIRST BOARD WAS THE FORCED 8. Any other round is thrown away here.
+                #
+                # The check is made AFTER the feature has been played, on purpose. A draw
+                # that is going to be thrown away still consumes exactly the random numbers
+                # it consumed before this rule existed, and a re-draw continues the same
+                # stream (reset_seed runs once per book, above the loop). So in a mode
+                # whose quotas did not change - the Bonus buy and the Super buy - every
+                # book comes out byte for byte as it was, EXCEPT the ids that used to be
+                # accepted on a 7. That is what lets the re-simulation be checked book
+                # against book. The price is playing out a feature that is then discarded:
+                # about 2% more draws in the Epic buy, far less everywhere else.
+                #
+                # A draw is counted under one reason only: the scatter count first, then
+                # (inside enforce_feature_floor) the 8-scatter floor, then the Epic floor.
+                if self.trigger_count_allowed():
+                    self.enforce_feature_floor()
+                else:
+                    self.reject_trigger_count()
 
             self.evaluate_finalwin()
             self.check_repeat()
@@ -65,12 +62,10 @@ class GameState(GameStateOverride):
 
         The tile grid is NOT cleared here (Corey, 2026-09-23): the feature INHERITS the
         multiplier tiles left on the board by the spin that triggered it, and they then
-        persist for the whole round. Rule pass 2: the Mystery buy now HAS a spin-in, so a
-        Mystery Super / Epic inherits its tiles the same way every other feature does."""
+        persist for the whole round."""
         self.reset_fs_spin()
         # Diversity pass (2026-10-15): a material slice of the Super / Epic buy (game_config
-        # SUPER_BUY_SLICES / EPIC_BUY_SLICES) or of the Mystery buy (MYSTERY_SLICES, where the
-        # running total includes the spin-in) only accepts rounds that END under the top of its
+        # SUPER_BUY_SLICES / EPIC_BUY_SLICES) only accepts rounds that END under the top of its
         # win_range. Wins never shrink, so once the running total reaches that top the draw is
         # lost whatever the remaining spins do: stop playing it. check_repeat then rejects it on
         # its win_range as it would have at the end. Only a distribution that says
@@ -99,8 +94,7 @@ class GameState(GameStateOverride):
         scatters are stung in (rule pass 2, Corey 2026-09-23).
 
         Only a NATURAL trigger in base / ante / super_ante, never a bought bonus / super /
-        epic (the player already knows what they paid for) and never the Mystery buy, which
-        has its own spin-in. Only a reveal that ALREADY holds the trigger count qualifies: a
+        epic (the player already knows what they paid for). Only a reveal that ALREADY holds the trigger count qualifies: a
         trigger completed later by a cascade has nothing to hide on the reveal, and restricting
         it this way is what makes the payout provably identical - the real board is drawn, and
         evaluated, exactly as it would have been without the feature.
@@ -126,49 +120,12 @@ class GameState(GameStateOverride):
         count = random.choices(options, weights=weights)[0]
         return random.sample(scatters, count)
 
-    def run_mystery_round(self) -> None:
-        """Mystery buy: nothing / Super / Epic, never a regular Bonus (spec C).
-
-        RULE PASS 2 (Corey, 2026-09-23): a Mystery round is a REAL base-strip spin. The reveal
-        always carries exactly 3 scatters in columns 0,1,2 and anticipation on columns 3..7.
-        `nothing` plays that board out and pays whatever its clusters pay (a small win on a
-        miss is now possible, and it is never a forced zero); `super` stings 2 more scatters
-        into distinct columns of 3..7 and `epic` 3, and the feature follows. The spin-in's
-        cluster wins count toward the round and its lit tiles carry into the feature; wild
-        stings are disabled on the spin-in, so the only sting seen there is the scatter one.
-        """
-        # Mystery diversity pass (2026-10-15): a material slice (game_config MYSTERY_SLICES) plays
-        # the outcome of the criteria it copies; its early_reject is handled in run_freespin.
-        outcome = self.config.mystery_outcome[self.criteria]
-        mystery_event(self, outcome)
-
-        self.reset_tiles()
-        self.draw_mystery_board()
-        count = self.config.mystery_sting_count[outcome]
-        reels = random.sample(self.config.mystery_sting_reels, count) if count else []
-        sting_cells = [(reel, random.randrange(self.config.num_rows[reel])) for reel in reels]
-        self.emit_reveal(sting_cells, anticipation=self.config.mystery_anticipation)
-        # The Mystery scatter count IS the outcome: 3 on the reveal plus 0 / 2 / 3 stings. A
-        # cascade must not add a fourth column, so new scatters are blocked for the spin-in.
-        self.block_new_scatters = True
-        self.play_spin(allow_wild_sting=False)
-        self.block_new_scatters = False
-        self.win_manager.update_gametype_wins(self.gametype)
-
-        if outcome == "nothing":
-            return
-
-        self.start_bonus(outcome, self.scatter_cells())
-        self.run_freespin()
-        self.enforce_feature_floor()
-
     def enforce_feature_floor(self) -> None:
         """Guaranteed minimums (spec C). Rounds below the floor are simply re-drawn, which is
         how the floor becomes a real number the rules can disclose.
 
           * Free Spins: at least 10x, Super: at least 25x, on the free spins (reshape 2026-10-16)
           * Epic: at least 200x (about 40% of the 500x price)
-          * an Epic reached through Mystery: at least 500x (2x the Mystery price)
 
         RULE PASS 3 (Corey, 2026-10-13) adds a third re-draw that is NOT a disclosed floor:
 
@@ -184,7 +141,7 @@ class GameState(GameStateOverride):
             return
         # FREE SPINS FLOORS (reshape, Corey 2026-10-16): Free Spins at least 10x and Super at least
         # 25x, on the FREE SPINS total exactly like the Epic's 200x below, natural and bought rounds
-        # and Mystery's Super alike. game_config.FEATURE_MIN_WIN.
+        # alike. game_config.FEATURE_MIN_WIN.
         if self.bonus_type != "epic":
             floor = self.config.feature_min_win.get(self.bonus_type, 0.0)
             if floor and self.win_manager.freegame_wins < floor:
@@ -192,8 +149,7 @@ class GameState(GameStateOverride):
                 self.repeat = True
             return
         # Only a round that trigger_count_allowed() let through gets here, so a trigger count
-        # of 8 means the first board was the forced 8 (never a stray one, never Mystery, whose
-        # spin-in does not set trigger_scatters at all).
+        # of 8 means the first board was the forced 8 (never a stray one).
         if (
             self.trigger_scatters == self.config.full_board_scatters
             and self.win_manager.running_bet_win < self.config.epic8_min_win
@@ -201,13 +157,10 @@ class GameState(GameStateOverride):
             self._count_rejection(f"{self.betmode}:{self.criteria}:{REDRAW_EPIC8_FLOOR}")
             self.repeat = True
             return
-        # The Mystery floor is on the ROUND TOTAL (the spin-in pays too, rule pass 2); the
-        # plain Epic floor stays on the feature itself, which is what "an Epic pays at least
-        # 200x" discloses.
-        if self.in_mode("mystery"):
-            floor, achieved = self.config.mystery_epic_min_win, self.win_manager.running_bet_win
-        else:
-            floor, achieved = self.config.epic_min_win, self.win_manager.freegame_wins
+        # The Epic floor is on the feature itself, which is what "an Epic pays at least 200x"
+        # discloses. (The Mystery Epic's 500x floor on the round total left with the Mystery mode
+        # on 2026-11-21.)
+        floor, achieved = self.config.epic_min_win, self.win_manager.freegame_wins
         if achieved < floor:
             self._count_rejection(f"{self.betmode}:epic_floor")
             self.repeat = True

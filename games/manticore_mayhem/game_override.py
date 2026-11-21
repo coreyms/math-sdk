@@ -7,7 +7,8 @@ from game_executables import GameExecutables
 
 # Criteria whose books may legitimately pay nothing. Every other criteria means "this round
 # paid something", which is what makes the hit rate a dial (see check_repeat).
-ZERO_WIN_CRITERIA = ("0", "mystery_nothing")
+# (Mystery's `mystery_nothing` left with the Mystery mode on 2026-11-21.)
+ZERO_WIN_CRITERIA = ("0",)
 
 # RULE PASS 3 (Corey, 2026-10-13): the three new reasons a draw is thrown away, as they appear
 # in the re-draw counters. One draw is counted under ONE reason only, in this order of
@@ -15,7 +16,7 @@ ZERO_WIN_CRITERIA = ("0", "mystery_nothing")
 #   scatter7     the round triggered on 7 scatters (never allowed, any mode, any criteria)
 #   stray8       it triggered on 8 without an 8-scatter FIRST board (6 + 2 by cascade, 5 + 3 ..)
 #   epic8_floor  its first board WAS the forced 8 and the round total ended under EPIC8_MIN_WIN
-# The older reasons keep their names: epic_floor (the stated 200x / Mystery 500x) and win_range.
+# The older reasons keep their names: epic_floor (the stated 200x) and win_range.
 REDRAW_SCATTER7 = "scatter7"
 REDRAW_STRAY8 = "stray8"
 REDRAW_EPIC8_FLOOR = "epic8_floor"
@@ -40,13 +41,10 @@ class GameStateOverride(GameExecutables):
         # Super/Epic session (spec B).
         self.tile_cap = self.config.tile_cap["base"]
         self.new_symbols_from_tumble = [[] for _ in range(self.config.num_reels)]
-        # Mystery spin-in only (rule pass 2): while this is set, NO column may take a new
-        # scatter off the strip, so the spin-in's scatter count is exactly 3 + the stings.
-        self.block_new_scatters = False
         # Rule pass 3 (2026-10-13): how many scatters the FIRST board of this draw held (the
         # real board, before any scatter-sting placeholder) and how many the feature was
-        # triggered on. 0 until gamestate.run_spin / run_freespin_from_base set them; the
-        # Mystery buy never sets either. Cleared on every draw, so nothing leaks from a
+        # triggered on. 0 until gamestate.run_spin / run_freespin_from_base set them.
+        # Cleared on every draw, so nothing leaks from a
         # re-drawn round into the next one and the game stays stateless.
         self.reveal_scatters = 0
         self.trigger_scatters = 0
@@ -60,9 +58,7 @@ class GameStateOverride(GameExecutables):
         # feature from the spin that triggered it, so a Bonus/Super/Epic starts on whatever
         # the triggering board finished with instead of starting cold. That covers the
         # natural triggers (base / ante / super_ante) AND the bought bonus / super / epic,
-        # whose trigger spin is a real board played to exhaustion. RULE PASS 2 (2026-09-23):
-        # the Mystery buy now has a spin-in too, so a Mystery Super / Epic inherits its tiles
-        # exactly the same way - the "Mystery starts cold" carve-out is gone.
+        # whose trigger spin is a real board played to exhaustion.
         #
         # The grid is still cleared exactly once per round by reset_book, and once per base
         # spin by run_spin, so the game stays stateless: one round IS the whole feature.
@@ -81,10 +77,6 @@ class GameStateOverride(GameExecutables):
         scatter into a column that still held one - measured on the shipped books at 17 of
         227,022 ante spins and 106 of 237,586 super_ante spins, 44 of those on a triggering
         spin where the double counted toward the trigger.
-
-        RULE PASS 2 (2026-09-23): `self.block_new_scatters` extends the same mechanism to the
-        whole board for the Mystery spin-in, where the scatter count IS the outcome (3 on the
-        reveal plus 0 / 2 / 3 stings) and a cascade must not add a fourth column.
 
         This is the SDK loop (src/calculations/tumble.py) re-implemented with one added rule:
         while a column already holds a scatter, strip stops that are a scatter are SKIPPED -
@@ -112,7 +104,9 @@ class GameStateOverride(GameExecutables):
             # occupied. (Scatters never join a cluster and the paw skips them, so in practice
             # this is every scatter on the column - but read it off the board, not from that
             # assumption.)
-            column_has_scatter = self.block_new_scatters or any(
+            # (The Mystery spin-in's `block_new_scatters` override left with the Mystery mode on
+            # 2026-11-21; it was always False everywhere else.)
+            column_has_scatter = any(
                 (not sym.explode) and sym.name in scatters for sym in static_board[reel]
             )
 
@@ -155,15 +149,14 @@ class GameStateOverride(GameExecutables):
           * a distribution may carry `win_range` (lo, hi) and the book is accepted only when
             its final win lands inside it - the farming hook Angry Mantis uses to fill bands
             the natural strips never reach. Used by basegame_mid / basegame_high (2026-09-20)
-            and, since the diversity pass of 2026-10-15, by the Super, Epic and Mystery buys'
-            material slices (game_config SUPER_BUY_SLICES / EPIC_BUY_SLICES / MYSTERY_SLICES),
+            and, since the diversity pass of 2026-10-15, by the Bonus, Super and Epic buys'
+            material slices (game_config BONUS_BUY_SLICES / SUPER_BUY_SLICES / EPIC_BUY_SLICES),
             whose draws also stop early once they pass the top of the range (`early_reject`,
             gamestate.run_freespin).
           * `basegame` means a PAYING base-game round: a zero-win book there would be
             indistinguishable from a `0` book and would blur the hit rate (same rule as the
-            0_0_cluster sample). Two criteria are exempt: `0` itself, and Mystery's
-            `mystery_nothing`, which is a real spin that may legitimately pay nothing (rule
-            pass 2, 2026-09-23).
+            0_0_cluster sample). Only `0` itself is exempt (Mystery's `mystery_nothing` was too,
+            until the Mystery mode left on 2026-11-21).
         """
         super().check_repeat()
         # check_repeat runs exactly once per draw (gamestate.run_spin), whatever the mode, so

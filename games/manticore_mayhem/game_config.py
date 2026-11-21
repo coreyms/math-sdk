@@ -3,9 +3,13 @@
 Spec: ~/Projects/manticore/docs/manticore-spec.md (blocks B, C and D are the contract).
 Forked from the SDK's 0_0_cluster sample; house conventions follow games/angry_mantis.
 
-Modes: base 1x, ante 3x, super_ante 10x, bonus 100x buy, super 250x buy, epic 500x buy,
-mystery 250x buy. Every headline tunable lives at the top of this file so the math phase
-is "edit constants, re-run reels, re-sim" and never "hunt through the executables".
+Modes: base 1x, ante 3x, super_ante 10x, bonus 100x buy, super 250x buy, epic 500x buy.
+The mystery 250x buy was removed from the source on 2026-11-21 (Corey, after the Mystery buy left
+the game that day: "You can get rid of the Mystery Source."). Its books and table stay on disk in
+library/, unpublished; the last source that built it is math-sdk commit e8b10a0.
+
+Every headline tunable lives at the top of this file so the math phase is "edit constants, re-run
+reels, re-sim" and never "hunt through the executables".
 
 TUNED 2026-09-20, re-tuned 2026-09-23 (rule pass 2), swipe band randomised 2026-10-06 (any of
 the six three-row bands instead of the fixed rows 3,4,5), scatter counts ruled 2026-10-13 (rule
@@ -55,7 +59,7 @@ SUPER_ANTE_COST = 10.0
 BONUS_COST = 100.0
 SUPER_COST = 250.0
 EPIC_COST = 500.0
-MYSTERY_COST = 250.0  # same price as Super (spec C)
+# MYSTERY_COST (250x): removed 2026-11-21 with the Mystery mode (Corey: "You can get rid of the Mystery Source.")
 
 # Board
 NUM_REELS = 8
@@ -209,15 +213,8 @@ SCATTER_STING_MODES = ("base", "ante", "super_ante")
 SCATTER_STING_COUNT_WEIGHTS = {1: 50, 2: 30, 3: 15, 4: 5, 5: 3, 6: 2}
 # Wild stings (normal / big / super) never fire on a spin whose reveal carries a scatter sting.
 
-# --- MYSTERY SPIN-IN (rule pass 2, Corey 2026-09-23) ------------------------------------
-# A Mystery round is now a REAL base-strip spin. Its reveal always carries exactly 3 scatters,
-# one in each of columns 0,1,2 (rows random) and none in columns 3..7, with a forced
-# anticipation array. `nothing` plays the board out and pays what it pays; `super` and `epic`
-# add 2 and 3 scatter stings in distinct columns of 3..7.
-MYSTERY_SCATTER_REELS = (0, 1, 2)
-MYSTERY_STING_REELS = (3, 4, 5, 6, 7)
-MYSTERY_ANTICIPATION = (0, 0, 0, 1, 1, 1, 1, 1)
-MYSTERY_STING_COUNT = {"nothing": 0, "super": 2, "epic": 3}
+# --- MYSTERY SPIN-IN: removed 2026-11-21 with the Mystery mode ---
+# (Corey 2026-11-21: "You can get rid of the Mystery Source.")
 
 # ROAR: removes every low (L1..L4) before evaluation and refills; multipliers under them are
 # untouched. Super and Epic only (spec C). Sized last, as the tail.
@@ -227,7 +224,6 @@ LOW_SYMBOLS = ("L1", "L2", "L3", "L4")
 # --- Feature ladder (spec C) ------------------------------------------------------------
 FS_SPINS = {"bonus": 8, "super": 10, "epic": 12}  # no retriggers
 EPIC_MIN_WIN = 200.0  # spec C: Epic floor is about 40% of its 500x price
-MYSTERY_EPIC_MIN_WIN = 500.0  # spec C: a Mystery Epic always pays >= 2x the 250x price
 # FREE SPINS FLOORS (reshape, Corey 2026-10-16: "never less than 10x", Super 25x). On the FREE
 # SPINS total, exactly like the Epic's 200x, for natural and bought rounds alike and for Mystery's
 # Super; a round under its floor is re-drawn (gamestate.enforce_feature_floor), so the floor is a
@@ -235,7 +231,7 @@ MYSTERY_EPIC_MIN_WIN = 500.0  # spec C: a Mystery Epic always pays >= 2x the 250
 BONUS_MIN_WIN = 10.0  # Free Spins: at least 10x the bet from its free spins (10% of the 100x price)
 SUPER_MIN_WIN = 25.0  # Super: at least 25x (10% of the 250x price)
 FEATURE_MIN_WIN = {"bonus": BONUS_MIN_WIN, "super": SUPER_MIN_WIN, "epic": EPIC_MIN_WIN}
-# The base strip the BUYS and the Mystery spin-in are drawn on (reshape 2026-10-16). The base game
+# The base strip the BUYS (and, until 2026-11-21, the Mystery spin-in) are drawn on (reshape 2026-10-16). The base game
 # moved to clumped strips (reels/make_reels.py CLUMP); the buys' trigger spin and Mystery's spin-in
 # stay on the 2026-09-20 BR, kept byte for byte as BRB.csv, so the bought features (and Mystery's
 # `nothing` slice, a settled ruling) keep the trigger board they were tuned on and the trial measured.
@@ -299,31 +295,8 @@ EPIC8_SHARE = {
     "super_ante": EPIC8_SHARE_SPIN,
     "epic": EPIC8_SHARE_EPIC_BUY,
 }
-# Mystery split. Spec C left it OPEN with a 30/50/20 worked example; the tuning pass proposed
-# 35/50/15; COREY SETTLED IT AT 50 / 40 / 10 (2026-09-20, his original design - a 15% Epic
-# share is too generous for a mode whose Epic is meant to pay big).
-# Arithmetic: the paying slices carry the whole 241.75x (0.967 x 250x) between them, so
-#     0.50 x NothingMean + 0.40 x SuperMean + 0.10 x EpicMean = 241.75.
-# With the Mystery Super on a bought Super's own 241.75x mean that is 0.40 x 241.75 = 96.70,
-# and the nothing slice adds 0.50 x 0.20 = 0.10, leaving 144.95 for the Epic slice: a Mystery
-# Epic mean of 1,449.5x over its 500x floor. MEASURED: the
-# engine's raw Mystery-Epic rounds already average 2,257x above that floor, so 1,440x is
-# reached by shaping DOWN, with room to spare - the Mystery Super does NOT need to be richer
-# than a bought one. (Reported to Corey: both means are 240x and 1,440x.)
-MYSTERY_SPLIT = {"mystery_nothing": 0.50, "supergame": 0.40, "epicgame": 0.10}
-# RULE PASS 2 (Corey, 2026-09-23): the `nothing` slice is now a REAL spin that pays its own
-# cluster wins, so it is no longer a zero-win criteria. Its measured mean is below; the Epic
-# slice still carries the residual, so the split and the means cannot drift apart.
-#     0.50 x MYSTERY_NOTHING_MEAN + 0.40 x 241.75 + 0.10 x EpicMean = 241.75 = 0.967 x 250.
-# How much simulated MATERIAL each Mystery slice gets, which is NOT the shipped split.
-# RULE PASS 2: a `nothing` book is now a real base-strip spin with a board, cascades and a
-# payout of its own, so the slice needs real depth (the 2026-09-20 quota of 0.20 was sized for
-# byte-identical three-event books). The Epic slice still needs its own tail, so the quota was
-# split 0.30 / 0.40 / 0.30 rather than following the shipped 50 / 40 / 10 probabilities.
-# MYSTERY DIVERSITY PASS (2026-10-15): the deck is re-dealt with material slices; the quotas of
-# the three natural criteria are set further down, beside MYSTERY_SLICES, and this dict is
-# rebuilt there.
-MYSTERY_MATERIAL_QUOTA = {"mystery_nothing": 0.30, "supergame": 0.40, "epicgame": 0.30}
+# Mystery split and material quotas: removed 2026-11-21 with the Mystery mode
+# (Corey 2026-11-21: "You can get rid of the Mystery Source.")
 
 # --- BUY MATERIAL SLICES (diversity pass, 2026-10-15) -----------------------------------
 # Stake approval review of 2026-10-15, Major 3: the Epic buy was served by very few books
@@ -435,71 +408,8 @@ BONUS_BUY_SLICES = {
     "freegame_m2": (12_000 / DIVERSITY_BONUS_BOOKS, (50.0, 100.0), {4: 1}),
 }
 
-# --- MYSTERY MATERIAL SLICES (Mystery diversity pass, 2026-10-15) -----------------------
-# The same fix for the Mystery buy, approved by Corey at 17:10 on 2026-10-15 ("2. Yes"). After
-# the Super and Epic buys were re-dealt, Mystery was the least diverse mode: 25,735 effective
-# books, a repeated round 4.6% likely within 50 buys, and its most-played book a Mystery Super
-# paying 0.5x at 1 Mystery in 481. Same causes as the buys:
-#   * the Mystery Super's 0-25x band is tilted onto its lowest payers, so 7 Super books under
-#     1x carried 0.92% of all Mysteries (the bought Super's under-1x tail, before its pass);
-#   * a raw Mystery Epic averages about 2,250x and 64% of them reach the 10,000x cap, so the
-#     500x-1,000x bands that carry 54% of the Epic slice held 856 books of 30,000;
-#   * the zero band (40.3% of all Mysteries) sat on 24,388 `nothing` books.
-#
-# Nothing about the game changes: same reveal (3 scatters in columns 0-2), same stings (0 / 2 /
-# 3), same spin-in, same features, the same 500x Mystery Epic floor, the same band tables and
-# the same 50 / 40 / 10 split (TARGETS). Each slice is the Mystery's own Super or Epic outcome,
-# drawn EXACTLY like the natural `supergame` / `epicgame` criteria and accepted only when the
-# ROUND TOTAL (spin-in plus feature) lands in its win_range; `early_reject` stops a lost draw
-# between free spins. Ranges sit on the shaper's band edges (SUPER_BANDS 500, MYSTERY_EPIC_BANDS
-# 1,000), so inside every band farmed and natural books are draws from the same distribution.
-#
-# Each entry: criteria -> (quota, win_range on the round total, the outcome it plays). The
-# outcome criteria is the natural one whose distribution the slice copies (`supergame` = 2
-# scatter stings and a Super, `epicgame` = 3 and an Epic); gamestate.run_mystery_round reads it.
-#
-# The `nothing` slice is the cheap lever: a `nothing` book is one spin of about 3 events (a
-# Super or Epic book runs 40 to 60), and its zero band alone carries 40% of all Mysteries.
-#
-# SIZE AND COST (measured 2026-10-15, one process per criteria, five at once): events per book
-# and seconds per ACCEPTED book are nothing 3.7 / 0.001, Super 0x-500x 41 / 0.05 (2.5 draws),
-# natural Super 45 / 0.03, Epic 500x-1,000x 53 / 0.60 (38 draws), natural Epic 55 / 0.04.
-# Stake's publish limit is 10,000,000 events per mode; this deck is about 5.6 million. The split
-# was chosen on bootstrapped decks through the real shaper (readme.txt, "Mystery diversity pass,
-# 2026-10-15"): 281,000 books 167,000 effective, 351,000 books 206,000 (SHIPPED), 425,000 books
-# 252,000. The 1,000x-1,500x band (1.9% of all Mysteries) is why the Epic's upper bands are cut
-# in two: raw Mystery Epics above 1,000x land there only 8% of the time.
-# MATH FIX 2026-10-18: the deck grows 351,000 -> 393,000 (the Super slices only) so the re-dealt Mystery keeps at
-# least the 206,912 effective books of the 2026.10.15 set (a plain re-deal of the 2026.10.16 deck gives about
-# 160,000: its 60x-120x band sat at the ceiling and 120x-250x was thin). Planned on bootstrapped decks through the
-# real shaper (fix-candidate-20261018/evidence/scripts/plan_mystery.py): 235,982 effective, about 7.8M events.
-DIVERSITY_MYSTERY_BOOKS = 393_000  # the Mystery buy's deck (run.py --sims for the mystery mode); was 351,000
-MYSTERY_SLICES = {
-    # RESHAPE 2026-10-16: the Mystery Super's old 0x-500x slice, cut at the 25x Super floor and at
-    # 60x exactly like the bought Super's. MATH FIX 2026-10-18: 25x-60x 6,000 -> 18,000, the mid slice
-    # 60x-500x 44,000 -> 60x-120x 24,000, and a NEW high slice 120x-1,000x 50,000 (Super slices 50,000 -> 92,000)
-    "mystery_super_low": (18_000 / DIVERSITY_MYSTERY_BOOKS, (SUPER_MIN_WIN, 60.0), "supergame"),
-    "mystery_super_mid": (24_000 / DIVERSITY_MYSTERY_BOOKS, (60.0, 120.0), "supergame"),
-    "mystery_super_high": (50_000 / DIVERSITY_MYSTERY_BOOKS, (120.0, 1000.0), "supergame"),
-    # the Mystery Epic's 500x-1,000x: 54% of the Epic outcome, 2.9% of raw Mystery Epics
-    "mystery_epic_body": (18_000 / DIVERSITY_MYSTERY_BOOKS, (500.0, 1000.0), "epicgame"),
-    # 1,000x-2,500x: 33% of the Epic outcome, 7.7% of raw Mystery Epics
-    "mystery_epic_mid": (6_000 / DIVERSITY_MYSTERY_BOOKS, (1000.0, 2500.0), "epicgame"),
-    # 2,500x up to (not including) the max win: the upper bands without the natural caps
-    "mystery_epic_upper": (4_000 / DIVERSITY_MYSTERY_BOOKS, (2500.0, WINCAP), "epicgame"),
-}
-# The natural criteria keep the rest: `nothing` its whole deck, `supergame` the Super's 500x-and-
-# over bands and its max wins, `epicgame` the Epic's max wins (64% of its books reach the cap).
-MYSTERY_MATERIAL_QUOTA = {
-    "mystery_nothing": 250_000 / DIVERSITY_MYSTERY_BOOKS,
-    "supergame": 20_000 / DIVERSITY_MYSTERY_BOOKS,
-    "epicgame": 3_000 / DIVERSITY_MYSTERY_BOOKS,
-}
-assert abs(sum(MYSTERY_MATERIAL_QUOTA.values()) + sum(q for q, _, _ in MYSTERY_SLICES.values()) - 1) < 1e-12
-# Which Mystery outcome every Mystery criteria plays (the `mystery` event's `outcome`).
-MYSTERY_OUTCOME = {"mystery_nothing": "nothing", "supergame": "super", "epicgame": "epic"}
-MYSTERY_OUTCOME.update({name: MYSTERY_OUTCOME[parent] for name, (_, _, parent) in MYSTERY_SLICES.items()})
-
+# --- MYSTERY MATERIAL SLICES: removed 2026-11-21 with the Mystery mode ---
+# (Corey 2026-11-21: "You can get rid of the Mystery Source.")
 
 class GameConfig(Config):
     """Singleton game configuration."""
@@ -619,15 +529,9 @@ class GameConfig(Config):
         self.scatter_sting_share = SCATTER_STING_SHARE
         self.scatter_sting_modes = tuple(SCATTER_STING_MODES)
         self.scatter_sting_count_weights = dict(SCATTER_STING_COUNT_WEIGHTS)
-        self.mystery_scatter_reels = tuple(MYSTERY_SCATTER_REELS)
-        self.mystery_sting_reels = tuple(MYSTERY_STING_REELS)
-        self.mystery_anticipation = tuple(MYSTERY_ANTICIPATION)
-        self.mystery_sting_count = dict(MYSTERY_STING_COUNT)
-        self.mystery_outcome = dict(MYSTERY_OUTCOME)  # Mystery diversity pass (2026-10-15)
         self.roar_chance = dict(ROAR_CHANCE)
         self.epic_min_win = EPIC_MIN_WIN
         self.feature_min_win = dict(FEATURE_MIN_WIN)  # reshape 2026-10-16: Free Spins 10x, Super 25x
-        self.mystery_epic_min_win = MYSTERY_EPIC_MIN_WIN
         # Rule pass 3 (2026-10-13): 7 never triggers, 8 only as a forced first board.
         self.max_trigger_scatters = MAX_TRIGGER_SCATTERS
         self.full_board_scatters = FULL_BOARD_SCATTERS
@@ -643,7 +547,7 @@ class GameConfig(Config):
         # ---- Reels ---------------------------------------------------------------------
         # BR base, BA ante (scatter-richer), SA super ante, FR feature (NO scatters),
         # WCAP wincap-forcing feature strip. Generated by reels/make_reels.py.
-        # BRB (reshape 2026-10-16): the 2026-09-20 BR, the buys' and the Mystery spin-in's board.
+        # BRB (reshape 2026-10-16): the 2026-09-20 BR, the buys' board (and the Mystery spin-in's until 2026-11-21).
         reels = {"BR": "BR.csv", "BRB": "BRB.csv", "BA": "BA.csv", "SA": "SA.csv", "FR": "FR.csv", "WCAP": "WCAP.csv"}
         self.reels = {}
         for name, filename in reels.items():
@@ -720,11 +624,7 @@ class GameConfig(Config):
                     slices=EPIC_BUY_SLICES,
                 ),
             ),
-            BetMode(
-                name="mystery", cost=MYSTERY_COST, rtp=self.rtp, max_win=self.wincap,
-                auto_close_disabled=False, is_feature=False, is_buybonus=True,
-                distributions=self._mystery_distributions(),
-            ),
+            # the `mystery` 250x buy: removed 2026-11-21 (Corey: "You can get rid of the Mystery Source.")
         ]
 
     # ---------------------------------------------------------------------------------
@@ -898,58 +798,6 @@ class GameConfig(Config):
                 conditions={
                     "reel_weights": self._reel_weights(BUY_STRIP),
                     "scatter_triggers": feature_triggers,
-                    "force_freegame": True,
-                },
-            ),
-        ]
-
-    def _mystery_distributions(self):
-        """Mystery buy: nothing / Super / Epic, NEVER a regular Bonus (spec C: a low bonus is
-        worse than nothing, the player watches a failed spin).
-
-        RULE PASS 2 (Corey, 2026-09-23): every Mystery outcome is now a REAL spin. The reveal
-        always shows 3 scatters in columns 0,1,2; `nothing` simply plays that board out (its
-        cluster wins count), `super` stings 2 more scatters into columns 3..7 and `epic` 3.
-
-        MYSTERY DIVERSITY PASS (2026-10-15): the material slices of MYSTERY_SLICES come first,
-        each a copy of its outcome criteria's conditions plus `win_range` and `early_reject`.
-        They decide which simulated rounds go into the deck, never how often one is played."""
-        board = {"supergame": 5, "epicgame": 6}  # 3 on the reveal plus 2 or 3 scatter stings
-        material = [
-            Distribution(
-                criteria=name, quota=quota,
-                conditions={
-                    "reel_weights": self._reel_weights(BUY_STRIP),
-                    "scatter_triggers": {board[parent]: 1},
-                    "force_freegame": True,
-                    "win_range": tuple(win_range),
-                    "early_reject": True,
-                },
-            )
-            for name, (quota, win_range, parent) in MYSTERY_SLICES.items()
-        ]
-        return material + [
-            # RULE PASS 2: the `nothing` slice plays a real board, so it has NO win_criteria -
-            # it keeps whatever its clusters pay, zero included. Its criteria is named
-            # `mystery_nothing` rather than `0` precisely because it is no longer a zero-win
-            # bucket; game_override.check_repeat lists it as a criteria that may pay nothing.
-            Distribution(
-                criteria="mystery_nothing", quota=MYSTERY_MATERIAL_QUOTA["mystery_nothing"],
-                conditions={"reel_weights": self._reel_weights(BUY_STRIP)},
-            ),
-            Distribution(
-                criteria="supergame", quota=MYSTERY_MATERIAL_QUOTA["supergame"],
-                conditions={
-                    "reel_weights": self._reel_weights(BUY_STRIP),
-                    "scatter_triggers": {5: 1},
-                    "force_freegame": True,
-                },
-            ),
-            Distribution(
-                criteria="epicgame", quota=MYSTERY_MATERIAL_QUOTA["epicgame"],
-                conditions={
-                    "reel_weights": self._reel_weights(BUY_STRIP),
-                    "scatter_triggers": {6: 1},
                     "force_freegame": True,
                 },
             ),

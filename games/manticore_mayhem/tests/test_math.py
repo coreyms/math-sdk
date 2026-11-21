@@ -652,7 +652,6 @@ def _():
     for mode, criteria in (
         ("base", "basegame"), ("ante", "basegame"), ("super_ante", "supergame"),
         ("bonus", "freegame"), ("super", "supergame"), ("epic", "epicgame"),
-        ("mystery", "supergame"), ("mystery", "epicgame"), ("mystery", "mystery_nothing"),
     ):
         gs.betmode = mode
         for sim in range(12):
@@ -660,7 +659,6 @@ def _():
             gs.run_spin(sim, sim)
             payout = int(round(gs.final_win * 100))
             assert payout % 10 == 0, f"{mode}/{criteria} sim {sim}: payout {payout} is not a 10-cent increment"
-
 
 
 @check("persistence: the feature inherits the triggering spin's tiles (Corey 2026-09-23)")
@@ -706,111 +704,6 @@ def _():
     assert warm > 0, "no feature in the sample started warm - the carry is not happening"
 
 
-@check("mystery: the spin-in reveals exactly 3 scatters in columns 0-2 and teases 3..7")
-def _():
-    config = GameConfig()
-    gs = GameState(config)
-    gs.betmode = "mystery"
-    checked = 0
-    for criteria in ("mystery_nothing", "supergame", "epicgame"):
-        for sim in range(15):
-            gs.criteria = criteria
-            gs.run_spin(sim, sim)
-            reveal = next(e for e in gs.book.events if e["type"] == "reveal")
-            assert reveal["gameType"] == config.basegame_type, reveal["gameType"]
-            columns = [sum(1 for name in column if name == "S") for column in reveal["board"]]
-            assert columns[:3] == [1, 1, 1], f"{criteria}: columns 0-2 hold {columns[:3]}"
-            assert sum(columns[3:]) == 0, f"{criteria}: a scatter in columns 3-7: {columns}"
-            assert reveal["anticipation"] == list(config.mystery_anticipation), reveal["anticipation"]
-            checked += 1
-    assert checked == 45, checked
-
-
-@check("mystery: nothing 0 / super 2 / epic 3 scatter stings, in distinct columns 3-7")
-def _():
-    config = GameConfig()
-    gs = GameState(config)
-    gs.betmode = "mystery"
-    for criteria, outcome, expected in (
-        ("mystery_nothing", "nothing", 0), ("supergame", "super", 2), ("epicgame", "epic", 3)
-    ):
-        for sim in range(15):
-            gs.criteria = criteria
-            gs.run_spin(sim, sim)
-            assert gs.book.events[0]["type"] == "mystery", gs.book.events[0]
-            assert gs.book.events[0]["outcome"] == outcome
-            assert gs.book.events[1]["type"] == "reveal", gs.book.events[1]
-            # the scatter stings are the events directly after the first reveal; the spin-in
-            # ends at the next reveal or at bonusStart
-            stings, spin_in = [], []
-            for event in gs.book.events[2:]:
-                if event["type"] in ("reveal", "bonusStart"):
-                    break
-                spin_in.append(event)
-                if event["type"] == "sting" and not [e for e in spin_in if e["type"] != "sting"]:
-                    stings.append(event)
-            assert len(stings) == expected, f"{outcome}: {len(stings)} scatter stings"
-            columns = set()
-            for event in stings:
-                assert event["kind"] == "scatter" and event["symbol"] == "S", event
-                assert len(event["cells"]) == 1 and event["cells"][0] == event["center"], event
-                reel = event["center"] // 8
-                assert reel in config.mystery_sting_reels, reel
-                columns.add(reel)
-            assert len(columns) == expected, f"{outcome}: stings shared a column {columns}"
-            # no WILD sting anywhere on the spin-in
-            wild_stings = [e for e in spin_in if e["type"] == "sting" and e["kind"] != "scatter"]
-            assert not wild_stings, f"the Mystery spin-in fired a wild sting: {wild_stings}"
-
-
-@check("mystery: a `nothing` book is a real board that can pay")
-def _():
-    config = GameConfig()
-    gs = GameState(config)
-    gs.betmode = "mystery"
-    paid = 0
-    for sim in range(400):
-        gs.criteria = "mystery_nothing"
-        gs.run_spin(sim, sim)
-        types = [e["type"] for e in gs.book.events]
-        assert types[0] == "mystery" and types[1] == "reveal", types[:3]
-        assert "bonusStart" not in types, "a Mystery `nothing` reached a feature"
-        if gs.final_win > 0:
-            paid += 1
-            assert "cascade" in types, "a paying `nothing` book has no cascade"
-            assert "setTotalWin" in types, types
-    assert paid > 0, "no `nothing` book in 400 draws paid anything - the board is not being played"
-
-
-@check("mystery: the spin-in's tiles carry into the feature")
-def _():
-    config = GameConfig()
-    gs = GameState(config)
-    gs.betmode = "mystery"
-    warm = checked = 0
-    for sim in range(40):
-        gs.criteria = "epicgame"
-        gs.run_spin(sim, sim)
-        grid = {}
-        trigger_grid = None
-        for event in gs.book.events:
-            if event["type"] in ("cascade", "swipe"):
-                for idx, value in event.get("tiles", []):
-                    grid[idx] = value
-            if event["type"] == "bonusStart":
-                trigger_grid = dict(grid)
-                assert len(event["scatters"]) == 6, event["scatters"]
-            if event["type"] == "reveal" and event.get("fs") == 1:
-                carried = {idx: value for idx, value in event.get("tiles", [])}
-                assert carried == trigger_grid, (carried, trigger_grid)
-                checked += 1
-                if carried:
-                    warm += 1
-                break
-    assert checked == 40, checked
-    assert warm > 0, "no Mystery Epic started warm - the spin-in's tiles are not carrying"
-
-
 def paying_clusters(gs, board):
     """Every cluster that would PAY on `board`, as (symbol, sorted cells)."""
     return {
@@ -821,11 +714,11 @@ def paying_clusters(gs, board):
     }
 
 
-def standin_reveal(gs, sting_cells, anticipation=None):
+def standin_reveal(gs, sting_cells):
     """Run emit_reveal on gs.board and return (visible board, real board after the stings) as
     Symbol grids, the way a player first sees the reveal and the way the round is evaluated."""
     gs.book.events = []
-    gs.emit_reveal(sting_cells, anticipation=anticipation)
+    gs.emit_reveal(sting_cells)
     reveal = [e for e in gs.book.events if e["type"] == "reveal"][-1]
     visible = [[gs.create_symbol(name) for name in column] for column in reveal["board"]]
     return visible, [list(column) for column in gs.board]
@@ -887,7 +780,10 @@ def _():
     showed the stand-in Royal Chalice at reel 6 row 2, directly above the Wild of row 3: with
     M3 W W M3 in columns 5-8 of row 4 that is five cells read as a cluster, and nothing paid.
     The landed board is rebuilt here (stung cells as their old stand-ins), the old choice is
-    proven to make the phantom, and the new rule is run on it for 300 seeds."""
+    proven to make the phantom, and the new rule is run on it for 300 seeds. Since the Mystery
+    mode left (2026-11-21) the board is played as a natural trigger's scatter sting: the two stung
+    cells are scatters before emit_reveal, which is exactly the board the Mystery path built
+    inside emit_reveal, so the stand-in draws are the same."""
     from game_calculations import standin_group_size
 
     rows = [
@@ -901,8 +797,15 @@ def _():
         "L4 L4 S  L3 M2 L2 M2 M2",
     ]
     sting_cells = [(6, 2), (4, 7)]
+
+    def landed_board():
+        set_board(gs, rows)
+        for reel, row in sting_cells:
+            gs.board[reel][row] = gs.create_symbol("S")
+        gs.get_special_symbols_on_board()
+
     gs = new_state()
-    gs.betmode, gs.criteria = "mystery", "supergame"
+    gs.betmode, gs.criteria = "base", "basegame"
     set_board(gs, rows)
     names = [[sym.name for sym in column] for column in gs.board]
     names[4][7] = "S"
@@ -913,9 +816,9 @@ def _():
     for seed in range(300):
         random.seed(seed)
         gs.reset_book()
-        gs.betmode, gs.criteria = "mystery", "supergame"
-        set_board(gs, rows)
-        visible, real = standin_reveal(gs, sting_cells, anticipation=gs.config.mystery_anticipation)
+        gs.betmode, gs.criteria = "base", "basegame"
+        landed_board()
+        visible, real = standin_reveal(gs, sting_cells)
         assert not gs.standin_redraw, seed
         assert real[6][2].name == "S" and real[4][7].name == "S"
         assert visible[6][2].name != "M3", f"seed {seed}: the phantom stand-in came back"
@@ -1062,8 +965,8 @@ def _():
 # --------------------------------------------------------------------------------------
 def first_board(events):
     """(scatters visible on the first reveal, scatter stings directly after it). Their sum is
-    what the first board really held; a Mystery book's reveal is its second event."""
-    start = 1 if events[0]["type"] == "mystery" else 0
+    what the first board really held."""
+    start = 0
     reveal = events[start]
     assert reveal["type"] == "reveal", reveal["type"]
     visible = sum(column.count("S") for column in reveal["board"])
@@ -1105,7 +1008,7 @@ def _():
     assert EPIC8_MIN_WIN == 2500.0 and EPIC8_SHARE_SPIN == 0.10 and EPIC8_SHARE_EPIC_BUY == 0.05
     assert EPIC8_SHARE == {"base": 0.10, "ante": 0.10, "super_ante": 0.10, "epic": 0.05}, EPIC8_SHARE
     assert (MAX_TRIGGER_SCATTERS, FULL_BOARD_SCATTERS) == (6, 8)
-    assert MATH_VERSION == "2026.11.02", MATH_VERSION  # wilds survive the swipe; 2026.10.18 math fix, 2026.10.16 reshape, 2026.10.15 diversity
+    assert MATH_VERSION == "2026.11.21", MATH_VERSION  # base game shape B; 2026.11.02 wilds survive the swipe, 2026.10.18 math fix, 2026.10.16 reshape, 2026.10.15 diversity
 
     cfg = GameConfig()
     forced = {}
@@ -1130,7 +1033,7 @@ def _():
             else:
                 assert 8 not in triggers, f"{mode}/{d.get_criteria()} forces 8 scatters"
         assert abs(quota - 1.0) < 1e-9, f"{mode}: quotas sum to {quota}"
-    # the first boards this pass must NOT move: what was bought, the max win route, Mystery
+    # the first boards this pass must NOT move: what was bought, the max win route
     assert forced[("bonus", "freegame")] == {4: 1} and forced[("bonus", "wincap")] == {4: 1}
     assert forced[("super", "supergame")] == {5: 1} and forced[("super", "wincap")] == {5: 1}
     assert forced[("epic", "wincap")] == {6: 1}
@@ -1141,12 +1044,8 @@ def _():
     for name in ("freegame_low", "freegame_mid", "freegame_m2"):
         assert forced[("bonus", name)] == {4: 1}, (name, forced[("bonus", name)])
     assert forced[("epic", "epicgame_body")] == {6: 1} and forced[("epic", "epicgame_mid")] == {6: 1}
-    assert forced[("mystery", "epicgame")] == {6: 1} and forced[("mystery", "supergame")] == {5: 1}
-    # the Mystery diversity pass (2026-10-15): its slices are the Mystery Super / Epic, 5 / 6
-    assert forced[("mystery", "mystery_super_low")] == {5: 1} and forced[("mystery", "mystery_super_mid")] == {5: 1}
-    assert forced[("mystery", "mystery_super_high")] == {5: 1}  # math fix 2026-10-18
-    assert forced[("mystery", "mystery_epic_body")] == {6: 1} and forced[("mystery", "mystery_epic_mid")] == {6: 1}
-    assert forced[("mystery", "mystery_epic_upper")] == {6: 1}
+    # (the Mystery's forced boards left with the Mystery mode on 2026-11-21)
+    assert not any(mode == "mystery" for mode, _ in forced)
     for mode in ("base", "ante", "super_ante"):
         assert forced[(mode, "wincap")] == {6: 1}, forced[(mode, "wincap")]
     assert forced[("super_ante", "supergame")] == {4: 3, 5: 1}
@@ -1371,26 +1270,6 @@ def _():
         gs.reset_redraw_counts()
 
 
-@check("scatter 8: Mystery is untouched - 3 on the reveal plus 0 / 2 / 3 stings, never 7 or 8")
-def _():
-    cfg = GameConfig()
-    gs = GameState(cfg)
-    gs.betmode = "mystery"
-    for criteria, total in (("mystery_nothing", 3), ("supergame", 5), ("epicgame", 6)):
-        for sim in range(20):
-            gs.criteria = criteria
-            gs.run_spin(sim, sim)
-            f = book_facts(gs)
-            assert (f["visible"], f["first"]) == (3, total), f"{criteria} book {sim}: {f['visible']} + {f['stung']}"
-            assert f["trigger"] == (None if total == 3 else total), f"{criteria} book {sim}: trigger {f['trigger']}"
-            # the rule's own bookkeeping never runs for a Mystery round
-            assert (gs.reveal_scatters, gs.trigger_scatters) == (0, 0)
-            assert f["free_spin_scatters"] == 0
-    reasons = {r for s in gs.redraw_summary().values() for r in s["reasons"]}
-    assert reasons <= {"epic_floor"}, f"a Mystery draw was thrown away for {reasons}"
-    gs.reset_redraw_counts()
-
-
 @check("stateless: a book is the same whatever was drawn before it, re-drawn rounds included")
 def _():
     import json
@@ -1405,7 +1284,7 @@ def _():
 
     cases = [("epic", "epicgame", s) for s in (0, 14, 21)] + [
         ("super_ante", "epicgame", 3), ("base", "epicgame", 9), ("bonus", "freegame", 4),
-        ("super", "supergame", 6), ("mystery", "epicgame", 2), ("base", "basegame", 8),
+        ("super", "supergame", 6), ("base", "basegame", 8),
     ]
     fresh = {case: book(*case) for case in cases}
     assert '"scatters": [' in fresh[("epic", "epicgame", 14)]
@@ -1465,71 +1344,6 @@ def _():
         gs.reset_redraw_counts()
 
 
-@check("mystery diversity: a Mystery slice plays its outcome whole, inside its range, and drops a lost draw early")
-def _():
-    from game_config import MYSTERY_EPIC_MIN_WIN, MYSTERY_SLICES, MYSTERY_STING_COUNT, MYSTERY_SCATTER_REELS
-
-    cfg = GameConfig()
-    gs = GameState(cfg)
-    dists = next(bm for bm in cfg.bet_modes if bm.get_name() == "mystery").get_distributions()
-    # the three natural criteria are still dealt as they were: no range, no early stop
-    for criteria in ("mystery_nothing", "supergame", "epicgame"):
-        d = next(d for d in dists if d.get_criteria() == criteria)
-        assert "win_range" not in d._conditions and "early_reject" not in d._conditions, criteria
-    assert abs(sum(d.get_quota() for d in dists) - 1.0) < 1e-9
-    assert set(cfg.mystery_outcome) == {d.get_criteria() for d in dists}
-
-    played = {"spins": 0}
-    real_update = gs.update_freespin
-
-    def counting_update():
-        played["spins"] += 1
-        real_update()
-
-    gs.update_freespin = counting_update
-    try:
-        gs.betmode = "mystery"
-        for criteria, (_, (lo, hi), parent) in MYSTERY_SLICES.items():
-            outcome = cfg.mystery_outcome[parent]
-            spins = cfg.fs_spins[outcome]
-            gs.criteria = criteria
-            gs.reset_redraw_counts()
-            played["spins"] = 0
-            for sim in range(3):
-                gs.run_spin(sim, 910_000 + sim)
-                book = gs.book.to_json()
-                win = book["payoutMultiplier"] / 100
-                assert lo <= win < hi, f"mystery/{criteria}: {win}x outside [{lo}, {hi})"
-                assert book["criteria"] == criteria
-                events = book["events"]
-                assert events[0] == {"index": 0, "type": "mystery", "outcome": outcome}, events[0]
-                assert events[1]["type"] == "reveal"
-                shown = [sum(1 for name in column if name == "S") for column in events[1]["board"]]
-                assert shown == [1 if r in MYSTERY_SCATTER_REELS else 0 for r in range(8)], shown
-                stings = 0
-                for event in events[2:]:
-                    if event["type"] != "sting" or event["kind"] != "scatter":
-                        break
-                    stings += 1
-                assert stings == MYSTERY_STING_COUNT[outcome], (criteria, stings)
-                start = next(e for e in events if e["type"] == "bonusStart")
-                assert start["bonus"] == outcome and len(start["scatters"]) == 3 + stings, start
-                # whole: every free spin was played (no slice can hold a capped round), and the
-                # book closes on its final win
-                reveals = [e for e in events if e["type"] == "reveal" and e["gameType"] == "freegame"]
-                assert len(reveals) == start["totalFs"] == spins, (criteria, len(reveals), start["totalFs"])
-                assert events[-1]["type"] == "finalWin"
-                if outcome == "epic":
-                    assert win >= MYSTERY_EPIC_MIN_WIN, (criteria, win)
-            stats = gs.redraw_summary()[criteria]
-            assert stats["books"] == 3
-            if stats["draws"] > 30:  # a lost draw stops between spins, so fewer spins are played
-                assert played["spins"] < stats["draws"] * spins, (criteria, played, stats)
-    finally:
-        gs.update_freespin = real_update
-        gs.reset_redraw_counts()
-
-
 # ---------------------------------------------------------------------------------------
 # MATH RESHAPE (Corey 2026-10-16 16:16: "1. 44%, 2. 25x. 3. Strong.")
 # ---------------------------------------------------------------------------------------
@@ -1554,7 +1368,7 @@ def sample_books(gs, plan):
 
 RESHAPE_PLAN = (
     ("base", "basegame", 150), ("base", "0", 60), ("ante", "basegame", 60), ("super_ante", "basegame", 60),
-    ("bonus", "freegame", 25), ("super", "supergame", 20), ("epic", "epicgame", 15), ("mystery", "supergame", 15),
+    ("bonus", "freegame", 25), ("super", "supergame", 20), ("epic", "epicgame", 15),
 )
 
 
@@ -1638,7 +1452,7 @@ def _():
         gs.reset_book()
 
 
-@check("reshape: Free Spins 10x / Super 25x floors hold, natural, bought and Mystery")
+@check("reshape: Free Spins 10x / Super 25x floors hold, natural and bought")
 def _():
     from game_config import BONUS_MIN_WIN, FEATURE_MIN_WIN, SUPER_MIN_WIN
 
@@ -1646,8 +1460,9 @@ def _():
     assert FEATURE_MIN_WIN == {"bonus": 10.0, "super": 25.0, "epic": 200.0}, FEATURE_MIN_WIN
     gs = GameState(GameConfig())
     seen = {"bonus": 0, "super": 0}
-    plan = (("bonus", "freegame", 40), ("bonus", "freegame_low", 6), ("super", "supergame", 25),
-            ("super", "supergame_low", 4), ("mystery", "supergame", 15), ("mystery", "mystery_super_low", 3),
+    # the Super buy draws 35 (was 25 beside 18 Mystery Supers, which left with the Mystery mode on 2026-11-21)
+    plan = (("bonus", "freegame", 40), ("bonus", "freegame_low", 6), ("super", "supergame", 35),
+            ("super", "supergame_low", 4),
             ("base", "freegame", 15), ("ante", "freegame", 15), ("super_ante", "supergame", 15))
     for mode, criteria, sim, events in sample_books(gs, plan):
         start = next(e for e in events if e["type"] == "bonusStart")
@@ -1661,7 +1476,7 @@ def _():
     gs.reset_redraw_counts()
 
 
-@check("reshape: base strips clumped, the buys and the Mystery spin-in on the 2026-09-20 BR (BRB)")
+@check("reshape: base strips clumped, the buys on the 2026-09-20 BR (BRB)")
 def _():
     import hashlib
 
@@ -1683,7 +1498,7 @@ def _():
     for bm in cfg.bet_modes:
         for d in bm.get_distributions():
             base_strips = set(d._conditions["reel_weights"][cfg.basegame_type])
-            if bm.get_name() in ("bonus", "super", "epic", "mystery"):
+            if bm.get_name() in ("bonus", "super", "epic"):
                 assert base_strips == {"BRB"}, (bm.get_name(), d.get_criteria(), base_strips)
             else:
                 assert base_strips <= {"BR", "BA", "SA"}, (bm.get_name(), base_strips)

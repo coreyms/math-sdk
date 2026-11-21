@@ -21,12 +21,13 @@ publish_files/lookUpTable_<mode>_0.csv). It exits 1 if any book breaks any of th
   * 8 only in base / ante / super_ante / epic, only in the `epicgame` criteria, always an Epic
   * an 8 trigger only off a FIRST board of 8 (the reveal's scatters plus its scatter stings)
   * every 8-scatter round pays at least EPIC8_MIN_WIN (2,500x) on the round total
-  * every Epic pays at least 200x from its free spins, a Mystery Epic 500x on the round
+  * every Epic pays at least 200x from its free spins
   * (reshape 2026-10-16) every Free Spins round pays at least 10x and every Super 25x from its
-    free spins, natural, bought and Mystery alike
+    free spins, natural and bought alike
     (a round that reached the 10,000x cap passes, as in the engine)
   * the first board is what the criteria forces: Bonus buy 4, Super buy 5, Epic buy 6 or 8,
-    `wincap` its mode's own count, Mystery 3 plus 0 / 2 / 3 stings
+    `wincap` its mode's own count
+  (The Mystery mode and its checks left on 2026-11-21: "You can get rid of the Mystery Source.")
   * at most one scatter per column through every spin; no scatter on any free-spin board
   * a scatter-sting reveal shows 0 to 3 scatters
   * no payout above the 10,000x cap
@@ -50,12 +51,11 @@ from game_config import (  # noqa: E402
     SUPER_MIN_WIN,
     FULL_BOARD_SCATTERS,
     MAX_TRIGGER_SCATTERS,
-    MYSTERY_EPIC_MIN_WIN,
     NUM_ROWS,
     WINCAP,
 )
 
-ALL_MODES = ["base", "ante", "super_ante", "bonus", "super", "epic", "mystery"]
+ALL_MODES = ["base", "ante", "super_ante", "bonus", "super", "epic"]
 CAP = int(round(WINCAP * 100))  # payout units are hundredths of the base bet
 EPIC8_MODES = ("base", "ante", "super_ante", "epic")
 # The first board each (mode, criteria) is forced to. Spin-mode criteria without a forced
@@ -73,11 +73,6 @@ FIRST_BOARD = {
     # diversity pass (2026-10-15): the buys' material slices (game_config EPIC_BUY_SLICES /
     # SUPER_BUY_SLICES) force the buy's own board; only the Epic's upper slice may open on 8
     ("epic", "epicgame_body"): {6}, ("epic", "epicgame_mid"): {6}, ("epic", "epicgame_upper"): {6, 8},
-    ("mystery", "mystery_nothing"): {3}, ("mystery", "supergame"): {5}, ("mystery", "epicgame"): {6},
-    # Mystery diversity pass (2026-10-15): the Mystery's material slices (game_config
-    # MYSTERY_SLICES) play the outcome they copy: 3 plus 2 stings for a Super, 3 plus 3 for an Epic
-    ("mystery", "mystery_super_low"): {5}, ("mystery", "mystery_super_mid"): {5}, ("mystery", "mystery_super_high"): {5}, ("mystery", "mystery_epic_body"): {6},
-    ("mystery", "mystery_epic_mid"): {6}, ("mystery", "mystery_epic_upper"): {6},
 }
 # The criteria that may open on the forced 8 (rule pass 3) and the criteria whose rounds are
 # Epics by construction (the denominator of "share of the Epic's 2,500x-and-over rounds").
@@ -110,7 +105,7 @@ def walk_book(mode, book):
     """Everything the gate needs from one book, plus a list of what it breaks."""
     events = book["events"]
     problems = []
-    start = 1 if mode == "mystery" else 0
+    start = 0
     reveal = events[start]
     assert reveal["type"] == "reveal", f"book {book['id']}: event {start} is {reveal['type']}, not a reveal"
     visible = sum(column.count("S") for column in reveal["board"])
@@ -177,9 +172,7 @@ def walk_book(mode, book):
             problems.append(f"triggered on {trigger} scatters")
         elif trigger < first:
             problems.append(f"first board {first} but triggered on {trigger}")
-        if mode == "mystery" and trigger != first:
-            problems.append(f"Mystery first board {first} but triggered on {trigger}")
-        want = "epic" if trigger >= 6 else "super" if trigger == 5 or mode in ("super_ante", "mystery") else "bonus"
+        want = "epic" if trigger >= 6 else "super" if trigger == 5 or mode == "super_ante" else "bonus"
         if bonus["bonus"] != want:
             problems.append(f"{trigger} scatters started a {bonus['bonus']}")
         if trigger == FULL_BOARD_SCATTERS:
@@ -190,24 +183,19 @@ def walk_book(mode, book):
             if payout < int(round(EPIC8_MIN_WIN * 100)):
                 problems.append(f"8-scatter round pays {payout / 100:,.1f}x, under {EPIC8_MIN_WIN:,.0f}x")
         # FREE SPINS FLOORS (reshape 2026-10-16): Free Spins 10x, Super 25x on the free spins total,
-        # every mode (natural, bought, Mystery's Super); a capped round passes, as in the engine
+        # every mode (natural and bought); a capped round passes, as in the engine
         floor = {"bonus": BONUS_MIN_WIN, "super": SUPER_MIN_WIN}.get(bonus["bonus"])
         if floor is not None and not capped and end["totalSessionWin"] < int(round(floor * 100)):
             problems.append(
                 f"{bonus['bonus']} free spins pay {end['totalSessionWin'] / 100:,.1f}x, under {floor:,.0f}x"
             )
         if bonus["bonus"] == "epic" and not capped:
-            if mode == "mystery":
-                if payout < int(round(MYSTERY_EPIC_MIN_WIN * 100)):
-                    problems.append(f"Mystery Epic pays {payout / 100:,.1f}x, under {MYSTERY_EPIC_MIN_WIN:,.0f}x")
-            elif end["totalSessionWin"] < int(round(EPIC_MIN_WIN * 100)):
+            if end["totalSessionWin"] < int(round(EPIC_MIN_WIN * 100)):
                 problems.append(
                     f"Epic free spins pay {end['totalSessionWin'] / 100:,.1f}x, under {EPIC_MIN_WIN:,.0f}x"
                 )
-    elif expected is not None and criteria != "mystery_nothing":
+    elif expected is not None:
         problems.append(f"criteria {criteria} did not reach a feature")
-    elif criteria == "mystery_nothing" and first != 3:
-        problems.append(f"Mystery nothing shows {first} scatters")
 
     return {
         "id": book["id"], "criteria": criteria, "first": first, "stung": stung, "trigger": trigger,
@@ -235,7 +223,7 @@ def scan(mode, lib, quiet=False):
         row = walk_book(mode, book)
         free_spin_reveals += row["free_spin_reveals"]
         free_spin_scatters += row["free_spin_scatters"]
-        if row["stung"] and mode != "mystery":
+        if row["stung"]:
             sting_visible[row["visible"]] = sting_visible.get(row["visible"], 0) + 1
         if row["trigger"] == FULL_BOARD_SCATTERS and row["first"] != FULL_BOARD_SCATTERS:
             stray_eights += 1
@@ -245,7 +233,7 @@ def scan(mode, lib, quiet=False):
             by[row["trigger"]] = by.get(row["trigger"], 0) + 1
             fb = firsts.setdefault(row["criteria"], {})
             fb[row["first"]] = fb.get(row["first"], 0) + 1
-            if row["stung"] and mode != "mystery":
+            if row["stung"]:
                 stung_books += 1
         if row["trigger"] == 7:
             sevens.append(row["id"])
