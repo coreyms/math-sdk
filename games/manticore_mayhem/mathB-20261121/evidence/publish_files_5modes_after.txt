@@ -1,0 +1,20 @@
+publish_files_5modes_2026-11-21 after math 2026.11.21 (sha256, size, inode/links)
+097b065d8ac7f4e97da862578855ef34ea39bec4193d59623b3e8357c1aa3074     186929071  books_ante.jsonl.zst  inode 39820085 links 2
+48b3d05f2d07faaeb6694600ce4b42a5fb0718c955e63c51ad2ae73cd0c52980     110370393  books_base.jsonl.zst  inode 39820095 links 2
+8de505fd26bdf8b5dd1adc69a4dcbd9e1b8c7937a788c221b46cbed74cba9063     301272726  books_bonus.jsonl.zst  inode 39820094 links 2
+c10a601aa26709ecdda6a86566ad42cac0ca28a62a99a509485f0c81dfe09fdc     205015316  books_super_ante.jsonl.zst  inode 39820086 links 2
+045abf34b930455b155e074d70a2dace880f16dbfc2143d364d0459764d6d055     589199579  books_super.jsonl.zst  inode 39820089 links 2
+b5a9066b1c8ae6d23ed467adaf6f7262dfcc5879fc40abbc1cd7b29528670812           892  index.json  inode 47473261 links 1
+a0ffbd3b574db041d093caa848023e91a906d37d59672edb4470961199c7f1d5       5593716  lookUpTable_ante_0.csv  inode 39820092 links 2
+88d433f10caec2fed07220f2e0cfed17786b553f3a7557000d0d293f034821d8       5533008  lookUpTable_base_0.csv  inode 39820088 links 2
+a09b5b56d52486bea067036ca8d582b94c4ba5068f05a6d32af0454925540c31       2699859  lookUpTable_bonus_0.csv  inode 39820091 links 2
+cc9d51bcff8f8a20d3147c9d736025a0d2f607771092781d3d1b9df5796318f5       4034142  lookUpTable_super_0.csv  inode 39820090 links 2
+057fdb3b4f7704d6ed863e8e10e4ee46159749aad2288a10b73f073f670d3f0f       5591497  lookUpTable_super_ante_0.csv  inode 39820087 links 2
+index modes: ['base', 'ante', 'super_ante', 'bonus', 'super']
+  base        cost    1.0 rows 300000 sidecar entries 300000 same inode as publish_files: True
+  ante        cost    3.0 rows 300000 sidecar entries 300000 same inode as publish_files: True
+  super_ante  cost   10.0 rows 300000 sidecar entries 300000 same inode as publish_files: True
+  bonus       cost  100.0 rows 129000 sidecar entries 129000 same inode as publish_files: True
+  super       cost  250.0 rows 189000 sidecar entries 189000 same inode as publish_files: True
+extra files: [] missing: []
+no epic or mystery file: True
